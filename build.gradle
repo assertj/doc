@@ -1,0 +1,62 @@
+buildscript {
+	dependencies {
+		// upgrade to latest jruby version due to a bugfix needed for Windows 10.
+		// can be removed, when asciidoctorj uses this as a default version.
+		classpath('org.jruby:jruby-complete:9.1.17.0')
+
+		// classpath('org.asciidoctor:asciidoctorj-epub3:1.5.0-alpha.16')
+		classpath('org.asciidoctor:asciidoctorj-pdf:1.5.0-alpha.16')
+		classpath('org.asciidoctor:asciidoctorj-diagram:1.5.9')
+	}
+}
+
+plugins {
+	id 'org.asciidoctor.convert' version '1.5.8.1'
+}
+
+dependencies {
+	asciidoctor('org.jruby:jruby-complete:9.1.17.0')
+}
+
+asciidoctorj {
+	version = '1.5.6'
+}
+
+ext {
+	docsVersion = project.version.contains('SNAPSHOT') ? 'snapshot' : project.version
+
+	generatedAsciiDocPath = buildDir.toPath().resolve('generated/asciidoc')
+}
+
+asciidoctor {
+
+	// enable the Asciidoctor Diagram extension
+	requires 'asciidoctor-diagram'
+
+	separateOutputDirs false
+	sources {
+		include '**/index.adoc'
+	}
+	resources {
+		from(sourceDir) {
+			include '**/images/**'
+		}
+	}
+
+	backends 'html5', 'pdf'
+
+	attributes	'release-branch': releaseBranch,
+				'docs-version': docsVersion,
+				'revnumber' : version,
+				'releaseBranch' : version,
+				'testDir': '../../../test/java',
+				'outdir': outputDir.absolutePath,
+				'source-highlighter': 'coderay@', // TODO switch to 'rouge' once supported by the html5 backend and on MS Windows
+				'tabsize': '3',
+				'toc': 'left',
+				'icons': 'font',
+				'sectanchors': true,
+				'idprefix': '',
+				'idseparator': '-',
+				'stylesheet': '../../../docs/asciidoc/asciidoctor.css'
+}

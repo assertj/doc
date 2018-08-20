@@ -1,0 +1,30 @@
+[[user-guide]]
+= AssertJ User Guide
+
+:stylesheet: ../dark.css
+
+:imagesdir: images
+:imagesoutdir: {outdir}/user-guide/images
+//
+:docinfodir: ../docinfos
+:docinfo: private-head
+//
+ifdef::backend-pdf[:imagesdir: {imagesoutdir}]
+//
+// Blank lines are not permitted in the doc-header: http://asciidoctor.org/docs/user-manual/#doc-header
+//
+:sectnums:
+//
+
+include::../link-attributes.adoc[]
+
+include::overview.adoc[]
+
+include::writing-tests.adoc[]
+
+include::contributors.adoc[]
+
+[[release-notes]]
+== Release Notes
+
+The release notes are available <<../release-notes/index.adoc#release-notes,here>>.

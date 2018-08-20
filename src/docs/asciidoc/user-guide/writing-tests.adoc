@@ -1,0 +1,145 @@
+[[writing-tests]]
+== Writing Tests
+
+[source,java,indent=0]
+.A first test case
+----
+include::{testDir}/example/FirstJUnit5Tests.java[tags=user_guide]
+----
+
+[[writing-tests-annotations]]
+=== Annotations
+
+JUnit Jupiter supports the following annotations for configuring tests and extending the
+framework.
+
+All core annotations are located in the `{api-package}` package in the `junit-jupiter-api`
+module.
+
+[cols="20,80"]
+|===
+| Annotation           | Description
+
+| `@Test`              | Denotes that a method is a test method. Unlike JUnit 4's `@Test` annotation, this annotation does not declare any attributes, since test extensions in JUnit Jupiter operate based on their own dedicated annotations. Such methods are _inherited_ unless they are _overridden_.
+| `@Tag`               | Used to declare _tags_ for filtering tests, either at the class or method level; analogous to test groups in TestNG or Categories in JUnit 4. Such annotations are _inherited_ at the class level but not at the method level.
+| `@Disabled`          | Used to _disable_ a test class or test method; analogous to JUnit 4's `@Ignore`. Such annotations are not _inherited_.
+|===
+
+[[writing-tests-meta-annotations]]
+==== Meta-Annotations and Composed Annotations
+
+JUnit Jupiter annotations can be used as _meta-annotations_. That means that you can
+define your own _composed annotation_ that will automatically _inherit_ the semantics of
+its meta-annotations.
+
+
+[source,java,indent=0]
+----
+include::{testDir}/example/Fast.java[tags=user_guide]
+----
+
+[[writing-tests-classes-and-methods]]
+=== Test Classes and Methods
+
+A _test method_ is any instance method that is directly or meta-annotated with `@Test`,
+`@RepeatedTest`, `@ParameterizedTest`, `@TestFactory`, or `@TestTemplate`. A _test class_
+is any top level or static member class that contains at least one test method.
+
+[source,java,indent=0]
+.A standard test class
+----
+include::{testDir}/example/StandardTests.java[tags=user_guide]
+----
+
+NOTE: Neither test classes nor test methods need to be `public`.
+
+[[writing-tests-display-names]]
+=== Display Names
+
+Test classes and test methods can declare custom display names -- with spaces, special
+characters, and even emojis -- that will be displayed by test runners and test reporting.
+
+[source,java,indent=0]
+----
+include::{testDir}/example/DisplayNameDemo.java[tags=user_guide]
+----
+
+[[writing-tests-assertions]]
+=== Assertions
+
+JUnit Jupiter comes with many of the assertion methods that JUnit 4 has and adds a few
+that lend themselves well to being used with Java 8 lambdas. All JUnit Jupiter assertions
+are `static` methods in the `{Assertions}` class.
+
+[source,java,indent=0]
+----
+include::{testDir}/example/AssertionsDemo.java[tags=user_guide]
+----
+
+JUnit Jupiter also comes with a few assertion methods that lend themselves well to being
+used in https://kotlinlang.org/[Kotlin]. All JUnit Jupiter Kotlin assertions are top-level
+functions in the `org.junit.jupiter.api` package.
+
+
+[[writing-tests-assertions-third-party]]
+==== Third-party Assertion Libraries
+
+Even though the assertion facilities provided by JUnit Jupiter are sufficient for many
+testing scenarios, there are times when more power and additional functionality such as
+_matchers_ are desired or required. In such cases, the JUnit team recommends the use of
+third-party assertion libraries such as {AssertJ}, {Hamcrest}, {Truth}, etc. Developers
+are therefore free to use the assertion library of their choice.
+
+For example, the combination of _matchers_ and a fluent API can be used to make
+assertions more descriptive and readable. However, JUnit Jupiter's `{Assertions}` class
+does not provide an
+http://junit.org/junit4/javadoc/latest/org/junit/Assert.html#assertThat[`assertThat()`]
+method like the one found in JUnit 4's `org.junit.Assert` class which accepts a Hamcrest
+http://junit.org/junit4/javadoc/latest/org/hamcrest/Matcher.html[`Matcher`]. Instead,
+developers are encouraged to use the built-in support for matchers provided by third-party
+assertion libraries.
+
+The following example demonstrates how to use the `assertThat()` support from Hamcrest in
+a JUnit Jupiter test. As long as the Hamcrest library has been added to the classpath,
+you can statically import methods such as `assertThat()`, `is()`, and `equalTo()` and
+then use them in tests like in the `assertWithHamcrestMatcher()` method below.
+
+[source,java,indent=0]
+----
+include::{testDir}/example/HamcrestAssertionDemo.java[tags=user_guide]
+----
+
+Naturally, legacy tests based on the JUnit 4 programming model can continue using
+`org.junit.Assert#assertThat`.
+
+[[writing-tests-assumptions]]
+=== Assumptions
+
+JUnit Jupiter comes with a subset of the assumption methods that JUnit 4 provides and
+adds a few that lend themselves well to being used with Java 8 lambdas. All JUnit Jupiter
+assumptions are static methods in the `{Assumptions}` class.
+
+[source,java,indent=0]
+----
+include::{testDir}/example/AssumptionsDemo.java[tags=user_guide]
+----
+
+[[writing-tests-disabling]]
+=== Disabling Tests
+
+Entire test classes or individual test methods may be _disabled_ via the `{Disabled}`
+annotation, via one of the annotations discussed in
+
+Here's a `@Disabled` test class.
+
+[source,java,indent=0]
+----
+include::{testDir}/example/DisabledClassDemo.java[tags=user_guide]
+----
+
+And here's a test class that contains a `@Disabled` test method.
+
+[source,java,indent=0]
+----
+include::{testDir}/example/DisabledTestsDemo.java[tags=user_guide]
+----
