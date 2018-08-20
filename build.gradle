@@ -51,7 +51,9 @@ asciidoctor {
 				'releaseBranch' : version,
 				'testDir': '../../../test/java',
 				'outdir': outputDir.absolutePath,
-				'source-highlighter': 'coderay@', // TODO switch to 'rouge' once supported by the html5 backend and on MS Windows
+				'source-highlighter': 'highlightjs', 
+				'highlightjsdir': '../../../src/docs/asciidoc/user-guide/highlight', 
+				'highlightjs-theme': 'railscasts', 
 				'tabsize': '3',
 				'toc': 'left',
 				'icons': 'font',
