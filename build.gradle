@@ -11,7 +11,9 @@ buildscript {
 }
 
 plugins {
-	id 'org.asciidoctor.convert' version '1.5.8.1'
+  id 'org.ajoberstar.github-pages' version '1.5.1'
+  id 'org.asciidoctor.gradle.asciidoctor' version '1.5.1'
+  id 'org.asciidoctor.convert' version '1.5.8.1'
 }
 
 dependencies {
@@ -40,6 +42,8 @@ asciidoctor {
 	resources {
 		from(sourceDir) {
 			include '**/images/**'
+			include '**/highlight/**'
+			include '**/*.css'
 		}
 	}
 
@@ -52,7 +56,7 @@ asciidoctor {
 				'testDir': '../../../test/java',
 				'outdir': outputDir.absolutePath,
 				'source-highlighter': 'highlightjs', 
-				'highlightjsdir': '../../../src/docs/asciidoc/user-guide/highlight', 
+				'highlightjsdir': 'highlight', 
 				'highlightjs-theme': 'railscasts', 
 				'tabsize': '3',
 				'toc': 'left',
@@ -61,4 +65,17 @@ asciidoctor {
 				'idprefix': '',
 				'idseparator': '-',
 				'stylesheet': '../../../docs/asciidoc/asciidoctor.css'
+}
+
+githubPages {
+	repoUri = 'https://github.com/assertj/doc.git'
+	credentials { 
+		username = project.hasProperty('githubToken') ? project.githubToken : ''
+		password = ''
+	}
+
+	pages {
+		from file(asciidoctor.outputDir.path + '/user-guide')
+		// from 'build/asciidoc/user-guide'
+	}
 }

@@ -6,7 +6,6 @@ This subproject contains the AsciiDoc sources for the JUnit 5 User Guide.
 
 - `src/docs/asciidoc`: AsciiDoc files
 - `src/test/java`: Java test source code that can be included in the AsciiDoc files
-- `src/test/kotlin`: Kotlin test source code that can be included in the AsciiDoc files
 - `src/test/resources`: Classpath resources that can be included in the AsciiDoc files or
   used in tests
 
