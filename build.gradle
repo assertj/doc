@@ -47,7 +47,8 @@ asciidoctor {
 		}
 	}
 
-	backends 'html5', 'pdf'
+	// backends 'html5', 'pdf'
+	backends 'html5'
 
 	attributes	'release-branch': releaseBranch,
 				'docs-version': docsVersion,
