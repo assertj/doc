@@ -27,3 +27,4 @@ coverage.db*
 out
 .metadata
 *.svg.cache
+*.pdf

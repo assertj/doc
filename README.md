@@ -1,6 +1,6 @@
-# JUnit 5 User Guide
+# AssertJ User Guide
 
-This subproject contains the AsciiDoc sources for the JUnit 5 User Guide.
+This subproject contains the AsciiDoc sources for the AssertJ User Guide.
 
 ## Structure
 
@@ -16,9 +16,6 @@ This subproject contains the AsciiDoc sources for the JUnit 5 User Guide.
 This following Gradle command generates the HTML version of the User Guide as
 `build/asciidoc/index.html`.
 
-```
+```bash
 gradlew asciidoctor
 ```
-
-On Linux operating systems, the `graphviz` package providing `/usr/bin/dot` must be
-installed in order to generate the User Guide.
