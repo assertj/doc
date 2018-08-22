@@ -2371,15 +2371,16 @@ p.tableblock {
 <ul class="sectlevel1">
 <li><a href="#overview">1. Overview</a>
 <ul class="sectlevel2">
-<li><a href="#overview-what-is-junit-5">1.1. What is JUnit 5?</a></li>
+<li><a href="#overview-what-is-assertj">1.1. What is AssertJ?</a></li>
 <li><a href="#overview-java-versions">1.2. Supported Java Versions</a></li>
 <li><a href="#overview-getting-help">1.3. Getting Help</a></li>
 </ul>
 </li>
-<li><a href="#installation">2. Installation</a>
+<li><a href="#quick-start">2. Quick start</a>
 <ul class="sectlevel2">
-<li><a href="#dependency-metadata">2.1. Dependency Metadata</a></li>
-<li><a href="#dependency-metadata-junit-jupiter-samples">2.2. JUnit Jupiter Sample Projects</a></li>
+<li><a href="#get-assertj-core">2.1. Get assertj-core library</a></li>
+<li><a href="#add-assertj-entry-point">2.2. Add assertj entry point</a></li>
+<li><a href="#use-code-completion">2.3. Use code completion</a></li>
 </ul>
 </li>
 <li><a href="#writing-tests">3. Writing Tests</a>
@@ -2392,8 +2393,9 @@ p.tableblock {
 <li><a href="#writing-tests-disabling">3.6. Disabling Tests</a></li>
 </ul>
 </li>
-<li><a href="#contributors">4. Contributors</a></li>
-<li><a href="#release-notes">5. Release Notes</a></li>
+<li><a href="#assertj-samples">4. AssertJ Sample Projects</a></li>
+<li><a href="#contributors">5. Contributors</a></li>
+<li><a href="#release-notes">6. Release Notes</a></li>
 </ul>
 </div>
 </div>
@@ -2409,97 +2411,179 @@ and IDE vendors.</p>
 <div class="paragraph">
 <p>This document is also available as a <a href="index.pdf">PDF download</a>.</p>
 </div>
-<div class="admonitionblock tip">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-tip" title="Tip"></i>
-</td>
-<td class="content">
-<div class="title">Translations</div>
-<div class="paragraph">
-<p>This document is also available in <a href="http://sjyuan.cc/junit5/user-guide-cn">Simplified Chinese</a>
-and <a href="https://udzuki.jp/public/junit5-user-guide-ja">Japanese</a>.</p>
-</div>
-</td>
-</tr>
-</table>
-</div>
 <div class="sect2">
-<h3 id="overview-what-is-junit-5"><a class="anchor" href="#overview-what-is-junit-5"></a>1.1. What is JUnit 5?</h3>
+<h3 id="overview-what-is-assertj"><a class="anchor" href="#overview-what-is-assertj"></a>1.1. What is AssertJ?</h3>
 <div class="paragraph">
-<p>Unlike previous versions of JUnit, JUnit 5 is composed of several different modules from
-three different sub-projects.</p>
-</div>
-<div class="paragraph">
-<p><strong>JUnit Vintage</strong> provides a <code>TestEngine</code> for running JUnit 3 and JUnit 4 based tests on
-the platform.</p>
+<p>AssertJ is a java library providing a rich set of assertions, truly helpful error messages, improves test code readability and is designed to be super easy to use within your favorite IDE.</p>
 </div>
 </div>
 <div class="sect2">
 <h3 id="overview-java-versions"><a class="anchor" href="#overview-java-versions"></a>1.2. Supported Java Versions</h3>
 <div class="paragraph">
-<p>JUnit 5 requires Java 8 (or higher) at runtime. However, you can still test code that
-has been compiled with previous versions of the JDK.</p>
+<p>Different AssertJ major versions depend on different Java versions :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>AssertJ 3.x requires Java 8 or higher (use the <code>org.assertj.core.api.Java6Assertions</code> entry point on Android API Level &lt; 26)</p>
+</li>
+<li>
+<p>AssertJ 2.x requires Java 7 or higher (use the <code>org.assertj.core.api.Java6Assertions</code> entry point on Android API Level &lt; 26)</p>
+</li>
+<li>
+<p>AssertJ 1.x requires Java 6 or higher</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Note that AssertJ 3.x includes all AssertJ 2.x features and adds Java 8 specific ones (like exception assertions with lambdas).</p>
 </div>
 </div>
 <div class="sect2">
 <h3 id="overview-getting-help"><a class="anchor" href="#overview-getting-help"></a>1.3. Getting Help</h3>
 <div class="paragraph">
-<p>Ask JUnit 5 related questions on <a href="https://stackoverflow.com/questions/tagged/assertj">Stack Overflow</a> or chat with us on {Gitter}.</p>
+<p>Ask AssertJ related questions on <a href="https://stackoverflow.com/questions/tagged/assertj">Stack Overflow</a>.</p>
 </div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="installation"><a class="anchor" href="#installation"></a>2. Installation</h2>
+<h2 id="quick-start"><a class="anchor" href="#quick-start"></a>2. Quick start</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Artifacts for final releases and milestones are deployed to Maven Central.</p>
-</div>
-<div class="paragraph">
-<p>Snapshot artifacts are deployed to Sonatype&#8217;s {snapshot-repo}[snapshots repository] under
-{snapshot-repo}/org/junit/[/org/junit].</p>
+<p>This guide is for the AssertJ core module.</p>
 </div>
 <div class="sect2">
-<h3 id="dependency-metadata"><a class="anchor" href="#dependency-metadata"></a>2.1. Dependency Metadata</h3>
+<h3 id="get-assertj-core"><a class="anchor" href="#get-assertj-core"></a>2.1. Get assertj-core library</h3>
+<div class="paragraph">
+<p>AssertJ artifacts are in the Maven central repository.</p>
+</div>
 <div class="sect3">
-<h4 id="dependency-metadata-dependencies"><a class="anchor" href="#dependency-metadata-dependencies"></a>2.1.1. Dependencies</h4>
-<div class="paragraph">
-<p>In addition, most of the above artifacts have a direct or transitive dependency to the
-following <em>OpenTest4J</em> JAR.</p>
+<h4 id="maven"><a class="anchor" href="#maven"></a>2.1.1. Maven</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;dependency&gt;
+  &lt;groupId&gt;org.assertj&lt;/groupId&gt;
+  &lt;artifactId&gt;assertj-core&lt;/artifactId&gt;
+  &lt;!-- use 2.9.1 for Java 7 projects --&gt;
+  &lt;version&gt;3.11.0&lt;/version&gt;
+  &lt;scope&gt;test&lt;/scope&gt;
+&lt;/dependency&gt;</code></pre>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p><strong>Group ID</strong>: <code>org.opentest4j</code></p>
-</li>
-<li>
-<p><strong>Artifact ID</strong>: <code>opentest4j</code></p>
-</li>
-<li>
-<p><strong>Version</strong>: <code>{ota4j-version}</code></p>
-</li>
-</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="gradle"><a class="anchor" href="#gradle"></a>2.1.2. Gradle</h4>
+<div class="paragraph">
+<p>For Gradle users (using the Maven Central Repository)</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">testCompile("org.assertj:assertj-core:3.11.0")</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Or version 2.9.1 for Java 7 projects</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">testCompile("org.assertj:assertj-core:2.9.1")</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="other-dependency-management-tool"><a class="anchor" href="#other-dependency-management-tool"></a>2.1.3. Other dependency management tool</h4>
+<div class="paragraph">
+<p>Check this page to find the relevant <a href="https://search.maven.org/artifact/org.assertj/assertj-core/3.11.0/bundle">assertj dependency declaration</a>.</p>
 </div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="dependency-metadata-junit-jupiter-samples"><a class="anchor" href="#dependency-metadata-junit-jupiter-samples"></a>2.2. JUnit Jupiter Sample Projects</h3>
+<h3 id="add-assertj-entry-point"><a class="anchor" href="#add-assertj-entry-point"></a>2.2. Add assertj entry point</h3>
 <div class="paragraph">
-<p>The {junit5-samples-repo}[<code>junit5-samples</code>] repository hosts a collection of sample
-projects based on JUnit Jupiter and JUnit Vintage. You&#8217;ll find the respective
-<code>build.gradle</code> and <code>pom.xml</code> in the projects below.</p>
+<p>One static import to rule them all &#8230;&#8203;</p>
 </div>
-<div class="ulist">
-<ul>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">import static org.assertj.core.api.Assertions.*;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>... or many if you prefer</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">import static org.assertj.core.api.Assertions.assertThat;  // main one
+import static org.assertj.core.api.Assertions.atIndex; // for List assertions
+import static org.assertj.core.api.Assertions.entry;  // for Map assertions
+import static org.assertj.core.api.Assertions.tuple; // when extracting several properties at once
+import static org.assertj.core.api.Assertions.fail; // use when writing exception tests
+import static org.assertj.core.api.Assertions.failBecauseExceptionWasNotThrown; // idem
+import static org.assertj.core.api.Assertions.filter; // for Iterable/Array assertions
+import static org.assertj.core.api.Assertions.offset; // for floating number assertions
+import static org.assertj.core.api.Assertions.anyOf; // use with Condition
+import static org.assertj.core.api.Assertions.contentOf; // use with File assertions</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>On Android (API Level &lt; 26) use this static import :</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">import static org.assertj.core.api.Java6Assertions.*;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You can configure your IDE so that when you start typing <code>as</code> and trigger code completion <code>assertThat</code> will show up in the suggested completions.</p>
+</div>
+<div class="sect3">
+<h4 id="eclipse-configuration"><a class="anchor" href="#eclipse-configuration"></a>2.2.1. Eclipse configuration</h4>
+<div class="olist arabic">
+<ol class="arabic">
 <li>
-<p>For Gradle, check out the <code>{junit5-jupiter-starter-gradle}</code> project.</p>
+<p>Go to : Window &gt; Preferences &gt; Java &gt; Editor &gt; Content Assist &gt; Favorites &gt; New Type</p>
 </li>
 <li>
-<p>For Maven, check out the <code>{junit5-jupiter-starter-maven}</code> project.</p>
+<p>Enter : <code>org.assertj.core.api.Assertions</code> and click OK</p>
 </li>
-</ul>
+<li>
+<p>Check that you see <code>org.assertj.core.api.Assertions.*`</code> in Favorites.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="intellij-idea-configuration"><a class="anchor" href="#intellij-idea-configuration"></a>2.2.2. Intellij Idea configuration</h4>
+<div class="paragraph">
+<p>No special configuration is needed, just start typing <code>asser</code> and then invoke completion (Ctrl-Space) twice.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="use-code-completion"><a class="anchor" href="#use-code-completion"></a>2.3. Use code completion</h3>
+<div class="paragraph">
+<p>Type assertThat followed by the object under test and a dot &#8230;&#8203; and any Java IDE code completion will show you all available assertions.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">assertThat(objectUnderTest). <i class="conum" data-value="1"></i><b>(1)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Use Code completion after the dot.</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Example for String assertions:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/ide-completion.png" alt="ide completion">
+</div>
 </div>
 </div>
 </div>
@@ -2963,7 +3047,37 @@ class DisabledTestsDemo {
 </div>
 </div>
 <div class="sect1">
-<h2 id="contributors"><a class="anchor" href="#contributors"></a>4. Contributors</h2>
+<h2 id="assertj-samples"><a class="anchor" href="#assertj-samples"></a>4. AssertJ Sample Projects</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The <a href="https://github.com/joel-costigliola/assertj-examples/tree/master/assertions-examples"><code>assertj-examples/assertions-examples</code></a> hosts executable AssertJ assertions examples that you can run as JUnit tests. Please have a look at assertions <a href="https://github.com/joel-costigliola/assertj-examples/tree/master/assertions-examples/src/test/java/org/assertj/examples"><code>examples sources</code></a>.</p>
+</div>
+<div class="paragraph">
+<p>The <code>master</code> branch contains examples with the latest released version of AssertJ modules for Java 8, similarly the <code>java-7</code> branch contains examples of AssertJ modules for Java 7. You should be able to build those two branches with <code>mvn clean install</code> command.</p>
+</div>
+<div class="paragraph">
+<p>In your IDE, add <code>src/test/generated-assertions</code> to the project java test sources otherwise you will have errors/missing classes. This is the folder where custom assertions classes are generated by default by the maven assertions generator plugin. Note that Intellij Idea wrongly adds <code>src/test/generated-assertions</code> to the production sources when it should be added the test sources, you will have to fix that in your module/project settings.</p>
+</div>
+<div class="paragraph">
+<p>Building the <code>with-latest-snapshot-versions</code> branch is a bit more complicated :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>you need to build the needed SNAPSHOT dependencies before - most probably assertj-core and maybe other modules.</p>
+</li>
+<li>
+<p>run mvn clean install in assertj-examples/assertions-examples.</p>
+</li>
+<li>
+<p>In your IDE, add src/test/generated-assertions to the project java sources if you IDE shows errors/missing classes.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="contributors"><a class="anchor" href="#contributors"></a>5. Contributors</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Browse the <a href="https://github.com/joel-costigliola/assertj-core/graphs/contributors">current list of contributors</a> directly on GitHub.</p>
@@ -2971,10 +3085,10 @@ class DisabledTestsDemo {
 </div>
 </div>
 <div class="sect1">
-<h2 id="release-notes"><a class="anchor" href="#release-notes"></a>5. Release Notes</h2>
+<h2 id="release-notes"><a class="anchor" href="#release-notes"></a>6. Release Notes</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The release notes are available &lt;<a href="http://joel-costigliola.github.io/assertj/assertj-news.html,here&gt;" class="bare">http://joel-costigliola.github.io/assertj/assertj-news.html,here&gt;</a>.</p>
+<p>The release notes are available <a href="http://joel-costigliola.github.io/assertj/assertj-news.html">here</a>.</p>
 </div>
 </div>
 </div>
@@ -2982,7 +3096,7 @@ class DisabledTestsDemo {
 <div id="footer">
 <div id="footer-text">
 Version 1.0.0-SNAPSHOT<br>
-Last updated 2018-08-21 17:57:05 CEST
+Last updated 2018-08-21 18:12:20 CEST
 </div>
 </div>
 <link rel="stylesheet" href="highlight/styles/railscasts.min.css">
