@@ -1,8 +1,6 @@
 [[user-guide]]
 = AssertJ User Guide
 
-:stylesheet: ../dark.css
-
 :imagesdir: images
 :imagesoutdir: {outdir}/user-guide/images
 //
@@ -27,4 +25,4 @@ include::contributors.adoc[]
 [[release-notes]]
 == Release Notes
 
-The release notes are available <<../release-notes/index.adoc#release-notes,here>>.
+The release notes are available http://joel-costigliola.github.io/assertj/assertj-news.html[here].

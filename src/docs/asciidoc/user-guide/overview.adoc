@@ -7,63 +7,124 @@ and IDE vendors.
 
 ifdef::backend-html5[This document is also available as a link:index.pdf[PDF download].]
 
-[TIP]
-.Translations
-====
-This document is also available in http://sjyuan.cc/junit5/user-guide-cn[Simplified Chinese]
-and https://udzuki.jp/public/junit5-user-guide-ja[Japanese].
-====
+[[overview-what-is-assertj]]
+=== What is AssertJ?
 
-[[overview-what-is-junit-5]]
-=== What is JUnit 5?
-
-Unlike previous versions of JUnit, JUnit 5 is composed of several different modules from
-three different sub-projects.
-
-**JUnit Vintage** provides a `TestEngine` for running JUnit 3 and JUnit 4 based tests on
-the platform.
+AssertJ is a java library providing a rich set of assertions, truly helpful error messages, improves test code readability and is designed to be super easy to use within your favorite IDE.
 
 [[overview-java-versions]]
 === Supported Java Versions
 
-JUnit 5 requires Java 8 (or higher) at runtime. However, you can still test code that
-has been compiled with previous versions of the JDK.
+Different AssertJ major versions depend on different Java versions :
 
+* AssertJ 3.x requires Java 8 or higher (use the `org.assertj.core.api.Java6Assertions` entry point on Android API Level < 26)
+* AssertJ 2.x requires Java 7 or higher (use the `org.assertj.core.api.Java6Assertions` entry point on Android API Level < 26)
+* AssertJ 1.x requires Java 6 or higher
+
+Note that AssertJ 3.x includes all AssertJ 2.x features and adds Java 8 specific ones (like exception assertions with lambdas).
 
 [[overview-getting-help]]
 === Getting Help
 
-Ask JUnit 5 related questions on {StackOverflow} or chat with us on {Gitter}.
+Ask AssertJ related questions on {StackOverflow}.
 
-[[installation]]
-== Installation
+[[quick-start]]
+== Quick start
 
-Artifacts for final releases and milestones are deployed to Maven Central.
+This guide is for the AssertJ core module.
 
-Snapshot artifacts are deployed to Sonatype's {snapshot-repo}[snapshots repository] under
-{snapshot-repo}/org/junit/[/org/junit].
+[[get-assertj-core]]
+=== Get assertj-core library
 
-[[dependency-metadata]]
-=== Dependency Metadata
+AssertJ artifacts are in the Maven central repository.
 
+==== Maven
 
-[[dependency-metadata-dependencies]]
-==== Dependencies
+[source,xml,indent=0]
+----
+<dependency>
+  <groupId>org.assertj</groupId>
+  <artifactId>assertj-core</artifactId>
+  <!-- use 2.9.1 for Java 7 projects -->
+  <version>3.11.0</version>
+  <scope>test</scope>
+</dependency>
+----
 
-In addition, most of the above artifacts have a direct or transitive dependency to the
-following _OpenTest4J_ JAR.
+==== Gradle
 
-* *Group ID*: `org.opentest4j`
-* *Artifact ID*: `opentest4j`
-* *Version*: `{ota4j-version}`
+For Gradle users (using the Maven Central Repository)
 
+[source,java,indent=0]
+----
+testCompile("org.assertj:assertj-core:3.11.0")
+----
 
-[[dependency-metadata-junit-jupiter-samples]]
-=== JUnit Jupiter Sample Projects
+Or version 2.9.1 for Java 7 projects
 
-The {junit5-samples-repo}[`junit5-samples`] repository hosts a collection of sample
-projects based on JUnit Jupiter and JUnit Vintage. You'll find the respective
-`build.gradle` and `pom.xml` in the projects below.
+[source,java,indent=0]
+----
+testCompile("org.assertj:assertj-core:2.9.1")
+----
 
-* For Gradle, check out the `{junit5-jupiter-starter-gradle}` project.
-* For Maven, check out the `{junit5-jupiter-starter-maven}` project.
+==== Other dependency management tool
+
+Check this page to find the relevant https://search.maven.org/artifact/org.assertj/assertj-core/3.11.0/bundle[assertj dependency declaration].
+
+=== Add assertj entry point
+
+One static import to rule them all ...
+
+[source,java,indent=0]
+----
+import static org.assertj.core.api.Assertions.*;
+----
+
+\... or many if you prefer
+
+[source,java,indent=0]
+----
+import static org.assertj.core.api.Assertions.assertThat;  // main one
+import static org.assertj.core.api.Assertions.atIndex; // for List assertions
+import static org.assertj.core.api.Assertions.entry;  // for Map assertions
+import static org.assertj.core.api.Assertions.tuple; // when extracting several properties at once
+import static org.assertj.core.api.Assertions.fail; // use when writing exception tests
+import static org.assertj.core.api.Assertions.failBecauseExceptionWasNotThrown; // idem
+import static org.assertj.core.api.Assertions.filter; // for Iterable/Array assertions
+import static org.assertj.core.api.Assertions.offset; // for floating number assertions
+import static org.assertj.core.api.Assertions.anyOf; // use with Condition
+import static org.assertj.core.api.Assertions.contentOf; // use with File assertions
+----
+
+On Android (API Level < 26) use this static import :
+
+[source,java,indent=0]
+----
+import static org.assertj.core.api.Java6Assertions.*;
+----
+
+You can configure your IDE so that when you start typing `as` and trigger code completion `assertThat` will show up in the suggested completions.
+
+==== Eclipse configuration
+
+. Go to : Window > Preferences > Java > Editor > Content Assist > Favorites > New Type
+. Enter : `org.assertj.core.api.Assertions` and click OK
+. Check that you see `org.assertj.core.api.Assertions.*`` in Favorites.
+
+==== Intellij Idea configuration
+
+No special configuration is needed, just start typing `asser` and then invoke completion (Ctrl-Space) twice.
+
+=== Use code completion
+
+Type assertThat followed by the object under test and a dot ... and any Java IDE code completion will show you all available assertions.
+
+[source,java,indent=0]
+----
+assertThat(objectUnderTest). # <1>
+----
+<1> Use Code completion after the dot.
+
+Example for String assertions:
+
+image::ide-completion.png[]

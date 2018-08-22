@@ -77,6 +77,5 @@ githubPages {
 
 	pages {
 		from file(asciidoctor.outputDir.path + '/user-guide')
-		// from 'build/asciidoc/user-guide'
 	}
 }
