@@ -4,7 +4,5 @@
 :release-branch:                         master
 :current-branch:                         {assertj-core-repo}/tree/{release-branch}
 //
-:API:                                    https://apiguardian-team.github.io/apiguardian/docs/current/api/[@API]
-:API_Guardian:                           https://github.com/apiguardian-team/apiguardian[@API Guardian]
 :AssertJ:                                http://joel-costigliola.github.io/assertj/[AssertJ]
 :StackOverflow:                          https://stackoverflow.com/questions/tagged/assertj[Stack Overflow]
