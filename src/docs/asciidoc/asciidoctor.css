@@ -962,7 +962,7 @@ body.toc2 #header>h1:nth-last-child(2) {
     width: 15em;
     left: 0;
     top: 0;
-    border-right: 1px solid #861203;
+    border-right: 1px solid #232323;
     border-top-width: 0!important;
     border-bottom-width: 0!important;
     z-index: 1000;
