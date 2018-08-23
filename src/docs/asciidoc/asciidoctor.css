@@ -799,7 +799,7 @@ p a>code:hover {
   margin-right: auto;
   margin-top: 0;
   margin-bottom: 0;
-  max-width: 62.5em;
+  max-width: 75em;
   *zoom: 1;
   position: relative;
   padding-left: .9375em;
@@ -1002,7 +1002,7 @@ body.toc2 #header>h1:nth-last-child(2) {
 
 @media only screen and (min-width:1280px) {
   body.toc2 {
-    padding-left: 20em;
+    padding-left: 21em;
     padding-right: 0
   }
   #toc.toc2 {
@@ -2190,7 +2190,7 @@ blockquote,
 dt,
 td.content,
 span.alt {
-  font-size: 1.0625rem
+  font-size: 1.125rem
 }
 
 p {
