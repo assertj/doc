@@ -2639,44 +2639,6 @@ class SimpleAssertionsExample {
 <div class="paragraph">
 <p>All AssertJ assumptions are static methods in the <code>{Assumptions}</code> class.</p>
 </div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assumptions.assumeTrue;
-import static org.junit.jupiter.api.Assumptions.assumingThat;
-
-import org.junit.jupiter.api.Test;
-
-class AssumptionsDemo {
-
-   @Test
-   void testOnlyOnCiServer() {
-      assumeTrue("CI".equals(System.getenv("ENV")));
-      // remainder of test
-   }
-
-   @Test
-   void testOnlyOnDeveloperWorkstation() {
-      assumeTrue("DEV".equals(System.getenv("ENV")),
-         () -&gt; "Aborting test: not on developer workstation");
-      // remainder of test
-   }
-
-   @Test
-   void testInAllEnvironments() {
-      assumingThat("CI".equals(System.getenv("ENV")),
-         () -&gt; {
-            // perform these assertions only on the CI server
-            assertEquals(2, 2);
-         });
-
-      // perform these assertions in all environments
-      assertEquals("a string", "a string");
-   }
-
-}</code></pre>
-</div>
-</div>
 </div>
 </div>
 </div>
@@ -2730,7 +2692,7 @@ class AssumptionsDemo {
 <div id="footer">
 <div id="footer-text">
 Version 1.0.0-SNAPSHOT<br>
-Last updated 2018-08-23 11:50:47 CEST
+Last updated 2018-08-23 18:06:51 CEST
 </div>
 </div>
 <link rel="stylesheet" href="highlight/styles/railscasts.min.css">
