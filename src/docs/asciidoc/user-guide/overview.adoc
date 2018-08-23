@@ -2,8 +2,7 @@
 == Overview
 
 The goal of this document is to provide comprehensive reference documentation for
-programmers writing tests, extension authors, and engine authors as well as build tool
-and IDE vendors.
+programmers writing tests assertions with AssertJ.
 
 ifdef::backend-html5[This document is also available as a link:index.pdf[PDF download].]
 
@@ -12,31 +11,32 @@ ifdef::backend-html5[This document is also available as a link:index.pdf[PDF dow
 
 AssertJ is a java library providing a rich set of assertions, truly helpful error messages, improves test code readability and is designed to be super easy to use within your favorite IDE.
 
-[[overview-java-versions]]
-=== Supported Java Versions
+[[overview-getting-help]]
+=== Getting Help
 
-Different AssertJ major versions depend on different Java versions :
+Ask AssertJ related questions on {StackOverflow}.
+
+[[assertj-core-quick-start]]
+== AssertJ Core quick start
+
+This guide is for the AssertJ core module.
+
+
+[[get-assertj-core]]
+=== Get assertj-core library
+
+AssertJ Core artifacts are in the Maven central repository.
+
+[[assertj-core-java-versions]]
+==== Supported Java versions
+
+AssertJ Core major versions depend on different Java versions:
 
 * AssertJ 3.x requires Java 8 or higher (use the `org.assertj.core.api.Java6Assertions` entry point on Android API Level < 26)
 * AssertJ 2.x requires Java 7 or higher (use the `org.assertj.core.api.Java6Assertions` entry point on Android API Level < 26)
 * AssertJ 1.x requires Java 6 or higher
 
 Note that AssertJ 3.x includes all AssertJ 2.x features and adds Java 8 specific ones (like exception assertions with lambdas).
-
-[[overview-getting-help]]
-=== Getting Help
-
-Ask AssertJ related questions on {StackOverflow}.
-
-[[quick-start]]
-== Quick start
-
-This guide is for the AssertJ core module.
-
-[[get-assertj-core]]
-=== Get assertj-core library
-
-AssertJ artifacts are in the Maven central repository.
 
 ==== Maven
 
@@ -69,18 +69,22 @@ testCompile("org.assertj:assertj-core:2.9.1")
 
 ==== Other dependency management tool
 
-Check this page to find the relevant https://search.maven.org/artifact/org.assertj/assertj-core/3.11.0/bundle[assertj dependency declaration].
+Check this page to find the relevant https://search.maven.org/artifact/org.assertj/assertj-core/3.11.0/bundle[assertj core dependency declaration].
 
-=== Add assertj entry point
+=== Use Assertions class
 
-One static import to rule them all ...
+The `Assertions` class is the only class you need to start using AssertJ, it provides all the methods you need.
+
+Alternatively your test class can implement `WithAssertions` to acccess the same methods.
+
+One `Assertions` static import to rule them all ...
 
 [source,java,indent=0]
 ----
 import static org.assertj.core.api.Assertions.*;
 ----
 
-\... or many if you prefer
+\... or many if you prefer:
 
 [source,java,indent=0]
 ----
@@ -117,7 +121,7 @@ No special configuration is needed, just start typing `asser` and then invoke co
 
 === Use code completion
 
-Type assertThat followed by the object under test and a dot ... and any Java IDE code completion will show you all available assertions.
+Type `assertThat` followed by the object under test and a dot ... and any Java IDE code completion will show you all available assertions.
 
 [source,java,indent=0]
 ----
