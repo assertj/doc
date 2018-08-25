@@ -6,7 +6,7 @@ This section describes the assertions provided by AssertJ Core and other useful 
 [source,java,indent=0]
 .A few simple assertions
 ----
-include::{testDir}/example/SimpleAssertionsExample.java[tags=user_guide]
+include::{testDir}/example/core/SimpleAssertionsExample.java[tags=user_guide]
 ----
 
 
@@ -29,13 +29,11 @@ TODO
 [[assertj-core-assumptions]]
 === Assumptions
 
-All AssertJ assumptions are static methods in the `{Assumptions}` class.
-
+All AssertJ assumptions are static methods in the `Assumptions` class.
 // [source,java,indent=0]
 // ----
 // include::{testDir}/example/AssumptionsDemo.java[tags=user_guide]
 // ----
-
 
 [[assertj-samples]]
 == AssertJ Sample Projects

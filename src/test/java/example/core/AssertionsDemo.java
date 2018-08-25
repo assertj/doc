@@ -8,20 +8,14 @@
  * http://www.eclipse.org/legal/epl-v20.html
  */
 
-package org.junit.api.tools;
+package example.core;
 
-import java.io.PrintWriter;
-import java.util.EnumSet;
+// @formatter:off
+// tag::user_guide[]
 
-import org.apiguardian.api.API.Status;
+class AssertionsDemo {
 
-/**
- * @since 1.0
- */
-interface ApiReportWriter {
-
-	void printReportHeader(PrintWriter out);
-
-	void printDeclarationInfo(PrintWriter out, EnumSet<Status> statuses);
 
 }
+// end::user_guide[]
+// @formatter:on
