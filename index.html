@@ -2603,13 +2603,13 @@ import static org.assertj.core.api.Assertions.contentOf; // use with File assert
 
 import org.junit.jupiter.api.Test;
 
-class SimpleAssertionsExample {
+public class SimpleAssertionsExample {
 
    @Test
    void a_few_simple_assertions() {
       assertThat("The Lord of the Rings").isNotNull()
-                                         .startsWith("The");
-                                         .contains("Lord");
+                                         .startsWith("The")
+                                         .contains("Lord")
                                          .endsWith("Rings");
    }
 
@@ -2637,7 +2637,7 @@ class SimpleAssertionsExample {
 <div class="sect2">
 <h3 id="assertj-core-assumptions"><a class="anchor" href="#assertj-core-assumptions"></a>3.3. Assumptions</h3>
 <div class="paragraph">
-<p>All AssertJ assumptions are static methods in the <code>{Assumptions}</code> class.</p>
+<p>All AssertJ assumptions are static methods in the <code>Assumptions</code> class.</p>
 </div>
 </div>
 </div>
