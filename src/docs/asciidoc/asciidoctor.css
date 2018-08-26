@@ -658,7 +658,7 @@ table tr td {
 table tr.even,
 table tr.alt,
 table tr:nth-of-type(even) {
-  background: rgba(237, 217, 166)
+  background: rgb(234, 210, 149)
 }
 
 table thead tr th,
@@ -1542,7 +1542,8 @@ table.pyhltable .linenodiv {
 
 table.tableblock {
   max-width: 100%;
-  border-collapse: separate
+  border-collapse: separate;
+  background-color: rgb(229, 200, 128);
 }
 
 table.tableblock td>.paragraph:last-child p>p:last-child,
@@ -1551,10 +1552,14 @@ table.tableblock td>p:last-child {
   margin-bottom: 0
 }
 
+th.tableblock {
+  background-color: rgb(221, 183, 85)
+}
+
 table.tableblock,
 th.tableblock,
 td.tableblock {
-  border: 0 solid #dedede
+  border: 0 solid #535353
 }
 
 table.grid-all th.tableblock,
@@ -2125,8 +2130,8 @@ span.icon>.fa {
 
 .conum[data-value] {
   display: inline-block;
-  color: #fff!important;
-  background-color: rgba(0, 0, 0, .8);
+  color: #edd9a6!important;
+  background-color: #742436;
   -webkit-border-radius: 100px;
   border-radius: 100px;
   text-align: center;
