@@ -3,21 +3,138 @@
 
 This section describes the assertions provided by AssertJ Core and other useful features to get the best of it.
 
+[[assertj-core-simple-example]]
+=== A simple example
+
+Let's start with a simple example showing a few important things:
+
 [source,java,indent=0]
 .A few simple assertions
 ----
 include::{testDir}/example/core/SimpleAssertionsExample.java[tags=user_guide]
 ----
+<1> Pass the object under test as the sole `assertThat()` parameter
+<2> Use code completion to discover and call assertions
+<3> Chain as many assertions as you need
+
+Except for `isNotNull` which is a base assertion, the other assertions are `String` specific as our object under test is a `String`.
+
+[[assertj-core-supported-types]]
+=== Supported type assertions
+
+AssertJ provides assertions specific to the object under test type, the following sections list the supported types grouped by categories.
+
+The provided assertions for each of these types are documented later on.
+
+
+==== Common types
+
+[cols="2"]
+|===
+| BigDecimal | BigInteger
+| CharSequence | Class
+| Date | File
+| Future / CompletableFuture | InputStream
+| Iterable (including any kind of Collection) | Iterator
+| List | Map
+| Object
+| Object[]
+a|
+
+* Optional
+* OptionalInt /  OptionalLong / OptionalDouble
+| Path | Predicate
+| Stream
+| String  | Throwable / Exception
+| URL and URI
+|===
+
+
+==== Primitive types
+
+[cols="2"]
+|===
+a| Primitive types and their wrapper:
+
+* short / Short
+* int / Integer
+* long / Long
+* byte / Byte
+* char / Character
+* float / Float
+* double / Double
+
+a| Primitive type arrays:
+
+* short[]
+* int[]
+* long[]
+* byte[]
+* char[]
+* float[]
+* double[]
+|===
+
+==== Java 8 Temporal types
+
+[cols="2"]
+|===
+| Instant
+| LocalDate
+| LocalDateTime
+| LocalTime
+| OffsetDateTime
+| OffsetTime
+| ZonedDateTime
+|===
+
+==== Atomic types
+
+[cols="2"]
+|===
+a| Atomic basic types:
+
+* AtomicInteger,
+* AtomicLong
+* AtomicBoolean
+a| Atomic array types:
+
+* AtomicIntegerArray
+* AtomicLongArray
+
+a| Atomic reference types:
+
+* AtomicMarkableReference
+* AtomicStampedReferenceAssert
+
+a| Atomic updater types:
+
+* AtomicIntegerFieldUpdater
+* AtomicLongFieldUpdater
+* AtomicReferenceFieldUpdater
+|===
 
 
 [[assertj-core-assertion-description]]
 === Assertion description
 
-It is often valuable to describe the assertion performed, especially for boolean assertion where the default error message just complains that it got false instead of true (or vice versa).
+It is often valuable to describe the assertion performed, especially for boolean assertions where the default error message just complains that it got `false` instead of `true` (or vice versa).
 
 You can set such a description with `as(String description, Object... args)` but remember to do it before calling the assertion otherwise it is simply ignored as a failing assertion breaks the following chained calls.
 
-Example of a failing assertion with a description : TODO
+Example of a failing assertion with a description:
+[source,java,indent=0]
+----
+include::{testDir}/example/core/DescribingAssertionsExample.java[tags=user_guide]
+----
+
+The error message starts with the given description in `[]` :
+
+[source,nnm,indent=0]
+----
+[check Frodo's age] expected:<100> but was:\<33>
+----
+
 
 
 [[assertj-core-basic-assertions]]
@@ -49,4 +166,3 @@ Building the `with-latest-snapshot-versions` branch is a bit more complicated :
 * you need to build the needed SNAPSHOT dependencies before - most probably assertj-core and maybe other modules.
 * run mvn clean install in assertj-examples/assertions-examples.
 * In your IDE, add src/test/generated-assertions to the project java sources if you IDE shows errors/missing classes.
-

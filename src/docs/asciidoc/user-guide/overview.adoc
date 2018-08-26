@@ -113,7 +113,7 @@ You can configure your IDE so that when you start typing `as` and trigger code c
 
 . Go to : Window > Preferences > Java > Editor > Content Assist > Favorites > New Type
 . Enter : `org.assertj.core.api.Assertions` and click OK
-. Check that you see `org.assertj.core.api.Assertions.*`` in Favorites.
+. Check that you see `org.assertj.core.api.Assertions.*` in Favorites.
 
 ==== Intellij Idea configuration
 
@@ -127,7 +127,7 @@ Type `assertThat` followed by the object under test and a dot ... and any Java I
 ----
 assertThat(objectUnderTest). # <1>
 ----
-<1> Use Code completion after the dot.
+<1> Use IDE code completion after the dot.
 
 Example for String assertions:
 
