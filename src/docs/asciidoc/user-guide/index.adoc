@@ -1,6 +1,10 @@
 [[user-guide]]
 = AssertJ User Guide
 
+WARNING: This guide is still in progress ... but it already contains useful information!
+
+The official site is still: http://joel-costigliola.github.io/assertj/
+
 :imagesdir: images
 :imagesoutdir: {outdir}/user-guide/images
 //
