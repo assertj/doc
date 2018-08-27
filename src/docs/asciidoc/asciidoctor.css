@@ -1667,9 +1667,9 @@ p.tableblock>code:only-child {
   padding: 0
 }
 
-p.tableblock {
+/* p.tableblock {
   font-size: 1em
-}
+} */
 
 td>div.verse {
   white-space: pre
@@ -2204,8 +2204,7 @@ p {
 
 .sidebarblock p,
 .sidebarblock dt,
-.sidebarblock td.content,
-p.tableblock {
+.sidebarblock td.content {
   font-size: 1em
 }
 
