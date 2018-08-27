@@ -1216,8 +1216,8 @@ table.tableblock #preamble>.sectionbody>.paragraph:first-of-type p {
 .admonitionblock>table td.content {
   padding-left: 1.125em;
   padding-right: 1.25em;
-  border-left: 1px solid #ddddd8;
-  color: rgba(0, 0, 0, .6)
+  border-left: 1px solid rgba(0, 0, 0, .7);
+  color: rgba(0, 0, 0, .7)
 }
 
 .admonitionblock>table td.content>:last-child>:last-child {
