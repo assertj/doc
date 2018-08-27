@@ -1,7 +1,7 @@
 package example.core;
 
 // tag::user_guide[]
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat; // <1>
 
 import org.junit.jupiter.api.Test;
 
@@ -9,10 +9,10 @@ public class SimpleAssertionsExample {
 
   @Test
   void a_few_simple_assertions() {
-    assertThat("The Lord of the Rings").isNotNull()  // <1> <2>
-                                       .startsWith("The") // <3>
-                                       .contains("Lord") // <3>
-                                       .endsWith("Rings"); // <3>
+    assertThat("The Lord of the Rings").isNotNull()  // <2> <3>
+                                       .startsWith("The") // <4>
+                                       .contains("Lord") // <4>
+                                       .endsWith("Rings"); // <4>
   }
 
 }

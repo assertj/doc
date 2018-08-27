@@ -6,16 +6,16 @@ This section describes the assertions provided by AssertJ Core and other useful 
 [[assertj-core-simple-example]]
 === A simple example
 
-Let's start with a simple example showing a few important things:
+Let's start with a simple example showing a few important things.
 
 [source,java,indent=0]
-.A few simple assertions
 ----
 include::{testDir}/example/core/SimpleAssertionsExample.java[tags=user_guide]
 ----
-<1> Pass the object under test as the sole `assertThat()` parameter
-<2> Use code completion to discover and call assertions
-<3> Chain as many assertions as you need
+<1> statically import `org.assertj.core.api.Assertions.assertThat`
+<2> Pass the object under test as the sole `assertThat()` parameter
+<3> Use code completion to discover and call assertions
+<4> Chain as many assertions as you need
 
 Except for `isNotNull` which is a base assertion, the other assertions are `String` specific as our object under test is a `String`.
 
@@ -25,7 +25,6 @@ Except for `isNotNull` which is a base assertion, the other assertions are `Stri
 AssertJ provides assertions specific to the object under test type, the following sections list the supported types grouped by categories.
 
 The provided assertions for each of these types are documented later on.
-
 
 ==== Common types
 
@@ -137,8 +136,79 @@ The error message starts with the given description in `[]` :
 
 
 
+[[assertj-core-incorrect-usage]]
+=== Avoiding incorrect usage
+
+There are a few things to keep in mind when using AssertJ to avoid misusing it. 
+
+The main trap is to pass the object under to test to `assertThat()` and forget to call an assertion afterward.
+This misuse can be detected by http://findbugs.sourceforge.net/[Findbugs] thanks to the `@CheckReturnValue` annotation on all `assertThat()` methods.
+
+The following examples show incorrect AssertJ API usage to avoid!
+
+[source,java,indent=0]
+----
+// BAD USAGE: DON'T DO THIS ! It does not assert anything
+assertThat(actual.equals(expected));
+
+// DO THIS:
+assertThat(actual).isEqualTo(expected);
+
+// OR THIS (less classy but ok):
+assertThat(actual.equals(expected)).isTrue();
+----
+
+[source,java,indent=0]
+----
+// BAD USAGE: DON'T DO THIS ! It does not assert anything and passes
+assertThat(1 == 2);
+
+// DO THIS: (fails as expected)
+assertThat(1).isEqualTo(2);
+
+// OR THIS (less classy but ok):
+assertThat(1 == 2).isTrue();
+----
+
+[source,java,indent=0]
+----
+// BAD USAGE: DON'T DO THIS ! as/describedAs have no effect after the assertion
+assertThat(actual).isEqualTo(expected).as("description");
+assertThat(actual).isEqualTo(expected).describedAs("description");
+
+// DO THIS: use as/describedAs before the assertion
+assertThat(actual).as("description").isEqualTo(expected);
+assertThat(actual).describedAs("description").isEqualTo(expected);
+----
+
+[source,java,indent=0]
+----
+// BAD USAGE: DON'T DO THIS ! overridingErrorMessage/withFailMessage have no effect after the assertion
+assertThat(actual).isEqualTo(expected).overridingErrorMessage("custom error message");
+assertThat(actual).isEqualTo(expected).withFailMessage("custom error message");
+
+// DO THIS: use overridingErrorMessage/withFailMessage before the assertion
+assertThat(actual).overridingErrorMessage("custom error message").isEqualTo(expected);
+assertThat(actual).withFailMessage("custom error message").isEqualTo(expected);
+----
+
+[source,java,indent=0]
+----
+// BAD USAGE: DON'T DO THIS ! Comparator is not used
+assertThat(actual).isEqualTo(expected).usingComparator(new CustomComparator());
+
+// DO THIS:
+assertThat(actual).usingComparator(new CustomComparator()).isEqualTo("a");
+----
+
+
 [[assertj-core-basic-assertions]]
 === Basic assertions
+
+TODO
+
+[[assertj-core-iterable-assertions]]
+=== Iterable/Collection assertions
 
 TODO
 
@@ -147,6 +217,8 @@ TODO
 === Assumptions
 
 All AssertJ assumptions are static methods in the `Assumptions` class.
+
+TODO  
 // [source,java,indent=0]
 // ----
 // include::{testDir}/example/AssumptionsDemo.java[tags=user_guide]
@@ -155,7 +227,7 @@ All AssertJ assumptions are static methods in the `Assumptions` class.
 [[assertj-samples]]
 == AssertJ Sample Projects
 
-The https://github.com/joel-costigliola/assertj-examples/tree/master/assertions-examples[`assertj-examples/assertions-examples`] hosts executable AssertJ assertions examples that you can run as JUnit tests. Please have a look at assertions https://github.com/joel-costigliola/assertj-examples/tree/master/assertions-examples/src/test/java/org/assertj/examples[`examples sources`].
+The https://github.com/joel-costigliola/assertj-examples/tree/master/assertions-examples[assertions-examples] hosts executable AssertJ assertions examples that you can run as JUnit tests. Please have a look at assertions https://github.com/joel-costigliola/assertj-examples/tree/master/assertions-examples/src/test/java/org/assertj/examples[examples sources].
 
 The `master` branch contains examples with the latest released version of AssertJ modules for Java 8, similarly the `java-7` branch contains examples of AssertJ modules for Java 7. You should be able to build those two branches with `mvn clean install` command.
 
@@ -164,5 +236,5 @@ In your IDE, add `src/test/generated-assertions` to the project java test source
 Building the `with-latest-snapshot-versions` branch is a bit more complicated :
 
 * you need to build the needed SNAPSHOT dependencies before - most probably assertj-core and maybe other modules.
-* run mvn clean install in assertj-examples/assertions-examples.
-* In your IDE, add src/test/generated-assertions to the project java sources if you IDE shows errors/missing classes.
+* run `mvn clean install` in assertj-examples/assertions-examples.
+* In your IDE, add `src/test/generated-assertions` to the project java sources if you IDE shows errors/missing classes.

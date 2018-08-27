@@ -4,7 +4,7 @@
 The goal of this document is to provide comprehensive reference documentation for
 programmers writing tests assertions with AssertJ.
 
-ifdef::backend-html5[This document is also available as a link:index.pdf[PDF download].]
+// ifdef::backend-html5[This document is also available as a link:index.pdf[PDF download].]
 
 [[overview-what-is-assertj]]
 === What is AssertJ?
