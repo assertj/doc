@@ -667,7 +667,7 @@ table tr td {
 table tr.even,
 table tr.alt,
 table tr:nth-of-type(even) {
-  background: rgba(237, 217, 166)
+  background: rgb(234, 210, 149)
 }
 
 table thead tr th,
@@ -1551,7 +1551,8 @@ table.pyhltable .linenodiv {
 
 table.tableblock {
   max-width: 100%;
-  border-collapse: separate
+  border-collapse: separate;
+  background-color: rgb(229, 200, 128);
 }
 
 table.tableblock td>.paragraph:last-child p>p:last-child,
@@ -1560,10 +1561,14 @@ table.tableblock td>p:last-child {
   margin-bottom: 0
 }
 
+th.tableblock {
+  background-color: rgb(221, 183, 85)
+}
+
 table.tableblock,
 th.tableblock,
 td.tableblock {
-  border: 0 solid #dedede
+  border: 0 solid #535353
 }
 
 table.grid-all th.tableblock,
@@ -1671,9 +1676,9 @@ p.tableblock>code:only-child {
   padding: 0
 }
 
-p.tableblock {
+/* p.tableblock {
   font-size: 1em
-}
+} */
 
 td>div.verse {
   white-space: pre
@@ -2134,8 +2139,8 @@ span.icon>.fa {
 
 .conum[data-value] {
   display: inline-block;
-  color: #fff!important;
-  background-color: rgba(0, 0, 0, .8);
+  color: #edd9a6!important;
+  background-color: #742436;
   -webkit-border-radius: 100px;
   border-radius: 100px;
   text-align: center;
@@ -2208,8 +2213,7 @@ p {
 
 .sidebarblock p,
 .sidebarblock dt,
-.sidebarblock td.content,
-p.tableblock {
+.sidebarblock td.content {
   font-size: 1em
 }
 
@@ -2385,9 +2389,13 @@ p.tableblock {
 </li>
 <li><a href="#assertj-core-assertions-guide">3. Core assertions guide</a>
 <ul class="sectlevel2">
-<li><a href="#assertj-core-assertion-description">3.1. Assertion description</a></li>
-<li><a href="#assertj-core-basic-assertions">3.2. Basic assertions</a></li>
-<li><a href="#assertj-core-assumptions">3.3. Assumptions</a></li>
+<li><a href="#assertj-core-simple-example">3.1. A simple example</a></li>
+<li><a href="#assertj-core-supported-types">3.2. Supported type assertions</a></li>
+<li><a href="#assertj-core-assertion-description">3.3. Assertion description</a></li>
+<li><a href="#assertj-core-incorrect-usage">3.4. Avoiding incorrect usage</a></li>
+<li><a href="#assertj-core-basic-assertions">3.5. Basic assertions</a></li>
+<li><a href="#assertj-core-iterable-assertions">3.6. Iterable/Collection assertions</a></li>
+<li><a href="#assertj-core-assumptions">3.7. Assumptions</a></li>
 </ul>
 </li>
 <li><a href="#assertj-samples">4. AssertJ Sample Projects</a></li>
@@ -2403,9 +2411,6 @@ p.tableblock {
 <div class="paragraph">
 <p>The goal of this document is to provide comprehensive reference documentation for
 programmers writing tests assertions with AssertJ.</p>
-</div>
-<div class="paragraph">
-<p>This document is also available as a <a href="index.pdf">PDF download</a>.</p>
 </div>
 <div class="sect2">
 <h3 id="overview-what-is-assertj"><a class="anchor" href="#overview-what-is-assertj"></a>1.1. What is AssertJ?</h3>
@@ -2549,7 +2554,7 @@ import static org.assertj.core.api.Assertions.contentOf; // use with File assert
 <p>Enter : <code>org.assertj.core.api.Assertions</code> and click OK</p>
 </li>
 <li>
-<p>Check that you see <code>org.assertj.core.api.Assertions.*`</code> in Favorites.</p>
+<p>Check that you see <code>org.assertj.core.api.Assertions.*</code> in Favorites.</p>
 </li>
 </ol>
 </div>
@@ -2575,7 +2580,7 @@ import static org.assertj.core.api.Assertions.contentOf; // use with File assert
 <table>
 <tr>
 <td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Use Code completion after the dot.</td>
+<td>Use IDE code completion after the dot.</td>
 </tr>
 </table>
 </div>
@@ -2596,48 +2601,403 @@ import static org.assertj.core.api.Assertions.contentOf; // use with File assert
 <div class="paragraph">
 <p>This section describes the assertions provided by AssertJ Core and other useful features to get the best of it.</p>
 </div>
+<div class="sect2">
+<h3 id="assertj-core-simple-example"><a class="anchor" href="#assertj-core-simple-example"></a>3.1. A simple example</h3>
+<div class="paragraph">
+<p>Let&#8217;s start with a simple example showing a few important things.</p>
+</div>
 <div class="listingblock">
-<div class="title">A few simple assertions</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">import static org.assertj.core.api.Assertions.assertThat;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">import static org.assertj.core.api.Assertions.assertThat; <i class="conum" data-value="1"></i><b>(1)</b>
 
 import org.junit.jupiter.api.Test;
 
 public class SimpleAssertionsExample {
 
-   @Test
-   void a_few_simple_assertions() {
-      assertThat("The Lord of the Rings").isNotNull()
-                                         .startsWith("The")
-                                         .contains("Lord")
-                                         .endsWith("Rings");
-   }
+  @Test
+  void a_few_simple_assertions() {
+    assertThat("The Lord of the Rings").isNotNull()  <i class="conum" data-value="2"></i><b>(2)</b> <i class="conum" data-value="3"></i><b>(3)</b>
+                                       .startsWith("The") <i class="conum" data-value="4"></i><b>(4)</b>
+                                       .contains("Lord") <i class="conum" data-value="4"></i><b>(4)</b>
+                                       .endsWith("Rings"); <i class="conum" data-value="4"></i><b>(4)</b>
+  }
 
 }</code></pre>
 </div>
 </div>
-<div class="sect2">
-<h3 id="assertj-core-assertion-description"><a class="anchor" href="#assertj-core-assertion-description"></a>3.1. Assertion description</h3>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>statically import <code>org.assertj.core.api.Assertions.assertThat</code></td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Pass the object under test as the sole <code>assertThat()</code> parameter</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Use code completion to discover and call assertions</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>Chain as many assertions as you need</td>
+</tr>
+</table>
+</div>
 <div class="paragraph">
-<p>It is often valuable to describe the assertion performed, especially for boolean assertion where the default error message just complains that it got false instead of true (or vice versa).</p>
+<p>Except for <code>isNotNull</code> which is a base assertion, the other assertions are <code>String</code> specific as our object under test is a <code>String</code>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="assertj-core-supported-types"><a class="anchor" href="#assertj-core-supported-types"></a>3.2. Supported type assertions</h3>
+<div class="paragraph">
+<p>AssertJ provides assertions specific to the object under test type, the following sections list the supported types grouped by categories.</p>
+</div>
+<div class="paragraph">
+<p>The provided assertions for each of these types are documented later on.</p>
+</div>
+<div class="sect3">
+<h4 id="common-types"><a class="anchor" href="#common-types"></a>3.2.1. Common types</h4>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">BigDecimal</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">BigInteger</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CharSequence</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Class</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Date</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">File</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Future / CompletableFuture</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">InputStream</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Iterable (including any kind of Collection)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Iterator</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">List</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Map</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Object</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Object[]</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="ulist">
+<ul>
+<li>
+<p>Optional</p>
+</li>
+<li>
+<p>OptionalInt /  OptionalLong / OptionalDouble</p>
+</li>
+</ul>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Path</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Predicate</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Stream</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">String</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Throwable / Exception</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect3">
+<h4 id="primitive-types"><a class="anchor" href="#primitive-types"></a>3.2.2. Primitive types</h4>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Primitive types and their wrapper:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>short / Short</p>
+</li>
+<li>
+<p>int / Integer</p>
+</li>
+<li>
+<p>long / Long</p>
+</li>
+<li>
+<p>byte / Byte</p>
+</li>
+<li>
+<p>char / Character</p>
+</li>
+<li>
+<p>float / Float</p>
+</li>
+<li>
+<p>double / Double</p>
+</li>
+</ul>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Primitive type arrays:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>short[]</p>
+</li>
+<li>
+<p>int[]</p>
+</li>
+<li>
+<p>long[]</p>
+</li>
+<li>
+<p>byte[]</p>
+</li>
+<li>
+<p>char[]</p>
+</li>
+<li>
+<p>float[]</p>
+</li>
+<li>
+<p>double[]</p>
+</li>
+</ul>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect3">
+<h4 id="java-8-temporal-types"><a class="anchor" href="#java-8-temporal-types"></a>3.2.3. Java 8 Temporal types</h4>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Instant</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">LocalDate</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">LocalDateTime</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">LocalTime</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">OffsetDateTime</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">OffsetTime</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect3">
+<h4 id="atomic-types"><a class="anchor" href="#atomic-types"></a>3.2.4. Atomic types</h4>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Atomic basic types:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>AtomicInteger,</p>
+</li>
+<li>
+<p>AtomicLong</p>
+</li>
+<li>
+<p>AtomicBoolean</p>
+</li>
+</ul>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Atomic array types:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>AtomicIntegerArray</p>
+</li>
+<li>
+<p>AtomicLongArray</p>
+</li>
+</ul>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Atomic reference types:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>AtomicMarkableReference</p>
+</li>
+<li>
+<p>AtomicStampedReferenceAssert</p>
+</li>
+</ul>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Atomic updater types:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>AtomicIntegerFieldUpdater</p>
+</li>
+<li>
+<p>AtomicLongFieldUpdater</p>
+</li>
+<li>
+<p>AtomicReferenceFieldUpdater</p>
+</li>
+</ul>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="assertj-core-assertion-description"><a class="anchor" href="#assertj-core-assertion-description"></a>3.3. Assertion description</h3>
+<div class="paragraph">
+<p>It is often valuable to describe the assertion performed, especially for boolean assertions where the default error message just complains that it got <code>false</code> instead of <code>true</code> (or vice versa).</p>
 </div>
 <div class="paragraph">
 <p>You can set such a description with <code>as(String description, Object&#8230;&#8203; args)</code> but remember to do it before calling the assertion otherwise it is simply ignored as a failing assertion breaks the following chained calls.</p>
 </div>
 <div class="paragraph">
-<p>Example of a failing assertion with a description : TODO</p>
+<p>Example of a failing assertion with a description:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">TolkienCharacter frodo = TolkienCharacter("Frodo", 33, HOBBIT);
+// failing assertion, remember to call as() before the assertion, not after !
+assertThat(frodo.getAge()).as("check %s's age", frodo.getName())
+                          .isEqualTo(100);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The error message starts with the given description in <code>[]</code> :</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-nnm hljs" data-lang="nnm">[check Frodo's age] expected:&lt;100&gt; but was:&lt;33&gt;</code></pre>
+</div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="assertj-core-basic-assertions"><a class="anchor" href="#assertj-core-basic-assertions"></a>3.2. Basic assertions</h3>
+<h3 id="assertj-core-incorrect-usage"><a class="anchor" href="#assertj-core-incorrect-usage"></a>3.4. Avoiding incorrect usage</h3>
+<div class="paragraph">
+<p>There are a few things to keep in mind when using AssertJ to avoid misusing it.</p>
+</div>
+<div class="paragraph">
+<p>The main trap is to pass the object under to test to <code>assertThat()</code> and forget to call an assertion afterward.
+This misuse can be detected by <a href="http://findbugs.sourceforge.net/">Findbugs</a> thanks to the <code>@CheckReturnValue</code> annotation on all <code>assertThat()</code> methods.</p>
+</div>
+<div class="paragraph">
+<p>The following examples show incorrect AssertJ API usage to avoid!</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">// BAD USAGE: DON'T DO THIS ! It does not assert anything
+assertThat(actual.equals(expected));
+
+// DO THIS:
+assertThat(actual).isEqualTo(expected);
+
+// OR THIS (less classy but ok):
+assertThat(actual.equals(expected)).isTrue();</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">// BAD USAGE: DON'T DO THIS ! It does not assert anything and passes
+assertThat(1 == 2);
+
+// DO THIS: (fails as expected)
+assertThat(1).isEqualTo(2);
+
+// OR THIS (less classy but ok):
+assertThat(1 == 2).isTrue();</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">// BAD USAGE: DON'T DO THIS ! as/describedAs have no effect after the assertion
+assertThat(actual).isEqualTo(expected).as("description");
+assertThat(actual).isEqualTo(expected).describedAs("description");
+
+// DO THIS: use as/describedAs before the assertion
+assertThat(actual).as("description").isEqualTo(expected);
+assertThat(actual).describedAs("description").isEqualTo(expected);</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">// BAD USAGE: DON'T DO THIS ! overridingErrorMessage/withFailMessage have no effect after the assertion
+assertThat(actual).isEqualTo(expected).overridingErrorMessage("custom error message");
+assertThat(actual).isEqualTo(expected).withFailMessage("custom error message");
+
+// DO THIS: use overridingErrorMessage/withFailMessage before the assertion
+assertThat(actual).overridingErrorMessage("custom error message").isEqualTo(expected);
+assertThat(actual).withFailMessage("custom error message").isEqualTo(expected);</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">// BAD USAGE: DON'T DO THIS ! Comparator is not used
+assertThat(actual).isEqualTo(expected).usingComparator(new CustomComparator());
+
+// DO THIS:
+assertThat(actual).usingComparator(new CustomComparator()).isEqualTo("a");</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="assertj-core-basic-assertions"><a class="anchor" href="#assertj-core-basic-assertions"></a>3.5. Basic assertions</h3>
 <div class="paragraph">
 <p>TODO</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="assertj-core-assumptions"><a class="anchor" href="#assertj-core-assumptions"></a>3.3. Assumptions</h3>
+<h3 id="assertj-core-iterable-assertions"><a class="anchor" href="#assertj-core-iterable-assertions"></a>3.6. Iterable/Collection assertions</h3>
+<div class="paragraph">
+<p>TODO</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="assertj-core-assumptions"><a class="anchor" href="#assertj-core-assumptions"></a>3.7. Assumptions</h3>
 <div class="paragraph">
 <p>All AssertJ assumptions are static methods in the <code>Assumptions</code> class.</p>
+</div>
+<div class="paragraph">
+<p>WIP</p>
 </div>
 </div>
 </div>
@@ -2646,7 +3006,7 @@ public class SimpleAssertionsExample {
 <h2 id="assertj-samples"><a class="anchor" href="#assertj-samples"></a>4. AssertJ Sample Projects</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The <a href="https://github.com/joel-costigliola/assertj-examples/tree/master/assertions-examples"><code>assertj-examples/assertions-examples</code></a> hosts executable AssertJ assertions examples that you can run as JUnit tests. Please have a look at assertions <a href="https://github.com/joel-costigliola/assertj-examples/tree/master/assertions-examples/src/test/java/org/assertj/examples"><code>examples sources</code></a>.</p>
+<p>The <a href="https://github.com/joel-costigliola/assertj-examples/tree/master/assertions-examples">assertions-examples</a> hosts executable AssertJ assertions examples that you can run as JUnit tests. Please have a look at assertions <a href="https://github.com/joel-costigliola/assertj-examples/tree/master/assertions-examples/src/test/java/org/assertj/examples">examples sources</a>.</p>
 </div>
 <div class="paragraph">
 <p>The <code>master</code> branch contains examples with the latest released version of AssertJ modules for Java 8, similarly the <code>java-7</code> branch contains examples of AssertJ modules for Java 7. You should be able to build those two branches with <code>mvn clean install</code> command.</p>
@@ -2663,10 +3023,10 @@ public class SimpleAssertionsExample {
 <p>you need to build the needed SNAPSHOT dependencies before - most probably assertj-core and maybe other modules.</p>
 </li>
 <li>
-<p>run mvn clean install in assertj-examples/assertions-examples.</p>
+<p>run <code>mvn clean install</code> in assertj-examples/assertions-examples.</p>
 </li>
 <li>
-<p>In your IDE, add src/test/generated-assertions to the project java sources if you IDE shows errors/missing classes.</p>
+<p>In your IDE, add <code>src/test/generated-assertions</code> to the project java sources if you IDE shows errors/missing classes.</p>
 </li>
 </ul>
 </div>
