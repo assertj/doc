@@ -141,16 +141,24 @@ The error message starts with the given description in `[]` :
 
 There are a few things to keep in mind when using AssertJ to avoid misusing it. 
 
+==== Forgetting to call an assertion
+
 The main trap is to pass the object under to test to `assertThat()` and forget to call an assertion afterward.
 This misuse can be detected by http://findbugs.sourceforge.net/[Findbugs] thanks to the `@CheckReturnValue` annotation on all `assertThat()` methods.
 
 The following examples show incorrect AssertJ API usage to avoid!
 
+[.bad]#Bad#
 [source,java,indent=0]
 ----
 // BAD USAGE: DON'T DO THIS ! It does not assert anything
 assertThat(actual.equals(expected));
 
+----
+
+[.good]#Good#
+[source,java,indent=0]
+----
 // DO THIS:
 assertThat(actual).isEqualTo(expected);
 
@@ -158,11 +166,17 @@ assertThat(actual).isEqualTo(expected);
 assertThat(actual.equals(expected)).isTrue();
 ----
 
+[.bad]#Bad#
 [source,java,indent=0]
 ----
 // BAD USAGE: DON'T DO THIS ! It does not assert anything and passes
 assertThat(1 == 2);
 
+----
+
+[.good]#Good#
+[source,java,indent=0]
+----
 // DO THIS: (fails as expected)
 assertThat(1).isEqualTo(2);
 
@@ -170,40 +184,61 @@ assertThat(1).isEqualTo(2);
 assertThat(1 == 2).isTrue();
 ----
 
+==== Calling as() after the assertion
+
+[.bad]#Bad#
 [source,java,indent=0]
 ----
 // BAD USAGE: DON'T DO THIS ! as/describedAs have no effect after the assertion
 assertThat(actual).isEqualTo(expected).as("description");
 assertThat(actual).isEqualTo(expected).describedAs("description");
+----
 
+[.good]#Good#
+[source,java,indent=0]
+----
 // DO THIS: use as/describedAs before the assertion
 assertThat(actual).as("description").isEqualTo(expected);
 assertThat(actual).describedAs("description").isEqualTo(expected);
 ----
 
+==== Calling withFailMessage() after the assertion
+
+[.bad]#Bad#
 [source,java,indent=0]
 ----
 // BAD USAGE: DON'T DO THIS ! overridingErrorMessage/withFailMessage have no effect after the assertion
 assertThat(actual).isEqualTo(expected).overridingErrorMessage("custom error message");
 assertThat(actual).isEqualTo(expected).withFailMessage("custom error message");
+----
 
+[.good]#Good#
+[source,java,indent=0]
+----
 // DO THIS: use overridingErrorMessage/withFailMessage before the assertion
 assertThat(actual).overridingErrorMessage("custom error message").isEqualTo(expected);
 assertThat(actual).withFailMessage("custom error message").isEqualTo(expected);
 ----
 
+==== Setting a comparator after the assertion
+
+[.bad]#Bad#
 [source,java,indent=0]
 ----
 // BAD USAGE: DON'T DO THIS ! Comparator is not used
 assertThat(actual).isEqualTo(expected).usingComparator(new CustomComparator());
+----
 
+[.good]#Good#
+[source,java,indent=0]
+----
 // DO THIS:
 assertThat(actual).usingComparator(new CustomComparator()).isEqualTo("a");
 ----
 
 
-[[assertj-core-basic-assertions]]
-=== Basic assertions
+[[assertj-core-common-assertions]]
+=== Common assertions
 
 TODO
 
@@ -227,7 +262,7 @@ TODO
 [[assertj-samples]]
 == AssertJ Sample Projects
 
-The https://github.com/joel-costigliola/assertj-examples/tree/master/assertions-examples[assertions-examples] hosts executable AssertJ assertions examples that you can run as JUnit tests. Please have a look at assertions https://github.com/joel-costigliola/assertj-examples/tree/master/assertions-examples/src/test/java/org/assertj/examples[examples sources].
+The https://github.com/joel-costigliola/assertj-examples/tree/master/assertions-examples[assertions-examples] repository hosts executable AssertJ assertions examples that you can run as JUnit tests. Please have a look at assertions https://github.com/joel-costigliola/assertj-examples/tree/master/assertions-examples/src/test/java/org/assertj/examples[examples sources].
 
 The `master` branch contains examples with the latest released version of AssertJ modules for Java 8, similarly the `java-7` branch contains examples of AssertJ modules for Java 7. You should be able to build those two branches with `mvn clean install` command.
 
