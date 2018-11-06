@@ -119,7 +119,7 @@ a| Atomic updater types:
 
 It is often valuable to describe the assertion performed, especially for boolean assertions where the default error message just complains that it got `false` instead of `true` (or vice versa).
 
-You can set such a description with `as(String description, Object... args)` but remember to do it before calling the assertion otherwise it is simply ignored as a failing assertion breaks the following chained calls.
+You can set such a description with `as(String description, Object... args)` but remember to do it before calling the assertion otherwise it is simply ignored as a failing assertion breaks the chained calls.
 
 Example of a failing assertion with a description:
 [source,java,indent=0]
@@ -239,6 +239,117 @@ assertThat(actual).isEqualTo(expected).usingComparator(new CustomComparator());
 ----
 // DO THIS:
 assertThat(actual).usingComparator(new CustomComparator()).isEqualTo("a");
+----
+
+[[assertj-core-representation]]
+=== Controlling type formatting
+
+Assertions error messages use a `Representation` to format the different types involved. There are multiple ways of registering a custom `Representation` for assertions:
+
+* Registering a default global `Representation` via a Service Provider Interface (SPI) - see <<Registering a default global scope custom representation>> for details.
+* Changing the default global `Representation` by calling `Assertions.useRepresentation(myRepresentation)` - see <<Changing the default global scope custom representation>>
+* Changing the `Representation` per assertion with `assertThat(actual).withRepresentation(myRepresentation)` - see <<Per assertion scope custom representation>>
+
+The advantage of registering a service is that you don't need any programmatic call, AssertJ will pick it up and use it as the default `Representation`.
+
+Let's go over these different options with a custom `Representation`.
+
+[[assertj-core-custom-representation]]
+==== Creating a custom Representation
+
+An example of a custom `Representation`:
+[source,java,indent=0]
+----
+// dummy class
+private class Example {} 
+
+public class CustomRepresentation extends StandardRepresentation { // <1>
+
+  // override fallbackToStringOf to handle Example formatting
+  @Override
+  public String fallbackToStringOf(Object o) { // <2> 
+    if (o instanceof Example) return "Example";
+    // fallback to default formatting.
+    return super.fallbackToStringOf(o);
+  }
+
+  // override a predefined type formatting : String
+  @Override
+  protected String toStringOf(String str) { // <3>
+    return "$" + str + "$";
+  }
+}
+----
+<1> Extends `org.assertj.core.presentation.StandardRepresentation` to get AssertJ default representation.
+<2> Override `fallbackToStringOf` and handle your specific types before falling back to the default formatting.
+<3> Change a predefined type formatting by overridding the `toStringOf` method that takes it as a parameter.
+
+Let's see the above custom representation in action when representing `Example` or `String` instances.
+
+This assertion fails ...
+[source,java,indent=0]
+----
+assertThat(new Example()).isNull();
+----
+...with the following error:
+[source,java,indent=0]
+----
+expected:<[null]> but was:<[Example]>
+----
+
+This one fails ...
+[source,java,indent=0]
+----
+// this one fails ...
+assertThat("foo").startsWith("bar");
+----
+...with the following error:
+[source,java,indent=0]
+----
+Expecting:
+  <$foo$>
+to start with:
+  <$bar$>
+----
+
+[[assertj-core-custom-representation-default-global-scope]]
+==== Registering a default global scope custom representation
+
+You will need to register your `Representation` as an SPI. You need to do the following for that:
+
+* Create a file named `org.assertj.core.presentation.Representation` in the `META-INF/services` directory
+* Put the fully qualified class name of your `Representation` in it
+* Make sure `META-INF/services/org.assertj.core.presentation.Representation` is in the runtime classpath, usually putting it in `src/test/resources` is enough
+
+This all you have to do as AssertJ will pick up the `Representation` automatically.
+
+[[assertj-core-custom-representation-global-scope-change]]
+==== Changing the default global scope custom representation
+
+You only have to register `CustomRepresentation` once but need to do it before executing any tests, for the tests executed before that, AssertJ will use the default representation.
+
+[source,java,indent=0]
+----
+// to call before executing tests
+Assertions.useRepresentation(new CustomRepresentation());
+----
+
+[[assertj-core-custom-representation-per-assertion-scope]]
+==== Per assertion scope custom representation
+
+Follow this approach if you want to use a specific representation for a single assertion only.
+
+Example with the failing assertions used before:
+[source,java,indent=0]
+----
+Representation customRepresentation = new CustomRepresentation();
+
+// this assertion fails ...
+assertThat(new Example()).withRepresentation(customRepresentation)
+                         .isNull();
+
+assertThat("foo").withRepresentation(customRepresentation)
+                 .startsWith("bar");                         
 ----
 
 
