@@ -2395,9 +2395,10 @@ p {
 <li><a href="#assertj-core-supported-types">3.2. Supported type assertions</a></li>
 <li><a href="#assertj-core-assertion-description">3.3. Assertion description</a></li>
 <li><a href="#assertj-core-incorrect-usage">3.4. Avoiding incorrect usage</a></li>
-<li><a href="#assertj-core-common-assertions">3.5. Common assertions</a></li>
-<li><a href="#assertj-core-iterable-assertions">3.6. Iterable/Collection assertions</a></li>
-<li><a href="#assertj-core-assumptions">3.7. Assumptions</a></li>
+<li><a href="#assertj-core-representation">3.5. Controlling type formatting</a></li>
+<li><a href="#assertj-core-common-assertions">3.6. Common assertions</a></li>
+<li><a href="#assertj-core-iterable-assertions">3.7. Iterable/Collection assertions</a></li>
+<li><a href="#assertj-core-assumptions">3.8. Assumptions</a></li>
 </ul>
 </li>
 <li><a href="#assertj-samples">4. AssertJ Sample Projects</a></li>
@@ -2910,7 +2911,7 @@ public class SimpleAssertionsExample {
 <p>It is often valuable to describe the assertion performed, especially for boolean assertions where the default error message just complains that it got <code>false</code> instead of <code>true</code> (or vice versa).</p>
 </div>
 <div class="paragraph">
-<p>You can set such a description with <code>as(String description, Object&#8230;&#8203; args)</code> but remember to do it before calling the assertion otherwise it is simply ignored as a failing assertion breaks the following chained calls.</p>
+<p>You can set such a description with <code>as(String description, Object&#8230;&#8203; args)</code> but remember to do it before calling the assertion otherwise it is simply ignored as a failing assertion breaks the chained calls.</p>
 </div>
 <div class="paragraph">
 <p>Example of a failing assertion with a description:</p>
@@ -3067,19 +3068,183 @@ assertThat(actual).usingComparator(new CustomComparator()).isEqualTo("a");</code
 </div>
 </div>
 <div class="sect2">
-<h3 id="assertj-core-common-assertions"><a class="anchor" href="#assertj-core-common-assertions"></a>3.5. Common assertions</h3>
+<h3 id="assertj-core-representation"><a class="anchor" href="#assertj-core-representation"></a>3.5. Controlling type formatting</h3>
+<div class="paragraph">
+<p>Assertions error messages use a <code>Representation</code> to format the different types involved. There are multiple ways of registering a custom <code>Representation</code> for assertions:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Registering a default global <code>Representation</code> via a Service Provider Interface (SPI) - see <a href="#assertj-core-custom-representation-default-global-scope">Registering a default global scope custom representation</a> for details.</p>
+</li>
+<li>
+<p>Changing the default global <code>Representation</code> by calling <code>Assertions.useRepresentation(myRepresentation)</code> - see <a href="#assertj-core-custom-representation-global-scope-change">Changing the default global scope custom representation</a></p>
+</li>
+<li>
+<p>Changing the <code>Representation</code> per assertion with <code>assertThat(actual).withRepresentation(myRepresentation)</code> - see <a href="#assertj-core-custom-representation-per-assertion-scope">Per assertion scope custom representation</a></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The advantage of registering a service is that you don&#8217;t need any programmatic call, AssertJ will pick it up and use it as the default <code>Representation</code>.</p>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s go over these different options with a custom <code>Representation</code>.</p>
+</div>
+<div class="sect3">
+<h4 id="assertj-core-custom-representation"><a class="anchor" href="#assertj-core-custom-representation"></a>3.5.1. Creating a custom Representation</h4>
+<div class="paragraph">
+<p>An example of a custom <code>Representation</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">// dummy class
+private class Example {}
+
+public class CustomRepresentation extends StandardRepresentation { <i class="conum" data-value="1"></i><b>(1)</b>
+
+  // override fallbackToStringOf to handle Example formatting
+  @Override
+  public String fallbackToStringOf(Object o) { <i class="conum" data-value="2"></i><b>(2)</b>
+    if (o instanceof Example) return "Example";
+    // fallback to default formatting.
+    return super.fallbackToStringOf(o);
+  }
+
+  // override a predefined type formatting : String
+  @Override
+  protected String toStringOf(String str) { <i class="conum" data-value="3"></i><b>(3)</b>
+    return "$" + str + "$";
+  }
+}</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Extends <code>org.assertj.core.presentation.StandardRepresentation</code> to get AssertJ default representation.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Override <code>fallbackToStringOf</code> and handle your specific types before falling back to the default formatting.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Change a predefined type formatting by overridding the <code>toStringOf</code> method that takes it as a parameter.</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s see the above custom representation in action when representing <code>Example</code> or <code>String</code> instances.</p>
+</div>
+<div class="paragraph">
+<p>This assertion fails &#8230;&#8203;</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">assertThat(new Example()).isNull();</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>&#8230;&#8203;with the following error:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">expected:&lt;[null]&gt; but was:&lt;[Example]&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This one fails &#8230;&#8203;</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">// this one fails ...
+assertThat("foo").startsWith("bar");</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>&#8230;&#8203;with the following error:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">Expecting:
+  &lt;$foo$&gt;
+to start with:
+  &lt;$bar$&gt;</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="assertj-core-custom-representation-default-global-scope"><a class="anchor" href="#assertj-core-custom-representation-default-global-scope"></a>3.5.2. Registering a default global scope custom representation</h4>
+<div class="paragraph">
+<p>You will need to register your <code>Representation</code> as an SPI. You need to do the following for that:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Create a file named <code>org.assertj.core.presentation.Representation</code> in the <code>META-INF/services</code> directory</p>
+</li>
+<li>
+<p>Put the fully qualified class name of your <code>Representation</code> in it</p>
+</li>
+<li>
+<p>Make sure <code>META-INF/services/org.assertj.core.presentation.Representation</code> is in the runtime classpath, usually putting it in <code>src/test/resources</code> is enough</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>This all you have to do as AssertJ will pick up the <code>Representation</code> automatically.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="assertj-core-custom-representation-global-scope-change"><a class="anchor" href="#assertj-core-custom-representation-global-scope-change"></a>3.5.3. Changing the default global scope custom representation</h4>
+<div class="paragraph">
+<p>You only have to register <code>CustomRepresentation</code> once but need to do it before executing any tests, for the tests executed before that, AssertJ will use the default representation.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">// to call before executing tests
+Assertions.useRepresentation(new CustomRepresentation());</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="assertj-core-custom-representation-per-assertion-scope"><a class="anchor" href="#assertj-core-custom-representation-per-assertion-scope"></a>3.5.4. Per assertion scope custom representation</h4>
+<div class="paragraph">
+<p>Follow this approach if you want to use a specific representation for a single assertion only.</p>
+</div>
+<div class="paragraph">
+<p>Example with the failing assertions used before:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">Representation customRepresentation = new CustomRepresentation();
+
+// this assertion fails ...
+assertThat(new Example()).withRepresentation(customRepresentation)
+                         .isNull();
+
+assertThat("foo").withRepresentation(customRepresentation)
+                 .startsWith("bar");</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="assertj-core-common-assertions"><a class="anchor" href="#assertj-core-common-assertions"></a>3.6. Common assertions</h3>
 <div class="paragraph">
 <p>TODO</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="assertj-core-iterable-assertions"><a class="anchor" href="#assertj-core-iterable-assertions"></a>3.6. Iterable/Collection assertions</h3>
+<h3 id="assertj-core-iterable-assertions"><a class="anchor" href="#assertj-core-iterable-assertions"></a>3.7. Iterable/Collection assertions</h3>
 <div class="paragraph">
 <p>TODO</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="assertj-core-assumptions"><a class="anchor" href="#assertj-core-assumptions"></a>3.7. Assumptions</h3>
+<h3 id="assertj-core-assumptions"><a class="anchor" href="#assertj-core-assumptions"></a>3.8. Assumptions</h3>
 <div class="paragraph">
 <p>All AssertJ assumptions are static methods in the <code>Assumptions</code> class.</p>
 </div>
