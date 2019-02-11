@@ -24,4 +24,95 @@ include::contributors.adoc[]
 [[release-notes]]
 == Release Notes
 
-The release notes are available http://joel-costigliola.github.io/assertj/assertj-news.html[here].
+=== AssertJ Core
+
+==== AssertJ Core 3.12.0 Release notes
+
+TODO examples goes to the guide
+
+Release date : 2019-02-1?
+
+Big thanks for all the contributors to this release:
+
+- Pascal Schumacher
+- Erhard Pointl
+- Stephan Windmüller
+- Roland Weisleder
+- Lars Hvile
+- Valeriy Vyrva
+- Günther Grill
+- Fr Jeremy Krieg
+- Drummond Dawson
+- Thomas Weißschuh
+- Alexandre Dutra
+
+===== Breaking changes
+
+- Add extracting(Function) to Object assertion that returns one value instead of a singleton list.
+- Favor throwing org.opentest4j.MultipleFailuresError over SoftAssertionError when soft assertions fails.
+
+===== New features
+
+- Add containsWhitespaces() to String/CharSequence assertions. (Stephan Windmüller)
+- Add doesNotContainAnyWhitespaces() to String/CharSequence assertions. (Stephan Windmüller)
+- Add JUnit 5 extensions for soft assertions. (Roland Weisleder)
+- Add hasContent(String) to InputStream assertions. (Stephan Windmüller)
+- Add hasDigest to Path/File/InputStream assertions. (Valeriy Vyrva)
+- Add isLessThan,isLessThanOrEqualTo,isGreaterThan and isGreaterThanOrEqualTo to String assertions.
+- Add isBetween and isStrictlyBetween to String assertions.
+- Add satisfies(Condition) base assertion.
+- Add filteredOnAssertions(Consumer) to Iterable assertions.
+
+===== Improvements
+
+- Clarify how Stream assertions are lazy initialized into List assertions.
+- Improve satisfies list assertion javadoc.
+- hasMessage fails with an AssertionFailedError allowing to compare actual and expected messages visually in IDEs.
+- Improve error message of Iterable allSatisfy assertion.
+- Make AssertJ compatible with Java 11. (Erhard Pointl)
+- Improve normalizeWhitespace and removeAllWhitespaces performance. (Pascal Schumacher)
+- A lot of internal improvements by Pascal Schumacher !
+- Javadoc improvements. (Pascal Schumacher)
+- allows fail() to be used where the java compiler expects a value like Optional.orElseGet(). (Thomas Weißschuh)
+- Better disambiguation of objects with the same toString() representation in error message. (Alexandre Dutra)
+
+===== Fixed
+
+- Fix if-else logic in PredicateAssert. (Lars Hvile)
+- Fix ClassCastException on SortedSet assertions when chained after extracting.
+- Fix missing OSGI Import-Package.
+- Fix isToday error message that inverted actual and expected dates. (Pascal Schumacher)
+- Remove spurious @CheckReturnValue from assertThatThrownBy/thenThrownBy. (Pascal Schumacher)
+- Fix parameter names in isStrictlyBetween that used the word inclusive instead of exclusive. (Günther Grill)
+- Fix missing OSGi Import-Package for dynamically loaded classes. (Fr Jeremy Krieg)
+- Fix compilation error containsAnyElementsOf by using bounded wildcard parameter. (Drummond Dawson)
+
+===== Details
+
+[source,java,indent=0]
+----
+// dummy class
+private class Example {}
+
+public class CustomRepresentation extends StandardRepresentation { // <1>
+
+  // override fallbackToStringOf to handle Example formatting
+  @Override
+  public String fallbackToStringOf(Object o) { // <2>
+    if (o instanceof Example) return "Example";
+    // fallback to default formatting.
+    return super.fallbackToStringOf(o);
+  }
+
+  // override a predefined type formatting : String
+  @Override
+  protected String toStringOf(String str) { // <3>
+    return "$" + str + "$";
+  }
+}
+----
+<1> Extends `org.assertj.core.presentation.StandardRepresentation` to get AssertJ default representation.
+<2> Override `fallbackToStringOf` and handle your specific types before falling back to the default formatting.
+<3> Change a predefined type formatting by overridding the `toStringOf` method that takes it as a parameter.
+
+The older release notes are available http://joel-costigliola.github.io/assertj/assertj-news.html[here].
