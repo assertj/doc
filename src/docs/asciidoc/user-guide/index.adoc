@@ -28,64 +28,96 @@ include::contributors.adoc[]
 
 ==== AssertJ Core 3.12.0 Release notes
 
-TODO examples goes to the guide
+Release date : 2019-02-14
 
-Release date : 2019-02-1?
+The main feature of this release is a beta version of the new Recursive comparison API!
+It covers what `isEqualToComparingFieldByFieldRecursively` used but easier to use and with more capabilities.
+
+It is a Beta version because we want to have feedback from the community to make it even better before freezing the API.
+There are more capabilities to come in the next releases, stay tuned!
+
+===== Contributors
 
 Big thanks for all the contributors to this release:
 
 - Pascal Schumacher
 - Erhard Pointl
+- Vladimir Chernikov
+- Sandra Parsick
+- Martin Tarjanyi
 - Stephan Windmüller
-- Roland Weisleder
-- Lars Hvile
-- Valeriy Vyrva
-- Günther Grill
-- Fr Jeremy Krieg
-- Drummond Dawson
-- Thomas Weißschuh
-- Alexandre Dutra
+- Yaroslav Mitsynskiy
+- Thomas Traude
+- Georg Berky
+- Tomek Kaczanowski
+- Lukáš Křečan
+- Yoann Rodière
+- Filip Hrisafov
+- Steven Schlansker
+- Jeremy Landis
+- Jack Gough
+- Sebastian Kempken
+- Stefan Mandel
+- Alexandre de Champeaux
+- Arvid Heise
+- Jeff Walker
+- epeee
+- Dmitrii Priporov
+- Joshua Kitchen
 
 ===== Breaking changes
 
-- Add extracting(Function) to Object assertion that returns one value instead of a singleton list.
-- Favor throwing org.opentest4j.MultipleFailuresError over SoftAssertionError when soft assertions fails.
+- Introduce first class `Iterator` assertions without removing previous supported assertions that were for `Iterable` (Stephan Windmüller).
 
 ===== New features
 
-- Add containsWhitespaces() to String/CharSequence assertions. (Stephan Windmüller)
-- Add doesNotContainAnyWhitespaces() to String/CharSequence assertions. (Stephan Windmüller)
-- Add JUnit 5 extensions for soft assertions. (Roland Weisleder)
-- Add hasContent(String) to InputStream assertions. (Stephan Windmüller)
-- Add hasDigest to Path/File/InputStream assertions. (Valeriy Vyrva)
-- Add isLessThan,isLessThanOrEqualTo,isGreaterThan and isGreaterThanOrEqualTo to String assertions.
-- Add isBetween and isStrictlyBetween to String assertions.
-- Add satisfies(Condition) base assertion.
-- Add filteredOnAssertions(Consumer) to Iterable assertions.
+- New Recursive comparison API! (Beta version)
+- Add `satisfiesAnyOf` base assertion. TODO document
+- Add `isAbstract` to `Class` assertions. (epeee)
+- Add `hasValueCloseTo(percentage)` to `OptionalDouble` assertion. (Joshua Kitchen)
+- Add `hasOnlyOneElementSatisfying(Consumer)` to `AtomicReferenceArray` assertions. (Vladimir Chernikov)
+- Add `hasAllNullFieldsOrProperties` and `hasAllNullFieldsOrPropertiesExcept`. (Vladimir Chernikov)
+- Add `hasSizeGreaterThan`, `hasSizeLessThanOrEqualTo`, `hasSizeGreaterThanOrEqualTo` and `hasSizeGreaterThan` to `CharSequence` and `String` assertions. (Sandra Parsick)
+- Add `hasSizeGreaterThan`, `hasSizeLessThanOrEqualTo`, `hasSizeGreaterThanOrEqualTo`, `hasSizeGreaterThan` and `hasSizeBetween` to object and primitives array, `Iterable` and `Map`. (Martin Tarjanyi)
+- Add `hasSizeBetween` to `CharSequence` and `String` assertions. (Martin Tarjanyi)
+- Add `noneSatisfy(BiConsumer)` to `Map` assertions. (epeee)
+- Add `containsExactlyEntriesOf` assertion to check that a `Map` contains exactly all entries of another `Map`. (Filip Hrisafov)
+- Add `containsOnlyKeys(Iterable keys)` to `Map` assertion. (Sebastian Kempken)
+- Add `anySatifies(BiConsumer)` to `Map` assertion. (Stefan Mandel)
+- Add `hasMessageNotContaining` to `Throwable` assertions. (Georg Berky and Sandra Parsick)
+- Add `shouldHaveRootCause` to `Throwable` assertions to check the content of a root cause. (Jack Gough)
+- Add `isEqualTo(String string, Objects... param)` to `String` assertion. (Dmitrii Priporov)
+- Add `assertThatObject`/`thenObject` to force Object assertion. (Arvid Heise)
+- Add JUnit5 to AssertJ assertions migration script for osx. (Tomek Kaczanowski)
 
 ===== Improvements
 
-- Clarify how Stream assertions are lazy initialized into List assertions.
-- Improve satisfies list assertion javadoc.
-- hasMessage fails with an AssertionFailedError allowing to compare actual and expected messages visually in IDEs.
-- Improve error message of Iterable allSatisfy assertion.
-- Make AssertJ compatible with Java 11. (Erhard Pointl)
-- Improve normalizeWhitespace and removeAllWhitespaces performance. (Pascal Schumacher)
-- A lot of internal improvements by Pascal Schumacher !
-- Javadoc improvements. (Pascal Schumacher)
-- allows fail() to be used where the java compiler expects a value like Optional.orElseGet(). (Thomas Weißschuh)
-- Better disambiguation of objects with the same toString() representation in error message. (Alexandre Dutra)
+- Add stack trace of original exception to `catchThrowableOfType`. (Sam Smyth)
+- `anySatisfy` nad `noneSatisfy` now reports all failing elements. (epeee)
+- `ElementsShouldSatisfy` now uses the configured `Representation` to format objects.
+- `ZipSatisfyError` now uses the configured `Representation` to format objects. (Jeff Walker)
+- AssertJ `Double` and `Float` comparators now support `Infinity`. (Alexandre de Champeaux)
+- Throw `AssertionFailedError` instead of `AssertionError` in some `String` assertions to allow IDEs to show `actual` vs `expected` visual differences. (Yaroslav Mitsynskiy)
+- `Optional` `hasValue`/`contains` assertions throws `AssertionFailedError` to allow IDEs to show `actual` vs `expected` visual differences.
+- Annotate `Assertions` and `Assumptions` classes with `@CheckReturnValue` and annotate methods to exclude from checking with `@CanIgnoreReturnValue`. (Pascal Schumacher)
+- The error message of `allSatisfy(BiConsumer)` `Map` assertion now reports all failing entries instead of the first one. (Stefan Mandel)
+- Add missing `@Since` annotations. (Erhard Pointl)
+- Get rid of `Arguments` usage when possible in unit tests. (Erhard Pointl)
+- Unit tests code cleanup and better use of JUnit 5. (Erhard Pointl, Pascal Schumacher and Jack Gough)
+- Update to JUnit 5.4.0. (Erhard Pointl)
+- Update to opentest4j to 1.1.1. (Erhard Pointl)
+- Update to Byte Buddy 1.9.10. (Pascal Schumacher)
+- Update Maven version to and the Maven wrapper. (Thomas Traude, Jeremy Landis)
+- Do not proxy `useComparator` method in soft assertions. (Lukáš Křečan)
+- Fix an NPE in `ObjectArrays#assertHasOnlyElementsOfType`. (Yoann Rodière)
+- Deprecate `Extractor` in favor of `java.util.function.Function`. (Filip Hrisafov)
+- Add configurable support for bare-named property introsoection. (Steven Schlansker) TODO document
 
 ===== Fixed
 
-- Fix if-else logic in PredicateAssert. (Lars Hvile)
-- Fix ClassCastException on SortedSet assertions when chained after extracting.
-- Fix missing OSGI Import-Package.
-- Fix isToday error message that inverted actual and expected dates. (Pascal Schumacher)
-- Remove spurious @CheckReturnValue from assertThatThrownBy/thenThrownBy. (Pascal Schumacher)
-- Fix parameter names in isStrictlyBetween that used the word inclusive instead of exclusive. (Günther Grill)
-- Fix missing OSGi Import-Package for dynamically loaded classes. (Fr Jeremy Krieg)
-- Fix compilation error containsAnyElementsOf by using bounded wildcard parameter. (Drummond Dawson)
+- Use `@CanIgnoreReturnValue` on `Assertions` `fail*` methods to revert the effect of the default `@CheckReturnValue` annotation. (Erhard Pointl)
+- Fix `ElementsShouldSatisfy` that failed to handle objects whose string representation contained `%`.
+- Fix `ElementsShouldZipSatisfy` that failed to handle objects whose string representation contained `%`. (Arvid Heise)
 
 ===== Details
 
