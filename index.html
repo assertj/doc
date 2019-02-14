@@ -465,6 +465,10 @@ h5 {
   font-size: 1.125em
 }
 
+h5 {
+  text-decoration: underline
+}
+
 h6 {
   font-size: 1em
 }
@@ -2364,6 +2368,7 @@ p {
   font-size: larger;
   font-weight: bold
 }
+
 </style>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
@@ -2403,7 +2408,11 @@ p {
 </li>
 <li><a href="#assertj-samples">4. AssertJ Sample Projects</a></li>
 <li><a href="#contributors">5. Contributors</a></li>
-<li><a href="#release-notes">6. Release Notes</a></li>
+<li><a href="#release-notes">6. Release Notes</a>
+<ul class="sectlevel2">
+<li><a href="#assertj-core">6.1. AssertJ Core</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
@@ -2489,7 +2498,7 @@ programmers writing tests assertions with AssertJ.</p>
   &lt;groupId&gt;org.assertj&lt;/groupId&gt;
   &lt;artifactId&gt;assertj-core&lt;/artifactId&gt;
   &lt;!-- use 2.9.1 for Java 7 projects --&gt;
-  &lt;version&gt;3.11.0&lt;/version&gt;
+  &lt;version&gt;3.12.0&lt;/version&gt;
   &lt;scope&gt;test&lt;/scope&gt;
 &lt;/dependency&gt;</code></pre>
 </div>
@@ -2502,7 +2511,7 @@ programmers writing tests assertions with AssertJ.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">testCompile("org.assertj:assertj-core:3.11.0")</code></pre>
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">testCompile("org.assertj:assertj-core:3.12.0")</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2517,7 +2526,7 @@ programmers writing tests assertions with AssertJ.</p>
 <div class="sect3">
 <h4 id="other-dependency-management-tool"><a class="anchor" href="#other-dependency-management-tool"></a>2.1.4. Other dependency management tool</h4>
 <div class="paragraph">
-<p>Check this page to find the relevant <a href="https://search.maven.org/artifact/org.assertj/assertj-core/3.11.0/bundle">assertj core dependency declaration</a>.</p>
+<p>Check this page to find the relevant <a href="https://search.maven.org/artifact/org.assertj/assertj-core/3.12.0/bundle">assertj core dependency declaration</a>.</p>
 </div>
 </div>
 </div>
@@ -3295,8 +3304,230 @@ assertThat("foo").withRepresentation(customRepresentation)
 <div class="sect1">
 <h2 id="release-notes"><a class="anchor" href="#release-notes"></a>6. Release Notes</h2>
 <div class="sectionbody">
+<div class="sect2">
+<h3 id="assertj-core"><a class="anchor" href="#assertj-core"></a>6.1. AssertJ Core</h3>
+<div class="sect3">
+<h4 id="assertj-core-3-12-0-release-notes"><a class="anchor" href="#assertj-core-3-12-0-release-notes"></a>6.1.1. AssertJ Core 3.12.0 Release notes</h4>
 <div class="paragraph">
-<p>The release notes are available <a href="http://joel-costigliola.github.io/assertj/assertj-news.html">here</a>.</p>
+<p>Release date : 2019-02-14</p>
+</div>
+<div class="paragraph">
+<p>The main feature of this release is a beta version of the new Recursive comparison API!
+It covers what <code>isEqualToComparingFieldByFieldRecursively</code> used but easier to use and with more capabilities.</p>
+</div>
+<div class="paragraph">
+<p>It is a Beta version because we want to have feedback from the community to make it even better before freezing the API.
+There are more capabilities to come in the next releases, stay tuned!</p>
+</div>
+<div class="sect4">
+<h5 id="contributors-2"><a class="anchor" href="#contributors-2"></a>Contributors</h5>
+<div class="paragraph">
+<p>Big thanks for all the contributors to this release:</p>
+</div>
+<div class="paragraph">
+<p>Pascal Schumacher, Erhard Pointl, Vladimir Chernikov, Sandra Parsick, Martin Tarjanyi, Stephan Windmüller, Yaroslav Mitsynskiy, Thomas Traude, Georg Berky, Tomek Kaczanowski, Lukáš Křečan, Yoann Rodière, Filip Hrisafov, Steven Schlansker, Jeremy Landis, Jack Gough, Sebastian Kempken, Stefan Mandel, Alexandre de Champeaux, Arvid Heise, Jeff Walker, epeee, Dmitrii Priporov and Joshua Kitchen.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="breaking-changes"><a class="anchor" href="#breaking-changes"></a>Breaking changes</h5>
+<div class="ulist">
+<ul>
+<li>
+<p>Introduce first class <code>Iterator</code> assertions without removing previous supported assertions that were for <code>Iterable</code> (Stephan Windmüller).</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="new-features"><a class="anchor" href="#new-features"></a>New features</h5>
+<div class="ulist">
+<ul>
+<li>
+<p>New Recursive comparison API! (Beta version)</p>
+</li>
+<li>
+<p>Add <code>satisfiesAnyOf</code> base assertion. TODO document</p>
+</li>
+<li>
+<p>Add <code>isAbstract</code> to <code>Class</code> assertions. (epeee)</p>
+</li>
+<li>
+<p>Add <code>hasValueCloseTo(percentage)</code> to <code>OptionalDouble</code> assertion. (Joshua Kitchen)</p>
+</li>
+<li>
+<p>Add <code>hasOnlyOneElementSatisfying(Consumer)</code> to <code>AtomicReferenceArray</code> assertions. (Vladimir Chernikov)</p>
+</li>
+<li>
+<p>Add <code>hasAllNullFieldsOrProperties</code> and <code>hasAllNullFieldsOrPropertiesExcept</code>. (Vladimir Chernikov)</p>
+</li>
+<li>
+<p>Add <code>hasSizeGreaterThan</code>, <code>hasSizeLessThanOrEqualTo</code>, <code>hasSizeGreaterThanOrEqualTo</code> and <code>hasSizeGreaterThan</code> to <code>CharSequence</code> and <code>String</code> assertions. (Sandra Parsick)</p>
+</li>
+<li>
+<p>Add <code>hasSizeGreaterThan</code>, <code>hasSizeLessThanOrEqualTo</code>, <code>hasSizeGreaterThanOrEqualTo</code>, <code>hasSizeGreaterThan</code> and <code>hasSizeBetween</code> to object and primitives array, <code>Iterable</code> and <code>Map</code>. (Martin Tarjanyi)</p>
+</li>
+<li>
+<p>Add <code>hasSizeBetween</code> to <code>CharSequence</code> and <code>String</code> assertions. (Martin Tarjanyi)</p>
+</li>
+<li>
+<p>Add <code>noneSatisfy(BiConsumer)</code> to <code>Map</code> assertions. (epeee)</p>
+</li>
+<li>
+<p>Add <code>containsExactlyEntriesOf</code> assertion to check that a <code>Map</code> contains exactly all entries of another <code>Map</code>. (Filip Hrisafov)</p>
+</li>
+<li>
+<p>Add <code>containsOnlyKeys(Iterable keys)</code> to <code>Map</code> assertion. (Sebastian Kempken)</p>
+</li>
+<li>
+<p>Add <code>anySatifies(BiConsumer)</code> to <code>Map</code> assertion. (Stefan Mandel)</p>
+</li>
+<li>
+<p>Add <code>hasMessageNotContaining</code> to <code>Throwable</code> assertions. (Georg Berky and Sandra Parsick)</p>
+</li>
+<li>
+<p>Add <code>shouldHaveRootCause</code> to <code>Throwable</code> assertions to check the content of a root cause. (Jack Gough)</p>
+</li>
+<li>
+<p>Add <code>isEqualTo(String string, Objects&#8230;&#8203; param)</code> to <code>String</code> assertion. (Dmitrii Priporov)</p>
+</li>
+<li>
+<p>Add <code>assertThatObject</code>/<code>thenObject</code> to force Object assertion. (Arvid Heise)</p>
+</li>
+<li>
+<p>Add JUnit5 to AssertJ assertions migration script for osx. (Tomek Kaczanowski)</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="improvements"><a class="anchor" href="#improvements"></a>Improvements</h5>
+<div class="ulist">
+<ul>
+<li>
+<p>Add stack trace of original exception to <code>catchThrowableOfType</code>. (Sam Smyth)</p>
+</li>
+<li>
+<p><code>anySatisfy</code> nad <code>noneSatisfy</code> now reports all failing elements. (epeee)</p>
+</li>
+<li>
+<p><code>ElementsShouldSatisfy</code> now uses the configured <code>Representation</code> to format objects.</p>
+</li>
+<li>
+<p><code>ZipSatisfyError</code> now uses the configured <code>Representation</code> to format objects. (Jeff Walker)</p>
+</li>
+<li>
+<p>AssertJ <code>Double</code> and <code>Float</code> comparators now support <code>Infinity</code>. (Alexandre de Champeaux)</p>
+</li>
+<li>
+<p>Throw <code>AssertionFailedError</code> instead of <code>AssertionError</code> in some <code>String</code> assertions to allow IDEs to show <code>actual</code> vs <code>expected</code> visual differences. (Yaroslav Mitsynskiy)</p>
+</li>
+<li>
+<p><code>Optional</code> <code>hasValue</code>/<code>contains</code> assertions throws <code>AssertionFailedError</code> to allow IDEs to show <code>actual</code> vs <code>expected</code> visual differences.</p>
+</li>
+<li>
+<p>Annotate <code>Assertions</code> and <code>Assumptions</code> classes with <code>@CheckReturnValue</code> and annotate methods to exclude from checking with <code>@CanIgnoreReturnValue</code>. (Pascal Schumacher)</p>
+</li>
+<li>
+<p>The error message of <code>allSatisfy(BiConsumer)</code> <code>Map</code> assertion now reports all failing entries instead of the first one. (Stefan Mandel)</p>
+</li>
+<li>
+<p>Add missing <code>@Since</code> annotations. (Erhard Pointl)</p>
+</li>
+<li>
+<p>Get rid of <code>Arguments</code> usage when possible in unit tests. (Erhard Pointl)</p>
+</li>
+<li>
+<p>Unit tests code cleanup and better use of JUnit 5. (Erhard Pointl, Pascal Schumacher and Jack Gough)</p>
+</li>
+<li>
+<p>Update to JUnit 5.4.0. (Erhard Pointl)</p>
+</li>
+<li>
+<p>Update to opentest4j to 1.1.1. (Erhard Pointl)</p>
+</li>
+<li>
+<p>Update to Byte Buddy 1.9.10. (Pascal Schumacher)</p>
+</li>
+<li>
+<p>Update Maven version to and the Maven wrapper. (Thomas Traude, Jeremy Landis)</p>
+</li>
+<li>
+<p>Do not proxy <code>useComparator</code> method in soft assertions. (Lukáš Křečan)</p>
+</li>
+<li>
+<p>Fix an NPE in <code>ObjectArrays#assertHasOnlyElementsOfType</code>. (Yoann Rodière)</p>
+</li>
+<li>
+<p>Deprecate <code>Extractor</code> in favor of <code>java.util.function.Function</code>. (Filip Hrisafov)</p>
+</li>
+<li>
+<p>Add configurable support for bare-named property introsoection. (Steven Schlansker) TODO document</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="fixed"><a class="anchor" href="#fixed"></a>Fixed</h5>
+<div class="ulist">
+<ul>
+<li>
+<p>Use <code>@CanIgnoreReturnValue</code> on <code>Assertions</code> <code>fail*</code> methods to revert the effect of the default <code>@CheckReturnValue</code> annotation. (Erhard Pointl)</p>
+</li>
+<li>
+<p>Fix <code>ElementsShouldSatisfy</code> that failed to handle objects whose string representation contained <code>%</code>.</p>
+</li>
+<li>
+<p>Fix <code>ElementsShouldZipSatisfy</code> that failed to handle objects whose string representation contained <code>%</code>. (Arvid Heise)</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="details"><a class="anchor" href="#details"></a>Details</h5>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">// dummy class
+private class Example {}
+
+public class CustomRepresentation extends StandardRepresentation { <i class="conum" data-value="1"></i><b>(1)</b>
+
+  // override fallbackToStringOf to handle Example formatting
+  @Override
+  public String fallbackToStringOf(Object o) { <i class="conum" data-value="2"></i><b>(2)</b>
+    if (o instanceof Example) return "Example";
+    // fallback to default formatting.
+    return super.fallbackToStringOf(o);
+  }
+
+  // override a predefined type formatting : String
+  @Override
+  protected String toStringOf(String str) { <i class="conum" data-value="3"></i><b>(3)</b>
+    return "$" + str + "$";
+  }
+}</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Extends <code>org.assertj.core.presentation.StandardRepresentation</code> to get AssertJ default representation.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Override <code>fallbackToStringOf</code> and handle your specific types before falling back to the default formatting.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Change a predefined type formatting by overridding the <code>toStringOf</code> method that takes it as a parameter.</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The older release notes are available <a href="http://joel-costigliola.github.io/assertj/assertj-news.html">here</a>.</p>
+</div>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -3304,7 +3535,7 @@ assertThat("foo").withRepresentation(customRepresentation)
 <div id="footer">
 <div id="footer-text">
 Version 1.0.0-SNAPSHOT<br>
-Last updated 2018-09-09 14:55:10 NZST
+Last updated 2019-02-14 23:26:05 NZDT
 </div>
 </div>
 <link rel="stylesheet" href="highlight/styles/railscasts.min.css">
