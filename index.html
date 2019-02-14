@@ -460,13 +460,13 @@ h3,
   font-size: 1.375em
 }
 
-h4,
-h5 {
+h4 {
   font-size: 1.125em
 }
 
 h5 {
-  text-decoration: underline
+  font-size: 1.125em;
+  text-decoration: underline;
 }
 
 h6 {
@@ -2371,6 +2371,7 @@ p {
 
 </style>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="shortcut icon" type="image/png" href="images/favicon.png"/>
 </head>
 <body id="user-guide" class="article toc2 toc-left">
 <div id="header">
@@ -2399,18 +2400,30 @@ p {
 <li><a href="#assertj-core-simple-example">3.1. A simple example</a></li>
 <li><a href="#assertj-core-supported-types">3.2. Supported type assertions</a></li>
 <li><a href="#assertj-core-assertion-description">3.3. Assertion description</a></li>
-<li><a href="#assertj-core-incorrect-usage">3.4. Avoiding incorrect usage</a></li>
-<li><a href="#assertj-core-representation">3.5. Controlling type formatting</a></li>
-<li><a href="#assertj-core-common-assertions">3.6. Common assertions</a></li>
-<li><a href="#assertj-core-iterable-assertions">3.7. Iterable/Collection assertions</a></li>
-<li><a href="#assertj-core-assumptions">3.8. Assumptions</a></li>
+<li><a href="#assertj-core-overriding-error-message">3.4. Overriding error message</a></li>
+<li><a href="#assertj-core-incorrect-usage">3.5. Avoiding incorrect usage</a></li>
+<li><a href="#assertj-core-representation">3.6. Controlling type formatting</a></li>
+<li><a href="#assertj-core-common-assertions">3.7. Common assertions</a></li>
+<li><a href="#assertj-core-object-assertions">3.8. Object assertions</a></li>
+<li><a href="#assertj-core-iterable-assertions">3.9. Iterable/Collection assertions</a></li>
+<li><a href="#assertj-core-exception-assertions">3.10. Exception assertions</a></li>
+<li><a href="#assertj-core-recursive-comparison">3.11. Field by field recursive comparison</a></li>
+<li><a href="#assertj-core-recursive-comparison-comparators">3.12. Comparators used in the comparison</a></li>
+<li><a href="#assertj-core-soft-assertions">3.13. Soft Assertions</a></li>
+<li><a href="#assertj-core-assumptions">3.14. Assumptions</a></li>
 </ul>
 </li>
-<li><a href="#assertj-samples">4. AssertJ Sample Projects</a></li>
-<li><a href="#contributors">5. Contributors</a></li>
-<li><a href="#release-notes">6. Release Notes</a>
+<li><a href="#assertj-core-extensions">4. Extending assertions</a>
 <ul class="sectlevel2">
-<li><a href="#assertj-core">6.1. AssertJ Core</a></li>
+<li><a href="#assertj-core-conditions">4.1. Conditions</a></li>
+<li><a href="#assertj-core-custom-assertions">4.2. Custom Assertions</a></li>
+</ul>
+</li>
+<li><a href="#assertj-samples">5. AssertJ Sample Projects</a></li>
+<li><a href="#contributors">6. Contributors</a></li>
+<li><a href="#release-notes">7. Release Notes</a>
+<ul class="sectlevel2">
+<li><a href="#assertj-core">7.1. AssertJ Core</a></li>
 </ul>
 </li>
 </ul>
@@ -2927,8 +2940,9 @@ public class SimpleAssertionsExample {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">TolkienCharacter frodo = TolkienCharacter("Frodo", 33, HOBBIT);
-// failing assertion, remember to call as() before the assertion, not after !
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">TolkienCharacter frodo = new TolkienCharacter("Frodo", 33, Race.HOBBIT);
+
+// failing assertion, remember to call as() before the assertion!
 assertThat(frodo.getAge()).as("check %s's age", frodo.getName())
                           .isEqualTo(100);</code></pre>
 </div>
@@ -2943,12 +2957,38 @@ assertThat(frodo.getAge()).as("check %s's age", frodo.getName())
 </div>
 </div>
 <div class="sect2">
-<h3 id="assertj-core-incorrect-usage"><a class="anchor" href="#assertj-core-incorrect-usage"></a>3.4. Avoiding incorrect usage</h3>
+<h3 id="assertj-core-overriding-error-message"><a class="anchor" href="#assertj-core-overriding-error-message"></a>3.4. Overriding error message</h3>
+<div class="paragraph">
+<p>AssertJ tries its best to give helpful error messages but you always change it with <code>overridingErrorMessage()</code> or <code>withFailMessage()</code>.</p>
+</div>
+<div class="paragraph">
+<p>Example with this failing test:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">TolkienCharacter frodo = new TolkienCharacter("Frodo", 33, Race.HOBBIT);
+TolkienCharacter sam = new TolkienCharacter("Sam", 38, Race.HOBBIT);
+// failing assertion, remember to call withFailMessage/overridingErrorMessage before the assertion!
+assertThat(frodo.getAge()).withFailMessage("should be %s", frodo)
+                          .isEqualTo(sam);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The error message is:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-nnm hljs" data-lang="nnm">java.lang.AssertionError: should be TolkienCharacter [name=Frodo, age=33, race=HOBBIT]</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="assertj-core-incorrect-usage"><a class="anchor" href="#assertj-core-incorrect-usage"></a>3.5. Avoiding incorrect usage</h3>
 <div class="paragraph">
 <p>There are a few things to keep in mind when using AssertJ to avoid misusing it.</p>
 </div>
 <div class="sect3">
-<h4 id="forgetting-to-call-an-assertion"><a class="anchor" href="#forgetting-to-call-an-assertion"></a>3.4.1. Forgetting to call an assertion</h4>
+<h4 id="forgetting-to-call-an-assertion"><a class="anchor" href="#forgetting-to-call-an-assertion"></a>3.5.1. Forgetting to call an assertion</h4>
 <div class="paragraph">
 <p>The main trap is to pass the object under to test to <code>assertThat()</code> and forget to call an assertion afterward.
 This misuse can be detected by <a href="https://spotbugs.github.io/">SpotBugs</a> or <a href="http://findbugs.sourceforge.net/">Findbugs</a> thanks to the <code>@CheckReturnValue</code> annotation on all <code>assertThat()</code> methods.</p>
@@ -2970,7 +3010,7 @@ This misuse can be detected by <a href="https://spotbugs.github.io/">SpotBugs</a
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">// BAD USAGE: DON'T DO THIS ! It does not assert anything
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">// DON'T DO THIS ! It does not assert anything
 assertThat(actual.equals(expected));</code></pre>
 </div>
 </div>
@@ -2991,7 +3031,7 @@ assertThat(actual.equals(expected)).isTrue();</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">// BAD USAGE: DON'T DO THIS ! It does not assert anything and passes
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">// DON'T DO THIS ! It does not assert anything and passes
 assertThat(1 == 2);</code></pre>
 </div>
 </div>
@@ -3009,13 +3049,16 @@ assertThat(1 == 2).isTrue();</code></pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="calling-as-after-the-assertion"><a class="anchor" href="#calling-as-after-the-assertion"></a>3.4.2. Calling as() after the assertion</h4>
+<h4 id="calling-as-after-the-assertion"><a class="anchor" href="#calling-as-after-the-assertion"></a>3.5.2. Calling as() after the assertion</h4>
+<div class="paragraph">
+<p>Describing an assertion must be done before calling the assertion otherwise it is ignored as a failing assertion breaks will prevent the call to <code>as()</code>.</p>
+</div>
 <div class="paragraph">
 <p><span class="bad">Bad</span></p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">// BAD USAGE: DON'T DO THIS ! as/describedAs have no effect after the assertion
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">// DON'T DO THIS ! as/describedAs have no effect after the assertion
 assertThat(actual).isEqualTo(expected).as("description");
 assertThat(actual).isEqualTo(expected).describedAs("description");</code></pre>
 </div>
@@ -3032,13 +3075,16 @@ assertThat(actual).describedAs("description").isEqualTo(expected);</code></pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="calling-withfailmessage-after-the-assertion"><a class="anchor" href="#calling-withfailmessage-after-the-assertion"></a>3.4.3. Calling withFailMessage() after the assertion</h4>
+<h4 id="calling-withfailmessageoverridingerrormessage-after-the-assertion"><a class="anchor" href="#calling-withfailmessageoverridingerrormessage-after-the-assertion"></a>3.5.3. Calling withFailMessage/overridingErrorMessage after the assertion</h4>
+<div class="paragraph">
+<p>Setting an error message must be done before calling the assertion otherwise it is ignored as a failing assertion breaks will prevent the call to <code>withFailMessage()</code> / <code>overridingErrorMessage()</code>.</p>
+</div>
 <div class="paragraph">
 <p><span class="bad">Bad</span></p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">// BAD USAGE: DON'T DO THIS ! overridingErrorMessage/withFailMessage have no effect after the assertion
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">// DON'T DO THIS ! overridingErrorMessage/withFailMessage have no effect after the assertion
 assertThat(actual).isEqualTo(expected).overridingErrorMessage("custom error message");
 assertThat(actual).isEqualTo(expected).withFailMessage("custom error message");</code></pre>
 </div>
@@ -3055,13 +3101,16 @@ assertThat(actual).withFailMessage("custom error message").isEqualTo(expected);<
 </div>
 </div>
 <div class="sect3">
-<h4 id="setting-a-comparator-after-the-assertion"><a class="anchor" href="#setting-a-comparator-after-the-assertion"></a>3.4.4. Setting a comparator after the assertion</h4>
+<h4 id="setting-a-comparator-after-the-assertion"><a class="anchor" href="#setting-a-comparator-after-the-assertion"></a>3.5.4. Setting a comparator after the assertion</h4>
+<div class="paragraph">
+<p>Setting comparators must be done before calling the assertion otherwise it is ignored as a failing assertion breaks will prevent the call to <code>usingComparator()</code> / <code>usingElementComparator()</code>.</p>
+</div>
 <div class="paragraph">
 <p><span class="bad">Bad</span></p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">// BAD USAGE: DON'T DO THIS ! Comparator is not used
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">// DON'T DO THIS ! Comparator is not used
 assertThat(actual).isEqualTo(expected).usingComparator(new CustomComparator());</code></pre>
 </div>
 </div>
@@ -3077,7 +3126,7 @@ assertThat(actual).usingComparator(new CustomComparator()).isEqualTo("a");</code
 </div>
 </div>
 <div class="sect2">
-<h3 id="assertj-core-representation"><a class="anchor" href="#assertj-core-representation"></a>3.5. Controlling type formatting</h3>
+<h3 id="assertj-core-representation"><a class="anchor" href="#assertj-core-representation"></a>3.6. Controlling type formatting</h3>
 <div class="paragraph">
 <p>Assertions error messages use a <code>Representation</code> to format the different types involved. There are multiple ways of registering a custom <code>Representation</code> for assertions:</p>
 </div>
@@ -3101,7 +3150,7 @@ assertThat(actual).usingComparator(new CustomComparator()).isEqualTo("a");</code
 <p>Let&#8217;s go over these different options with a custom <code>Representation</code>.</p>
 </div>
 <div class="sect3">
-<h4 id="assertj-core-custom-representation"><a class="anchor" href="#assertj-core-custom-representation"></a>3.5.1. Creating a custom Representation</h4>
+<h4 id="assertj-core-custom-representation"><a class="anchor" href="#assertj-core-custom-representation"></a>3.6.1. Creating a custom Representation</h4>
 <div class="paragraph">
 <p>An example of a custom <code>Representation</code>:</p>
 </div>
@@ -3185,7 +3234,7 @@ to start with:
 </div>
 </div>
 <div class="sect3">
-<h4 id="assertj-core-custom-representation-default-global-scope"><a class="anchor" href="#assertj-core-custom-representation-default-global-scope"></a>3.5.2. Registering a default global scope custom representation</h4>
+<h4 id="assertj-core-custom-representation-default-global-scope"><a class="anchor" href="#assertj-core-custom-representation-default-global-scope"></a>3.6.2. Registering a default global scope custom representation</h4>
 <div class="paragraph">
 <p>You will need to register your <code>Representation</code> as an SPI. You need to do the following for that:</p>
 </div>
@@ -3207,7 +3256,7 @@ to start with:
 </div>
 </div>
 <div class="sect3">
-<h4 id="assertj-core-custom-representation-global-scope-change"><a class="anchor" href="#assertj-core-custom-representation-global-scope-change"></a>3.5.3. Changing the default global scope custom representation</h4>
+<h4 id="assertj-core-custom-representation-global-scope-change"><a class="anchor" href="#assertj-core-custom-representation-global-scope-change"></a>3.6.3. Changing the default global scope custom representation</h4>
 <div class="paragraph">
 <p>You only have to register <code>CustomRepresentation</code> once but need to do it before executing any tests, for the tests executed before that, AssertJ will use the default representation.</p>
 </div>
@@ -3219,7 +3268,7 @@ Assertions.useRepresentation(new CustomRepresentation());</code></pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="assertj-core-custom-representation-per-assertion-scope"><a class="anchor" href="#assertj-core-custom-representation-per-assertion-scope"></a>3.5.4. Per assertion scope custom representation</h4>
+<h4 id="assertj-core-custom-representation-per-assertion-scope"><a class="anchor" href="#assertj-core-custom-representation-per-assertion-scope"></a>3.6.4. Per assertion scope custom representation</h4>
 <div class="paragraph">
 <p>Follow this approach if you want to use a specific representation for a single assertion only.</p>
 </div>
@@ -3241,19 +3290,357 @@ assertThat("foo").withRepresentation(customRepresentation)
 </div>
 </div>
 <div class="sect2">
-<h3 id="assertj-core-common-assertions"><a class="anchor" href="#assertj-core-common-assertions"></a>3.6. Common assertions</h3>
+<h3 id="assertj-core-common-assertions"><a class="anchor" href="#assertj-core-common-assertions"></a>3.7. Common assertions</h3>
+<div class="paragraph">
+<p>This section describes the assertions common to all types.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="assertj-core-object-assertions"><a class="anchor" href="#assertj-core-object-assertions"></a>3.8. Object assertions</h3>
 <div class="paragraph">
 <p>TODO</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="assertj-core-iterable-assertions"><a class="anchor" href="#assertj-core-iterable-assertions"></a>3.7. Iterable/Collection assertions</h3>
+<h3 id="assertj-core-iterable-assertions"><a class="anchor" href="#assertj-core-iterable-assertions"></a>3.9. Iterable/Collection assertions</h3>
 <div class="paragraph">
 <p>TODO</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="assertj-core-assumptions"><a class="anchor" href="#assertj-core-assumptions"></a>3.8. Assumptions</h3>
+<h3 id="assertj-core-exception-assertions"><a class="anchor" href="#assertj-core-exception-assertions"></a>3.10. Exception assertions</h3>
+<div class="paragraph">
+<p>TODO</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="assertj-core-recursive-comparison"><a class="anchor" href="#assertj-core-recursive-comparison"></a>3.11. Field by field recursive comparison</h3>
+<div class="paragraph">
+<p>Since 3.12.0 AssertJ Core provides a new fluent recursive comparison API for <code>Object</code> assertions, it is meant to replace <code>isEqualToComparingFieldByFieldRecursively</code> with more capabilities including:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="#assertj-core-recursive-comparison-strict">Choosing a strict or lenient recursive comparison</a></p>
+</li>
+<li>
+<p><a href="#assertj-core-recursive-comparison-ignoring-fields">Ignoring fields in the comparison</a></p>
+</li>
+<li>
+<p><a href="#assertj-core-recursive-comparison-comparators">Specifying comparators to use in the comparison</a></p>
+</li>
+<li>
+<p><a href="#assertj-core-recursive-comparison-ignoring-equals">Force recursive comparison on classes that have redefined <code>equals</code></a></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>This is a <strong>Beta</strong> version but it is worth using it already, we want to have feedback from the community to make it even better before freezing the API.
+There are more capabilities to come in the next releases, stay tuned!</p>
+</div>
+<div class="paragraph">
+<p>The recursive comparison mode starts after calling <code>usingRecursiveComparison()</code>.
+By default it uses <code>equals</code> methods of classes that have overriden it, this can be changed and force recursive comparison on this classes (<a href="#assertj-core-recursive-comparison-ignoring-equals">see this section</a>).</p>
+</div>
+<div class="paragraph">
+<p>Here&#8217;s a simple example to give an idea of what it can do:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">public class Person {
+  String name;
+  double height;
+  Home home = new Home();
+}
+
+public class Home {
+  Address address = new Address();
+  Date ownedSince;
+}
+
+public static class Address {
+  int number;
+  String street;
+}
+
+Person sherlock = new Person("Sherlock", 1.80);
+sherlock.home.ownedSince = new Date(123);
+sherlock.home.address.street = "Baker Street";
+sherlock.home.address.number = 221;
+
+Person sherlock2 = new Person("Sherlock", 1.80);
+sherlock2.home.ownedSince = new Date(123);
+sherlock2.home.address.street = "Baker Street";
+sherlock2.home.address.number = 221;
+
+// assertion succeeds as the data of both objects are the same.
+assertThat(sherlock).usingRecursiveComparison()
+                    .isEqualTo(sherlock2);
+
+// assertion fails as Person equals only compares references.
+assertThat(sherlock).isEqualTo(sherlock2);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The comparison is <strong>not symmetrical</strong> since it is <strong>limited to actual&#8217;s fields</strong>, the algorithm gather actual&#8217;s fields and then compare them to the corresponding expected&#8217;s fields. It is then possible for the expected object to have more fields than actual which cna be handy when comparing a base type to a subtype with additional fields.</p>
+</div>
+<div class="sect3">
+<h4 id="assertj-core-recursive-comparison-strict"><a class="anchor" href="#assertj-core-recursive-comparison-strict"></a>3.11.1. Strict or lenient comparison</h4>
+<div class="paragraph">
+<p>By default the objects to compare can be of different types but must have the same properties/fields. For example if object under test has a <code>work</code> field of type <code>Address</code>, the expected object to compare the object under test to must also have one but it can of a different type like <code>AddressDto</code>.</p>
+</div>
+<div class="paragraph">
+<p>It is possible to enforce strict type checking by calling <code>withStrictTypeChecking()</code> and make the comparison fail whenever the compared objects or their fields are not compatible. Compatible means that the expected object/field types are the same or a subtype of actual/field types, for example if actual is an <code>Animal</code> and expected a <code>Dog</code>, they will be compared fiels by field in strict type checking mode.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">public class Person {
+  String name;
+  double height;
+  Person bestFriend;
+}
+
+Person sherlock = new Person("Sherlock", 1.80);
+sherlock.bestFriend = new Person("Watson", 1.70);
+
+Person sherlockClone = new Person("Sherlock", 1.80);
+sherlockClone.bestFriend = new Person("Watson", 1.70);
+
+// assertion succeeds as sherlock and sherlockClone have the same data and types
+assertThat(sherlock).usingRecursiveComparison()
+                    .withStrictTypeChecking()
+                    .isEqualTo(sherlockClone);
+
+// Let's now define a data structure similar to Person
+
+public class PersonDTO {
+  String name;
+  double height;
+  PersonDTO bestFriend;
+}
+
+PersonDTO sherlockDto = new PersonDTO("Sherlock", 1.80);
+sherlockDto.bestFriend = new PersonDTO("Watson", 1.70);
+
+// assertion fails as Person and PersonDTO are not compatible even though they have the same data
+assertThat(sherlock).usingRecursiveComparison()
+                    .withStrictTypeChecking()
+                    .isEqualTo(noName);
+
+// Let's define a subclass of Person
+
+public class Detective extends Person {
+  boolean busy;
+}
+
+Detective detectiveSherlock = new Detective("Sherlock", 1.80);
+detectiveSherlock.bestFriend = new Person("Watson", 1.70);
+detectiveSherlock.busy = true;
+
+// assertion succeeds as Detective inherits from Person and
+// only Person's fields are included into the comparison.
+assertThat(sherlock).usingRecursiveComparison()
+                    .withStrictTypeChecking()
+                    .isEqualTo(detectiveSherlock);</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="assertj-core-recursive-comparison-ignoring-fields"><a class="anchor" href="#assertj-core-recursive-comparison-ignoring-fields"></a>3.11.2. Ignoring fields in the comparison</h4>
+<div class="paragraph">
+<p>It is possible to ignore fields of the object under test in the comparison, this is can be useful when a field has a generated value (like the current time) or is simply not relevant to compare.</p>
+</div>
+<div class="paragraph">
+<p>There are a few ways to specify the fields to ignore:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>directly with <code>ignoringFields(String&#8230;&#8203; fieldsToIgnore)</code></p>
+</li>
+<li>
+<p>by regexes with <code>ignoringFieldsMatchingRegexes(String&#8230;&#8203; regexes)</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Nested fields can be specified like this: <code>home.address.street</code></p>
+</div>
+<div class="paragraph">
+<p>It is also possible to ignore the the object under test with <code>ignoringActualNullFields()</code>.</p>
+</div>
+<div class="paragraph">
+<p>Examples</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">Person sherlock = new Person("Sherlock", 1.80);
+sherlock.home.address.street = "Baker Street";
+sherlock.home.address.number = 221;
+
+// strangely moriarty and sherlock have the same height!
+Person moriarty = new Person("Moriarty", 1.80);
+moriarty.home.address.street = "Crime Street";
+moriarty.home.address.number = 221;
+
+// assertion succeeds as name and home.address.street fields are ignored in the comparison
+assertThat(sherlock).usingRecursiveComparison()
+                    .ignoringFields("name", "home.address.street")
+                    .isEqualTo(moriarty);
+
+// assertion succeeds as once a field is ignored, its subfields are too
+assertThat(sherlock).usingRecursiveComparison()
+                    .ignoringFields("name", "home")
+                    .isEqualTo(moriarty);
+
+// ignoring with regexes: name and home match .*me
+assertThat(sherlock).usingRecursiveComparison()
+                    .ignoringFieldsMatchingRegexes(".*me")
+                    .isEqualTo(moriarty);
+
+// ignoring null fields example:
+sherlock.name = null;
+sherlock.home.address.street = null;
+assertThat(sherlock).usingRecursiveComparison()
+                    .ignoringActualNullFields()
+                    .isEqualTo(moriarty);</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="assertj-core-recursive-comparison-ignoring-equals"><a class="anchor" href="#assertj-core-recursive-comparison-ignoring-equals"></a>3.11.3. Ignoring overridden equals</h4>
+<div class="paragraph">
+<p>By default the recursive comparison uses overridden <code>equals</code> methods to compare fields, it is possible to change that behavior and force a recursive comparison by calling:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>ignoringOverriddenEqualsForTypes(Class&#8230;&#8203;)</code> Any fields of these classes are compared recursively</p>
+</li>
+<li>
+<p><code>ignoringOverriddenEqualsForFields(String&#8230;&#8203;)</code> Any given fields are compared recursively</p>
+</li>
+<li>
+<p><code>ignoringOverriddenEqualsForFieldsMatchingRegexes(String&#8230;&#8203;)</code> Any fields matching one of these regexes are compared recursively</p>
+</li>
+<li>
+<p><code>ignoringAllOverriddenEquals()</code> except for java types, all fields are compared field by field recursively</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">public class Person {
+  String name;
+  double height;
+  Home home = new Home();
+}
+
+public class Home {
+  Address address = new Address();
+}
+
+public static class Address {
+  int number;
+  String street;
+
+  // only compares number, ouch!
+   @Override
+  public boolean equals(final Object other) {
+    if (!(other instanceof Address)) return false;
+    Address castOther = (Address) other;
+    return Objects.equals(number, castOther.number);
+  }
+}
+
+Person sherlock = new Person("Sherlock", 1.80);
+sherlock.home.address.street = "Baker Street";
+sherlock.home.address.number = 221;
+
+Person sherlock2 = new Person("Sherlock", 1.80);
+sherlock2.home.address.street = "Butcher Street";
+sherlock2.home.address.number = 221;
+
+// assertion succeeds but that's not what we expected since the home.address.street fields differ
+// but the equals implemenation in Address does not compare them.
+assertThat(sherlock).usingRecursiveComparison()
+                    .isEqualTo(sherlock2);
+
+// to avoid the previous issue, we force a recursive comparison on the Address type
+// now this assertion fails as expected since the home.address.street fields differ.
+assertThat(sherlock).usingRecursiveComparison()
+                    .ignoringOverriddenEqualsForTypes(Address.class)
+                    .isEqualTo(sherlock2);</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="assertj-core-recursive-comparison-comparators"><a class="anchor" href="#assertj-core-recursive-comparison-comparators"></a>3.12. Comparators used in the comparison</h3>
+<div class="paragraph">
+<p>By default floats are compared with a precision of 1.0E-6 and doubles with 1.0E-15.</p>
+</div>
+<div class="paragraph">
+<p>You can specify a custom comparator per (nested) fields or type with the methods below (but before calling <code>isEqualTo</code> otherwise this has no effect!):</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>withComparatorForFields(Comparator, String&#8230;&#8203;)</code> for one or multiple fields</p>
+</li>
+<li>
+<p><code>withComparatorForType(Comparator, Class)</code> for a given type</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">public class TolkienCharacter {
+  String name;
+  double height;
+}
+
+TolkienCharacter frodo = new TolkienCharacter("Frodo", 1.2);
+TolkienCharacter tallerFrodo = new TolkienCharacter("Frodo", 1.3);
+TolkienCharacter reallyTallFrodo = new TolkienCharacter("Frodo", 1.9);
+
+Comparator&lt;Double&gt; closeEnough = (d1, d2) -&gt; Math.abs(d1 - d2) &lt;= 0.5 ? 0 : 1;
+
+// assertion succeeds
+assertThat(frodo).usingRecursiveComparison()
+                 .withComparatorForFields(closeEnough, "height")
+                 .isEqualTo(tallerFrodo);
+
+assertThat(frodo).usingRecursiveComparison()
+                 .withComparatorForType(closeEnough, Double.class)
+                 .isEqualTo(tallerFrodo);
+
+
+// assertions fail
+assertThat(frodo).usingRecursiveComparison()
+                 .withComparatorForFields(closeEnough, "height")
+                 .isEqualTo(reallyTallFrodo);
+
+assertThat(frodo).usingRecursiveComparison()
+                 .withComparatorForType(closeEnough, Double.class)
+                 .isEqualTo(reallyTallFrodo);</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="assertj-core-soft-assertions"><a class="anchor" href="#assertj-core-soft-assertions"></a>3.13. Soft Assertions</h3>
+<div class="paragraph">
+<p>TODO</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="assertj-core-assumptions"><a class="anchor" href="#assertj-core-assumptions"></a>3.14. Assumptions</h3>
 <div class="paragraph">
 <p>All AssertJ assumptions are static methods in the <code>Assumptions</code> class.</p>
 </div>
@@ -3264,7 +3651,27 @@ assertThat("foo").withRepresentation(customRepresentation)
 </div>
 </div>
 <div class="sect1">
-<h2 id="assertj-samples"><a class="anchor" href="#assertj-samples"></a>4. AssertJ Sample Projects</h2>
+<h2 id="assertj-core-extensions"><a class="anchor" href="#assertj-core-extensions"></a>4. Extending assertions</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>TODO</p>
+</div>
+<div class="sect2">
+<h3 id="assertj-core-conditions"><a class="anchor" href="#assertj-core-conditions"></a>4.1. Conditions</h3>
+<div class="paragraph">
+<p>TODO</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="assertj-core-custom-assertions"><a class="anchor" href="#assertj-core-custom-assertions"></a>4.2. Custom Assertions</h3>
+<div class="paragraph">
+<p>TODO</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="assertj-samples"><a class="anchor" href="#assertj-samples"></a>5. AssertJ Sample Projects</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>The <a href="https://github.com/joel-costigliola/assertj-examples/tree/master/assertions-examples">assertions-examples</a> repository hosts executable AssertJ assertions examples that you can run as JUnit tests. Please have a look at assertions <a href="https://github.com/joel-costigliola/assertj-examples/tree/master/assertions-examples/src/test/java/org/assertj/examples">examples sources</a>.</p>
@@ -3294,7 +3701,7 @@ assertThat("foo").withRepresentation(customRepresentation)
 </div>
 </div>
 <div class="sect1">
-<h2 id="contributors"><a class="anchor" href="#contributors"></a>5. Contributors</h2>
+<h2 id="contributors"><a class="anchor" href="#contributors"></a>6. Contributors</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Browse the <a href="https://github.com/joel-costigliola/assertj-core/graphs/contributors">current list of contributors</a> directly on GitHub.</p>
@@ -3302,17 +3709,17 @@ assertThat("foo").withRepresentation(customRepresentation)
 </div>
 </div>
 <div class="sect1">
-<h2 id="release-notes"><a class="anchor" href="#release-notes"></a>6. Release Notes</h2>
+<h2 id="release-notes"><a class="anchor" href="#release-notes"></a>7. Release Notes</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="assertj-core"><a class="anchor" href="#assertj-core"></a>6.1. AssertJ Core</h3>
+<h3 id="assertj-core"><a class="anchor" href="#assertj-core"></a>7.1. AssertJ Core</h3>
 <div class="sect3">
-<h4 id="assertj-core-3-12-0-release-notes"><a class="anchor" href="#assertj-core-3-12-0-release-notes"></a>6.1.1. AssertJ Core 3.12.0 Release notes</h4>
+<h4 id="assertj-core-3-12-0-release-notes"><a class="anchor" href="#assertj-core-3-12-0-release-notes"></a>7.1.1. AssertJ Core 3.12.0 Release notes</h4>
 <div class="paragraph">
 <p>Release date : 2019-02-14</p>
 </div>
 <div class="paragraph">
-<p>The main feature of this release is a beta version of the new Recursive comparison API!
+<p>The main feature of this release is a beta version of the <a href="#assertj-core-recursive-comparison">new Recursive comparison API</a>!
 It covers what <code>isEqualToComparingFieldByFieldRecursively</code> used but easier to use and with more capabilities.</p>
 </div>
 <div class="paragraph">
@@ -3482,51 +3889,6 @@ There are more capabilities to come in the next releases, stay tuned!</p>
 </ul>
 </div>
 </div>
-<div class="sect4">
-<h5 id="details"><a class="anchor" href="#details"></a>Details</h5>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">// dummy class
-private class Example {}
-
-public class CustomRepresentation extends StandardRepresentation { <i class="conum" data-value="1"></i><b>(1)</b>
-
-  // override fallbackToStringOf to handle Example formatting
-  @Override
-  public String fallbackToStringOf(Object o) { <i class="conum" data-value="2"></i><b>(2)</b>
-    if (o instanceof Example) return "Example";
-    // fallback to default formatting.
-    return super.fallbackToStringOf(o);
-  }
-
-  // override a predefined type formatting : String
-  @Override
-  protected String toStringOf(String str) { <i class="conum" data-value="3"></i><b>(3)</b>
-    return "$" + str + "$";
-  }
-}</code></pre>
-</div>
-</div>
-<div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>Extends <code>org.assertj.core.presentation.StandardRepresentation</code> to get AssertJ default representation.</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>Override <code>fallbackToStringOf</code> and handle your specific types before falling back to the default formatting.</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="3"></i><b>3</b></td>
-<td>Change a predefined type formatting by overridding the <code>toStringOf</code> method that takes it as a parameter.</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>The older release notes are available <a href="http://joel-costigliola.github.io/assertj/assertj-news.html">here</a>.</p>
-</div>
-</div>
 </div>
 </div>
 </div>
@@ -3535,7 +3897,7 @@ public class CustomRepresentation extends StandardRepresentation { <i class="con
 <div id="footer">
 <div id="footer-text">
 Version 1.0.0-SNAPSHOT<br>
-Last updated 2019-02-14 23:26:05 NZDT
+Last updated 2019-02-15 11:40:11 NZDT
 </div>
 </div>
 <link rel="stylesheet" href="highlight/styles/railscasts.min.css">
