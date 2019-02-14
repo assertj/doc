@@ -40,13 +40,13 @@ Note that AssertJ 3.x includes all AssertJ 2.x features and adds Java 8 specific
 
 ==== Maven
 
-[source,xml,indent=0]
+[source,xml,indent=0,subs=attributes+]
 ----
 <dependency>
   <groupId>org.assertj</groupId>
   <artifactId>assertj-core</artifactId>
   <!-- use 2.9.1 for Java 7 projects -->
-  <version>3.12.0</version>
+  <version>{assertj-core-version}</version>
   <scope>test</scope>
 </dependency>
 ----
@@ -55,9 +55,9 @@ Note that AssertJ 3.x includes all AssertJ 2.x features and adds Java 8 specific
 
 For Gradle users (using the Maven Central Repository)
 
-[source,java,indent=0]
+[source,java,indent=0,subs=attributes+]
 ----
-testCompile("org.assertj:assertj-core:3.12.0")
+testCompile("org.assertj:assertj-core:{assertj-core-version}")
 ----
 
 Or version 2.9.1 for Java 7 projects
@@ -69,7 +69,7 @@ testCompile("org.assertj:assertj-core:2.9.1")
 
 ==== Other dependency management tool
 
-Check this page to find the relevant https://search.maven.org/artifact/org.assertj/assertj-core/3.12.0/bundle[assertj core dependency declaration].
+Check this page to find the relevant https://search.maven.org/artifact/org.assertj/assertj-core/{assertj-core-version}/bundle[assertj core dependency declaration].
 
 === Use Assertions class
 

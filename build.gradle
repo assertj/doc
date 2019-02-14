@@ -19,7 +19,7 @@ plugins {
 
 dependencies {
 	asciidoctor('org.jruby:jruby-complete:9.1.17.0')
-	testCompile("org.assertj:assertj-core:3.11.0")
+	testCompile("org.assertj:assertj-core:" + project.getProperty('assertjCoreVersion'))
 	testCompile('org.junit.jupiter:junit-jupiter-api:5.2.0')
   testRuntime('org.junit.jupiter:junit-jupiter-engine:5.2.0')
 }
@@ -69,6 +69,7 @@ asciidoctor {
 							'sectanchors': true,
 							'idprefix': '',
 							'idseparator': '-',
+							'assertj-core-version': assertjCoreVersion,
 							'stylesheet': '../../../docs/asciidoc/asciidoctor.css',
 							'docinfo': 'shared-head'
 }
