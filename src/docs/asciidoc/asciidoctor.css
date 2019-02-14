@@ -451,13 +451,13 @@ h3,
   font-size: 1.375em
 }
 
-h4,
-h5 {
+h4 {
   font-size: 1.125em
 }
 
 h5 {
-  text-decoration: underline
+  font-size: 1.125em;
+  text-decoration: underline;
 }
 
 h6 {
