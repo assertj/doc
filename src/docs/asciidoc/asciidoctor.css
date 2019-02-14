@@ -456,6 +456,10 @@ h5 {
   font-size: 1.125em
 }
 
+h5 {
+  text-decoration: underline
+}
+
 h6 {
   font-size: 1em
 }

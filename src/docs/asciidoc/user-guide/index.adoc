@@ -40,30 +40,7 @@ There are more capabilities to come in the next releases, stay tuned!
 
 Big thanks for all the contributors to this release:
 
-- Pascal Schumacher
-- Erhard Pointl
-- Vladimir Chernikov
-- Sandra Parsick
-- Martin Tarjanyi
-- Stephan Windmüller
-- Yaroslav Mitsynskiy
-- Thomas Traude
-- Georg Berky
-- Tomek Kaczanowski
-- Lukáš Křečan
-- Yoann Rodière
-- Filip Hrisafov
-- Steven Schlansker
-- Jeremy Landis
-- Jack Gough
-- Sebastian Kempken
-- Stefan Mandel
-- Alexandre de Champeaux
-- Arvid Heise
-- Jeff Walker
-- epeee
-- Dmitrii Priporov
-- Joshua Kitchen
+Pascal Schumacher, Erhard Pointl, Vladimir Chernikov, Sandra Parsick, Martin Tarjanyi, Stephan Windmüller, Yaroslav Mitsynskiy, Thomas Traude, Georg Berky, Tomek Kaczanowski, Lukáš Křečan, Yoann Rodière, Filip Hrisafov, Steven Schlansker, Jeremy Landis, Jack Gough, Sebastian Kempken, Stefan Mandel, Alexandre de Champeaux, Arvid Heise, Jeff Walker, epeee, Dmitrii Priporov and Joshua Kitchen.
 
 ===== Breaking changes
 
