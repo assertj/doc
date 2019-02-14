@@ -30,7 +30,7 @@ include::contributors.adoc[]
 
 Release date : 2019-02-14
 
-The main feature of this release is a beta version of the new Recursive comparison API!
+The main feature of this release is a beta version of the link:#assertj-core-recursive-comparison[new Recursive comparison API]!
 It covers what `isEqualToComparingFieldByFieldRecursively` used but easier to use and with more capabilities.
 
 It is a Beta version because we want to have feedback from the community to make it even better before freezing the API.
@@ -95,33 +95,3 @@ Pascal Schumacher, Erhard Pointl, Vladimir Chernikov, Sandra Parsick, Martin Tar
 - Use `@CanIgnoreReturnValue` on `Assertions` `fail*` methods to revert the effect of the default `@CheckReturnValue` annotation. (Erhard Pointl)
 - Fix `ElementsShouldSatisfy` that failed to handle objects whose string representation contained `%`.
 - Fix `ElementsShouldZipSatisfy` that failed to handle objects whose string representation contained `%`. (Arvid Heise)
-
-===== Details
-
-[source,java,indent=0]
-----
-// dummy class
-private class Example {}
-
-public class CustomRepresentation extends StandardRepresentation { // <1>
-
-  // override fallbackToStringOf to handle Example formatting
-  @Override
-  public String fallbackToStringOf(Object o) { // <2>
-    if (o instanceof Example) return "Example";
-    // fallback to default formatting.
-    return super.fallbackToStringOf(o);
-  }
-
-  // override a predefined type formatting : String
-  @Override
-  protected String toStringOf(String str) { // <3>
-    return "$" + str + "$";
-  }
-}
-----
-<1> Extends `org.assertj.core.presentation.StandardRepresentation` to get AssertJ default representation.
-<2> Override `fallbackToStringOf` and handle your specific types before falling back to the default formatting.
-<3> Change a predefined type formatting by overridding the `toStringOf` method that takes it as a parameter.
-
-The older release notes are available http://joel-costigliola.github.io/assertj/assertj-news.html[here].

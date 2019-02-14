@@ -134,7 +134,7 @@ The error message starts with the given description in `[]` :
 [check Frodo's age] expected:<100> but was:\<33>
 ----
 
-[[assertj-core-assertion-description]]
+[[assertj-core-overriding-error-message]]
 === Overriding error message
 
 AssertJ tries its best to give helpful error messages but you always change it with `overridingErrorMessage()` or `withFailMessage()`.
@@ -376,71 +376,6 @@ assertThat("foo").withRepresentation(customRepresentation)
 ----
 
 
-[[assertj-core-representation]]
-=== Custom representation
-
-Assertions error messages use a `Representation` to format different types involved. 
-It is possible to create your own `Representation` as explained in the following sections, once this is done it must be registered for AssertJ to use it.
-
-==== Changing types representation
-
-It is possible to change any type representations either the ones AssertJ knows (like `String`) or your own types, the `CustomRepresentation` below shows how to do that.
-
-[source,java,indent=0]
-----
-include::{testDir}/example/core/CustomRepresentation.java[tags=user_guide]
-----
-<1> extends `StandardRepresentation` to benefit from AssertJ standard representation
-<2> override `fallbackToStringOf(Object)` to set your own type representation (e.g. `TolkienCharacter`)
-<3> override `toStringOf(String)` to change AssertJ `String` representation (or any other AssertJ known type)
-
-After you registering your custom representation, AssertJ will use it in error messages:
-
-[source,java,indent=0]
-----
-// this assertion fails ...
-assertThat(new TolkienCharacter("Frodo", 33, Race.HOBBIT)).isNull();
-// ... with error :
-org.opentest4j.AssertionFailedError: 
-Expecting:
- <TolkienCharacter Frodo>
-to be equal to:
- <null>
-but was not.
-
-// this one fails ...
-assertThat("foo").startsWith("bar");
-// ... with error :
-Expecting:
-  <$foo$>
-to start with:
-  <$bar$>
-----
-
-==== Registering your custom representation
-
-There are multiple ways to register a custom representation for assertions:
-
-===== Global scope with Service Provider Interface
-
-Since 2.9.0 / 3.9.0, one can register an implementation of `Representation` via a Service Provider Interface (SPI). This will cause AssertJ to use that assertion per default all the time. There is no need to call `Assertions.useRepresentation(myRepresentation)`. 
-
-To register a custom `Representation` via a Service Provider Interface, follow these steps:
-
-. Create a file named `org.assertj.core.presentation.Representation` in the `META-INF/services` directory
-. Put the fully qualified class name of your `Representation` in it
-. Make sure `META-INF/services/org.assertj.core.presentation.Representation` is in the runtime classpath, usually putting it in `src/test/resources` is enough 
-
-Note that calling `Assertions.useDefaultRepresentation()` will actually use the SPI registered `Representation`
-
-===== Global scope
-
-After calling `Assertions.useRepresentation(myRepresentation)` AssertJ will use `myRepresentation` globally.
-
-===== Per assertion scope
-
-Calling `assertThat(actual).withRepresentation(myRepresentation)` will cause AssertJ to use the given representation for the assertions chained afterward.
-
 [[assertj-core-common-assertions]]
 === Common assertions
 
@@ -460,6 +395,276 @@ TODO
 === Exception assertions
 
 TODO
+
+[[assertj-core-recursive-comparison]]
+=== Field by field recursive comparison
+
+Since 3.12.0 AssertJ Core provides a new fluent recursive comparison API for `Object` assertions, it is meant to replace `isEqualToComparingFieldByFieldRecursively` with more capabilities including:
+
+* link:#assertj-core-recursive-comparison-strict[Choosing a strict or lenient recursive comparison]
+* link:#assertj-core-recursive-comparison-ignoring-fields[Ignoring fields in the comparison]
+* link:#assertj-core-recursive-comparison-comparators[Specifying comparators to use in the comparison]
+* link:#assertj-core-recursive-comparison-ignoring-equals[Force recursive comparison on classes that have redefined `equals`]
+
+This is a *Beta* version but it is worth using it already, we want to have feedback from the community to make it even better before freezing the API.
+There are more capabilities to come in the next releases, stay tuned!
+
+The recursive comparison mode starts after calling `usingRecursiveComparison()`.
+By default it uses `equals` methods of classes that have overriden it, this can be changed and force recursive comparison on this classes (link:#assertj-core-recursive-comparison-ignoring-equals[see this section]).
+
+Here's a simple example to give an idea of what it can do:
+
+[source,java,indent=0]
+----
+ public class Person {
+   String name;
+   double height;
+   Home home = new Home();
+ }
+
+ public class Home {
+   Address address = new Address();
+   Date ownedSince;
+ }
+
+ public static class Address {
+   int number;
+   String street;
+ }
+
+ Person sherlock = new Person("Sherlock", 1.80);
+ sherlock.home.ownedSince = new Date(123);
+ sherlock.home.address.street = "Baker Street";
+ sherlock.home.address.number = 221;
+
+ Person sherlock2 = new Person("Sherlock", 1.80);
+ sherlock2.home.ownedSince = new Date(123);
+ sherlock2.home.address.street = "Baker Street";
+ sherlock2.home.address.number = 221;
+
+ // assertion succeeds as the data of both objects are the same.
+ assertThat(sherlock).usingRecursiveComparison()
+                     .isEqualTo(sherlock2);
+
+ // assertion fails as Person equals only compares references.
+ assertThat(sherlock).isEqualTo(sherlock2);
+----
+
+The comparison is *not symmetrical* since it is *limited to actual's fields*, the algorithm gather actual's fields and then compare them to the corresponding expected's fields. It is then possible for the expected object to have more fields than actual which cna be handy when comparing a base type to a subtype with additional fields. 
+
+[[assertj-core-recursive-comparison-strict]]
+==== Strict or lenient comparison
+
+By default the objects to compare can be of different types but must have the same properties/fields. For example if object under test has a `work` field of type `Address`, the expected object to compare the object under test to must also have one but it can of a different type like `AddressDto`.
+
+It is possible to enforce strict type checking by calling `withStrictTypeChecking()` and make the comparison fail whenever the compared objects or their fields are not compatible. Compatible means that the expected object/field types are the same or a subtype of actual/field types, for example if actual is an `Animal` and expected a `Dog`, they will be compared fiels by field in strict type checking mode. 
+
+[source,java,indent=0]
+----
+public class Person {
+  String name;
+  double height;
+  Person bestFriend;
+}
+
+Person sherlock = new Person("Sherlock", 1.80);
+sherlock.bestFriend = new Person("Watson", 1.70);
+
+Person sherlockClone = new Person("Sherlock", 1.80);
+sherlockClone.bestFriend = new Person("Watson", 1.70);
+
+// assertion succeeds as sherlock and sherlockClone have the same data and types
+assertThat(sherlock).usingRecursiveComparison()
+                    .withStrictTypeChecking()
+                    .isEqualTo(sherlockClone);
+
+// Let's now define a data structure similar to Person
+
+public class PersonDTO {
+  String name;
+  double height;
+  PersonDTO bestFriend;
+}
+
+PersonDTO sherlockDto = new PersonDTO("Sherlock", 1.80);
+sherlockDto.bestFriend = new PersonDTO("Watson", 1.70);
+
+// assertion fails as Person and PersonDTO are not compatible even though they have the same data
+assertThat(sherlock).usingRecursiveComparison()
+                    .withStrictTypeChecking()
+                    .isEqualTo(noName);
+
+// Let's define a subclass of Person
+
+public class Detective extends Person {
+  boolean busy;
+}
+
+Detective detectiveSherlock = new Detective("Sherlock", 1.80);
+detectiveSherlock.bestFriend = new Person("Watson", 1.70);
+detectiveSherlock.busy = true;
+
+// assertion succeeds as Detective inherits from Person and
+// only Person's fields are included into the comparison.
+assertThat(sherlock).usingRecursiveComparison()
+                    .withStrictTypeChecking()
+                    .isEqualTo(detectiveSherlock);
+----
+
+[[assertj-core-recursive-comparison-ignoring-fields]]
+==== Ignoring fields in the comparison
+
+It is possible to ignore fields of the object under test in the comparison, this is can be useful when a field has a generated value (like the current time) or is simply not relevant to compare.
+
+There are a few ways to specify the fields to ignore:
+
+* directly with `ignoringFields(String... fieldsToIgnore)`
+* by regexes with `ignoringFieldsMatchingRegexes(String... regexes)`
+
+Nested fields can be specified like this: `home.address.street`
+
+It is also possible to ignore the the object under test with `ignoringActualNullFields()`.
+
+Examples
+
+[source,java,indent=0]
+----
+Person sherlock = new Person("Sherlock", 1.80);
+sherlock.home.address.street = "Baker Street";
+sherlock.home.address.number = 221;
+
+// strangely moriarty and sherlock have the same height!
+Person moriarty = new Person("Moriarty", 1.80);
+moriarty.home.address.street = "Crime Street";
+moriarty.home.address.number = 221;
+
+// assertion succeeds as name and home.address.street fields are ignored in the comparison
+assertThat(sherlock).usingRecursiveComparison()
+                    .ignoringFields("name", "home.address.street")
+                    .isEqualTo(moriarty);
+
+// assertion succeeds as once a field is ignored, its subfields are too
+assertThat(sherlock).usingRecursiveComparison()
+                    .ignoringFields("name", "home")
+                    .isEqualTo(moriarty);
+
+// ignoring with regexes: name and home match .*me
+assertThat(sherlock).usingRecursiveComparison()
+                    .ignoringFieldsMatchingRegexes(".*me")
+                    .isEqualTo(moriarty);
+
+// ignoring null fields example:
+sherlock.name = null;
+sherlock.home.address.street = null;
+assertThat(sherlock).usingRecursiveComparison()
+                    .ignoringActualNullFields()
+                    .isEqualTo(moriarty);
+----
+
+[[assertj-core-recursive-comparison-ignoring-equals]]
+==== Ignoring overridden equals
+
+By default the recursive comparison uses overridden `equals` methods to compare fields, it is possible to change that behavior and force a recursive comparison by calling: 
+
+* `ignoringOverriddenEqualsForTypes(Class...)` Any fields of these classes are compared recursively
+* `ignoringOverriddenEqualsForFields(String...)` Any given fields are compared recursively
+* `ignoringOverriddenEqualsForFieldsMatchingRegexes(String...)` Any fields matching one of these regexes are compared recursively
+* `ignoringAllOverriddenEquals()` except for java types, all fields are compared field by field recursively
+
+Example:
+
+[source,java,indent=0]
+----
+ public class Person {
+   String name;
+   double height;
+   Home home = new Home();
+ }
+
+ public class Home {
+   Address address = new Address();
+ }
+
+ public static class Address {
+   int number;
+   String street;
+
+   // only compares number, ouch!
+    @Override
+   public boolean equals(final Object other) {
+     if (!(other instanceof Address)) return false;
+     Address castOther = (Address) other;
+     return Objects.equals(number, castOther.number);
+   }
+ }
+
+ Person sherlock = new Person("Sherlock", 1.80);
+ sherlock.home.address.street = "Baker Street";
+ sherlock.home.address.number = 221;
+
+ Person sherlock2 = new Person("Sherlock", 1.80);
+ sherlock2.home.address.street = "Butcher Street";
+ sherlock2.home.address.number = 221;
+
+ // assertion succeeds but that's not what we expected since the home.address.street fields differ
+ // but the equals implemenation in Address does not compare them.
+ assertThat(sherlock).usingRecursiveComparison()
+                     .isEqualTo(sherlock2);
+
+ // to avoid the previous issue, we force a recursive comparison on the Address type
+ // now this assertion fails as expected since the home.address.street fields differ.
+ assertThat(sherlock).usingRecursiveComparison()
+                     .ignoringOverriddenEqualsForTypes(Address.class)
+                     .isEqualTo(sherlock2);
+----
+
+
+[[assertj-core-recursive-comparison-comparators]]
+=== Comparators used in the comparison
+
+By default floats are compared with a precision of 1.0E-6 and doubles with 1.0E-15.
+
+You can specify a custom comparator per (nested) fields or type with the methods below (but before calling `isEqualTo` otherwise this has no effect!):
+
+* `withComparatorForFields(Comparator, String...)` for one or multiple fields
+* `withComparatorForType(Comparator, Class)` for a given type
+
+Examples:
+
+[source,java,indent=0]
+----
+public class TolkienCharacter {
+  String name;
+  double height;
+}
+
+TolkienCharacter frodo = new TolkienCharacter("Frodo", 1.2);
+TolkienCharacter tallerFrodo = new TolkienCharacter("Frodo", 1.3);
+TolkienCharacter reallyTallFrodo = new TolkienCharacter("Frodo", 1.9);
+
+Comparator<Double> closeEnough = (d1, d2) -> Math.abs(d1 - d2) <= 0.5 ? 0 : 1;
+
+// assertion succeeds
+assertThat(frodo).usingRecursiveComparison()
+                 .withComparatorForFields(closeEnough, "height")
+                 .isEqualTo(tallerFrodo);
+
+assertThat(frodo).usingRecursiveComparison()
+                 .withComparatorForType(closeEnough, Double.class)
+                 .isEqualTo(tallerFrodo);
+
+
+// assertions fail
+assertThat(frodo).usingRecursiveComparison()
+                 .withComparatorForFields(closeEnough, "height")
+                 .isEqualTo(reallyTallFrodo);
+
+assertThat(frodo).usingRecursiveComparison()
+                 .withComparatorForType(closeEnough, Double.class)
+                 .isEqualTo(reallyTallFrodo);                 
+----
+
+
 
 [[assertj-core-soft-assertions]]
 === Soft Assertions
