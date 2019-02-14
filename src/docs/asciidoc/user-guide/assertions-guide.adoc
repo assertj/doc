@@ -134,6 +134,23 @@ The error message starts with the given description in `[]` :
 [check Frodo's age] expected:<100> but was:\<33>
 ----
 
+[[assertj-core-assertion-description]]
+=== Overriding error message
+
+AssertJ tries its best to give helpful error messages but you always change it with `overridingErrorMessage()` or `withFailMessage()`.
+
+Example with this failing test:
+[source,java,indent=0]
+----
+include::{testDir}/example/core/OverridingErrorMessageExample.java[tags=user_guide]
+----
+
+The error message is:
+
+[source,nnm,indent=0]
+----
+java.lang.AssertionError: should be TolkienCharacter [name=Frodo, age=33, race=HOBBIT]
+----
 
 
 [[assertj-core-incorrect-usage]]
@@ -156,7 +173,7 @@ The following examples show incorrect AssertJ API usage to avoid!
 [.bad]#Bad#
 [source,java,indent=0]
 ----
-// BAD USAGE: DON'T DO THIS ! It does not assert anything
+// DON'T DO THIS ! It does not assert anything
 assertThat(actual.equals(expected));
 
 ----
@@ -174,7 +191,7 @@ assertThat(actual.equals(expected)).isTrue();
 [.bad]#Bad#
 [source,java,indent=0]
 ----
-// BAD USAGE: DON'T DO THIS ! It does not assert anything and passes
+// DON'T DO THIS ! It does not assert anything and passes
 assertThat(1 == 2);
 
 ----
@@ -191,10 +208,12 @@ assertThat(1 == 2).isTrue();
 
 ==== Calling as() after the assertion
 
+Describing an assertion must be done before calling the assertion otherwise it is ignored as a failing assertion breaks will prevent the call to `as()`.
+
 [.bad]#Bad#
 [source,java,indent=0]
 ----
-// BAD USAGE: DON'T DO THIS ! as/describedAs have no effect after the assertion
+// DON'T DO THIS ! as/describedAs have no effect after the assertion
 assertThat(actual).isEqualTo(expected).as("description");
 assertThat(actual).isEqualTo(expected).describedAs("description");
 ----
@@ -207,12 +226,14 @@ assertThat(actual).as("description").isEqualTo(expected);
 assertThat(actual).describedAs("description").isEqualTo(expected);
 ----
 
-==== Calling withFailMessage() after the assertion
+==== Calling withFailMessage/overridingErrorMessage after the assertion
+
+Setting an error message must be done before calling the assertion otherwise it is ignored as a failing assertion breaks will prevent the call to `withFailMessage()` / `overridingErrorMessage()`.
 
 [.bad]#Bad#
 [source,java,indent=0]
 ----
-// BAD USAGE: DON'T DO THIS ! overridingErrorMessage/withFailMessage have no effect after the assertion
+// DON'T DO THIS ! overridingErrorMessage/withFailMessage have no effect after the assertion
 assertThat(actual).isEqualTo(expected).overridingErrorMessage("custom error message");
 assertThat(actual).isEqualTo(expected).withFailMessage("custom error message");
 ----
@@ -227,10 +248,12 @@ assertThat(actual).withFailMessage("custom error message").isEqualTo(expected);
 
 ==== Setting a comparator after the assertion
 
+Setting comparators must be done before calling the assertion otherwise it is ignored as a failing assertion breaks will prevent the call to `usingComparator()` / `usingElementComparator()`.
+
 [.bad]#Bad#
 [source,java,indent=0]
 ----
-// BAD USAGE: DON'T DO THIS ! Comparator is not used
+// DON'T DO THIS ! Comparator is not used
 assertThat(actual).isEqualTo(expected).usingComparator(new CustomComparator());
 ----
 
@@ -353,8 +376,78 @@ assertThat("foo").withRepresentation(customRepresentation)
 ----
 
 
+[[assertj-core-representation]]
+=== Custom representation
+
+Assertions error messages use a `Representation` to format different types involved. 
+It is possible to create your own `Representation` as explained in the following sections, once this is done it must be registered for AssertJ to use it.
+
+==== Changing types representation
+
+It is possible to change any type representations either the ones AssertJ knows (like `String`) or your own types, the `CustomRepresentation` below shows how to do that.
+
+[source,java,indent=0]
+----
+include::{testDir}/example/core/CustomRepresentation.java[tags=user_guide]
+----
+<1> extends `StandardRepresentation` to benefit from AssertJ standard representation
+<2> override `fallbackToStringOf(Object)` to set your own type representation (e.g. `TolkienCharacter`)
+<3> override `toStringOf(String)` to change AssertJ `String` representation (or any other AssertJ known type)
+
+After you registering your custom representation, AssertJ will use it in error messages:
+
+[source,java,indent=0]
+----
+// this assertion fails ...
+assertThat(new TolkienCharacter("Frodo", 33, Race.HOBBIT)).isNull();
+// ... with error :
+org.opentest4j.AssertionFailedError: 
+Expecting:
+ <TolkienCharacter Frodo>
+to be equal to:
+ <null>
+but was not.
+
+// this one fails ...
+assertThat("foo").startsWith("bar");
+// ... with error :
+Expecting:
+  <$foo$>
+to start with:
+  <$bar$>
+----
+
+==== Registering your custom representation
+
+There are multiple ways to register a custom representation for assertions:
+
+===== Global scope with Service Provider Interface
+
+Since 2.9.0 / 3.9.0, one can register an implementation of `Representation` via a Service Provider Interface (SPI). This will cause AssertJ to use that assertion per default all the time. There is no need to call `Assertions.useRepresentation(myRepresentation)`. 
+
+To register a custom `Representation` via a Service Provider Interface, follow these steps:
+
+. Create a file named `org.assertj.core.presentation.Representation` in the `META-INF/services` directory
+. Put the fully qualified class name of your `Representation` in it
+. Make sure `META-INF/services/org.assertj.core.presentation.Representation` is in the runtime classpath, usually putting it in `src/test/resources` is enough 
+
+Note that calling `Assertions.useDefaultRepresentation()` will actually use the SPI registered `Representation`
+
+===== Global scope
+
+After calling `Assertions.useRepresentation(myRepresentation)` AssertJ will use `myRepresentation` globally.
+
+===== Per assertion scope
+
+Calling `assertThat(actual).withRepresentation(myRepresentation)` will cause AssertJ to use the given representation for the assertions chained afterward.
+
 [[assertj-core-common-assertions]]
 === Common assertions
+
+This section describes the assertions common to all types.
+
+[[assertj-core-object-assertions]]
+=== Object assertions
 
 TODO
 
@@ -363,6 +456,15 @@ TODO
 
 TODO
 
+[[assertj-core-exception-assertions]]
+=== Exception assertions
+
+TODO
+
+[[assertj-core-soft-assertions]]
+=== Soft Assertions
+
+TODO  
 
 [[assertj-core-assumptions]]
 === Assumptions
@@ -374,6 +476,22 @@ TODO
 // ----
 // include::{testDir}/example/AssumptionsDemo.java[tags=user_guide]
 // ----
+
+[[assertj-core-extensions]]
+== Extending assertions
+
+TODO  
+
+[[assertj-core-conditions]]
+=== Conditions
+
+TODO  
+
+[[assertj-core-custom-assertions]]
+=== Custom Assertions
+
+TODO  
+
 
 [[assertj-samples]]
 == AssertJ Sample Projects
