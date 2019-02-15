@@ -70,7 +70,7 @@ Pascal Schumacher, Erhard Pointl, Vladimir Chernikov, Sandra Parsick, Martin Tar
 ===== Improvements
 
 - Add stack trace of original exception to `catchThrowableOfType`. (Sam Smyth)
-- `anySatisfy` nad `noneSatisfy` now reports all failing elements. (epeee)
+- `anySatisfy` and `noneSatisfy` now reports all failing elements. (epeee)
 - `ElementsShouldSatisfy` now uses the configured `Representation` to format objects.
 - `ZipSatisfyError` now uses the configured `Representation` to format objects. (Jeff Walker)
 - AssertJ `Double` and `Float` comparators now support `Infinity`. (Alexandre de Champeaux)
