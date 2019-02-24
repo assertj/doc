@@ -40,7 +40,7 @@ There are more capabilities to come in the next releases, stay tuned!
 
 Big thanks for all the contributors to this release:
 
-Pascal Schumacher, Erhard Pointl, Vladimir Chernikov, Sandra Parsick, Martin Tarjanyi, Stephan Windmüller, Yaroslav Mitsynskiy, Thomas Traude, Georg Berky, Tomek Kaczanowski, Lukáš Křečan, Yoann Rodière, Filip Hrisafov, Steven Schlansker, Jeremy Landis, Jack Gough, Sebastian Kempken, Stefan Mandel, Alexandre de Champeaux, Arvid Heise, Jeff Walker, epeee, Dmitrii Priporov and Joshua Kitchen.
+Pascal Schumacher, Erhard Pointl, Vladimir Chernikov, Sandra Parsick, Martin Tarjanyi, Stephan Windmüller, Yaroslav Mitsynskiy, Thomas Traude, Georg Berky, Tomek Kaczanowski, Lukáš Křečan, Yoann Rodière, Filip Hrisafov, Steven Schlansker, Jeremy Landis, Jack Gough, Sebastian Kempken, Stefan Mandel, Alexandre de Champeaux, Arvid Heise, Jeff Walker, Dmitrii Priporov and Joshua Kitchen.
 
 ===== Breaking changes
 
@@ -50,14 +50,14 @@ Pascal Schumacher, Erhard Pointl, Vladimir Chernikov, Sandra Parsick, Martin Tar
 
 - New Recursive comparison API! (Beta version)
 - Add `satisfiesAnyOf` base assertion. TODO document
-- Add `isAbstract` to `Class` assertions. (epeee)
+- Add `isAbstract` to `Class` assertions. (Erhard Pointl)
 - Add `hasValueCloseTo(percentage)` to `OptionalDouble` assertion. (Joshua Kitchen)
 - Add `hasOnlyOneElementSatisfying(Consumer)` to `AtomicReferenceArray` assertions. (Vladimir Chernikov)
 - Add `hasAllNullFieldsOrProperties` and `hasAllNullFieldsOrPropertiesExcept`. (Vladimir Chernikov)
 - Add `hasSizeGreaterThan`, `hasSizeLessThanOrEqualTo`, `hasSizeGreaterThanOrEqualTo` and `hasSizeGreaterThan` to `CharSequence` and `String` assertions. (Sandra Parsick)
 - Add `hasSizeGreaterThan`, `hasSizeLessThanOrEqualTo`, `hasSizeGreaterThanOrEqualTo`, `hasSizeGreaterThan` and `hasSizeBetween` to object and primitives array, `Iterable` and `Map`. (Martin Tarjanyi)
 - Add `hasSizeBetween` to `CharSequence` and `String` assertions. (Martin Tarjanyi)
-- Add `noneSatisfy(BiConsumer)` to `Map` assertions. (epeee)
+- Add `noneSatisfy(BiConsumer)` to `Map` assertions. (Erhard Pointl)
 - Add `containsExactlyEntriesOf` assertion to check that a `Map` contains exactly all entries of another `Map`. (Filip Hrisafov)
 - Add `containsOnlyKeys(Iterable keys)` to `Map` assertion. (Sebastian Kempken)
 - Add `anySatifies(BiConsumer)` to `Map` assertion. (Stefan Mandel)
@@ -70,7 +70,7 @@ Pascal Schumacher, Erhard Pointl, Vladimir Chernikov, Sandra Parsick, Martin Tar
 ===== Improvements
 
 - Add stack trace of original exception to `catchThrowableOfType`. (Sam Smyth)
-- `anySatisfy` and `noneSatisfy` now reports all failing elements. (epeee)
+- `anySatisfy` and `noneSatisfy` now reports all failing elements. (Erhard Pointl)
 - `ElementsShouldSatisfy` now uses the configured `Representation` to format objects.
 - `ZipSatisfyError` now uses the configured `Representation` to format objects. (Jeff Walker)
 - AssertJ `Double` and `Float` comparators now support `Infinity`. (Alexandre de Champeaux)
