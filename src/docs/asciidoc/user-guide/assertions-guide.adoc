@@ -156,7 +156,7 @@ java.lang.AssertionError: should be TolkienCharacter [name=Frodo, age=33, race=H
 [[assertj-core-incorrect-usage]]
 === Avoiding incorrect usage
 
-There are a few things to keep in mind when using AssertJ to avoid misusing it. 
+There are a few things to keep in mind when using AssertJ to avoid misusing it.
 
 ==== Forgetting to call an assertion
 
@@ -284,13 +284,13 @@ An example of a custom `Representation`:
 [source,java,indent=0]
 ----
 // dummy class
-private class Example {} 
+private class Example {}
 
 public class CustomRepresentation extends StandardRepresentation { // <1>
 
   // override fallbackToStringOf to handle Example formatting
   @Override
-  public String fallbackToStringOf(Object o) { // <2> 
+  public String fallbackToStringOf(Object o) { // <2>
     if (o instanceof Example) return "Example";
     // fallback to default formatting.
     return super.fallbackToStringOf(o);
@@ -372,7 +372,7 @@ assertThat(new Example()).withRepresentation(customRepresentation)
                          .isNull();
 
 assertThat("foo").withRepresentation(customRepresentation)
-                 .startsWith("bar");                         
+                 .startsWith("bar");
 ----
 
 
@@ -450,14 +450,14 @@ Here's a simple example to give an idea of what it can do:
  assertThat(sherlock).isEqualTo(sherlock2);
 ----
 
-The comparison is *not symmetrical* since it is *limited to actual's fields*, the algorithm gather actual's fields and then compare them to the corresponding expected's fields. It is then possible for the expected object to have more fields than actual which cna be handy when comparing a base type to a subtype with additional fields. 
+The comparison is *not symmetrical* since it is *limited to actual's fields*, the algorithm gather actual's fields and then compare them to the corresponding expected's fields. It is then possible for the expected object to have more fields than actual which cna be handy when comparing a base type to a subtype with additional fields.
 
 [[assertj-core-recursive-comparison-strict]]
 ==== Strict or lenient comparison
 
 By default the objects to compare can be of different types but must have the same properties/fields. For example if object under test has a `work` field of type `Address`, the expected object to compare the object under test to must also have one but it can of a different type like `AddressDto`.
 
-It is possible to enforce strict type checking by calling `withStrictTypeChecking()` and make the comparison fail whenever the compared objects or their fields are not compatible. Compatible means that the expected object/field types are the same or a subtype of actual/field types, for example if actual is an `Animal` and expected a `Dog`, they will be compared fiels by field in strict type checking mode. 
+It is possible to enforce strict type checking by calling `withStrictTypeChecking()` and make the comparison fail whenever the compared objects or their fields are not compatible. Compatible means that the expected object/field types are the same or a subtype of actual/field types, for example if actual is an `Animal` and expected a `Dog`, they will be compared fiels by field in strict type checking mode.
 
 [source,java,indent=0]
 ----
@@ -564,7 +564,7 @@ assertThat(sherlock).usingRecursiveComparison()
 [[assertj-core-recursive-comparison-ignoring-equals]]
 ==== Ignoring overridden equals
 
-By default the recursive comparison uses overridden `equals` methods to compare fields, it is possible to change that behavior and force a recursive comparison by calling: 
+By default the recursive comparison uses overridden `equals` methods to compare fields, it is possible to change that behavior and force a recursive comparison by calling:
 
 * `ignoringOverriddenEqualsForTypes(Class...)` Any fields of these classes are compared recursively
 * `ignoringOverriddenEqualsForFields(String...)` Any given fields are compared recursively
@@ -661,7 +661,7 @@ assertThat(frodo).usingRecursiveComparison()
 
 assertThat(frodo).usingRecursiveComparison()
                  .withComparatorForType(closeEnough, Double.class)
-                 .isEqualTo(reallyTallFrodo);                 
+                 .isEqualTo(reallyTallFrodo);
 ----
 
 
@@ -669,34 +669,40 @@ assertThat(frodo).usingRecursiveComparison()
 [[assertj-core-soft-assertions]]
 === Soft Assertions
 
-TODO  
+TODO
 
 [[assertj-core-assumptions]]
 === Assumptions
 
 All AssertJ assumptions are static methods in the `Assumptions` class.
 
-TODO  
+TODO
 // [source,java,indent=0]
 // ----
 // include::{testDir}/example/AssumptionsDemo.java[tags=user_guide]
 // ----
 
+[[assertj-core-javadoc]]
+=== Javadoc
+
+The latest version of assertj core javadoc is here:
+
+https://assertj.github.io/doc/javadoc/core/index.html
+
 [[assertj-core-extensions]]
 == Extending assertions
 
-TODO  
+TODO
 
 [[assertj-core-conditions]]
 === Conditions
 
-TODO  
+TODO
 
 [[assertj-core-custom-assertions]]
 === Custom Assertions
 
-TODO  
-
+TODO
 
 [[assertj-samples]]
 == AssertJ Sample Projects

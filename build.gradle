@@ -48,6 +48,7 @@ asciidoctor {
 			include '**/images/**'
 			include '**/highlight/**'
 			include '**/*.css'
+			include '**/javadoc/**'
 		}
 	}
 
@@ -60,9 +61,9 @@ asciidoctor {
 							'releaseBranch' : version,
 							'testDir': '../../../test/java',
 							'outdir': outputDir.absolutePath,
-							'source-highlighter': 'highlightjs', 
-							'highlightjsdir': 'highlight', 
-							'highlightjs-theme': 'railscasts', 
+							'source-highlighter': 'highlightjs',
+							'highlightjsdir': 'highlight',
+							'highlightjs-theme': 'railscasts',
 							'tabsize': '3',
 							'toc': 'left',
 							'icons': 'font',
@@ -76,7 +77,7 @@ asciidoctor {
 
 githubPages {
 	repoUri = 'https://github.com/assertj/doc.git'
-	credentials { 
+	credentials {
 		username = project.hasProperty('githubToken') ? project.githubToken : ''
 		password = ''
 	}
