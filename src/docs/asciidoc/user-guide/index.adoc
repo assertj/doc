@@ -46,7 +46,16 @@ Pascal Schumacher, Erhard Pointl, Vladimir Chernikov, Sandra Parsick, Martin Tar
 
 ===== Breaking changes
 
-- Introduce first class `Iterator` assertions without removing previous supported assertions that were for `Iterable` (Stephan Windmüller).
+- Introduce first class `Iterator` assertions (Stephan Windmüller).
+
+WARNING: This removes previously supported assertions for `Iterable`, call http://joel-costigliola.github.io/assertj/core-8/api/org/assertj/core/api/AbstractIteratorAssert.html#toIterable--[`IteratorAssert#toIterable`] to access iterable assertions, ex:
+
+[source,java,indent=0]
+----
+Iterator<String> bestBasketBallPlayers = getBestBasketBallPlayers();
+
+assertThat(bestBasketBallPlayers).toIterable().contains("Jordan", "Magic", "Lebron");
+----
 
 ===== New features
 
