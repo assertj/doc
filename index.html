@@ -3743,9 +3743,28 @@ There are more capabilities to come in the next releases, stay tuned!</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Introduce first class <code>Iterator</code> assertions without removing previous supported assertions that were for <code>Iterable</code> (Stephan Windmüller).</p>
+<p>Introduce first class <code>Iterator</code> assertions (Stephan Windmüller).</p>
 </li>
 </ul>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+This removes previously supported assertions for <code>Iterable</code>, call <a href="http://joel-costigliola.github.io/assertj/core-8/api/org/assertj/core/api/AbstractIteratorAssert.html#toIterable--"><code>IteratorAssert#toIterable</code></a> to access iterable assertions, ex:
+</td>
+</tr>
+</table>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">Iterator&lt;String&gt; bestBasketBallPlayers = getBestBasketBallPlayers();
+
+assertThat(bestBasketBallPlayers).toIterable().contains("Jordan", "Magic", "Lebron");</code></pre>
+</div>
 </div>
 </div>
 <div class="sect4">
@@ -3900,7 +3919,7 @@ There are more capabilities to come in the next releases, stay tuned!</p>
 <div id="footer">
 <div id="footer-text">
 Version 1.0.0-SNAPSHOT<br>
-Last updated 2019-02-27 22:58:32 NZDT
+Last updated 2019-02-28 22:42:17 NZDT
 </div>
 </div>
 <link rel="stylesheet" href="highlight/styles/railscasts.min.css">
