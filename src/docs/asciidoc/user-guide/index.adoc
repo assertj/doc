@@ -28,6 +28,10 @@ include::contributors.adoc[]
 
 === AssertJ Core
 
+==== AssertJ Core 3.12.1 Release notes
+
+Fix a regression that included a bad module-info.class and other minor improvements.
+
 ==== AssertJ Core 3.12.0 Release notes
 
 Release date : 2019-02-14
