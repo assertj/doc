@@ -48,7 +48,7 @@ Pascal Schumacher, Erhard Pointl, Vladimir Chernikov, Sandra Parsick, Martin Tar
 
 - Introduce first class `Iterator` assertions (Stephan Windmüller).
 
-WARNING: This removes previously supported assertions for `Iterable`, call http://joel-costigliola.github.io/assertj/core-8/api/org/assertj/core/api/AbstractIteratorAssert.html#toIterable--[`IteratorAssert#toIterable`] to access iterable assertions, ex:
+WARNING: This removes the previously supported "`Iterable`" assertions (like `containsOnly`), call http://joel-costigliola.github.io/assertj/core-8/api/org/assertj/core/api/AbstractIteratorAssert.html#toIterable--[`IteratorAssert#toIterable`] to access them again, ex:
 
 [source,java,indent=0]
 ----
