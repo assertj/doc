@@ -61,6 +61,17 @@ Iterator<String> bestBasketBallPlayers = getBestBasketBallPlayers();
 assertThat(bestBasketBallPlayers).toIterable().contains("Jordan", "Magic", "Lebron");
 ----
 
+- Add configurable support for bare-named property introspection. (Steven Schlansker)
+
+AssertJ uses introspection in various places, one example is extracting properties as in `extracting("name")`. AssertJ is able to get values with getters like `getName()`, with this improvement it now can get property values with bare name method like `name()`.
+
+WARNING: Bare-named property introspection is enabled by default and thus changes AssertJ behavior which can break some existing tests relying on introspection, this is especially true as AssertJ wrongly tries static methods (https://github.com/joel-costigliola/assertj-core/issues/1458 had been created to address that).
+
+It is possible to avoid this probem by calling `Assertions.setExtractBareNamePropertyMethods(false);` before every impacted tests.
+
+This is a bit tedious but an improvement is planned in the next release to provide a place to perform global configuration with the same mechanism allowing to link:#assertj-core-custom-representation-default-global-scope[register a custom representation].
+
+
 ===== New features
 
 - New Recursive comparison API! (Beta version)
@@ -103,7 +114,6 @@ assertThat(bestBasketBallPlayers).toIterable().contains("Jordan", "Magic", "Lebr
 - Do not proxy `useComparator` method in soft assertions. (Lukáš Křečan)
 - Fix an NPE in `ObjectArrays#assertHasOnlyElementsOfType`. (Yoann Rodière)
 - Deprecate `Extractor` in favor of `java.util.function.Function`. (Filip Hrisafov)
-- Add configurable support for bare-named property introsoection. (Steven Schlansker) TODO document
 
 ===== Fixed
 
