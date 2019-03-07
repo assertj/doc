@@ -48,6 +48,7 @@ Big thanks for all the contributors to this release:
 
 Pascal Schumacher, Erhard Pointl, Vladimir Chernikov, Sandra Parsick, Martin Tarjanyi, Stephan Windmüller, Yaroslav Mitsynskiy, Thomas Traude, Georg Berky, Tomek Kaczanowski, Lukáš Křečan, Yoann Rodière, Filip Hrisafov, Steven Schlansker, Jeremy Landis, Jack Gough, Sebastian Kempken, Stefan Mandel, Alexandre de Champeaux, Arvid Heise, Jeff Walker, Dmitrii Priporov and Joshua Kitchen.
 
+[[assertj-core-3.12.0-breaking-changes]]
 ===== Breaking changes
 
 - Introduce first class `Iterator` assertions (Stephan Windmüller).
