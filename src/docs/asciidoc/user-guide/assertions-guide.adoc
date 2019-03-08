@@ -394,7 +394,117 @@ TODO
 [[assertj-core-exception-assertions]]
 === Exception assertions
 
-TODO
+How to assert that an exception has been thrown and check that it is the expected one ?
+
+==== With Java 8 (AssertJ 3.x)
+
+Testing assertions in Java 8 is elegant, use `assertThatThrownBy(ThrowingCallable)` to capture and then assert on a
+`Throwable`, `ThrowingCallable` being a functional interface it can be expressed by a lambda.
+
+Example :
+
+[source,java]
+@Test
+public void testException() {
+   assertThatThrownBy(() -> { throw new Exception("boom!"); }).isInstanceOf(Exception.class)
+                                                             .hasMessageContaining("boom");
+}
+
+An alternative syntax is provided as some people find it more natural :
+
+[source,java]
+@Test
+public void testException() {
+   assertThatExceptionOfType(IOException.class).isThrownBy(() -> { throw new IOException("boom!"); })
+                                               .withMessage("%s!", "boom")
+                                               .withMessageContaining("boom")
+                                               .withNoCause();
+}
+
+This later syntax has been enriched for common exceptions :
+
+* `assertThatNullPointerException`
+* `assertThatIllegalArgumentException`
+* `assertThatIllegalStateException`
+* `assertThatIOException`
+
+The previous test can be rewritten as:
+
+[source,java]
+@Test
+public void testException() {
+   assertThatIOException().isThrownBy(() -> { throw new IOException("boom!"); })
+                          .withMessage("%s!", "boom")
+                          .withMessageContaining("boom")
+                          .withNoCause();
+}
+
+You can test that a piece of code does not throw any exception:
+[source,java]
+assertThatCode(() -> {
+  // code that should throw an exception
+  ...
+}).doesNotThrowAnyException();
+
+Finally, BDD aficionados can separate _when_ and _then_ steps by using `catchThrowable(ThrowingCallable)` to capture the throwable and then perform assertions.
+
+Example :
+[source,java]
+----
+@Test
+public void testException() {
+   // given some preconditions
+
+   // when
+   Throwable thrown = catchThrowable(() -> { throw new Exception("boom!"); });
+
+   // then
+   assertThat(thrown).isInstanceOf(Exception.class)
+                     .hasMessageContaining("boom");
+}
+----
+
+==== With Java 7 (AssertJ 2.x)
+
+Asserting on exceptions is not as nice compared to the Java 8 way, this is how you would do it in AssertJ 2.x :
+
+. Put the code to should throw in a try-catch.
+. Call fail method immediately after the code that should throw the exception, so that if it is not thrown, the test fails.
+. Make assertions on the caught exception
+
+Note that `fail` method can be statically imported from `Assertions` class.
+
+[source,java]
+----
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.fail;
+import static org.assertj.core.api.Assertions.failBecauseExceptionWasNotThrown;
+// ... code omitted for brevety
+
+assertThat(fellowshipOfTheRing).hasSize(9);
+
+// here's the typical pattern to use Fail :
+try {
+  fellowshipOfTheRing.get(9); // argggl !
+  // we should not arrive here => use fail to expresses that
+  // if IndexOutOfBoundsException was not thrown, test would fail the specified message
+  fail("IndexOutOfBoundsException expected because fellowshipOfTheRing has only 9 elements");
+} catch (IndexOutOfBoundsException e) {
+  assertThat(e).hasMessage("Index: 9, Size: 9");
+}
+
+// Warning : don't catch Throwable as it would also catch the AssertionError thrown by fail method
+
+// another way to do the same thing
+try {
+  fellowshipOfTheRing.get(9); // argggl !
+  // if IndexOutOfBoundsException was not thrown, test would fail with message :
+  // "Expected IndexOutOfBoundsException to be thrown"
+  failBecauseExceptionWasNotThrown(IndexOutOfBoundsException.class);
+} catch (IndexOutOfBoundsException e) {
+  assertThat(e).hasMessage("Index: 9, Size: 9");
+}
+----
 
 [[assertj-core-recursive-comparison]]
 === Field by field recursive comparison
