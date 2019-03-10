@@ -394,32 +394,82 @@ TODO
 [[assertj-core-exception-assertions]]
 === Exception assertions
 
-How to assert that an exception has been thrown and check that it is the expected one ?
+This chapter answers the question: how to assert that an exception has been thrown and check that it is the expected one ?
 
+If you use java 8 or later versions, check the link:#assertj-core-exception-assertions-java-8[Java 8 section] which heavily uses lambdas.
+If you use java 7, check the link:#assertj-core-exception-assertions-java-7[Java 7 section] which heavily uses lambdas.
+
+All the available assertions are described in the link:#assertj-core-exception-assertions-reference[throwable assertions reference section].
+
+In this chapter is exception is used interchangeably with throwable.
+
+[[assertj-core-exception-assertions-java-8]]
 ==== With Java 8 (AssertJ 3.x)
 
-Testing assertions in Java 8 is elegant, use `assertThatThrownBy(ThrowingCallable)` to capture and then assert on a
-`Throwable`, `ThrowingCallable` being a functional interface it can be expressed by a lambda.
+Thanks to lambdas testing assertions in Java 8 is elegant, AssertJ provides different style options:
+
+- link:#assertj-core-exception-assertions-bdd-style[`catchThrowable(ThrowingCallable)`]
+- link:#assertj-core-exception-assertions-assertThatThrownBy[`assertThatThrownBy(ThrowingCallable)`]
+- link:#assertj-core-exception-assertions-assertThatExceptionOfType[`assertThatExceptionOfType(exception class)`]
+- link:#assertj-core-exception-assertions-no-exception[Testing that no exception it thrown]
+
+where `ThrowingCallable` is a functional interface which can be expressed as a lambda.
+
+[[assertj-core-exception-assertions-bdd-style]]
+===== BDD style
+
+BDD aficionados can separate _WHEN_ and _THEN_ steps by using `catchThrowable(ThrowingCallable)` to capture the throwable and then perform assertions.
 
 Example :
-
 [source,java]
+----
 @Test
-public void testException() {
-   assertThatThrownBy(() -> { throw new Exception("boom!"); }).isInstanceOf(Exception.class)
-                                                             .hasMessageContaining("boom");
+public void exception_assertion_example() {
+   // GIVEN some preconditions
+
+   // WHEN
+   Throwable thrown = catchThrowable(() -> { throw new Exception("boom!"); });
+
+   // THEN
+   assertThat(thrown).isInstanceOf(Exception.class)
+                     .hasMessageContaining("boom");
 }
+----
 
-An alternative syntax is provided as some people find it more natural :
+[[assertj-core-exception-assertions-assertThatThrownBy]]
+===== Exception testing with assertThatThrownBy
+
+Starts with `assertThatThrownBy(ThrowingCallable)` to capture and then assert on the thrown `Throwable`.
+
+Note that if the provided `ThrowingCallable` does not raise an exception, an assertion error is immediately thrown.
+
+Example :
+[source,java]
+----
+@Test
+public void exception_assertion_example() {
+   assertThatThrownBy(() -> { throw new Exception("boom!"); }).isInstanceOf(Exception.class)
+                                                              .hasMessageContaining("boom");
+}
+----
+
+[[assertj-core-exception-assertions-assertThatExceptionOfType]]
+===== Exception testing with assertThatExceptionOfType
+
+`assertThatExceptionOfType` is an alternative syntax that some people find more natural.
+
+Note that if the code under test `ThrowingCallable` does not raise an exception, an assertion error is immediately thrown.
 
 [source,java]
+----
 @Test
-public void testException() {
+public void exception_assertion_example() {
    assertThatExceptionOfType(IOException.class).isThrownBy(() -> { throw new IOException("boom!"); })
                                                .withMessage("%s!", "boom")
                                                .withMessageContaining("boom")
                                                .withNoCause();
 }
+----
 
 This later syntax has been enriched for common exceptions :
 
@@ -429,41 +479,55 @@ This later syntax has been enriched for common exceptions :
 * `assertThatIOException`
 
 The previous test can be rewritten as:
-
 [source,java]
+----
 @Test
-public void testException() {
+public void exception_assertion_example() {
    assertThatIOException().isThrownBy(() -> { throw new IOException("boom!"); })
                           .withMessage("%s!", "boom")
                           .withMessageContaining("boom")
                           .withNoCause();
 }
+----
+
+[[assertj-core-exception-assertions-no-exception]]
+===== Testing that no exception it thrown
 
 You can test that a piece of code does not throw any exception:
 [source,java]
+----
 assertThatCode(() -> {
   // code that should throw an exception
   ...
 }).doesNotThrowAnyException();
+----
 
-Finally, BDD aficionados can separate _when_ and _then_ steps by using `catchThrowable(ThrowingCallable)` to capture the throwable and then perform assertions.
+[[assertj-core-exception-assertions-reference]]
+==== Throwable reference assertions reference
 
-Example :
+TODO: describe all assertions with code examples, see http://joel-costigliola.github.io/assertj/core-8/api/org/assertj/core/api/AbstractThrowableAssert.html#method.summary.
+
+[[assertj-core-exception-assertions-hasMessage]]
+===== Checking the exception message
+
+There are two ways to check the exception message: `hasMessage(String message)` and `hasMessage(String message, Object... parameters)`, the latter allows you to build the expected message as https://docs.oracle.com/javase/8/docs/api/java/lang/String.html?is-external=true#format-java.lang.String-java.lang.Object...-[String.format].
+
+Examples:
 [source,java]
 ----
-@Test
-public void testException() {
-   // given some preconditions
+Throwable invalidArgException = new IllegalArgumentException("foo is not a valid input");
+Throwable throwable = new Throwable(invalidArgException);
 
-   // when
-   Throwable thrown = catchThrowable(() -> { throw new Exception("boom!"); });
+// This assertion succeeds:
+assertThat(throwable).hasMessage("foo is not a valid input");
+assertThat(throwable).hasMessage("%s is not a valid input", "foo");
 
-   // then
-   assertThat(thrown).isInstanceOf(Exception.class)
-                     .hasMessageContaining("boom");
-}
+// These assertions fail:
+assertThat(throwable).hasMessage("bar is not a valid input");
+assertThat(throwable).hasMessage("%s is not a valid input", "bar");
 ----
 
+[[assertj-core-exception-assertions-java-8]]
 ==== With Java 7 (AssertJ 2.x)
 
 Asserting on exceptions is not as nice compared to the Java 8 way, this is how you would do it in AssertJ 2.x :
