@@ -3304,7 +3304,237 @@ assertThat("foo").withRepresentation(customRepresentation)
 <div class="sect2">
 <h3 id="assertj-core-exception-assertions"><a class="anchor" href="#assertj-core-exception-assertions"></a>3.10. Exception assertions</h3>
 <div class="paragraph">
-<p>TODO</p>
+<p>This chapter answers the question: how to assert that an exception has been thrown and check that it is the expected one ?</p>
+</div>
+<div class="paragraph">
+<p>If you use java 8 or later versions, check the <a href="#assertj-core-exception-assertions-java-8">Java 8 section</a> which heavily uses lambdas.
+If you use java 7, check the <a href="#assertj-core-exception-assertions-java-7">Java 7 section</a> which heavily uses lambdas.</p>
+</div>
+<div class="paragraph">
+<p>All the available assertions are described in the <a href="#assertj-core-exception-assertions-reference">throwable assertions reference section</a>.</p>
+</div>
+<div class="paragraph">
+<p>In this chapter is exception is used interchangeably with throwable.</p>
+</div>
+<div class="sect3">
+<h4 id="assertj-core-exception-assertions-java-8"><a class="anchor" href="#assertj-core-exception-assertions-java-8"></a>3.10.1. With Java 8 (AssertJ 3.x)</h4>
+<div class="paragraph">
+<p>Thanks to lambdas testing assertions in Java 8 is elegant, AssertJ provides different style options:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="#assertj-core-exception-assertions-bdd-style"><code>catchThrowable(ThrowingCallable)</code></a></p>
+</li>
+<li>
+<p><a href="#assertj-core-exception-assertions-assertThatThrownBy"><code>assertThatThrownBy(ThrowingCallable)</code></a></p>
+</li>
+<li>
+<p><a href="#assertj-core-exception-assertions-assertThatExceptionOfType"><code>assertThatExceptionOfType(exception class)</code></a></p>
+</li>
+<li>
+<p><a href="#assertj-core-exception-assertions-no-exception">Testing that no exception it thrown</a></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>where <code>ThrowingCallable</code> is a functional interface which can be expressed as a lambda.</p>
+</div>
+<div class="sect4">
+<h5 id="assertj-core-exception-assertions-bdd-style"><a class="anchor" href="#assertj-core-exception-assertions-bdd-style"></a>BDD style</h5>
+<div class="paragraph">
+<p>BDD aficionados can separate <em>WHEN</em> and <em>THEN</em> steps by using <code>catchThrowable(ThrowingCallable)</code> to capture the throwable and then perform assertions.</p>
+</div>
+<div class="paragraph">
+<p>Example :</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Test
+public void exception_assertion_example() {
+   // GIVEN some preconditions
+
+   // WHEN
+   Throwable thrown = catchThrowable(() -&gt; { throw new Exception("boom!"); });
+
+   // THEN
+   assertThat(thrown).isInstanceOf(Exception.class)
+                     .hasMessageContaining("boom");
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="assertj-core-exception-assertions-assertThatThrownBy"><a class="anchor" href="#assertj-core-exception-assertions-assertThatThrownBy"></a>Exception testing with assertThatThrownBy</h5>
+<div class="paragraph">
+<p>Starts with <code>assertThatThrownBy(ThrowingCallable)</code> to capture and then assert on the thrown <code>Throwable</code>.</p>
+</div>
+<div class="paragraph">
+<p>Note that if the provided <code>ThrowingCallable</code> does not raise an exception, an assertion error is immediately thrown.</p>
+</div>
+<div class="paragraph">
+<p>Example :</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Test
+public void exception_assertion_example() {
+   assertThatThrownBy(() -&gt; { throw new Exception("boom!"); }).isInstanceOf(Exception.class)
+                                                              .hasMessageContaining("boom");
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="assertj-core-exception-assertions-assertThatExceptionOfType"><a class="anchor" href="#assertj-core-exception-assertions-assertThatExceptionOfType"></a>Exception testing with assertThatExceptionOfType</h5>
+<div class="paragraph">
+<p><code>assertThatExceptionOfType</code> is an alternative syntax that some people find more natural.</p>
+</div>
+<div class="paragraph">
+<p>Note that if the code under test <code>ThrowingCallable</code> does not raise an exception, an assertion error is immediately thrown.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Test
+public void exception_assertion_example() {
+   assertThatExceptionOfType(IOException.class).isThrownBy(() -&gt; { throw new IOException("boom!"); })
+                                               .withMessage("%s!", "boom")
+                                               .withMessageContaining("boom")
+                                               .withNoCause();
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This later syntax has been enriched for common exceptions :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>assertThatNullPointerException</code></p>
+</li>
+<li>
+<p><code>assertThatIllegalArgumentException</code></p>
+</li>
+<li>
+<p><code>assertThatIllegalStateException</code></p>
+</li>
+<li>
+<p><code>assertThatIOException</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The previous test can be rewritten as:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Test
+public void exception_assertion_example() {
+   assertThatIOException().isThrownBy(() -&gt; { throw new IOException("boom!"); })
+                          .withMessage("%s!", "boom")
+                          .withMessageContaining("boom")
+                          .withNoCause();
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="assertj-core-exception-assertions-no-exception"><a class="anchor" href="#assertj-core-exception-assertions-no-exception"></a>Testing that no exception it thrown</h5>
+<div class="paragraph">
+<p>You can test that a piece of code does not throw any exception:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">assertThatCode(() -&gt; {
+  // code that should throw an exception
+  ...
+}).doesNotThrowAnyException();</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="assertj-core-exception-assertions-reference"><a class="anchor" href="#assertj-core-exception-assertions-reference"></a>3.10.2. Throwable reference assertions reference</h4>
+<div class="paragraph">
+<p>TODO: describe all assertions with code examples, see <a href="http://joel-costigliola.github.io/assertj/core-8/api/org/assertj/core/api/AbstractThrowableAssert.html#method.summary" class="bare">http://joel-costigliola.github.io/assertj/core-8/api/org/assertj/core/api/AbstractThrowableAssert.html#method.summary</a>.</p>
+</div>
+<div class="sect4">
+<h5 id="assertj-core-exception-assertions-hasMessage"><a class="anchor" href="#assertj-core-exception-assertions-hasMessage"></a>Checking the exception message</h5>
+<div class="paragraph">
+<p>There are two ways to check the exception message: <code>hasMessage(String message)</code> and <code>hasMessage(String message, Object&#8230;&#8203; parameters)</code>, the latter allows you to build the expected message as <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html?is-external=true#format-java.lang.String-java.lang.Object&#8230;&#8203;-">String.format</a>.</p>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">Throwable invalidArgException = new IllegalArgumentException("foo is not a valid input");
+Throwable throwable = new Throwable(invalidArgException);
+
+// This assertion succeeds:
+assertThat(throwable).hasMessage("foo is not a valid input");
+assertThat(throwable).hasMessage("%s is not a valid input", "foo");
+
+// These assertions fail:
+assertThat(throwable).hasMessage("bar is not a valid input");
+assertThat(throwable).hasMessage("%s is not a valid input", "bar");</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="assertj-core-exception-assertions-java-8"><a class="anchor" href="#assertj-core-exception-assertions-java-8"></a>3.10.3. With Java 7 (AssertJ 2.x)</h4>
+<div class="paragraph">
+<p>Asserting on exceptions is not as nice compared to the Java 8 way, this is how you would do it in AssertJ 2.x :</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Put the code to should throw in a try-catch.</p>
+</li>
+<li>
+<p>Call fail method immediately after the code that should throw the exception, so that if it is not thrown, the test fails.</p>
+</li>
+<li>
+<p>Make assertions on the caught exception</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Note that <code>fail</code> method can be statically imported from <code>Assertions</code> class.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.fail;
+import static org.assertj.core.api.Assertions.failBecauseExceptionWasNotThrown;
+// ... code omitted for brevety
+
+assertThat(fellowshipOfTheRing).hasSize(9);
+
+// here's the typical pattern to use Fail :
+try {
+  fellowshipOfTheRing.get(9); // argggl !
+  // we should not arrive here =&gt; use fail to expresses that
+  // if IndexOutOfBoundsException was not thrown, test would fail the specified message
+  fail("IndexOutOfBoundsException expected because fellowshipOfTheRing has only 9 elements");
+} catch (IndexOutOfBoundsException e) {
+  assertThat(e).hasMessage("Index: 9, Size: 9");
+}
+
+// Warning : don't catch Throwable as it would also catch the AssertionError thrown by fail method
+
+// another way to do the same thing
+try {
+  fellowshipOfTheRing.get(9); // argggl !
+  // if IndexOutOfBoundsException was not thrown, test would fail with message :
+  // "Expected IndexOutOfBoundsException to be thrown"
+  failBecauseExceptionWasNotThrown(IndexOutOfBoundsException.class);
+} catch (IndexOutOfBoundsException e) {
+  assertThat(e).hasMessage("Index: 9, Size: 9");
+}</code></pre>
+</div>
+</div>
 </div>
 </div>
 <div class="sect2">
