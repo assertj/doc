@@ -28,9 +28,15 @@ include::contributors.adoc[]
 
 === AssertJ Core
 
+==== AssertJ Core 3.12.2 Release notes
+
+The main issue fixed was to ignore static methods when finding property accessors (contributed by Andy Wilkinson) which could break some tests since bare name method introspection was introduced in 3.12.0.
+
+`anySatisfy` for `Maps` was improved and does not continue evaluating elements once a match is found (contributed by Erhard Pointl).
+
 ==== AssertJ Core 3.12.1 Release notes
 
-Fix a regression that included a bad module-info.class and other minor improvements.
+Fix a regression that included a bad module-info.class (thanks Jaro Kuruc) and other minor improvements.
 
 ==== AssertJ Core 3.12.0 Release notes
 
