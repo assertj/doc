@@ -624,14 +624,14 @@ Here's a simple example to give an idea of what it can do:
  assertThat(sherlock).isEqualTo(sherlock2);
 ----
 
-The comparison is *not symmetrical* since it is *limited to actual's fields*, the algorithm gather actual's fields and then compare them to the corresponding expected's fields. It is then possible for the expected object to have more fields than actual which cna be handy when comparing a base type to a subtype with additional fields.
+The comparison is *not symmetrical* since it is *limited to actual's fields*, the algorithm gather actual's fields and then compare them to the corresponding expected's fields. It is then possible for the expected object to have more fields than actual which can be handy when comparing a base type to a subtype with additional fields.
 
 [[assertj-core-recursive-comparison-strict]]
 ==== Strict or lenient comparison
 
 By default the objects to compare can be of different types but must have the same properties/fields. For example if object under test has a `work` field of type `Address`, the expected object to compare the object under test to must also have one but it can of a different type like `AddressDto`.
 
-It is possible to enforce strict type checking by calling `withStrictTypeChecking()` and make the comparison fail whenever the compared objects or their fields are not compatible. Compatible means that the expected object/field types are the same or a subtype of actual/field types, for example if actual is an `Animal` and expected a `Dog`, they will be compared fiels by field in strict type checking mode.
+It is possible to enforce strict type checking by calling `withStrictTypeChecking()` and make the comparison fail whenever the compared objects or their fields are not compatible. Compatible means that the expected object/field types are the same or a subtype of actual/field types, for example if actual is an `Animal` and expected a `Dog`, they will be compared field by field in strict type checking mode.
 
 [source,java,indent=0]
 ----
