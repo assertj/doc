@@ -5,7 +5,7 @@ This is now the official site for AssertJ Core replacing: http://joel-costigliol
 
 The migration from the old site is still in progress but this new site already contains useful information and even some not documented previously!
 
-If you feel something is missing or not clear enought, please raise an issue in https://github.com/assertj/doc/issues or even better contribute to it!
+If you feel something is missing or not clear enough, please raise an issue in https://github.com/assertj/doc/issues or even better contribute to it!
 
 :imagesdir: images
 :imagesoutdir: {outdir}/user-guide/images
