@@ -2419,11 +2419,16 @@ p {
 <li><a href="#assertj-core-custom-assertions">4.2. Custom Assertions</a></li>
 </ul>
 </li>
-<li><a href="#assertj-samples">5. AssertJ Sample Projects</a></li>
-<li><a href="#contributors">6. Contributors</a></li>
-<li><a href="#release-notes">7. Release Notes</a>
+<li><a href="#assertj-migration">5. Migrating assertions</a>
 <ul class="sectlevel2">
-<li><a href="#assertj-core">7.1. AssertJ Core</a></li>
+<li><a href="#assertj-migration-using-scripts">5.1. Assertions migration script</a></li>
+</ul>
+</li>
+<li><a href="#assertj-samples">6. AssertJ Sample Projects</a></li>
+<li><a href="#contributors">7. Contributors</a></li>
+<li><a href="#release-notes">8. Release Notes</a>
+<ul class="sectlevel2">
+<li><a href="#assertj-core">8.1. AssertJ Core</a></li>
 </ul>
 </li>
 </ul>
@@ -2439,7 +2444,7 @@ p {
 <p>The migration from the old site is still in progress but this new site already contains useful information and even some not documented previously!</p>
 </div>
 <div class="paragraph">
-<p>If you feel something is missing or not clear enought, please raise an issue in <a href="https://github.com/assertj/doc/issues" class="bare">https://github.com/assertj/doc/issues</a> or even better contribute to it!</p>
+<p>If you feel something is missing or not clear enough, please raise an issue in <a href="https://github.com/assertj/doc/issues" class="bare">https://github.com/assertj/doc/issues</a> or even better contribute to it!</p>
 </div>
 </div>
 </div>
@@ -3606,7 +3611,7 @@ assertThat(sherlock).isEqualTo(sherlock2);</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>The comparison is <strong>not symmetrical</strong> since it is <strong>limited to actual&#8217;s fields</strong>, the algorithm gather actual&#8217;s fields and then compare them to the corresponding expected&#8217;s fields. It is then possible for the expected object to have more fields than actual which cna be handy when comparing a base type to a subtype with additional fields.</p>
+<p>The comparison is <strong>not symmetrical</strong> since it is <strong>limited to actual&#8217;s fields</strong>, the algorithm gather actual&#8217;s fields and then compare them to the corresponding expected&#8217;s fields. It is then possible for the expected object to have more fields than actual which can be handy when comparing a base type to a subtype with additional fields.</p>
 </div>
 <div class="sect3">
 <h4 id="assertj-core-recursive-comparison-strict"><a class="anchor" href="#assertj-core-recursive-comparison-strict"></a>3.11.1. Strict or lenient comparison</h4>
@@ -3614,7 +3619,7 @@ assertThat(sherlock).isEqualTo(sherlock2);</code></pre>
 <p>By default the objects to compare can be of different types but must have the same properties/fields. For example if object under test has a <code>work</code> field of type <code>Address</code>, the expected object to compare the object under test to must also have one but it can of a different type like <code>AddressDto</code>.</p>
 </div>
 <div class="paragraph">
-<p>It is possible to enforce strict type checking by calling <code>withStrictTypeChecking()</code> and make the comparison fail whenever the compared objects or their fields are not compatible. Compatible means that the expected object/field types are the same or a subtype of actual/field types, for example if actual is an <code>Animal</code> and expected a <code>Dog</code>, they will be compared fiels by field in strict type checking mode.</p>
+<p>It is possible to enforce strict type checking by calling <code>withStrictTypeChecking()</code> and make the comparison fail whenever the compared objects or their fields are not compatible. Compatible means that the expected object/field types are the same or a subtype of actual/field types, for example if actual is an <code>Animal</code> and expected a <code>Dog</code>, they will be compared field by field in strict type checking mode.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -3904,7 +3909,153 @@ assertThat(frodo).usingRecursiveComparison()
 </div>
 </div>
 <div class="sect1">
-<h2 id="assertj-samples"><a class="anchor" href="#assertj-samples"></a>5. AssertJ Sample Projects</h2>
+<h2 id="assertj-migration"><a class="anchor" href="#assertj-migration"></a>5. Migrating assertions</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This page will help you converting your existing JUnit assertions to AssertJ ones. Note that both types of assertions can coexist, you don&#8217;t have to migrate all at once.</p>
+</div>
+<div class="paragraph">
+<p>The idea is to convert code like :</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">assertEquals(expected, actual);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>to:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">assertThat(actual).isEqualTo(expected);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>There are several ways to perform the conversion :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>automatically with <a href="#assertj-migration-using-scripts">shell scripts</a>.</p>
+</li>
+<li>
+<p>manually using the regexps described in this page.</p>
+</li>
+<li>
+<p>With IntelliJ IDEA, using the <a href="https://plugins.jetbrains.com/plugin/10345-assertions2assertj">Assertions2Assertj</a> plugin.</p>
+</li>
+<li>
+<p>With IntelliJ IDEA, using the Structural Search and Replace (SSR) feature.</p>
+</li>
+</ul>
+</div>
+<div class="sect2">
+<h3 id="assertj-migration-using-scripts"><a class="anchor" href="#assertj-migration-using-scripts"></a>5.1. Assertions migration script</h3>
+<div class="paragraph">
+<p>It is as simple as running one of the following script depending on which test framework you are using:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://raw.githubusercontent.com/joel-costigliola/assertj-core/master/src/main/scripts/convert-junit-assertions-to-assertj.sh">JUnit 3/4 to AssertJ migration script</a></p>
+</li>
+<li>
+<p><a href="https://raw.githubusercontent.com/joel-costigliola/assertj-core/master/src/main/scripts/convert-junit5-assertions-to-assertj.sh">JUnit 5 to AssertJ migration script</a></p>
+</li>
+<li>
+<p><a href="https://raw.githubusercontent.com/joel-costigliola/assertj-core/master/src/main/scripts/convert-testng-assertions-to-assertj.sh">TestNG to AssertJ migration script</a></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Each shell scripts is based on the sed stream editor and regexps. It <strong>recursively</strong> looks at all <code>*Test.java</code> files and
+performs search and replace to convert assertions to AssertJ ones.</p>
+</div>
+<div class="paragraph">
+<p>The script handles the cases where you use an assertion description, for example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">assertEquals("test context", "a", "a");</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>will be replaced by:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">assertThat("a").as("test context").isEqualTo("a");</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Note that the script does a best effort and some assertions might not be converted if formatted on multiple lines. Anyway the script usually migrate the vast majority of assertions.</p>
+</div>
+<div class="paragraph">
+<p>The script works on windows within a bash console like git bash (tested a long time ago) or cygwin (not tested).</p>
+</div>
+<div class="sect3">
+<h4 id="usage"><a class="anchor" href="#usage"></a>5.1.1. Usage</h4>
+<div class="paragraph">
+<p>Execute the script in the base directory containing the test files:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd ./src/test/java
+./convert-junit-assertions-to-assertj.sh</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If the <code>*Test.java</code> file pattern does not suit you, just specify another as an argument:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># enclose your pattern with double quotes "" to avoid it to be expanded by your shell prematurely
+./convert-junit-assertions-to-assertj.sh "*IT.java"</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>After executing it, you will need to :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>optimize imports with your IDE to remove unused imports.</p>
+</li>
+<li>
+<p>if you were using assertEquals with a delta to compare numbers, you will need to statically import <code>org.assertj.core.api.Assertions.within</code> which is how you express deltas in AssertJ (see the <a href="https://github.com/joel-costigliola/assertj-examples/blob/master/assertions-examples/src/test/java/org/assertj/examples/NumberAssertionsExamples.java">number_assertions_with_offset_examples()</a> test at the end of <code>NumberAssertionsExamples</code>).</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="script-output"><a class="anchor" href="#script-output"></a>5.1.2. Script output</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">Converting JUnit assertions to AssertJ assertions on files matching pattern : *Test.java
+
+ 1 - Replacing : assertEquals(0, myList.size()) ............... by : assertThat(myList).isEmpty()
+ 2 - Replacing : assertEquals(expectedSize, myList.size()) .... by : assertThat(myList).hasSize(expectedSize)
+ 3 - Replacing : assertEquals(expectedDouble, actual, delta) .. by : assertThat(actual).isCloseTo(expectedDouble, within(delta))
+ 4 - Replacing : assertEquals(expected, actual) ............... by : assertThat(actual).isEqualTo(expected)
+ 5 - Replacing : assertArrayEquals(expectedArray, actual) ..... by : assertThat(actual).isEqualTo(expectedArray)
+ 6 - Replacing : assertNull(actual) ........................... by : assertThat(actual).isNull()
+ 7 - Replacing : assertNotNull(actual) ........................ by : assertThat(actual).isNotNull()
+ 8 - Replacing : assertTrue(logicalCondition) ................. by : assertThat(logicalCondition).isTrue()
+ 9 - Replacing : assertFalse(logicalCondition) ................ by : assertThat(logicalCondition).isFalse()
+10 - Replacing : assertSame(expected, actual) ................. by : assertThat(actual).isSameAs(expected)
+11 - Replacing : assertNotSame(expected, actual) .............. by : assertThat(actual).isNotSameAs(expected)
+
+Replacing JUnit static imports by AssertJ ones, at this point you will probably need to :
+12 --- optimize imports with your IDE to remove unused imports
+12 --- add "import static org.assertj.core.api.Assertions.within;" if you were using JUnit number assertions with deltas</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="assertj-samples"><a class="anchor" href="#assertj-samples"></a>6. AssertJ Sample Projects</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>The <a href="https://github.com/joel-costigliola/assertj-examples/tree/master/assertions-examples">assertions-examples</a> repository hosts executable AssertJ assertions examples that you can run as JUnit tests. Please have a look at assertions <a href="https://github.com/joel-costigliola/assertj-examples/tree/master/assertions-examples/src/test/java/org/assertj/examples">examples sources</a>.</p>
@@ -3934,7 +4085,7 @@ assertThat(frodo).usingRecursiveComparison()
 </div>
 </div>
 <div class="sect1">
-<h2 id="contributors"><a class="anchor" href="#contributors"></a>6. Contributors</h2>
+<h2 id="contributors"><a class="anchor" href="#contributors"></a>7. Contributors</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Browse the <a href="https://github.com/joel-costigliola/assertj-core/graphs/contributors">current list of contributors</a> directly on GitHub.</p>
@@ -3942,12 +4093,12 @@ assertThat(frodo).usingRecursiveComparison()
 </div>
 </div>
 <div class="sect1">
-<h2 id="release-notes"><a class="anchor" href="#release-notes"></a>7. Release Notes</h2>
+<h2 id="release-notes"><a class="anchor" href="#release-notes"></a>8. Release Notes</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="assertj-core"><a class="anchor" href="#assertj-core"></a>7.1. AssertJ Core</h3>
+<h3 id="assertj-core"><a class="anchor" href="#assertj-core"></a>8.1. AssertJ Core</h3>
 <div class="sect3">
-<h4 id="assertj-core-3-12-2-release-notes"><a class="anchor" href="#assertj-core-3-12-2-release-notes"></a>7.1.1. AssertJ Core 3.12.2 Release notes</h4>
+<h4 id="assertj-core-3-12-2-release-notes"><a class="anchor" href="#assertj-core-3-12-2-release-notes"></a>8.1.1. AssertJ Core 3.12.2 Release notes</h4>
 <div class="paragraph">
 <p>The main issue fixed was to ignore static methods when finding property accessors (contributed by Andy Wilkinson) which could break some tests since bare name method introspection was introduced in 3.12.0.</p>
 </div>
@@ -3956,13 +4107,13 @@ assertThat(frodo).usingRecursiveComparison()
 </div>
 </div>
 <div class="sect3">
-<h4 id="assertj-core-3-12-1-release-notes"><a class="anchor" href="#assertj-core-3-12-1-release-notes"></a>7.1.2. AssertJ Core 3.12.1 Release notes</h4>
+<h4 id="assertj-core-3-12-1-release-notes"><a class="anchor" href="#assertj-core-3-12-1-release-notes"></a>8.1.2. AssertJ Core 3.12.1 Release notes</h4>
 <div class="paragraph">
 <p>Fix a regression that included a bad module-info.class (thanks Jaro Kuruc) and other minor improvements.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="assertj-core-3-12-0-release-notes"><a class="anchor" href="#assertj-core-3-12-0-release-notes"></a>7.1.3. AssertJ Core 3.12.0 Release notes</h4>
+<h4 id="assertj-core-3-12-0-release-notes"><a class="anchor" href="#assertj-core-3-12-0-release-notes"></a>8.1.3. AssertJ Core 3.12.0 Release notes</h4>
 <div class="paragraph">
 <p>Release date : 2019-02-14</p>
 </div>
@@ -4189,7 +4340,7 @@ Bare-named property introspection is enabled by default and thus changes AssertJ
 <div id="footer">
 <div id="footer-text">
 Version 0.9.0<br>
-Last updated 2019-03-17 21:47:54 NZDT
+Last updated 2019-03-20 23:23:29 NZDT
 </div>
 </div>
 <link rel="stylesheet" href="highlight/styles/railscasts.min.css">
