@@ -3937,10 +3937,10 @@ assertThat(frodo).usingRecursiveComparison()
 <div class="ulist">
 <ul>
 <li>
-<p>automatically with <a href="#assertj-migration-using-scripts">shell scripts</a>.</p>
+<p>Automatically using the provided <a href="#assertj-migration-using-scripts">migration scripts</a>.</p>
 </li>
 <li>
-<p>manually using the regexps described in this <a href="#assertj-migration-using-regexes">section</a>.</p>
+<p>Manually using the regexps described in this <a href="#assertj-migration-using-regexes">section</a>.</p>
 </li>
 <li>
 <p>With IntelliJ IDEA, using the <a href="https://plugins.jetbrains.com/plugin/10345-assertions2assertj">Assertions2Assertj</a> plugin.</p>
@@ -3949,6 +3949,9 @@ assertThat(frodo).usingRecursiveComparison()
 <p>With IntelliJ IDEA, using the Structural Search and Replace (SSR) feature.</p>
 </li>
 </ul>
+</div>
+<div class="paragraph">
+<p>The preferred way is using the scripts as it is quicker and covers more assertions that the other ones.</p>
 </div>
 <div class="sect2">
 <h3 id="assertj-migration-using-scripts"><a class="anchor" href="#assertj-migration-using-scripts"></a>5.1. Assertions migration scripts</h3>
@@ -3989,7 +3992,7 @@ performs search and replace to convert assertions to AssertJ ones.</p>
 </div>
 </div>
 <div class="paragraph">
-<p>Note that the script does a best effort and some assertions might not be converted if formatted on multiple lines. Anyway the script usually migrate the vast majority of assertions.</p>
+<p>Note that the script does a best effort and some assertions might not be converted if formatted on multiple lines. Anyway the script usually migrates the vast majority of assertions.</p>
 </div>
 <div class="paragraph">
 <p>The script works on windows within a bash console like git bash (tested a long time ago) or cygwin (not tested).</p>
@@ -4020,10 +4023,10 @@ performs search and replace to convert assertions to AssertJ ones.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>optimize imports with your IDE to remove unused imports.</p>
+<p>Optimize imports with your IDE to remove unused imports.</p>
 </li>
 <li>
-<p>if you were using assertEquals with a delta to compare numbers, you will need to statically import <code>org.assertj.core.api.Assertions.within</code> which is how you express deltas in AssertJ (see the <a href="https://github.com/joel-costigliola/assertj-examples/blob/master/assertions-examples/src/test/java/org/assertj/examples/NumberAssertionsExamples.java">number_assertions_with_offset_examples()</a> test at the end of <code>NumberAssertionsExamples</code>).</p>
+<p>If you were using <code>assertEquals</code> with a delta to compare numbers, you will need to statically import <code>org.assertj.core.api.Assertions.within</code> which is how you express deltas in AssertJ (see the <a href="https://github.com/joel-costigliola/assertj-examples/blob/master/assertions-examples/src/test/java/org/assertj/examples/NumberAssertionsExamples.java">number_assertions_with_offset_examples()</a> test at the end of <code>NumberAssertionsExamples</code>).</p>
 </li>
 </ul>
 </div>
@@ -4056,10 +4059,10 @@ Replacing JUnit static imports by AssertJ ones, at this point you will probably 
 <div class="sect2">
 <h3 id="assertj-migration-using-regexes"><a class="anchor" href="#assertj-migration-using-regexes"></a>5.2. Assertions migration regexes</h3>
 <div class="paragraph">
-<p>Here&#8217;s a list of find/replace expressions that allow to change JUnit assertions into AssertJ assertions (don&#8217;t forget to check the regex mode in your editor replace window).</p>
+<p>Here&#8217;s a list of find/replace expressions to change JUnit assertions into AssertJ assertions (don&#8217;t forget to check the regex mode in your editor replace window).</p>
 </div>
 <div class="paragraph">
-<p>This regexes described in this section are specfic to JUnit 4 but you can easily adapt any of the given regexes for JUnit 5 or TestNG.</p>
+<p>This regexes described in this section are specfic to JUnit 4 but you can easily adapt them for JUnit 5 or TestNG.</p>
 </div>
 <div class="paragraph">
 <p>The order of find/replace is important to benefit from the most relevant AssertJ assertions. For example you should convert <code>assertEquals(0, myList.size())</code> to <code>assertThat(myList).isEmpty()</code> instead of <code>assertThat(myList.size()).isEqualTo(0)</code>.</p>
@@ -4075,7 +4078,7 @@ Replacing JUnit static imports by AssertJ ones, at this point you will probably 
 </div>
 </div>
 <div class="paragraph">
-<p>It&#8217;s better to run this before the assertEquals &#8594; isEqualTo conversion to avoid ending with <code>assertThat(myList.size()).isEqualTo(0)</code>.</p>
+<p>It&#8217;s better to run this before the <code>assertEquals</code> &#8594; <code>isEqualTo</code> conversion to avoid ending with <code>assertThat(myList.size()).isEqualTo(0)</code>.</p>
 </div>
 </div>
 <div class="sect3">
@@ -4089,7 +4092,7 @@ Replacing JUnit static imports by AssertJ ones, at this point you will probably 
 </div>
 </div>
 <div class="paragraph">
-<p>It&#8217;s better to run this before the assertEquals &#8594; isEqualTo conversion to avoid ending with <code>assertThat(myList.size()).isEqualTo(expectedSize)</code>.</p>
+<p>It&#8217;s better to run this before the <code>assertEquals</code> &#8594; <code>isEqualTo</code> conversion to avoid ending with <code>assertThat(myList.size()).isEqualTo(expectedSize)</code>.</p>
 </div>
 </div>
 <div class="sect3">
