@@ -861,7 +861,7 @@ TODO
 
 The latest version of assertj core javadoc is here:
 
-http://joel-costigliola.github.io/assertj/core-8/api/index.html
+http://www.javadoc.io/doc/org.assertj/assertj-core/
 
 [[assertj-core-extensions]]
 == Extending assertions
