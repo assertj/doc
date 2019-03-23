@@ -2421,7 +2421,8 @@ p {
 </li>
 <li><a href="#assertj-migration">5. Migrating assertions</a>
 <ul class="sectlevel2">
-<li><a href="#assertj-migration-using-scripts">5.1. Assertions migration script</a></li>
+<li><a href="#assertj-migration-using-scripts">5.1. Assertions migration scripts</a></li>
+<li><a href="#assertj-migration-using-regexes">5.2. Assertions migration regexes</a></li>
 </ul>
 </li>
 <li><a href="#assertj-samples">6. AssertJ Sample Projects</a></li>
@@ -3939,7 +3940,7 @@ assertThat(frodo).usingRecursiveComparison()
 <p>automatically with <a href="#assertj-migration-using-scripts">shell scripts</a>.</p>
 </li>
 <li>
-<p>manually using the regexps described in this page.</p>
+<p>manually using the regexps described in this <a href="#assertj-migration-using-regexes">section</a>.</p>
 </li>
 <li>
 <p>With IntelliJ IDEA, using the <a href="https://plugins.jetbrains.com/plugin/10345-assertions2assertj">Assertions2Assertj</a> plugin.</p>
@@ -3950,7 +3951,7 @@ assertThat(frodo).usingRecursiveComparison()
 </ul>
 </div>
 <div class="sect2">
-<h3 id="assertj-migration-using-scripts"><a class="anchor" href="#assertj-migration-using-scripts"></a>5.1. Assertions migration script</h3>
+<h3 id="assertj-migration-using-scripts"><a class="anchor" href="#assertj-migration-using-scripts"></a>5.1. Assertions migration scripts</h3>
 <div class="paragraph">
 <p>It is as simple as running one of the following script depending on which test framework you are using:</p>
 </div>
@@ -4048,6 +4049,90 @@ performs search and replace to convert assertions to AssertJ ones.</p>
 Replacing JUnit static imports by AssertJ ones, at this point you will probably need to :
 12 --- optimize imports with your IDE to remove unused imports
 12 --- add "import static org.assertj.core.api.Assertions.within;" if you were using JUnit number assertions with deltas</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="assertj-migration-using-regexes"><a class="anchor" href="#assertj-migration-using-regexes"></a>5.2. Assertions migration regexes</h3>
+<div class="paragraph">
+<p>Here&#8217;s a list of find/replace expressions that allow to change JUnit assertions into AssertJ assertions (don&#8217;t forget to check the regex mode in your editor replace window).</p>
+</div>
+<div class="paragraph">
+<p>This regexes described in this section are specfic to JUnit 4 but you can easily adapt any of the given regexes for JUnit 5 or TestNG.</p>
+</div>
+<div class="paragraph">
+<p>The order of find/replace is important to benefit from the most relevant AssertJ assertions. For example you should convert <code>assertEquals(0, myList.size())</code> to <code>assertThat(myList).isEmpty()</code> instead of <code>assertThat(myList.size()).isEqualTo(0)</code>.</p>
+</div>
+<div class="sect3">
+<h4 id="converting-assertequals0-mylist-size-to-assertthatmylist-isempty"><a class="anchor" href="#converting-assertequals0-mylist-size-to-assertthatmylist-isempty"></a>5.2.1. Converting <code>assertEquals(0, myList.size())</code> to <code>assertThat(myList).isEmpty()</code></h4>
+<div class="paragraph">
+<p>Find/replace regex:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">assertEquals\(0,(.*).size\(\)\); -&gt; assertThat(\1).isEmpty();</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>It&#8217;s better to run this before the assertEquals &#8594; isEqualTo conversion to avoid ending with <code>assertThat(myList.size()).isEqualTo(0)</code>.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="converting-assertequalssize-mylist-size-to-assertthatmylist-hassizesize"><a class="anchor" href="#converting-assertequalssize-mylist-size-to-assertthatmylist-hassizesize"></a>5.2.2. Converting <code>assertEquals(size, myList.size())</code> to <code>assertThat(myList).hasSize(size)</code></h4>
+<div class="paragraph">
+<p>Find/replace regex:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">assertEquals\((.*),(.*).size\(\)\); -&gt; assertThat(\2).hasSize(\1);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>It&#8217;s better to run this before the assertEquals &#8594; isEqualTo conversion to avoid ending with <code>assertThat(myList.size()).isEqualTo(expectedSize)</code>.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="converting-assertequalsexpected-actual-to-assertthatactual-isequaltoexpected"><a class="anchor" href="#converting-assertequalsexpected-actual-to-assertthatactual-isequaltoexpected"></a>5.2.3. Converting <code>assertEquals(expected, actual)</code> to <code>assertThat(actual).isEqualTo(expected)</code></h4>
+<div class="paragraph">
+<p>Find/replace regex:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">assertEquals\((.*),(.*)\); -&gt; assertThat(\2).isEqualTo(\1);</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="converting-assertnullobjectundertest-to-assertthatobjectundertest-isnull"><a class="anchor" href="#converting-assertnullobjectundertest-to-assertthatobjectundertest-isnull"></a>5.2.4. Converting <code>assertNull(objectUnderTest)</code> to <code>assertThat(objectUnderTest).isNull()</code></h4>
+<div class="paragraph">
+<p>Find/replace regex:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">assertNull\((.*)\); -&gt; assertThat(\1).isNull();</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="converting-assertnotnullobjectundertest-to-assertthatobjectundertest-isnotnull"><a class="anchor" href="#converting-assertnotnullobjectundertest-to-assertthatobjectundertest-isnotnull"></a>5.2.5. Converting <code>assertNotNull(objectUnderTest)</code> to <code>assertThat(objectUnderTest).isNotNull()</code></h4>
+<div class="paragraph">
+<p>Find/replace regex:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">assertNotNull\((.*)\); -&gt; assertThat(\1).isNotNull();</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="converting-assertfalselogicalcondition-to-assertthatlogicalcondition-isfalse"><a class="anchor" href="#converting-assertfalselogicalcondition-to-assertthatlogicalcondition-isfalse"></a>5.2.6. Converting <code>assertFalse(logicalCondition)</code> to <code>assertThat(logicalCondition).isFalse()</code></h4>
+<div class="paragraph">
+<p>Find/replace regex:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">assertFalse\((.*)\); -&gt; assertThat(\1).isFalse();</code></pre>
 </div>
 </div>
 </div>
