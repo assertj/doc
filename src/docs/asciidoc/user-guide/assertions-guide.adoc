@@ -899,10 +899,12 @@ assertThat(actual).isEqualTo(expected);
 
 There are several ways to perform the conversion :
 
-* automatically with link:#assertj-migration-using-scripts[shell scripts].
-* manually using the regexps described in this link:#assertj-migration-using-regexes[section].
+* Automatically using the provided link:#assertj-migration-using-scripts[migration scripts].
+* Manually using the regexps described in this link:#assertj-migration-using-regexes[section].
 * With IntelliJ IDEA, using the https://plugins.jetbrains.com/plugin/10345-assertions2assertj[Assertions2Assertj] plugin.
 * With IntelliJ IDEA, using the Structural Search and Replace (SSR) feature.
+
+The preferred way is using the scripts as it is quicker and covers more assertions that the other ones.
 
 [[assertj-migration-using-scripts]]
 === Assertions migration scripts
@@ -929,7 +931,7 @@ assertThat("a").as("test context").isEqualTo("a");
 ----
 
 
-Note that the script does a best effort and some assertions might not be converted if formatted on multiple lines. Anyway the script usually migrate the vast majority of assertions.
+Note that the script does a best effort and some assertions might not be converted if formatted on multiple lines. Anyway the script usually migrates the vast majority of assertions.
 
 The script works on windows within a bash console like git bash (tested a long time ago) or cygwin (not tested).
 
@@ -952,8 +954,8 @@ If the `*Test.java` file pattern does not suit you, just specify another as an a
 
 After executing it, you will need to :
 
-* optimize imports with your IDE to remove unused imports.
-* if you were using assertEquals with a delta to compare numbers, you will need to statically import `org.assertj.core.api.Assertions.within` which is how you express deltas in AssertJ (see the https://github.com/joel-costigliola/assertj-examples/blob/master/assertions-examples/src/test/java/org/assertj/examples/NumberAssertionsExamples.java[number_assertions_with_offset_examples()] test at the end of `NumberAssertionsExamples`).
+* Optimize imports with your IDE to remove unused imports.
+* If you were using `assertEquals` with a delta to compare numbers, you will need to statically import `org.assertj.core.api.Assertions.within` which is how you express deltas in AssertJ (see the https://github.com/joel-costigliola/assertj-examples/blob/master/assertions-examples/src/test/java/org/assertj/examples/NumberAssertionsExamples.java[number_assertions_with_offset_examples()] test at the end of `NumberAssertionsExamples`).
 
 ==== Script output
 
@@ -981,9 +983,9 @@ Replacing JUnit static imports by AssertJ ones, at this point you will probably 
 [[assertj-migration-using-regexes]]
 === Assertions migration regexes
 
-Here's a list of find/replace expressions that allow to change JUnit assertions into AssertJ assertions (don't forget to check the regex mode in your editor replace window).
+Here's a list of find/replace expressions to change JUnit assertions into AssertJ assertions (don't forget to check the regex mode in your editor replace window).
 
-This regexes described in this section are specfic to JUnit 4 but you can easily adapt any of the given regexes for JUnit 5 or TestNG.
+This regexes described in this section are specfic to JUnit 4 but you can easily adapt them for JUnit 5 or TestNG.
 
 The order of find/replace is important to benefit from the most relevant AssertJ assertions. For example you should convert `assertEquals(0, myList.size())` to `assertThat(myList).isEmpty()` instead of `assertThat(myList.size()).isEqualTo(0)`.
 
@@ -997,7 +999,7 @@ Find/replace regex:
 assertEquals\(0,(.*).size\(\)\); -> assertThat(\1).isEmpty();
 ----
 
-It's better to run this before the assertEquals -> isEqualTo conversion to avoid ending with `assertThat(myList.size()).isEqualTo(0)`.
+It's better to run this before the `assertEquals` -> `isEqualTo` conversion to avoid ending with `assertThat(myList.size()).isEqualTo(0)`.
 
 ==== Converting `assertEquals(size, myList.size())` to `assertThat(myList).hasSize(size)`
 
@@ -1008,7 +1010,7 @@ Find/replace regex:
 assertEquals\((.*),(.*).size\(\)\); -> assertThat(\2).hasSize(\1);
 ----
 
-It's better to run this before the assertEquals -> isEqualTo conversion to avoid ending with `assertThat(myList.size()).isEqualTo(expectedSize)`.
+It's better to run this before the `assertEquals` -> `isEqualTo` conversion to avoid ending with `assertThat(myList.size()).isEqualTo(expectedSize)`.
 
 ==== Converting `assertEquals(expected, actual)` to `assertThat(actual).isEqualTo(expected)`
 
