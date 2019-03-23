@@ -900,7 +900,7 @@ assertThat(actual).isEqualTo(expected);
 There are several ways to perform the conversion :
 
 * automatically with link:#assertj-migration-using-scripts[shell scripts].
-* manually using the regexps described in this page (WIP...).
+* manually using the regexps described in this link:#assertj-migration-using-regexes[section].
 * With IntelliJ IDEA, using the https://plugins.jetbrains.com/plugin/10345-assertions2assertj[Assertions2Assertj] plugin.
 * With IntelliJ IDEA, using the Structural Search and Replace (SSR) feature.
 
@@ -958,7 +958,7 @@ After executing it, you will need to :
 ==== Script output
 
 [source,bash,indent=0]
---
+----
 Converting JUnit assertions to AssertJ assertions on files matching pattern : *Test.java
 
  1 - Replacing : assertEquals(0, myList.size()) ............... by : assertThat(myList).isEmpty()
@@ -976,7 +976,75 @@ Converting JUnit assertions to AssertJ assertions on files matching pattern : *T
 Replacing JUnit static imports by AssertJ ones, at this point you will probably need to :
 12 --- optimize imports with your IDE to remove unused imports
 12 --- add "import static org.assertj.core.api.Assertions.within;" if you were using JUnit number assertions with deltas
---
+----
+
+[[assertj-migration-using-regexes]]
+=== Assertions migration regexes
+
+Here's a list of find/replace expressions that allow to change JUnit assertions into AssertJ assertions (don't forget to check the regex mode in your editor replace window).
+
+This regexes described in this section are specfic to JUnit 4 but you can easily adapt any of the given regexes for JUnit 5 or TestNG.
+
+The order of find/replace is important to benefit from the most relevant AssertJ assertions. For example you should convert `assertEquals(0, myList.size())` to `assertThat(myList).isEmpty()` instead of `assertThat(myList.size()).isEqualTo(0)`.
+
+
+==== Converting `assertEquals(0, myList.size())` to `assertThat(myList).isEmpty()`
+
+Find/replace regex:
+
+[source,bash,indent=0]
+----
+assertEquals\(0,(.*).size\(\)\); -> assertThat(\1).isEmpty();
+----
+
+It's better to run this before the assertEquals -> isEqualTo conversion to avoid ending with `assertThat(myList.size()).isEqualTo(0)`.
+
+==== Converting `assertEquals(size, myList.size())` to `assertThat(myList).hasSize(size)`
+
+Find/replace regex:
+
+[source,bash,indent=0]
+----
+assertEquals\((.*),(.*).size\(\)\); -> assertThat(\2).hasSize(\1);
+----
+
+It's better to run this before the assertEquals -> isEqualTo conversion to avoid ending with `assertThat(myList.size()).isEqualTo(expectedSize)`.
+
+==== Converting `assertEquals(expected, actual)` to `assertThat(actual).isEqualTo(expected)`
+
+Find/replace regex:
+
+[source,bash,indent=0]
+----
+assertEquals\((.*),(.*)\); -> assertThat(\2).isEqualTo(\1);
+----
+
+==== Converting `assertNull(objectUnderTest)` to `assertThat(objectUnderTest).isNull()`
+
+Find/replace regex:
+
+[source,bash,indent=0]
+----
+assertNull\((.*)\); -> assertThat(\1).isNull();
+----
+
+==== Converting `assertNotNull(objectUnderTest)` to `assertThat(objectUnderTest).isNotNull()`
+
+Find/replace regex:
+
+[source,bash,indent=0]
+----
+assertNotNull\((.*)\); -> assertThat(\1).isNotNull();
+----
+
+==== Converting `assertFalse(logicalCondition)` to `assertThat(logicalCondition).isFalse()`
+
+Find/replace regex:
+
+[source,bash,indent=0]
+----
+assertFalse\((.*)\); -> assertThat(\1).isFalse();
+----
 
 
 [[assertj-samples]]
