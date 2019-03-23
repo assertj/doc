@@ -900,7 +900,7 @@ assertThat(actual).isEqualTo(expected);
 There are several ways to perform the conversion :
 
 * Automatically using the provided link:#assertj-migration-using-scripts[migration scripts].
-* Manually using the regexps described in this link:#assertj-migration-using-regexes[section].
+* Manually using the regexes described in this link:#assertj-migration-using-regexes[section].
 * With IntelliJ IDEA, using the https://plugins.jetbrains.com/plugin/10345-assertions2assertj[Assertions2Assertj] plugin.
 * With IntelliJ IDEA, using the Structural Search and Replace (SSR) feature.
 
