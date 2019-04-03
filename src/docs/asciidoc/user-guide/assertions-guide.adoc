@@ -901,7 +901,9 @@ There are several ways to perform the conversion :
 
 * Automatically using the provided link:#assertj-migration-using-scripts[migration scripts].
 * Manually using the regexes described in this link:#assertj-migration-using-regexes[section].
-* With IntelliJ IDEA, using the https://plugins.jetbrains.com/plugin/10345-assertions2assertj[Assertions2Assertj] plugin.
+* With IntelliJ IDEA, using these plugins:
+** https://plugins.jetbrains.com/plugin/10345-assertions2assertj[Assertions2Assertj] plugin.
+** https://plugins.jetbrains.com/plugin/12195-concise-assertj-optimizing-nitpicker-cajon-[Concise AssertJ Optimizing Nitpicker (Cajon)] plugin.
 * With IntelliJ IDEA, using the Structural Search and Replace (SSR) feature.
 
 The preferred way is using the scripts as it is quicker and covers more assertions that the other ones.
