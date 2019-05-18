@@ -409,6 +409,7 @@ In this chapter is exception is used interchangeably with throwable.
 Thanks to lambdas testing assertions in Java 8 is elegant, AssertJ provides different style options:
 
 - link:#assertj-core-exception-assertions-bdd-style[`catchThrowable(ThrowingCallable)`]
+- link:#assertj-core-exception-assertions-bdd-strongly-typed-style[`catchThrowableOfType(ThrowingCallable)`]
 - link:#assertj-core-exception-assertions-assertThatThrownBy[`assertThatThrownBy(ThrowingCallable)`]
 - link:#assertj-core-exception-assertions-assertThatExceptionOfType[`assertThatExceptionOfType(exception class)`]
 - link:#assertj-core-exception-assertions-no-exception[Testing that no exception it thrown]
@@ -424,16 +425,48 @@ Example :
 [source,java]
 ----
 @Test
-public void exception_assertion_example() {
-   // GIVEN some preconditions
-
+public void bdd_exception_assertion_example() {
+   // GIVEN
+   String[] names = { "Pier ", "Pol", "Jak" };
    // WHEN
-   Throwable thrown = catchThrowable(() -> { throw new Exception("boom!"); });
-
+   Throwable thrown = catchThrowable(() -> System.out.println(names[9]));
    // THEN
-   assertThat(thrown).isInstanceOf(Exception.class)
-                     .hasMessageContaining("boom");
+   assertThat(thrown).isInstanceOf(ArrayIndexOutOfBoundsException.class)
+                     .hasMessageContaining("9");
 }
+----
+
+[[assertj-core-exception-assertions-bdd-strongly-typed-style]]
+===== BDD style on specific throwable type 
+
+This this a variation of `catchThrowable` where the caught exception type is specified allowing to check the custom exception fields/properties.
+
+Example :
+[source,java]
+----
+class TextException extends Exception {
+   int line;
+   int column;
+
+   public TextException(String msg, int line, int column) {
+     super(msg);
+     this.line = line;
+     this.column = column;
+   }
+ }
+
+ TextException textException = catchThrowableOfType(() -> { throw new TextException("boom!", 1, 5); },
+                                                    TextException.class);
+ // assertions succeed
+ assertThat(textException).hasMessageContaining("boom");
+ assertThat(textException.line).isEqualTo(1);
+ assertThat(textException.column).isEqualTo(5);
+
+ // succeeds as catchThrowableOfType returns null when the code does not thrown any exceptions
+ assertThat(catchThrowableOfType(() -> {}, Exception.class)).isNull();
+
+ // fails as TextException is not a RuntimeException
+ catchThrowableOfType(() -> { throw new TextException("boom!", 1, 5); }, RuntimeException.class);
 ----
 
 [[assertj-core-exception-assertions-assertThatThrownBy]]
@@ -493,11 +526,11 @@ public void exception_assertion_example() {
 [[assertj-core-exception-assertions-no-exception]]
 ===== Testing that no exception it thrown
 
-You can test that a piece of code does not throw any exception:
+You can test that a piece of code does not throw any exception with:
 [source,java]
 ----
 assertThatCode(() -> {
-  // code that should throw an exception
+  // code that should NOT throw an exception
   ...
 }).doesNotThrowAnyException();
 ----
@@ -764,7 +797,7 @@ Example:
    String street;
 
    // only compares number, ouch!
-    @Override
+   @Override
    public boolean equals(final Object other) {
      if (!(other instanceof Address)) return false;
      Address castOther = (Address) other;
