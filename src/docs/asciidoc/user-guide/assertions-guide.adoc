@@ -305,7 +305,7 @@ public class CustomRepresentation extends StandardRepresentation { // <1>
 ----
 <1> Extends `org.assertj.core.presentation.StandardRepresentation` to get AssertJ default representation.
 <2> Override `fallbackToStringOf` and handle your specific types before falling back to the default formatting.
-<3> Change a predefined type formatting by overridding the `toStringOf` method that takes it as a parameter.
+<3> Change a predefined type formatting by overriding the `toStringOf` method that takes it as a parameter.
 
 Let's see the above custom representation in action when representing `Example` or `String` instances.
 
@@ -576,7 +576,7 @@ Note that `fail` method can be statically imported from `Assertions` class.
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.fail;
 import static org.assertj.core.api.Assertions.failBecauseExceptionWasNotThrown;
-// ... code omitted for brevety
+// ... code omitted for brevity
 
 assertThat(fellowshipOfTheRing).hasSize(9);
 
@@ -814,7 +814,7 @@ Example:
  sherlock2.home.address.number = 221;
 
  // assertion succeeds but that's not what we expected since the home.address.street fields differ
- // but the equals implemenation in Address does not compare them.
+ // but the equals implementation in Address does not compare them.
  assertThat(sherlock).usingRecursiveComparison()
                      .isEqualTo(sherlock2);
 
