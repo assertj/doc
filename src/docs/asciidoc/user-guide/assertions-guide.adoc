@@ -305,7 +305,7 @@ public class CustomRepresentation extends StandardRepresentation { // <1>
 ----
 <1> Extends `org.assertj.core.presentation.StandardRepresentation` to get AssertJ default representation.
 <2> Override `fallbackToStringOf` and handle your specific types before falling back to the default formatting.
-<3> Change a predefined type formatting by overridding the `toStringOf` method that takes it as a parameter.
+<3> Change a predefined type formatting by overriding the `toStringOf` method that takes it as a parameter.
 
 Let's see the above custom representation in action when representing `Example` or `String` instances.
 
