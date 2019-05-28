@@ -437,7 +437,7 @@ public void bdd_exception_assertion_example() {
 ----
 
 [[assertj-core-exception-assertions-bdd-strongly-typed-style]]
-===== BDD style on specific throwable type 
+===== BDD style on specific throwable type
 
 This this a variation of `catchThrowable` where the caught exception type is specified allowing to check the custom exception fields/properties.
 
@@ -560,7 +560,7 @@ assertThat(throwable).hasMessage("bar is not a valid input");
 assertThat(throwable).hasMessage("%s is not a valid input", "bar");
 ----
 
-[[assertj-core-exception-assertions-java-8]]
+[[assertj-core-exception-assertions-java-7]]
 ==== With Java 7 (AssertJ 2.x)
 
 Asserting on exceptions is not as nice compared to the Java 8 way, this is how you would do it in AssertJ 2.x :
