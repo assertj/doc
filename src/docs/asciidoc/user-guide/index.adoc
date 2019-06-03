@@ -28,6 +28,112 @@ include::contributors.adoc[]
 
 === AssertJ Core
 
+==== AssertJ Core 3.13.0 Release notes
+
+Release date : 2019-07-xx
+
+The highlight of this release is the addition of `asInstanceOf` which allows to chain specific type assertions from a value initially declared as an `Object` (thanks Stefano Cordio for this contribution!).
+
+Example:
+[source,java,indent=0]
+----
+Object string = "abc";
+assertThat(string).asInstanceOf(InstanceOfAssertFactories.STRING).startsWith("ab");
+----
+This feature is more detailed in the notes below.
+
+===== Contributors
+
+Thanks to all the contributors of this release:
+
+Pascal Schumacher, Erhard Pointl, Stefano Cordio, Thomas Traude, Andrei Solntsev, Matej Drobnič, Željko Mirović, Mike Gilchrist, Phillip Webb, Michal Fotyga,Valeriy Vyrva, Eddú Meléndez Gonzales and GaspardPO.
+
+Special thanks to Nils Winkler for his work on the assertions convertion scripts and Stefano Cordio for the `asInstanceOf` contribution.
+
+[[assertj-core-3.13.0-breaking-changes]]
+===== Breaking changes
+
+In the new recursive comparison, we now use the expected field as a reference to determine how to compare it to corresponding the actual field.
+Sorted vs non sorted collections comparison semantics have been replaced by ordered vs unordered collections semantics (ordered types are `List`, `SortedSet` and `LinkedHashSet`).
+As a consequence of the two previous points, when comparing collection/map fields, if the actual field is ordered and the expected is unordered, the comparison is allowed but not the other way around (unless order is ignored explicitely in the comparison configuration).
+
+===== New features
+
+- Add link:#assertj-core-3.13.0-asInstanceOf[`asInstanceOf`] to chain specific type assertions. (Stefano Cordio)
+- Add `extracting` with single parameter to `Object` and `Map` assertions. (Stefano Cordio) TODO document
+- Add a way to configure AssertJ for all tests. TODO document
+- Add `hasCauseReference` throwable assertion. (Mike Gilchrist) TODO document
+- Add new directory assertions for file and path objects. (Valeriy Vyrva) TODO document
+- Support var-arg throwable message assertions. (Phillip Webb) TODO document
+
+===== Improvements
+
+- Junit 4/5 and TestNG assertions convertion scripts improvements. (Nils Winkler)
+- Add support for combined millisecond and timezone parsing. (Matej Drobnič) TODO document
+- Add support for `Optional` in the new recursive comparison. TODO document
+- Allow ignoring collection order in specific fields in the new recursive comparison. (Željko Mirović) TODO document
+- Make catchThrowableOfType easier to discover in the javadoc.
+- Rename methods `isBeforeOrEqualsTo` and `isAfterOrEqualsTo` to `isBeforeOrEqualTo` and `isAfterOrEqualTo` (Eddú Meléndez Gonzales).
+- Improve error messages in the new recursive comparison when group size differs or when trying to compare actual unordered vs expected ordered.
+
+===== Fixed
+
+- Fix JavaDoc regarding `AnyOf` and `AllOf` . (Thomas Traude)
+- In Kotlin (only) make sure that `isEqualTo("abc")` is not resolved to `isEqualTo(String, Object... args)`. (Andrei Solntsev)
+- Fix Javadoc typos. (GaspardPO, Michal Fotyga)
+- Fix typo in error message factories `ShouldBeBeforeOrEqualTo` and `ShouldBeAfterOrEqualTo`. (Stefano Cordio)
+
+===== Deprecated
+
+- Deprecate Java 6/Android assertions entry points as they don't truly provide 100% Java 6/Android compatibility.
+- Deprecate methods `isBeforeOrEqualTo` and `isAfterOrEqualTo` in favor of `isBeforeOrEqualsTo` and `isAfterOrEqualsTo` (Eddú Meléndez Gonzales).
+
+[[assertj-core-3.13.0-asInstanceOf]]
+===== Add `asInstanceOf` to chain specific type assertions
+
+`asInstanceOf` allows to chain specific type assertions from a value initially declared as a less specific type (often `Object`).
+
+Let's start with the problem `asInstanceOf` is solving, in the following example we would like to call `String` assertions but this is not possible since `value` is declared as an `Object` thus only `Object` assertions are accessible.
+[source,java,indent=0]
+----
+// Given a String declared as an Object
+Object value = "Once upon a time in the west";
+
+// we want to call String assertions but this is not possible as value is declared as an Object
+assertThat(value).startsWith("ab"); // this does not compile !
+----
+
+Thanks to `asInstanceOf` we can now tell AssertJ to consider `value` as a `String` in order to call `String` assertions.
+To do so we need to pass an `InstanceOfAssertFactory` that can build a `StringAssert`, fortunately you don't have to write it, it is already available in `InstanceOfAssertFactories`!
+
+[source,java,indent=0]
+----
+import static org.assertj.core.api.InstanceOfAssertFactories.STRING;
+
+// Given a String declared as an Object
+Object value = "Once upon a time in the west";
+
+// With asInstanceOf, we switch to specific String assertion by specifying with the InstanceOfAssertFactory for String
+assertThat(value).asInstanceOf(STRING).startsWith("Once");
+----
+
+AssertJ verifies that the actual value is compatible with the assertions `InstanceOfAssertFactory` is going to give access to.
+
+`InstanceOfAssertFactories` provides static factories for all types AssertJ provides assertions for, additional factories can be created with custom `InstanceOfAssertFactory` instances.
+
+Here's another example to show the parameterized type support:
+[source,java,indent=0]
+----
+Object value = asList<Ring>(vilya, nenya, narya);
+
+// as we specify the Ring class, the contains chained assertion expect to be given Rings
+assertThat(value).asInstanceOf(InstanceOfAssertFactories.list(Ring.class)).contains(nenya);
+
+// if we don't care about the List elements type we can simply use LIST.
+assertThat(value).asInstanceOf(InstanceOfAssertFactories.LIST).contains(nenya);
+----
+
+
 ==== AssertJ Core 3.12.2 Release notes
 
 The main issue fixed was to ignore static methods when finding property accessors (contributed by Andy Wilkinson) which could break some tests since bare name method introspection was introduced in 3.12.0.
@@ -50,7 +156,7 @@ There are more capabilities to come in the next releases, stay tuned!
 
 ===== Contributors
 
-Big thanks for all the contributors to this release:
+Big thanks to all the contributors of this release:
 
 Pascal Schumacher, Erhard Pointl, Vladimir Chernikov, Sandra Parsick, Martin Tarjanyi, Stephan Windmüller, Yaroslav Mitsynskiy, Thomas Traude, Georg Berky, Tomek Kaczanowski, Lukáš Křečan, Yoann Rodière, Filip Hrisafov, Steven Schlansker, Jeremy Landis, Jack Gough, Sebastian Kempken, Stefan Mandel, Alexandre de Champeaux, Arvid Heise, Jeff Walker, Dmitrii Priporov and Joshua Kitchen.
 
