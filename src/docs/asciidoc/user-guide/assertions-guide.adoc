@@ -412,7 +412,7 @@ Thanks to lambdas testing assertions in Java 8 is elegant, AssertJ provides diff
 - link:#assertj-core-exception-assertions-bdd-strongly-typed-style[`catchThrowableOfType(ThrowingCallable)`]
 - link:#assertj-core-exception-assertions-assertThatThrownBy[`assertThatThrownBy(ThrowingCallable)`]
 - link:#assertj-core-exception-assertions-assertThatExceptionOfType[`assertThatExceptionOfType(exception class)`]
-- link:#assertj-core-exception-assertions-no-exception[Testing that no exception it thrown]
+- link:#assertj-core-exception-assertions-no-exception[Testing that no exception is thrown]
 
 where `ThrowingCallable` is a functional interface which can be expressed as a lambda.
 
@@ -524,7 +524,7 @@ public void exception_assertion_example() {
 ----
 
 [[assertj-core-exception-assertions-no-exception]]
-===== Testing that no exception it thrown
+===== Testing that no exception is thrown
 
 You can test that a piece of code does not throw any exception with:
 [source,java]
