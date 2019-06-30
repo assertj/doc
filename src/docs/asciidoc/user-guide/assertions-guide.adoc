@@ -874,20 +874,139 @@ assertThat(frodo).usingRecursiveComparison()
 
 
 [[assertj-core-soft-assertions]]
-=== Soft Assertions
+=== Soft ssertions
 
-TODO
+With soft assertions AssertJ collects all assertion errors instead of stopping at the first one. 
 
-[[assertj-core-assumptions]]
-=== Assumptions
+TIP: This is especially useful for long tests like end to end tests as we can fix all reported errors at once and avoid multiple failing runs.
 
-All AssertJ assumptions are static methods in the `Assumptions` class.
+Since soft assertions don't fail at the first error, you need to tell AssertJ when to report the captured assertion errors, there are different ways of doing so:
 
-TODO
-// [source,java,indent=0]
-// ----
-// include::{testDir}/example/AssumptionsDemo.java[tags=user_guide]
-// ----
+* Calling `assertAll()` (basic approach)
+* Using a link:#assertj-core-junit4-soft-assertions[JUnit 4 rule] that takes care of calling `assertAll()` after each tests
+* Using a link:#assertj-core-junit5-soft-assertions[JUnit 5 extension] that takes care of calling `assertAll()` after each tests
+* Using a link:#assertj-core-closeable-soft-assertions[`AutoCloseableSoftAssertions`]
+* Using link:#assertj-core-assertSoftly-assertions[`assertSoftly` static method]
+
+Soft assertions comes with a link:#assertj-core-bdd-soft-assertions[BDD flavor] where `assertThat` is replaced by `then`.
+
+Let's see first how to use soft assertions *requiring an explicit call to `assertAll()`*, the other approaches that don't require this explicitit call are described in the subsequent sections.
+
+Example:
+[source,java,indent=0]
+----
+include::{testDir}/example/core/SoftAssertionsExample.java[tags=basic-soft-assertions]
+----
+<1> Build a `SoftAssertions` instance to record all assertion errors
+<2> Use `softly.assertThat` instead of the usual `assertThat` methods
+<3> *Don't forget to call `assertAll()` to report all assertion errors!*
+
+The previous test fails with the message below reporting all the errors:
+
+[source, text]
+----
+Multiple Failures (3 failures)
+-- failure 1 --
+[great authors] 
+Expecting:
+ <"George Martin">
+to be equal to:
+ <"JRR Tolkien">
+but was not.
+-- failure 2 --
+[response to Everything] 
+Expecting:
+ \<42>
+to be greater than:
+ \<100> 
+-- failure 3 --
+Expecting:
+ <"gandalf">
+to be equal to:
+ <"sauron">
+but was not.
+----
+
+[[assertj-core-bdd-soft-assertions]]
+==== BDD Soft assertions
+
+BDD aficionados can use BDD soft assertions where `assertThat` is replaced by `then`.
+
+Example:
+[source,java,indent=0]
+----
+include::{testDir}/example/core/BDDSoftAssertionsExample.java[tags=basic-bdd-soft-assertions]
+----
+
+There are BDD soft assertions versions for the different soft assertions approaches:
+
+* `AutoCloseableBDDSoftAssertions`
+* Using `JUnitBDDSoftAssertions` that takes care of calling `assertAll()` after each tests
+* Using a JUnit 5 extension that takes care of calling `assertAll()` after each tests
+
+[[assertj-core-junit4-soft-assertions]]
+==== JUnit 4 Soft assertions rule
+
+The JUnit rule provided by AssertJ takes care of calling `assertAll()` at the end of each tests. 
+
+Example:
+[source,java,indent=0]
+----
+include::{testDir}/example/core/JUnit4SoftAssertionsExample.java[tags=junit4-soft-assertions]
+----
+
+In a similar way you can use `JUnitBDDSoftAssertions`  where `assertThat` is replaced by `then`:
+[source,java,indent=0]
+----
+include::{testDir}/example/core/JUnit4BDDSoftAssertionsExample.java[tags=junit4-bdd-soft-assertions]
+----
+
+[[assertj-core-junit5-soft-assertions]]
+==== JUnit 5 Soft assertions extension
+
+IMPORTANT: This will be available when https://github.com/joel-costigliola/assertj-core/issues/1418 is resolved.
+
+The JUnit 5 extension provided by AssertJ takes care of two things:
+
+* injecting a `SoftAssertions` or `BDDSoftAssertions` parameter in each tests
+* calling `assertAll()` at the end of each tests. 
+
+Example:
+[source,java,indent=0]
+----
+include::{testDir}/example/core/JUnit5SoftAssertionsExample.java[tags=junit5-soft-assertions]
+----
+
+The extension is compatible with link:https://junit.org/junit5/docs/current/user-guide/#writing-tests-parameterized-tests[JUnit 5 parameterized tests], the parameterized arguments must always come first, the soft assertions coming at the end of the argument list.
+
+[[assertj-core-closeable-soft-assertions]]
+==== Auto Closeable Soft assertions
+
+As `AutoCloseableSoftAssertions` implements `AutoCloseable#close()` by calling `assertAll()`, when used in a try-with-resources block `assertAll()` is called automatically before exiting the block. 
+
+Example:
+[source,java,indent=0]
+----
+include::{testDir}/example/core/AutoCloseableSoftAssertionsExample.java[tags=closeable-soft-assertions]
+----
+
+In a similar way you can use `AutoCloseableBDDSoftAssertions`  where `assertThat` is replaced by `then`:
+[source,java,indent=0]
+----
+include::{testDir}/example/core/AutoCloseableBDDSoftAssertionsExample.java[tags=closeable-bdd-soft-assertions]
+----
+
+[[assertj-core-assertSoftly-assertions]]
+==== Soft assertions with `assertSoftly`
+
+The `assertSoftly` static method takes care of calling `assertAll()` before exiting. 
+
+Example:
+[source,java,indent=0]
+----
+include::{testDir}/example/core/SoftAssertionsExample.java[tags=assertSoftly-soft-assertions]
+----
+
 
 [[assertj-core-javadoc]]
 === Javadoc

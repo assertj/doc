@@ -20,6 +20,7 @@ plugins {
 dependencies {
 	asciidoctor('org.jruby:jruby-complete:9.1.17.0')
 	testCompile("org.assertj:assertj-core:" + project.getProperty('assertjCoreVersion'))
+	testCompile('junit:junit:4.12')
 	testCompile('org.junit.jupiter:junit-jupiter-api:5.4.0')
 	testRuntime('org.junit.jupiter:junit-jupiter-engine:5.4.0')
 }
