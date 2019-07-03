@@ -2408,7 +2408,7 @@ p {
 <li><a href="#assertj-core-exception-assertions">3.10. Exception assertions</a></li>
 <li><a href="#assertj-core-recursive-comparison">3.11. Field by field recursive comparison</a></li>
 <li><a href="#assertj-core-recursive-comparison-comparators">3.12. Comparators used in the comparison</a></li>
-<li><a href="#assertj-core-soft-assertions">3.13. Soft Assertions</a></li>
+<li><a href="#assertj-core-soft-assertions">3.13. Soft assertions</a></li>
 <li><a href="#assertj-core-assumptions">3.14. Assumptions</a></li>
 <li><a href="#assertj-core-javadoc">3.15. Javadoc</a></li>
 </ul>
@@ -3342,7 +3342,7 @@ If you use java 7, check the <a href="#assertj-core-exception-assertions-java-7"
 <p><a href="#assertj-core-exception-assertions-assertThatExceptionOfType"><code>assertThatExceptionOfType(exception class)</code></a></p>
 </li>
 <li>
-<p><a href="#assertj-core-exception-assertions-no-exception">Testing that no exception it thrown</a></p>
+<p><a href="#assertj-core-exception-assertions-no-exception">Testing that no exception is thrown</a></p>
 </li>
 </ul>
 </div>
@@ -3483,7 +3483,7 @@ public void exception_assertion_example() {
 </div>
 </div>
 <div class="sect4">
-<h5 id="assertj-core-exception-assertions-no-exception"><a class="anchor" href="#assertj-core-exception-assertions-no-exception"></a>Testing that no exception it thrown</h5>
+<h5 id="assertj-core-exception-assertions-no-exception"><a class="anchor" href="#assertj-core-exception-assertions-no-exception"></a>Testing that no exception is thrown</h5>
 <div class="paragraph">
 <p>You can test that a piece of code does not throw any exception with:</p>
 </div>
@@ -3902,18 +3902,349 @@ assertThat(frodo).usingRecursiveComparison()
 </div>
 </div>
 <div class="sect2">
-<h3 id="assertj-core-soft-assertions"><a class="anchor" href="#assertj-core-soft-assertions"></a>3.13. Soft Assertions</h3>
+<h3 id="assertj-core-soft-assertions"><a class="anchor" href="#assertj-core-soft-assertions"></a>3.13. Soft assertions</h3>
 <div class="paragraph">
-<p>TODO</p>
+<p>With soft assertions AssertJ collects all assertion errors instead of stopping at the first one.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+This is especially useful for long tests like end to end tests as we can fix all reported errors at once and avoid multiple failing runs.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Since soft assertions don&#8217;t fail at the first error, you need to tell AssertJ when to report the captured assertion errors, there are different ways of doing so:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Calling <code>assertAll()</code> (basic approach)</p>
+</li>
+<li>
+<p>Using a <a href="#assertj-core-junit4-soft-assertions">JUnit 4 rule</a> that takes care of calling <code>assertAll()</code> after each tests</p>
+</li>
+<li>
+<p>Using a <a href="#assertj-core-junit5-soft-assertions">JUnit 5 extension</a> that takes care of calling <code>assertAll()</code> after each tests</p>
+</li>
+<li>
+<p>Using a <a href="#assertj-core-closeable-soft-assertions"><code>AutoCloseableSoftAssertions</code></a></p>
+</li>
+<li>
+<p>Using <a href="#assertj-core-assertSoftly-assertions"><code>assertSoftly</code> static method</a></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Soft assertions comes with a <a href="#assertj-core-bdd-soft-assertions">BDD flavor</a> where <code>assertThat</code> is replaced by <code>then</code>.</p>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s see first how to use soft assertions <strong>requiring an explicit call to <code>assertAll()</code></strong>, the other approaches that don&#8217;t require this explicitit call are described in the subsequent sections.</p>
+</div>
+<div class="paragraph">
+<p>Example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Test
+void basic_soft_assertions_example() {
+  SoftAssertions softly = new SoftAssertions(); <i class="conum" data-value="1"></i><b>(1)</b>
+
+  softly.assertThat("George Martin").as("great authors").isEqualTo("JRR Tolkien");  <i class="conum" data-value="2"></i><b>(2)</b>
+  softly.assertThat(42).as("response to Everything").isGreaterThan(100); <i class="conum" data-value="2"></i><b>(2)</b>
+  softly.assertThat("Gandalf").isEqualTo("Sauron"); <i class="conum" data-value="2"></i><b>(2)</b>
+
+  // Don't forget to call assertAll() otherwise no assertion errors are reported!
+  softly.assertAll(); <i class="conum" data-value="3"></i><b>(3)</b>
+}</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Build a <code>SoftAssertions</code> instance to record all assertion errors</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Use <code>softly.assertThat</code> instead of the usual <code>assertThat</code> methods</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td><strong>Don&#8217;t forget to call <code>assertAll()</code> to report all assertion errors!</strong></td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The previous test fails with the message below reporting all the errors:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">Multiple Failures (3 failures)
+-- failure 1 --
+[great authors]
+Expecting:
+ &lt;"George Martin"&gt;
+to be equal to:
+ &lt;"JRR Tolkien"&gt;
+but was not.
+-- failure 2 --
+[response to Everything]
+Expecting:
+ &lt;42&gt;
+to be greater than:
+ &lt;100&gt;
+-- failure 3 --
+Expecting:
+ &lt;"gandalf"&gt;
+to be equal to:
+ &lt;"sauron"&gt;
+but was not.</code></pre>
+</div>
+</div>
+<div class="sect3">
+<h4 id="assertj-core-bdd-soft-assertions"><a class="anchor" href="#assertj-core-bdd-soft-assertions"></a>3.13.1. BDD Soft assertions</h4>
+<div class="paragraph">
+<p>BDD aficionados can use BDD soft assertions where <code>assertThat</code> is replaced by <code>then</code>.</p>
+</div>
+<div class="paragraph">
+<p>Example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Test
+void basic_bdd_soft_assertions_example() {
+  BDDSoftAssertions softly = new BDDSoftAssertions();
+
+  softly.then("George Martin").as("great authors").isEqualTo("JRR Tolkien");
+  softly.then(42).as("response to Everything").isGreaterThan(100);
+  softly.then("Gandalf").isEqualTo("Sauron");
+
+  // Don't forget to call assertAll() otherwise no assertion errors are reported!
+  softly.assertAll();
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>There are BDD soft assertions versions for the different soft assertions approaches:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>AutoCloseableBDDSoftAssertions</code></p>
+</li>
+<li>
+<p>Using <code>JUnitBDDSoftAssertions</code> that takes care of calling <code>assertAll()</code> after each tests</p>
+</li>
+<li>
+<p>Using a JUnit 5 extension that takes care of calling <code>assertAll()</code> after each tests</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="assertj-core-junit4-soft-assertions"><a class="anchor" href="#assertj-core-junit4-soft-assertions"></a>3.13.2. JUnit 4 Soft assertions rule</h4>
+<div class="paragraph">
+<p>The JUnit rule provided by AssertJ takes care of calling <code>assertAll()</code> at the end of each tests.</p>
+</div>
+<div class="paragraph">
+<p>Example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Rule
+public final JUnitSoftAssertions softly = new JUnitSoftAssertions();
+
+@Test
+void junit4_soft_assertions_example() {
+  softly.assertThat("George Martin").as("great authors").isEqualTo("JRR Tolkien");  <i class="conum" data-value="2"></i><b>(2)</b>
+  softly.assertThat(42).as("response to Everything").isGreaterThan(100); <i class="conum" data-value="2"></i><b>(2)</b>
+  softly.assertThat("Gandalf").isEqualTo("Sauron"); <i class="conum" data-value="2"></i><b>(2)</b>
+  // No need to call softly.assertAll(), this is automatically done by the JUnitSoftAssertions rule
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In a similar way you can use <code>JUnitBDDSoftAssertions</code>  where <code>assertThat</code> is replaced by <code>then</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Rule
+public final JUnitBDDSoftAssertions softly = new JUnitBDDSoftAssertions();
+
+@Test
+void junit4_bdd_soft_assertions_example() {
+  softly.then("George Martin").as("great authors").isEqualTo("JRR Tolkien");
+  softly.then(42).as("response to Everything").isGreaterThan(100);
+  softly.then("Gandalf").isEqualTo("Dauron");
+  // No need to call softly.assertAll(), this is automatically done by the JUnitSoftAssertions rule
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="assertj-core-junit5-soft-assertions"><a class="anchor" href="#assertj-core-junit5-soft-assertions"></a>3.13.3. JUnit 5 Soft assertions extension</h4>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+This will be available when <a href="https://github.com/joel-costigliola/assertj-core/issues/1418" class="bare">https://github.com/joel-costigliola/assertj-core/issues/1418</a> is resolved.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The JUnit 5 extension provided by AssertJ takes care of two things:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>injecting a <code>SoftAssertions</code> or <code>BDDSoftAssertions</code> parameter in each tests</p>
+</li>
+<li>
+<p>calling <code>assertAll()</code> at the end of each tests.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@ExtendWith(SoftAssertionsParameterResolver.class)
+public class JUnit5SoftAssertionsExample {
+
+  @Test
+  void junit5_soft_assertions_example(SoftAssertions softly) {
+    softly.assertThat("George Martin").as("great authors").isEqualTo("JRR Tolkien");
+    softly.assertThat(42).as("response to Everything").isGreaterThan(100);
+    softly.assertThat("Gandalf").isEqualTo("Sauron");
+    // No need to call softly.assertAll(), this is automatically done by the SoftAssertionsParameterResolver extension
+  }
+
+  @Test
+  void junit5_bdd_soft_assertions_example(BDDSoftAssertions softly) {
+    softly.then("George Martin").as("great authors").isEqualTo("JRR Tolkien");
+    softly.then(42).as("response to Everything").isGreaterThan(100);
+    softly.then("Gandalf").isEqualTo("Sauron");
+    // No need to call softly.assertAll(), this is automatically done by the SoftAssertionsParameterResolver extension
+  }
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The extension is compatible with <a href="https://junit.org/junit5/docs/current/user-guide/#writing-tests-parameterized-tests">JUnit 5 parameterized tests</a>, the parameterized arguments must always come first, the soft assertions coming at the end of the argument list.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="assertj-core-closeable-soft-assertions"><a class="anchor" href="#assertj-core-closeable-soft-assertions"></a>3.13.4. Auto Closeable Soft assertions</h4>
+<div class="paragraph">
+<p>As <code>AutoCloseableSoftAssertions</code> implements <code>AutoCloseable#close()</code> by calling <code>assertAll()</code>, when used in a try-with-resources block <code>assertAll()</code> is called automatically before exiting the block.</p>
+</div>
+<div class="paragraph">
+<p>Example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Test
+void auto_closeable_soft_assertions_example() {
+  try (AutoCloseableSoftAssertions softly = new AutoCloseableSoftAssertions()) {
+  softly.assertThat("George Martin").as("great authors").isEqualTo("JRR Tolkien");  <i class="conum" data-value="2"></i><b>(2)</b>
+  softly.assertThat(42).as("response to Everything").isGreaterThan(100); <i class="conum" data-value="2"></i><b>(2)</b>
+  softly.assertThat("Gandalf").isEqualTo("Sauron"); <i class="conum" data-value="2"></i><b>(2)</b>
+    // no need to call assertAll, this is done when softly is closed.
+  }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In a similar way you can use <code>AutoCloseableBDDSoftAssertions</code>  where <code>assertThat</code> is replaced by <code>then</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Test
+void auto_closeable_bdd_soft_assertions_example() {
+  try (AutoCloseableBDDSoftAssertions softly = new AutoCloseableBDDSoftAssertions()) {
+    softly.then("George Martin").as("great authors").isEqualTo("JRR Tolkien");
+    softly.then(42).as("response to Everything").isGreaterThan(100);
+    softly.then("Gandalf").isEqualTo("Sauron");
+    // no need to call assertAll, this is done when softly is closed.
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="assertj-core-assertSoftly-assertions"><a class="anchor" href="#assertj-core-assertSoftly-assertions"></a>3.13.5. Soft assertions with <code>assertSoftly</code></h4>
+<div class="paragraph">
+<p>The <code>assertSoftly</code> static method takes care of calling <code>assertAll()</code> before exiting.</p>
+</div>
+<div class="paragraph">
+<p>Example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Test
+void assertSoftly_example() {
+  SoftAssertions.assertSoftly(softly -&gt; {
+    softly.assertThat("George Martin").as("great authors").isEqualTo("JRR Tolkien");
+    softly.assertThat(42).as("response to Everything").isGreaterThan(100);
+    softly.assertThat("Gandalf").isEqualTo("Sauron");
+    // no need to call assertAll(), assertSoftly does it for us.
+  });
+}</code></pre>
+</div>
+</div>
 </div>
 </div>
 <div class="sect2">
 <h3 id="assertj-core-assumptions"><a class="anchor" href="#assertj-core-assumptions"></a>3.14. Assumptions</h3>
 <div class="paragraph">
-<p>All AssertJ assumptions are static methods in the <code>Assumptions</code> class.</p>
+<p>Assumptions provide support for conditional test execution, if the assumptions are met the test is executed normally, if they don&#8217;t the test is aborted and marked as ignored.</p>
 </div>
 <div class="paragraph">
-<p>TODO</p>
+<p>Assumptions are typically used whenever it does not make sense to continue execution of a given test method — a typical usage is running tests depending on a given OS/environment.</p>
+</div>
+<div class="paragraph">
+<p>All AssertJ assumptions are static methods in the <code>Assumptions</code> class, they match the assertion API but are names <code>assumeThat</code> insead of <code>assertThat</code>.
+You can also get assumptions through the <code>WithAssumptions</code> interface.</p>
+</div>
+<div class="paragraph">
+<p>Example resulting in the test to be ignored:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Test
+public void when_an_assumption_is_not_met_the_test_is_ignored() {
+  // since this assumption is obviously false ...
+  assumeThat(frodo.getRace()).isEqualTo(ORC);
+  // ... this assertion is not performed
+  assertThat(fellowshipOfTheRing).contains(sauron);
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Example resulting in the test to be executed normally:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Test
+public void when_all_assumptions_are_met_the_test_is_run_normally() {
+  // since this assumption is true ...
+  assumeThat(frodo.getRace()).isEqualTo(HOBBIT);
+  // ... this assertion is performed
+  assertThat(fellowshipOfTheRing).doesNotContain(sauron);
+}</code></pre>
+</div>
 </div>
 </div>
 <div class="sect2">
@@ -4476,7 +4807,7 @@ Bare-named property introspection is enabled by default and thus changes AssertJ
 <div id="footer">
 <div id="footer-text">
 Version 0.9.0<br>
-Last updated 2019-03-20 23:23:29 NZDT
+Last updated 2019-07-03 21:54:40 NZST
 </div>
 </div>
 <link rel="stylesheet" href="highlight/styles/railscasts.min.css">
