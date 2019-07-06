@@ -964,12 +964,15 @@ include::{testDir}/example/core/JUnit4BDDSoftAssertionsExample.java[tags=junit4-
 [[assertj-core-junit5-soft-assertions]]
 ==== JUnit 5 Soft assertions extension
 
-IMPORTANT: This will be available when https://github.com/joel-costigliola/assertj-core/issues/1418 is resolved.
+Since 3.13.0, AssertJ provides `SoftAssertionsExtension` a JUnit 5 extension that takes care of two things:
 
-The JUnit 5 extension provided by AssertJ takes care of two things:
+* Injecting a `SoftAssertions` or `BDDSoftAssertions` parameter in each test methods
+* Calling `assertAll()` at the end of each tests
 
-* injecting a `SoftAssertions` or `BDDSoftAssertions` parameter in each tests
-* calling `assertAll()` at the end of each tests. 
+The term "test method" refers to any method annotated with `@Test`, `@RepeatedTest`, `@ParameterizedTest`, `@TestFactory` or `@TestTemplate`. 
+Notably, the extension is compatible with link:https://junit.org/junit5/docs/current/user-guide/#writing-tests-parameterized-tests[parameterized tests], the parameterized arguments msut come first and the soft assertions argument last.
+
+IMPORTANT: `JUnitJupiterSoftAssertions` and `JUnitJupiterBDDSoftAssertions` are now deprecated in favor of `SoftAssertionsExtension`
 
 Example:
 [source,java,indent=0]
@@ -977,7 +980,6 @@ Example:
 include::{testDir}/example/core/JUnit5SoftAssertionsExample.java[tags=junit5-soft-assertions]
 ----
 
-The extension is compatible with link:https://junit.org/junit5/docs/current/user-guide/#writing-tests-parameterized-tests[JUnit 5 parameterized tests], the parameterized arguments must always come first, the soft assertions coming at the end of the argument list.
 
 [[assertj-core-closeable-soft-assertions]]
 ==== Auto Closeable Soft assertions
