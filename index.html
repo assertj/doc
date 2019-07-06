@@ -4089,6 +4089,23 @@ void junit4_bdd_soft_assertions_example() {
 </div>
 <div class="sect3">
 <h4 id="assertj-core-junit5-soft-assertions"><a class="anchor" href="#assertj-core-junit5-soft-assertions"></a>3.13.3. JUnit 5 Soft assertions extension</h4>
+<div class="paragraph">
+<p>Since 3.13.0, AssertJ provides <code>SoftAssertionsExtension</code> a JUnit 5 extension that takes care of two things:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Injecting a <code>SoftAssertions</code> or <code>BDDSoftAssertions</code> parameter in each test methods</p>
+</li>
+<li>
+<p>Calling <code>assertAll()</code> at the end of each tests</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The term "test method" refers to any method annotated with <code>@Test</code>, <code>@RepeatedTest</code>, <code>@ParameterizedTest</code>, <code>@TestFactory</code> or <code>@TestTemplate</code>.
+Notably, the extension is compatible with <a href="https://junit.org/junit5/docs/current/user-guide/#writing-tests-parameterized-tests">parameterized tests</a>, the parameterized arguments msut come first and the soft assertions argument last.</p>
+</div>
 <div class="admonitionblock important">
 <table>
 <tr>
@@ -4096,53 +4113,54 @@ void junit4_bdd_soft_assertions_example() {
 <i class="fa icon-important" title="Important"></i>
 </td>
 <td class="content">
-This will be available when <a href="https://github.com/joel-costigliola/assertj-core/issues/1418" class="bare">https://github.com/joel-costigliola/assertj-core/issues/1418</a> is resolved.
+<code>JUnitJupiterSoftAssertions</code> and <code>JUnitJupiterBDDSoftAssertions</code> are now deprecated in favor of <code>SoftAssertionsExtension</code>
 </td>
 </tr>
 </table>
-</div>
-<div class="paragraph">
-<p>The JUnit 5 extension provided by AssertJ takes care of two things:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>injecting a <code>SoftAssertions</code> or <code>BDDSoftAssertions</code> parameter in each tests</p>
-</li>
-<li>
-<p>calling <code>assertAll()</code> at the end of each tests.</p>
-</li>
-</ul>
 </div>
 <div class="paragraph">
 <p>Example:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@ExtendWith(SoftAssertionsParameterResolver.class)
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.assertj.core.api.BDDSoftAssertions;
+import org.assertj.core.api.SoftAssertions;
+import org.assertj.core.api.junit.jupiter.SoftAssertionsExtension;
+
+@ExtendWith(SoftAssertionsExtension.class)
 public class JUnit5SoftAssertionsExample {
 
   @Test
-  void junit5_soft_assertions_example(SoftAssertions softly) {
+  void junit5_soft_assertions_multiple_failures_example(SoftAssertions softly) {
     softly.assertThat("George Martin").as("great authors").isEqualTo("JRR Tolkien");
     softly.assertThat(42).as("response to Everything").isGreaterThan(100);
     softly.assertThat("Gandalf").isEqualTo("Sauron");
-    // No need to call softly.assertAll(), this is automatically done by the SoftAssertionsParameterResolver extension
+    // No need to call softly.assertAll(), this is automatically done by the SoftAssertionsExtension
   }
 
   @Test
-  void junit5_bdd_soft_assertions_example(BDDSoftAssertions softly) {
+  void junit5_bdd_soft_assertions_multiple_failures_example(BDDSoftAssertions softly) {
     softly.then("George Martin").as("great authors").isEqualTo("JRR Tolkien");
     softly.then(42).as("response to Everything").isGreaterThan(100);
     softly.then("Gandalf").isEqualTo("Sauron");
-    // No need to call softly.assertAll(), this is automatically done by the SoftAssertionsParameterResolver extension
+    // No need to call softly.assertAll(), this is automatically done by the SoftAssertionsExtension
+  }
+
+  @ParameterizedTest
+  @CsvSource({ "1, 1, 2", "1, 2, 3" })
+  // test parameters come first, soft assertion must come last.
+  void junit5_bdd_soft_assertions_parameterized_test_example(int a, int b, int sum, SoftAssertions softly) {
+    softly.assertThat(a + b).as("sum").isEqualTo(sum);
+    softly.assertThat(a).isLessThan(sum);
+    softly.assertThat(b).isLessThan(sum);
   }
 
 }</code></pre>
 </div>
-</div>
-<div class="paragraph">
-<p>The extension is compatible with <a href="https://junit.org/junit5/docs/current/user-guide/#writing-tests-parameterized-tests">JUnit 5 parameterized tests</a>, the parameterized arguments must always come first, the soft assertions coming at the end of the argument list.</p>
 </div>
 </div>
 <div class="sect3">
