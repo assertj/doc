@@ -32,13 +32,18 @@ include::contributors.adoc[]
 
 Release date : 2019-07-xx
 
-The highlight of this release is the addition of `asInstanceOf` which allows to chain specific type assertions from a value initially declared as an `Object` (thanks Stefano Cordio for this contribution!).
+The highlight of this release is the addition of `asInstanceOf` which allows to chain specific type assertions from a value that was initially declared with a different type (usually `Object`). Thanks Stefano Cordio for this contribution!.
 
 Example:
 [source,java,indent=0]
 ----
-Object string = "abc";
-assertThat(string).asInstanceOf(InstanceOfAssertFactories.STRING).startsWith("ab");
+Object value = "abc";
+
+// This line DOES NOT COMPILE since startsWith is a String assertion and value is an Object
+assertThat(value).startsWith("ab");
+
+// This line COMPILES because we tell AssertJ to consider value as a String
+assertThat(value).asInstanceOf(InstanceOfAssertFactories.STRING).startsWith("ab");
 ----
 This feature is more detailed in the notes below.
 
@@ -93,13 +98,13 @@ As a consequence of the two previous points, when comparing collection/map field
 
 `asInstanceOf` allows to chain specific type assertions from a value initially declared as a less specific type (often `Object`).
 
-Let's start with the problem `asInstanceOf` is solving, in the following example we would like to call `String` assertions but this is not possible since `value` is declared as an `Object` thus only `Object` assertions are accessible.
+Let's start with the problem `asInstanceOf` is solving: in the following example we would like to call `String` assertions but this is not possible since `value` is declared as an `Object` thus only `Object` assertions are accessible.
 [source,java,indent=0]
 ----
 // Given a String declared as an Object
 Object value = "Once upon a time in the west";
 
-// we want to call String assertions but this is not possible as value is declared as an Object
+// We would like to call String assertions but this is not possible since value is declared as an Object
 assertThat(value).startsWith("ab"); // this does not compile !
 ----
 
@@ -113,7 +118,7 @@ import static org.assertj.core.api.InstanceOfAssertFactories.STRING;
 // Given a String declared as an Object
 Object value = "Once upon a time in the west";
 
-// With asInstanceOf, we switch to specific String assertion by specifying with the InstanceOfAssertFactory for String
+// With asInstanceOf, we switch to specific String assertion by specifying the InstanceOfAssertFactory for String
 assertThat(value).asInstanceOf(STRING).startsWith("Once");
 ----
 
@@ -121,16 +126,24 @@ AssertJ verifies that the actual value is compatible with the assertions `Instan
 
 `InstanceOfAssertFactories` provides static factories for all types AssertJ provides assertions for, additional factories can be created with custom `InstanceOfAssertFactory` instances.
 
-Here's another example to show the parameterized type support:
+Here's another example showing the parameterized type support:
 [source,java,indent=0]
 ----
-Object value = asList<Ring>(vilya, nenya, narya);
+// Actually a List<TolkienCharacter>
+Object hobbits = list(frodo, pippin, merry, sam);
 
-// as we specify the Ring class, the contains chained assertion expect to be given Rings
-assertThat(value).asInstanceOf(InstanceOfAssertFactories.list(Ring.class)).contains(nenya);
+// As we specify the TolkienCharacter class, the following chained assertion expect to be given TolkienCharacters.
+// This means that method like extracting or filteredOn are given a TolkienCharacter
+assertThat(hobbits).asInstanceOf(InstanceOfAssertFactories.list(TolkienCharacter.class))
+                   .contains(frodo, sam)
+                   .extracting(TolkienCharacter::getName)
+                   .contains("Frodo", "Sam");
 
-// if we don't care about the List elements type we can simply use LIST.
-assertThat(value).asInstanceOf(InstanceOfAssertFactories.LIST).contains(nenya);
+// Use LIST if the elements type is not important but note that the chained assertions 
+// will be given Object not TolkienCharacter
+assertThat(hobbits).asInstanceOf(InstanceOfAssertFactories.LIST)
+                    //.extracting(TolkienCharacter::getName) does not work as extracting is given an Object
+                   .contains(frodo); 
 ----
 
 

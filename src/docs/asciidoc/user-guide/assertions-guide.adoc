@@ -972,7 +972,7 @@ Since 3.13.0, AssertJ provides `SoftAssertionsExtension` a JUnit 5 extension tha
 The term "test method" refers to any method annotated with `@Test`, `@RepeatedTest`, `@ParameterizedTest`, `@TestFactory` or `@TestTemplate`. 
 Notably, the extension is compatible with link:https://junit.org/junit5/docs/current/user-guide/#writing-tests-parameterized-tests[parameterized tests], the parameterized arguments msut come first and the soft assertions argument last.
 
-IMPORTANT: `JUnitJupiterSoftAssertions` and `JUnitJupiterBDDSoftAssertions` are now deprecated in favor of `SoftAssertionsExtension`
+IMPORTANT: `JUnitJupiterSoftAssertions` and `JUnitJupiterBDDSoftAssertions` are now deprecated in favor of `SoftAssertionsExtension`.
 
 Example:
 [source,java,indent=0]
