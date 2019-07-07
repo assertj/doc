@@ -6,7 +6,16 @@
     {
       "label": "build documentation",
       "type": "shell",
-      "command": "gwa"
+      "command": "./gradlew asciidoctor",
+      "options": {
+        "env": {
+          "JAVA_HOME":"/home/joel/prog/java/current"
+        }
+      },
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
     }
   ]
 }
