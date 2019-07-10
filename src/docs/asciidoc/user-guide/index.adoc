@@ -28,6 +28,13 @@ include::contributors.adoc[]
 
 === AssertJ Core
 
+Latest release notes:
+
+- link:#assertj-core-3-13-0-release-notes[AssertJ Core 3.13.0 release notes]
+- link:#assertj-core-3-12-2-release-notes[AssertJ Core 3.12.2 release notes]
+- link:#assertj-core-3-12-1-release-notes[AssertJ Core 3.12.1 release notes]
+- link:#assertj-core-3-12-0-release-notes[AssertJ Core 3.12.0 release notes]
+
 ==== AssertJ Core 3.13.0 Release notes
 
 Release date : 2019-07-xx
@@ -51,7 +58,7 @@ This feature is more detailed in the notes below.
 
 Thanks to all the contributors of this release:
 
-Pascal Schumacher, Erhard Pointl, Stefano Cordio, Thomas Traude, Andrei Solntsev, Matej Drobnič, Željko Mirović, Mike Gilchrist, Phillip Webb, Michal Fotyga,Valeriy Vyrva, Eddú Meléndez Gonzales and GaspardPO.
+Pascal Schumacher, Erhard Pointl, Stefano Cordio, Thomas Traude, Andrei Solntsev, Matej Drobnič, Željko Mirović, Mike Gilchrist, Phillip Webb, Michal Fotyga,Valeriy Vyrva, Eddú Meléndez Gonzales, GaspardPO, Bengt Brodersen, Jiri Pejchal, Christian Stein, Nikolaos Georgiou and Sam Brannen.
 
 Special thanks to Nils Winkler for his work on the assertions convertion scripts and Stefano Cordio for the `asInstanceOf` contribution.
 
@@ -65,11 +72,14 @@ As a consequence of the two previous points, when comparing collection/map field
 ===== New features
 
 - Add link:#assertj-core-3.13.0-asInstanceOf[`asInstanceOf`] to chain specific type assertions. (Stefano Cordio)
-- Add `extracting` with single parameter to `Object` and `Map` assertions. (Stefano Cordio) TODO document
-- Add a way to configure AssertJ for all tests. TODO document
+- Add link:#assertj-core-3.13.0-extracting[`extracting(String)`] to `Object` and `Map` assertions. (Stefano Cordio)
+- Add a way to link:#assertj-core-3.13.0-global-configuration[configure AssertJ] for all tests.
 - Add `hasCauseReference` throwable assertion. (Mike Gilchrist) TODO document
 - Add new directory assertions for file and path objects. (Valeriy Vyrva) TODO document
 - Support var-arg throwable message assertions. (Phillip Webb) TODO document
+- Add method to use `SoftAssertions` with any custom assertions. (Bengt Brodersen) TODO document
+- Add `containsExactlyInAnyOrderEntriesOf` to map assertions. (Stefano Cordio) TODO document
+- Add `isCloseToUtcNow` to `LocalDateTime` and `OffsetDateTime` assertions. (Nikolaos Georgiou) TODO document
 
 ===== Improvements
 
@@ -80,9 +90,13 @@ As a consequence of the two previous points, when comparing collection/map field
 - Make catchThrowableOfType easier to discover in the javadoc.
 - Rename methods `isBeforeOrEqualsTo` and `isAfterOrEqualsTo` to `isBeforeOrEqualTo` and `isAfterOrEqualTo` (Eddú Meléndez Gonzales).
 - Improve error messages in the new recursive comparison when group size differs or when trying to compare actual unordered vs expected ordered.
+- Introduce explicit module descriptor (Christian Stein).
+- Allow return values of `WithAssertions#fail` methods to be ignored (Jiri Pejchal).
+- Improve the error message when multiple (soft) assertions error are raised.
 
 ===== Fixed
 
+- Fix Soft assertions JUnit 5 extension that did not support parallel test nor `@TestInstance(PER_CLASS)` lifecycle semantics. (Sam Brannen)
 - Fix JavaDoc regarding `AnyOf` and `AllOf` . (Thomas Traude)
 - In Kotlin (only) make sure that `isEqualTo("abc")` is not resolved to `isEqualTo(String, Object... args)`. (Andrei Solntsev)
 - Fix Javadoc typos. (GaspardPO, Michal Fotyga)
@@ -92,6 +106,7 @@ As a consequence of the two previous points, when comparing collection/map field
 
 - Deprecate Java 6/Android assertions entry points as they don't truly provide 100% Java 6/Android compatibility.
 - Deprecate methods `isBeforeOrEqualTo` and `isAfterOrEqualTo` in favor of `isBeforeOrEqualsTo` and `isAfterOrEqualsTo` (Eddú Meléndez Gonzales).
+- Deprecate `JUnitJupiterSoftAssertions` and  `JUnitJupiterBDDSoftAssertions` in favor of `SoftAssertionsExtension`
 
 [[assertj-core-3.13.0-asInstanceOf]]
 ===== Add `asInstanceOf` to chain specific type assertions
@@ -146,6 +161,50 @@ assertThat(hobbits).asInstanceOf(InstanceOfAssertFactories.LIST)
                    .contains(frodo); 
 ----
 
+[[assertj-core-3.13.0-extracting]]
+===== Add `extracting` with single parameter to `Object` and `Map` assertions
+
+Extracts the value of given field/property from the object under test, the extracted value becoming the new object under test.
+
+Examples:
+[source,java,indent=0]
+----
+// Create frodo, setting its name, age and Race (Race having a name property)
+TolkienCharacter frodo = new TolkienCharacter("Frodo", 33, HOBBIT);
+
+// let's extract and verify Frodo's name:
+assertThat(frodo).extracting("name")
+                 .isEqualTo("Frodo");
+
+// The extracted value being a String, we would like to use String assertions but we can't due to Java generics limitations.
+// The following assertion does NOT compile:
+assertThat(frodo).extracting("name")
+                 .startsWith("Fro");
+
+// To get String assertions use asInstanceOf:
+assertThat(frodo).extracting("name")
+                 .asInstanceOf(InstanceOfAssertFactories.STRING)
+                 .startsWith("Fro");
+----
+
+If the object under test is a Map, the parameter is used as a key to the map.
+
+Example:
+[source,java,indent=0]
+----
+Map<String, Object> basketballPlayer = new HashMap<>();
+basketballPlayer.put("name", "kawhi");
+basketballPlayer.put("age", 25);
+
+// single value
+assertThat(basketballPlayer).extracting("name")
+                            .isEqualTo("kawhi");
+----
+
+[assertj-core-3.13.0-global-configuration]]
+===== AssertJ global configuration
+
+3.13.0 generalizes the way `Representation` could be configured 
 
 ==== AssertJ Core 3.12.2 Release notes
 
