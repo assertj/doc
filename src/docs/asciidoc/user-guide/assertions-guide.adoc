@@ -397,7 +397,7 @@ TODO
 This chapter answers the question: how to assert that an exception has been thrown and check that it is the expected one ?
 
 If you use java 8 or later versions, check the link:#assertj-core-exception-assertions-java-8[Java 8 section] which heavily uses lambdas.
-If you use java 7, check the link:#assertj-core-exception-assertions-java-7[Java 7 section] which heavily uses lambdas.
+If you use java 7, check the link:#assertj-core-exception-assertions-java-7[Java 7 section].
 
 All the available assertions are described in the link:#assertj-core-exception-assertions-reference[throwable assertions reference section].
 
