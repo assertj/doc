@@ -2476,6 +2476,18 @@ programmers writing tests assertions with AssertJ.</p>
 <div class="paragraph">
 <p>This guide is for the AssertJ core module.</p>
 </div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+AssertJ Core 2.x is in maintenance mode, it will only receives bugfixes.
+</td>
+</tr>
+</table>
+</div>
 <div class="sect2">
 <h3 id="get-assertj-core"><a class="anchor" href="#get-assertj-core"></a>2.1. Get assertj-core library</h3>
 <div class="paragraph">
@@ -2489,22 +2501,35 @@ programmers writing tests assertions with AssertJ.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>AssertJ 3.x requires Java 8 or higher (use the <code>org.assertj.core.api.Java6Assertions</code> entry point on Android API Level &lt; 26)</p>
+<p>AssertJ Core 3.x requires Java 8 or higher</p>
 </li>
 <li>
-<p>AssertJ 2.x requires Java 7 or higher (use the <code>org.assertj.core.api.Java6Assertions</code> entry point on Android API Level &lt; 26)</p>
-</li>
-<li>
-<p>AssertJ 1.x requires Java 6 or higher</p>
+<p>AssertJ Core 2.x requires Java 7 or higher</p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
-<p>Note that AssertJ 3.x includes all AssertJ 2.x features and adds Java 8 specific ones (like exception assertions with lambdas).</p>
+<p>Note that AssertJ Core 3.x includes all AssertJ Core 2.x features and adds Java 8 specific ones (like exception assertions with lambdas).</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="maven"><a class="anchor" href="#maven"></a>2.1.2. Maven</h4>
+<h4 id="assertj-core-android"><a class="anchor" href="#assertj-core-android"></a>2.1.2. Android support</h4>
+<div class="paragraph">
+<p>AssertJ <strong>does not officialy supports Android</strong> but is mostly Android compatible:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>AssertJ Core 3.x is compatible with Android API Level 26+, except for soft assertions and assumptions.</p>
+</li>
+<li>
+<p>AssertJ Core 2.x is Android compatible with Android API Level 26+ and API Level &lt; 26 except for <code>Path</code> assertions.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="maven"><a class="anchor" href="#maven"></a>2.1.3. Maven</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;dependency&gt;
@@ -2518,7 +2543,7 @@ programmers writing tests assertions with AssertJ.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="gradle"><a class="anchor" href="#gradle"></a>2.1.3. Gradle</h4>
+<h4 id="gradle"><a class="anchor" href="#gradle"></a>2.1.4. Gradle</h4>
 <div class="paragraph">
 <p>For Gradle users (using the Maven Central Repository)</p>
 </div>
@@ -2537,7 +2562,7 @@ programmers writing tests assertions with AssertJ.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="other-dependency-management-tool"><a class="anchor" href="#other-dependency-management-tool"></a>2.1.4. Other dependency management tool</h4>
+<h4 id="other-dependency-management-tool"><a class="anchor" href="#other-dependency-management-tool"></a>2.1.5. Other dependency management tool</h4>
 <div class="paragraph">
 <p>Check this page to find the relevant <a href="https://search.maven.org/artifact/org.assertj/assertj-core/3.12.2/bundle">assertj core dependency declaration</a>.</p>
 </div>
@@ -3314,7 +3339,7 @@ assertThat("foo").withRepresentation(customRepresentation)
 </div>
 <div class="paragraph">
 <p>If you use java 8 or later versions, check the <a href="#assertj-core-exception-assertions-java-8">Java 8 section</a> which heavily uses lambdas.
-If you use java 7, check the <a href="#assertj-core-exception-assertions-java-7">Java 7 section</a> which heavily uses lambdas.</p>
+If you use java 7, check the <a href="#assertj-core-exception-assertions-java-7">Java 7 section</a>.</p>
 </div>
 <div class="paragraph">
 <p>All the available assertions are described in the <a href="#assertj-core-exception-assertions-reference">throwable assertions reference section</a>.</p>
@@ -4825,7 +4850,7 @@ Bare-named property introspection is enabled by default and thus changes AssertJ
 <div id="footer">
 <div id="footer-text">
 Version 0.9.0<br>
-Last updated 2019-07-03 21:54:40 NZST
+Last updated 2019-07-14 22:38:34 NZST
 </div>
 </div>
 <link rel="stylesheet" href="highlight/styles/railscasts.min.css">
