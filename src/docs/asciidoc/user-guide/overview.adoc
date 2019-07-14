@@ -21,7 +21,7 @@ Ask AssertJ related questions on {StackOverflow}.
 
 This guide is for the AssertJ core module.
 
-IMPORTANT: AssertJ Core 2.x is in maintenance mode, it will only receives bugfixes.
+IMPORTANT: AssertJ Core 2.x is in maintenance mode, it will only receive bugfixes.
 
 [[get-assertj-core]]
 === Get assertj-core library
