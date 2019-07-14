@@ -267,21 +267,19 @@ assertThat(actual).usingComparator(new CustomComparator()).isEqualTo("a");
 [[assertj-core-configuration]]
 === Configuring AssertJ
 
-This section describes the different ways to configure AssertJ, either be setting configuration properties individually or globally using the new link:#assertj-configuration-class[`Configuration`] class.
-Once a configuration property is set, it is applied for all tests executed after. 
+This section describes the different ways to configure AssertJ, either by setting configuration properties individually or globally using the link:#assertj-configuration[`Configuration`] class. 
 
-When to apply the configuration ? Well it depends on the scope of the configuration:
+To be effective the configuration changes must be applied before the tests are executed, depending on the scope of the tests this means different things:
 
-* for a test class scope: use https://junit.org/junit5/docs/current/api/org/junit/jupiter/api/BeforeAll.html[`@BeforeAll`] (JUnit 5). 
-* for the global scope, you have two options:
+* For a single test: change the configuration in the test and revert it in the https://junit.org/junit5/docs/current/api/org/junit/jupiter/api/AfterEach.html[`@AfterEach`] method  (JUnit 5). 
+* For all tests in a class: change the configuration in the https://junit.org/junit5/docs/current/api/org/junit/jupiter/api/BeforeAll.html[`@BeforeAll`] method and revert the changes in the https://junit.org/junit5/docs/current/api/org/junit/jupiter/api/AfterAll.html[`@AfterAll`] method (JUnit 5). 
+* To change the configuration *before any tests*, you can use these options:
 ** write a JUnit 5 extension implementing https://junit.org/junit5/docs/current/api/org/junit/jupiter/api/extension/BeforeAllCallback.html[`BeforeAllCallback`]. 
-** register your `Configuration` and let AssertJ link:#automatic-configuration-discovery[discover it automagically].
+** register your own `Configuration` subclass and let AssertJ link:#automatic-configuration-discovery[discover it automagically].
 
 ==== Configuring single properties
 
 The `Assertions` class provides static methods to change each configuration properties.
-
-NOTE: Each configuration property is described in the link:#assertj-configuration-class[`Configuration`] section.
 
 [source,java,indent=0]
 ----
@@ -296,60 +294,125 @@ Assertions.useRepresentation(myRepresentation);
 Assertions.registerCustomDateFormat(myCustomDateFormat);
 ----
 
-[[assertj-configuration-class]]
-==== AssertJ Configuration class
+===== Representation
 
-Since 3.13.0, AssertJ exposes a `org.assertj.core.configuration.Configuration` object providing access to all AssertJ globally configurable properties.
+This property allows you to register a `Representation` to control the way AssertJ formats the different types displayed in the assertion error messages.
+Consult the <<assertj-core-representation>> chapter for details.
+
+Defaults to `StandardRepresentation`.
 
 ===== AllowComparingPrivateFields
 
+Globally sets whether the use of private fields is allowed for field/property by field/property comparison. Defaults to true.
+
 ===== AllowExtractingPrivateFields
+
+Globally sets whether the AssertJ `extracting` capability should be allowed to extract private fields. Defaults to true.
 
 ===== ExtractBareNamePropertyMethods
 
+Globally sets whether the AssertJ `extracting` capability considers bare-named property methods like String name(). Defaults to true.
+
 ===== LenientDateParsing
+
+Specify whether or not date/time parsing is to be lenient for AssertJ default date formats. With lenient parsing, the parser may use heuristics to interpret inputs that do not precisely match this object's format. With strict parsing, inputs must match this object's format.
+
+===== Custom DateFormat
+
+In addition to the default date formats, you can register some custom ones that AssertJ will use in date assertions (see also `Assertions.registerCustomDateFormat`).
+
+Note that custom date formats take precedence over default ones.
 
 ===== MaxElementsForPrinting
 
+In error messages, sets the threshold for how many elements from one iterable/array/map will be included in the in the description. Defaults to 1000.
+
+The point of this property is to avoid printing iterable/array/map with too many elements in error messages.
+
 ===== MaxLengthForSingleLineDescription
+
+In error messages, sets the threshold when iterable/array formatting will be on one line (if their String description
+is less than this parameter) or it will be formatted with one element per line. Defaults to 80.
+
+Example: 
+
+[source,java,indent=0]
+----
+String[] greatBooks = array("A Game of Thrones", "The Lord of the Rings", "Assassin's Apprentice");
+----
+
+this array is formatted on one line as its length < 80:
+
+[source,java,indent=0]
+----
+["A Game of Thrones", "The Lord of the Rings", "Assassin's Apprentice"]
+----
+
+Whereas this array ...
+
+[source,java,indent=0]
+----
+String[] greatBooks = array("A Game of Thrones", "The Lord of the Rings", "Assassin's Apprentice", "Guards! Guards! (Discworld)");
+----
+
+\... is formatted on multiple lines with one element per line:
+
+[source,java,indent=0]
+----
+
+["A Game of Thrones",
+ "The Lord of the Rings",
+ "Assassin's Apprentice",
+ "Guards! Guards! (Discworld)"]
+----
 
 ===== RemoveAssertJRelatedElementsFromStackTrace
 
-===== Representation
-
-===== isterCustomDateFormat
+Sets whether the elements related to AssertJ are removed from assertion errors stack trace. Defaults to true.
 
 
-IMPORTANT: Your configuration will be effective once you call `Configuration.apply()`. 
+[[assertj-configuration]]
+==== AssertJ Configuration
 
-Printing a `Configuration` looks like:
+Since 3.13.0, AssertJ exposes a `org.assertj.core.configuration.Configuration` object providing access to all AssertJ globally configurable properties.
+
+As `org.assertj.core.configuration.Configuration` is immutable, you need to create your own custom configuration by inheriting from it and overriding the methods to change the default behavior, as in the `CustomConfiguration` exeample below.
+
+IMPORTANT: Your configuration will be effective once you call `Configuration.apply()`.
+
+[source,java,indent=0]
+----
+include::{testDir}/example/core/CustomConfiguration.java[]
+----
+
+Printing the  `CustomConfiguration` looks like: 
 
 [source,plaintext,indent=0]
 ----
-AssertJ has found and applied the following registered configuration: com.my.company.assertj.Configuration
-- representation .................................. = StandardRepresentation
-- comparingPrivateFieldsEnabled ................... = true
+- representation .................................. = BinaryRepresentation
+- comparingPrivateFieldsEnabled ................... = false
 - extractingPrivateFieldsEnabled .................. = true
-- bareNamePropertyExtractionEnabled ............... = true
-- lenientDateParsingEnabled ....................... = false
+- bareNamePropertyExtractionEnabled ............... = false
+- lenientDateParsingEnabled ....................... = true
 - additionnal date formats ........................ = [yyyy_MM_dd, yyyy|MM|dd]
-- maxLengthForSingleLineDescription ............... = 80
-- maxElementsForPrinting .......................... = 1000
-- removeAssertJRelatedElementsFromStackTraceEnabled = false
+- maxLengthForSingleLineDescription ............... = 150
+- maxElementsForPrinting .......................... = 2000
+- removeAssertJRelatedElementsFromStackTraceEnabled = true
 ----
+
 
 [[automatic-configuration-discovery]]
 ==== Automagic configuration discovery
 
 This section describes a way to register an AssertJ `Configuration` without using any tests frameworks hooks like `BeforeAllCallback`.
 
-You will need to register your `Configuration` as an SPI which means:
+Follow the steps below to register your `Configuration` as an SPI:
 
-* Creating a file named `org.assertj.core.configuration.Configuration` in the `META-INF/services` directory
-* Making sure `META-INF/services/org.assertj.core.configuration.Configuration` is in the runtime classpath, usually putting it in `src/test/resources` is enough
-* Putting the fully qualified class name of your `Configuration` in it.
+* Create a file named `org.assertj.core.configuration.Configuration` in a `META-INF/services` directory
+* Make sure `META-INF/services/` is in the runtime classpath, usually putting it in `src/test/resources` will do.
+* Put the fully qualified class name of your `Configuration` in `services/org.assertj.core.configuration.Configuration`.
 
-This is all you have to do as AssertJ will pick up the `Configuration` automatically.
+This is all you have to do, AssertJ will pick up the `Configuration` automatically and display it before running tests
 
 
 [[assertj-core-representation]]
@@ -359,8 +422,7 @@ Assertions error messages use a `Representation` to format the different types i
 
 * Changing the default global `Representation` by calling `Assertions.useRepresentation(myRepresentation)` - see <<Changing the default global scope custom representation>>
 * Changing the `Representation` per assertion with `assertThat(actual).withRepresentation(myRepresentation)` - see <<Per assertion scope custom representation>>
-
-The advantage of registering a service is that you don't need any programmatic call, AssertJ will pick it up and use it as the default `Representation`.
+* Globally registering a `Configuration` that specifies the `Representation` to use - see link:#assertj-core-configuration[AssertJ global configuration].
 
 Let's go over these different options with a custom `Representation`.
 
@@ -422,19 +484,6 @@ to start with:
   <$bar$>
 ----
 
-[[assertj-core-custom-representation-default-global-scope]]
-==== Registering a default global scope custom representation
-
-WARNING: This approach is deprecated in favor of link:#assertj-core-configuration[AssertJ global configuration].
-
-You will need to register your `Representation` as an SPI  which means:
-
-* Creating a file named `org.assertj.core.presentation.Representation` in the `META-INF/services` directory
-* Puttung the fully qualified class name of your `Representation` in it
-* Making sure `META-INF/services/org.assertj.core.presentation.Representation` is in the runtime classpath, usually putting it in `src/test/resources` is enough
-
-This all you have to do as AssertJ will pick up the `Representation` automatically.
-
 [[assertj-core-custom-representation-global-scope-change]]
 ==== Changing the default global scope custom representation
 
@@ -445,6 +494,8 @@ You only have to register `CustomRepresentation` once but need to do it before e
 // to call before executing tests
 Assertions.useRepresentation(new CustomRepresentation());
 ----
+
+Consider writing a JUnit 5 extension implementing https://junit.org/junit5/docs/current/api/org/junit/jupiter/api/extension/BeforeAllCallback.html[`BeforeAllCallback`] to make sure the representation is set once for all before any test is executed.
 
 [[assertj-core-custom-representation-per-assertion-scope]]
 ==== Per assertion scope custom representation

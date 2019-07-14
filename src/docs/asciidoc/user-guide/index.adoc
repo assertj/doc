@@ -201,10 +201,13 @@ assertThat(basketballPlayer).extracting("name")
                             .isEqualTo("kawhi");
 ----
 
-[assertj-core-3.13.0-global-configuration]]
+[[assertj-core-3.13.0-global-configuration]]
 ===== AssertJ global configuration
 
-3.13.0 generalizes the way `Representation` could be configured 
+AssertJ 3.13.0 introduces a `Configuration` class allowing to change AssertJ behavior and a way to register automatically. 
+Read <<assertions-guide#assertj-core-configuration, Configuring AssertJ>> chapter to learn about it.
+
+
 
 ==== AssertJ Core 3.12.2 Release notes
 
