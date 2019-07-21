@@ -109,7 +109,7 @@ As a consequence of the two previous points, when comparing collection/map field
 - Deprecate `JUnitJupiterSoftAssertions` and  `JUnitJupiterBDDSoftAssertions` in favor of `SoftAssertionsExtension`
 
 [[assertj-core-3.13.0-asInstanceOf]]
-===== Add `asInstanceOf` to chain specific type assertions
+[.release-note-item]#Add `asInstanceOf` to chain specific type assertions#
 
 `asInstanceOf` allows to chain specific type assertions from a value initially declared as a less specific type (often `Object`).
 
@@ -162,7 +162,7 @@ assertThat(hobbits).asInstanceOf(InstanceOfAssertFactories.LIST)
 ----
 
 [[assertj-core-3.13.0-extracting]]
-===== Add `extracting` with single parameter to `Object` and `Map` assertions
+[.release-note-item]#Add `extracting` with single parameter to `Object` and `Map` assertions#
 
 Extracts the value of given field/property from the object under test, the extracted value becoming the new object under test.
 
@@ -202,14 +202,14 @@ assertThat(basketballPlayer).extracting("name")
 ----
 
 [[assertj-core-3.13.0-global-configuration]]
-===== AssertJ global configuration
+[.release-note-item]#AssertJ global configuration#
 
 AssertJ 3.13.0 introduces a `Configuration` class allowing to change AssertJ behavior and a way to register automatically. 
 Read <<assertions-guide#assertj-core-configuration, Configuring AssertJ>> chapter to learn about it.
 
 
 [[assertj-core-3.13.0-hasCauseReference]]
-===== Add hasCauseReference to throwable assertions
+[.release-note-item]#Add `hasCauseReference` to throwable assertions#
 
 Verifies that the actual `Throwable` has a cause that refers to the given one, i.e. using == comparison.
 
@@ -230,7 +230,7 @@ assertThat(throwable).hasCauseReference(null); // prefer hasNoCause()
 
 
 [[assertj-core-3.13.0-directory-assertions]]
-===== New directory content assertions
+[.release-note-item]#New directory content assertions#
 
 The new assertions have been added for both `File` and `Path`, they add support for 
 
@@ -334,7 +334,7 @@ assertThat(new File(root, "sub-dir-1")).isNotEmptyDirectory();
 ----
 
 [[assertj-core-3.13.0-throwable-message-assertions]]
-===== Add `hasMessageContainingAll` and `hasMessageNotContainingAny` to throwable assertions
+[.release-note-item]#Add `hasMessageContainingAll` and `hasMessageNotContainingAny` to throwable assertions#
 
 These assertions are the equivalent of `hasMessageContaining` and `hasMessageNotContaining` but accepting multiple String parameters instead of only one.
 
@@ -372,7 +372,7 @@ assertThatExceptionOfType(Throwable.class)
 ----
 
 [[assertj-core-3.13.0-check-soft-assertions-with-any-custom-assertions]]
-===== Allow using any custom assertions in soft assertions
+[.release-note-item]#Allow using any custom assertions in soft assertions#
 
 The new `check​` method catches and collect assertion errors coming from standard and custom assertions. 
 
@@ -390,11 +390,12 @@ softly.assertThat("foo").startsWith("bar");
 // could be written with check like (but it's as elegant as the standard use):
 // softly.check(() -> Assertions.assertThat("foo").startsWith("bar"));
 
+// 2 errors: "foo" does not start with "bar" and frodo's name is not "Frodon"
 assertThat(softly.errorsCollected()).hasSize(2);
 ----
 
 [[assertj-core-3.13.0-containsExactlyInAnyOrderEntriesOf]]
-===== Add `containsExactlyInAnyOrderEntriesOf` to map assertions
+[.release-note-item]#Add `containsExactlyInAnyOrderEntriesOf` to map assertions#
 
 Verifies that the actual map contains only the given entries and nothing else, in any order.
 
@@ -428,7 +429,7 @@ assertThat(ringBearers).containsExactlyInAnyOrderEntriesOf(newLinkedHashMap(entr
 ----
 
 [[assertj-core-3.13.0-isCloseToUtcNow]]
-===== Add `isCloseToUtcNow` to `LocalDateTime` and `OffsetDateTime` assertions
+[.release-note-item]#Add `isCloseToUtcNow` to `LocalDateTime` and `OffsetDateTime` assertions#
 
 Verifies that the actual `LocalDateTime`/`OffsetDateTime` is close to the current date and time on the UTC timezone, according to the given offset. 
 
@@ -456,7 +457,7 @@ OffsetDateTime actual = OffsetDateTime.now(Clock.systemUTC());
 ----
 
 [[assertj-core-3.13.0-millisecond-and-timezone-parsing]]
-===== Add support for combined millisecond and timezone parsing
+[.release-note-item]#Add support for combined millisecond and timezone parsing#
 
 Add `yyyy-MM-dd HH:mm:ss.SSSX` to the default date formats AssertJ supports in `Date` assertions that take a `String` parameter representating a `Date`. 
 
@@ -476,7 +477,7 @@ assertThat(date).isEqualTo("2003-04-26T00:00:00.123+00:00");
 ----
 
 [[assertj-core-3.13.0-optional-support-in-recursive-comparison]]
-===== Add support for `Optional` in the new recursive comparison
+[.release-note-item]#Add support for `Optional` in the new recursive comparison#
 
 The recursive comparison added in 3.12.0 now compares `Optional` values recursively instead of comparing `Optional` with `equals`. This is consistent with comparing list elements by elements as an `Optional` can be seen as a list with at most one element. 
 
@@ -561,7 +562,7 @@ The recursive comparison was performed with this configuration:
 ----
 
 [[assertj-core-3.13.0-ignore-order-in-recursive-comparison]]
-===== Allow ignoring collection order in the new recursive comparison
+[.release-note-item]#Allow ignoring collection order in the new recursive comparison#
 
 The recursive comparison added in 3.12.0 can now ignore collection order in all fields in the object under test, this is handy when comparing list to set fields where only the content is relevant but not the order. 
 
