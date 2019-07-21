@@ -727,7 +727,13 @@ pre>code {
   color: rgba(0, 0, 0, .9);
   font-family: "Droid Sans Mono", "DejaVu Sans Mono", monospace;
   font-weight: 400;
-  text-rendering: optimizeSpeed
+  text-rendering: optimizeSpeed;
+  /* should be the same size or less than 
+#header,
+#content,
+#footnotes,
+#footer */
+  max-width: 100em;
 }
 
 .keyseq {
@@ -797,7 +803,8 @@ p a>code:hover {
   margin-right: auto;
   margin-top: 0;
   margin-bottom: 0;
-  max-width: 75em;
+  /* initially 75em,  increasing it to 110em does not play with toc when toc is increased */
+  max-width: 100em;
   *zoom: 1;
   position: relative;
   padding-left: .9375em;
@@ -999,21 +1006,24 @@ body.toc2 #header>h1:nth-last-child(2) {
 }
 
 @media only screen and (min-width:1280px) {
+  /* 
+   * to increase the menu size by x requires to increase both #toc.toc2.width and body.toc2 padding-left
+   */
   body.toc2 {
-    padding-left: 21em;
+    padding-left: 26em;
     padding-right: 0
   }
   #toc.toc2 {
-    width: 20em
+    width: 25em
   }
   #toc.toc2 #toctitle {
-    font-size: 1.375em
+    font-size: 1.6em
   }
   #toc.toc2>ul {
-    font-size: .95em
+    font-size: 1.1em
   }
   #toc.toc2 ul ul {
-    padding-left: 1.25em
+    padding-left: 1.5em
   }
   body.toc2.toc-right {
     padding-left: 0;
@@ -1344,8 +1354,8 @@ table.tableblock #preamble>.sectionbody>.paragraph:first-of-type p {
 
 .listingblock pre.highlightjs>code {
   padding: 1em;
-  -webkit-border-radius: 4px;
-  border-radius: 4px
+  -webkit-border-radius: 10px;
+  border-radius: 10px
 }
 
 .listingblock pre.prettyprint {
