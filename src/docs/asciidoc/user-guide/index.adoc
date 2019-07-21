@@ -74,31 +74,31 @@ As a consequence of the two previous points, when comparing collection/map field
 - Add link:#assertj-core-3.13.0-asInstanceOf[`asInstanceOf`] to chain specific type assertions. (Stefano Cordio)
 - Add link:#assertj-core-3.13.0-extracting[`extracting(String)`] to `Object` and `Map` assertions. (Stefano Cordio)
 - Add a way to link:#assertj-core-3.13.0-global-configuration[configure AssertJ] for all tests.
-- Add `hasCauseReference` throwable assertion. (Mike Gilchrist) TODO document
-- Add new directory assertions for file and path objects. (Valeriy Vyrva) TODO document
-- Support var-arg throwable message assertions. (Phillip Webb) TODO document
-- Add method to use `SoftAssertions` with any custom assertions. (Bengt Brodersen) TODO document
-- Add `containsExactlyInAnyOrderEntriesOf` to map assertions. (Stefano Cordio) TODO document
-- Add `isCloseToUtcNow` to `LocalDateTime` and `OffsetDateTime` assertions. (Nikolaos Georgiou) TODO document
+- Add link:#assertj-core-3.13.0-hasCauseReference[`hasCauseReference`] throwable assertion. (Mike Gilchrist)
+- Add link:#assertj-core-3.13.0-directory-assertions[directory content assertions] for `File` and `Path`. (Valeriy Vyrva)
+- Add link:#assertj-core-3.13.0-throwable-message-assertions[`hasMessageContainingAll` and `hasMessageNotContainingAny`] to throwable assertions. (Phillip Webb)
+- Allow using any link:#assertj-core-3.13.0-check-soft-assertions-with-any-custom-assertions[custom assertions in soft assertions]. (Bengt Brodersen)
+- Add link:#assertj-core-3.13.0-containsExactlyInAnyOrderEntriesOf[`containsExactlyInAnyOrderEntriesOf`] to map assertions. (Stefano Cordio)
+- Add link:#assertj-core-3.13.0-isCloseToUtcNow[`isCloseToUtcNow`] to `LocalDateTime` and `OffsetDateTime` assertions. (Nikolaos Georgiou)
 
 ===== Improvements
 
 - Junit 4/5 and TestNG assertions convertion scripts improvements. (Nils Winkler)
-- Add support for combined millisecond and timezone parsing. (Matej Drobnič) TODO document
-- Add support for `Optional` in the new recursive comparison. TODO document
-- Allow ignoring collection order in specific fields in the new recursive comparison. (Željko Mirović) TODO document
-- Make catchThrowableOfType easier to discover in the javadoc.
-- Rename methods `isBeforeOrEqualsTo` and `isAfterOrEqualsTo` to `isBeforeOrEqualTo` and `isAfterOrEqualTo` (Eddú Meléndez Gonzales).
+- Add support for link:#assertj-core-3.13.0-millisecond-and-timezone-parsing[combined millisecond and timezone parsing]. (Matej Drobnič)
+- Add support for link:#assertj-core-3.13.0-optional-support-in-recursive-comparison[`Optional` in the new recursive comparison].
+- Allow link:#assertj-core-3.13.0-ignore-order-in-recursive-comparison[ignoring collection order] in specific fields in the new recursive comparison. (Željko Mirović)
+- Make `catchThrowableOfType` easier to discover in the javadoc.
+- Rename methods `isBeforeOrEqualsTo` and `isAfterOrEqualsTo` to `isBeforeOrEqualTo` and `isAfterOrEqualTo`. (Eddú Meléndez Gonzales)
 - Improve error messages in the new recursive comparison when group size differs or when trying to compare actual unordered vs expected ordered.
-- Introduce explicit module descriptor (Christian Stein).
-- Allow return values of `WithAssertions#fail` methods to be ignored (Jiri Pejchal).
+- Introduce explicit module descriptor. (Christian Stein)
+- Allow returned values of `WithAssertions#fail` methods to be ignored by findbugs/spotbugs. (Jiri Pejchal)
 - Improve the error message when multiple (soft) assertions error are raised.
 
 ===== Fixed
 
-- Fix Soft assertions JUnit 5 extension that did not support parallel test nor `@TestInstance(PER_CLASS)` lifecycle semantics. (Sam Brannen)
-- Fix JavaDoc regarding `AnyOf` and `AllOf` . (Thomas Traude)
-- In Kotlin (only) make sure that `isEqualTo("abc")` is not resolved to `isEqualTo(String, Object... args)`. (Andrei Solntsev)
+- Fix link:index.html#assertj-core-junit5-soft-assertions[Soft assertions JUnit 5 extension] that did not support parallel test nor `@TestInstance(PER_CLASS)` lifecycle semantics. (Sam Brannen)
+- Fix JavaDoc regarding `AnyOf` and `AllOf`. (Thomas Traude)
+- Make sure that `isEqualTo("abc")` is not resolved to `isEqualTo(String, Object... args)`. (Andrei Solntsev)
 - Fix Javadoc typos. (GaspardPO, Michal Fotyga)
 - Fix typo in error message factories `ShouldBeBeforeOrEqualTo` and `ShouldBeAfterOrEqualTo`. (Stefano Cordio)
 
@@ -208,6 +208,389 @@ AssertJ 3.13.0 introduces a `Configuration` class allowing to change AssertJ beh
 Read <<assertions-guide#assertj-core-configuration, Configuring AssertJ>> chapter to learn about it.
 
 
+[[assertj-core-3.13.0-hasCauseReference]]
+===== Add hasCauseReference to throwable assertions
+
+Verifies that the actual `Throwable` has a cause that refers to the given one, i.e. using == comparison.
+
+Example:
+[source,java,indent=0]
+----
+Throwable invalidArgException = new IllegalArgumentException("invalid arg");
+Throwable throwable = new Throwable(invalidArgException);
+
+// This assertion succeeds:
+assertThat(throwable).hasCauseReference(invalidArgException);
+
+// These assertions fail:
+assertThat(throwable).hasCauseReference(new IllegalArgumentException("invalid arg"));
+assertThat(throwable).hasCauseReference(new NullPointerException());
+assertThat(throwable).hasCauseReference(null); // prefer hasNoCause()
+----
+
+
+[[assertj-core-3.13.0-directory-assertions]]
+===== New directory content assertions
+
+The new assertions have been added for both `File` and `Path`, they add support for 
+
+* checking what a directory contains with <<assertj-core-3.13.0-isDirectoryContaining, `isDirectoryContaining`>>
+* checking what a directory does not contain with <<assertj-core-3.13.0-isDirectoryNotContaining, `isDirectoryNotContaining`>>
+* checking if directory is empty with <<assertj-core-3.13.0-isEmptyDirectory, `isEmptyDirectory`>> or not with <<assertj-core-3.13.0-isNotEmptyDirectory, `isNotEmptyDirectory`>>
+
+Both `isDirectoryContaining` and `isDirectoryNotContaining` accept either `Predicate` or `String` parameters, the `String` one being interpreted as a https://docs.oracle.com/javase/8/docs/api/java/nio/file/FileSystem.html?is-external=true#getPathMatcher(java.lang.String)[path matcher].
+
+As `File` and `Path` assertions are similar, the examples will only show `File` assertions. 
+
+The examples use the following directory structure:
+[source,text,indent=0]
+----
+/root/
+/root/sub-dir-1/
+/root/sub-dir-1/file-1.ext
+/root/sub-dir-1/file-2.ext
+/root/sub-dir-2/
+/root/sub-file-1.ext
+/root/sub-file-2.ext
+----
+
+[[assertj-core-3.13.0-isDirectoryContaining]]
+`isDirectoryContaining` assertions examples:
+[source,java,indent=0]
+----
+File root = new File("root");
+
+// Successfull assertions with predicate parameter:
+assertThat(root).isDirectoryContaining(file -> file.getName().startsWith("sub-dir"))
+                .isDirectoryContaining(file -> file.getName().startsWith("sub-file"))
+                .isDirectoryContaining(file -> file.getName().endsWith(".ext"))
+                .isDirectoryContaining(File::isDirectory);
+
+// Successfull assertions with String path matcher parameter:
+assertThat(root).isDirectoryContaining("glob:**sub-dir*")
+                .isDirectoryContaining("glob:**sub-file*")
+                .isDirectoryContaining("glob:**.ext")
+                .isDirectoryContaining("regex:.*ext")
+                .isDirectoryContaining("glob:**.{ext,bin");
+
+
+// The following assertions fail:
+assertThat(root).isDirectoryContaining(file -> file.getName().startsWith("dir"));
+assertThat(root).isDirectoryContaining(file -> file.getName().endsWith(".bin"));
+assertThat(root).isDirectoryContaining("glob:**dir");
+assertThat(root).isDirectoryContaining("glob:**.bin"); 
+----
+
+[[assertj-core-3.13.0-isDirectoryNotContaining]]
+`isDirectoryNotContaining` assertion examples:
+[source,java,indent=0]
+----
+File root = new File("root");
+
+// Successfull assertions with predicate parameter:
+assertThat(root).isDirectoryNotContaining(file -> file.getName().startsWith("dir"))
+                .isDirectoryNotContaining(file -> file.getName().endsWith(".bin"));
+
+// Successfull assertions with String path matcher parameter:
+assertThat(root).isDirectoryNotContaining("glob:**dir")
+                .isDirectoryNotContaining("glob:**.bin")
+                .isDirectoryNotContaining("regex:.*bin")
+                .isDirectoryNotContaining("glob:**.{java,class}");
+
+// The following assertions fail:
+assertThat(root).isDirectoryContaining(file -> file.getName().startsWith("dir"));
+assertThat(root).isDirectoryContaining(file -> file.getName().endsWith(".bin")); 
+assertThat(root).isDirectoryNotContaining("glob:**sub-dir*");
+assertThat(root).isDirectoryNotContaining("regex:.*ext");
+assertThat(root).isDirectoryNotContaining("glob:**.{ext,bin"); 
+----
+
+[[assertj-core-3.13.0-isEmptyDirectory]]
+`isEmptyDirectory` assertion examples:
+[source,java,indent=0]
+----
+File root = new File("root");
+
+// The following assertion succeeds:
+assertThat(new File(root, "sub-dir-2")).isEmptyDirectory();
+
+// The following assertions fail:
+assertThat(root).isEmptyDirectory();
+assertThat(new File(root, "sub-dir-1")).isEmptyDirectory(); 
+----
+
+[[assertj-core-3.13.0-isNotEmptyDirectory]]
+`isNotEmptyDirectory` assertion examples:
+[source,java,indent=0]
+----
+File root = new File("root");
+
+// The following assertions succeed:
+assertThat(root).isNotEmptyDirectory();
+assertThat(new File(root, "sub-dir-1")).isNotEmptyDirectory();
+
+// The following assertion fails:
+ assertThat(new File(root, "sub-dir-2")).isNotEmptyDirectory();
+----
+
+[[assertj-core-3.13.0-throwable-message-assertions]]
+===== Add `hasMessageContainingAll` and `hasMessageNotContainingAny` to throwable assertions
+
+These assertions are the equivalent of `hasMessageContaining` and `hasMessageNotContaining` but accepting multiple String parameters instead of only one.
+
+Example:
+[source,java,indent=0]
+----
+Throwable throwableWithMessage = new IllegalArgumentException("wrong amount 123");
+Throwable throwableWithoutMessage = new IllegalArgumentException();
+
+// assertion will pass:
+assertThat(throwableWithMessage).hasMessageContainingAll("amount", "123")
+                                .hasMessageNotContainingAny("foo", "234");
+
+assertThat(throwableWithoutMessage).hasMessageNotContainingAny("234");
+
+// assertions will fail:
+assertThat(throwableWithMessage).hasMessageContainingAll("234");
+assertThat(throwableWithoutMessage).hasMessageContainingAll("123");
+
+assertThat(throwableWithMessage).hasMessageNotContainingAny("foo", "amount"); 
+----
+
+
+The same assertions have been added to `ThrowableAssertAlternative` with these names `withMessageContainingAll` and `withMessageNotContainingAny`:
+
+[source,java,indent=0]
+----
+Throwable illegalArgumentException = new IllegalArgumentException("wrong amount 123");
+
+// assertions will pass
+assertThatExceptionOfType(Throwable.class)
+          .isThrownBy(() -> {throw illegalArgumentException;})
+          .withMessageContainingAll("amount", "123")
+          .withMessageNotContainingAny("foo", "234");
+----
+
+[[assertj-core-3.13.0-check-soft-assertions-with-any-custom-assertions]]
+===== Allow using any custom assertions in soft assertions
+
+The new `check​` method catches and collect assertion errors coming from standard and custom assertions. 
+
+Example:
+[source,java,indent=0]
+----
+SoftAssertions softly = new SoftAssertions();
+
+// custom assertions
+softly.check(() -> LotrAssertions.assertThat(frodo).hasName("Frodon"));
+softly.check(() -> LotrAssertions.assertThat(frodo).hasName("Frodo"));
+
+// standard assertions
+softly.assertThat("foo").startsWith("bar");
+// could be written with check like (but it's as elegant as the standard use):
+// softly.check(() -> Assertions.assertThat("foo").startsWith("bar"));
+
+assertThat(softly.errorsCollected()).hasSize(2);
+----
+
+[[assertj-core-3.13.0-containsExactlyInAnyOrderEntriesOf]]
+===== Add `containsExactlyInAnyOrderEntriesOf` to map assertions
+
+Verifies that the actual map contains only the given entries and nothing else, in any order.
+
+This is the same assertion as `containsOnly(Map.Entry... entries)`, it simply handles the conversion of `Map.entrySet()` to array.
+
+
+Example :
+
+[source,java,indent=0]
+----
+Map<Ring, TolkienCharacter> ringBearers = newLinkedHashMap(entry(oneRing, frodo),
+                                                           entry(nenya, galadriel),
+                                                           entry(narya, gandalf));
+// assertion will pass
+assertThat(ringBearers).containsExactlyInAnyOrderEntriesOf(newLinkedHashMap(entry(oneRing, frodo),
+                                                                            entry(nenya, galadriel),
+                                                                            entry(narya, gandalf)));
+// assertion will pass although actual and expected order differ
+assertThat(ringBearers).containsExactlyInAnyOrderEntriesOf(newLinkedHashMap(entry(nenya, galadriel),
+                                                                            entry(narya, gandalf),
+                                                                            entry(oneRing, frodo)));
+// assertion will fail as actual does not contain all entries of expected
+assertThat(ringBearers).containsExactlyInAnyOrderEntriesOf(newLinkedHashMap(entry(oneRing, frodo),
+                                                                            entry(nenya, galadriel),
+                                                                            entry(oneRing, frodo)));
+// assertion will fail as actual and expected have different sizes
+assertThat(ringBearers).containsExactlyInAnyOrderEntriesOf(newLinkedHashMap(entry(oneRing, frodo),
+                                                                            entry(nenya, galadriel),
+                                                                            entry(narya, gandalf),
+                                                                            entry(narya, gandalf)));
+----
+
+[[assertj-core-3.13.0-isCloseToUtcNow]]
+===== Add `isCloseToUtcNow` to `LocalDateTime` and `OffsetDateTime` assertions
+
+Verifies that the actual `LocalDateTime`/`OffsetDateTime` is close to the current date and time on the UTC timezone, according to the given offset. 
+
+You can build the offset parameter using `Assertions.within(long, TemporalUnit)` or `Assertions.byLessThan(long, TemporalUnit)`.
+
+If the difference is equal to the offset, the assertion succeeds. 
+
+Example with `LocalDateTime`:
+
+[source,java,indent=0]
+----
+LocalDateTime actual = LocalDateTime.now(Clock.systemUTC());
+
+// assertion will pass if executed less than one second after actual was built
+assertThat(actual).isCloseToUtcNow(byLessThan(1, ChronoUnit.SECONDS));
+
+// assertion will fail
+assertThat(actual.plusSeconds(2)).isCloseToUtcNow(within(1, ChronoUnit.SECONDS));
+----
+
+The same example works with `OffsetDateTime` by simply defining `actual` as: 
+[source,java,indent=0]
+----
+OffsetDateTime actual = OffsetDateTime.now(Clock.systemUTC());
+----
+
+[[assertj-core-3.13.0-millisecond-and-timezone-parsing]]
+===== Add support for combined millisecond and timezone parsing
+
+Add `yyyy-MM-dd HH:mm:ss.SSSX` to the default date formats AssertJ supports in `Date` assertions that take a `String` parameter representating a `Date`. 
+
+Here's an example of string following this format: `"2003-04-26T00:00:00.123+00:00"`.
+
+Example:
+
+[source,java,indent=0]
+----
+// GIVEN
+SimpleDateFormat isoFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS");
+isoFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+// WHEN
+Date date = isoFormat.parse("2003-04-26T00:00:00.123");
+// THEN
+assertThat(date).isEqualTo("2003-04-26T00:00:00.123+00:00");
+----
+
+[[assertj-core-3.13.0-optional-support-in-recursive-comparison]]
+===== Add support for `Optional` in the new recursive comparison
+
+The recursive comparison added in 3.12.0 now compares `Optional` values recursively instead of comparing `Optional` with `equals`. This is consistent with comparing list elements by elements as an `Optional` can be seen as a list with at most one element. 
+
+Example:
+
+[source,java,indent=0]
+----
+// Song constructor parameters: song, author and coAuthor (optional)
+Song song = new Song("I Can't Get No Satisfaction", new Author("Mick Jagger"), new Author("Keith Richards"));
+Song expectedSong = new Song("I Can't Get No Satisfaction", new Author("Mick Jagger"), new Author("Keith Richards"));
+// THEN
+assertThat(song).usingRecursiveComparison()
+                .isEqualTo(expectedSong);
+----
+
+where `Song` and `Author` don't override `equals`:
+
+[source,java,indent=0]
+----
+class Song {
+
+  Author author;
+  Optional<Author> coAuthor;
+  String song;
+
+  Song(String song, Author author, Author coAuthor) {
+    this.song = song;
+    this.author = author;
+    this.coAuthor = Optional.ofNullable(coAuthor);
+  }
+
+  // no equals!
+}
+
+class Author {
+
+  String name;
+
+  Author(String name) {
+    this.name = name;
+  }
+
+  String getName() {
+    return name;
+  }
+
+  // no equals!
+}
+----
+
+If we fail the test \... 
+
+[source,java,indent=0]
+----
+Song song = new Song("I Can't Get No Satisfaction", new Author("Mick Jagger"), new Author("Jimi Hendrix"));
+Song expectedSong = new Song("I Can't Get No Satisfaction", new Author("Mick Jagger"), new Author("Keith Richards"));
+// FAIL
+assertThat(song).usingRecursiveComparison()
+                .isEqualTo(expectedSong);
+----
+
+\... here's the error reported:
+
+[source,text,indent=0]
+----
+Expecting:
+  <Song [author=Mick Jagger, coAuthor=Optional[Jimi Hendrix], song=I Can't Get No Satisfaction]>
+to be equal to:
+  <Song [author=Mick Jagger, coAuthor=Optional[Keith Richards], song=I Can't Get No Satisfaction]>
+when recursively comparing field by field, but found the following difference:
+
+field/property 'coAuthor.value.name' differ:
+- actual value   : "Jimi Hendrix"
+- expected value : "Keith Richards"
+
+The recursive comparison was performed with this configuration:
+- overridden equals methods were used in the comparison
+- these types were compared with the following comparators:
+  - java.lang.Double -> DoubleComparator[precision=1.0E-15]
+  - java.lang.Float -> FloatComparator[precision=1.0E-6]
+- actual and expected objects and their fields were compared field by field recursively even if they were not of the same type, this allows for example to compare a Person to a PersonDto (call strictTypeChecking(true) to change that behavior).
+----
+
+[[assertj-core-3.13.0-ignore-order-in-recursive-comparison]]
+===== Allow ignoring collection order in the new recursive comparison
+
+The recursive comparison added in 3.12.0 can now ignore collection order in all fields in the object under test, this is handy when comparing list to set fields where only the content is relevant but not the order. 
+
+Example:
+
+[source,java,indent=0]
+----
+public class Person {
+  String name;
+  List<Person> friends = new ArrayList<>();
+}
+
+Person sherlock1 = new Person("Sherlock Holmes");
+sherlock1.friends.add(new Person("Dr. John Watson"));
+sherlock1.friends.add(new Person("Molly Hooper"));
+
+Person sherlock2 = new Person("Sherlock Holmes");
+sherlock2.friends.add(new Person("Molly Hooper"));
+sherlock2.friends.add(new Person("Dr. John Watson"));
+
+// assertion succeeds as all fields collection order is ignored in the comparison
+assertThat(sherlock1).usingRecursiveComparison()
+                     .ignoringCollectionOrder()
+                     .isEqualTo(sherlock2);
+
+// assertion fails as fields collection order is not ignored in the comparison
+assertThat(sherlock1).usingRecursiveComparison()
+                     .isEqualTo(sherlock2);
+----
 
 ==== AssertJ Core 3.12.2 Release notes
 
