@@ -7,6 +7,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
+import org.assertj.core.configuration.Configuration;
 import org.assertj.core.presentation.Representation;
 
 class CustomConfiguration extends Configuration {

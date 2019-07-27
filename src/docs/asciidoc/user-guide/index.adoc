@@ -1,6 +1,8 @@
 [[user-guide]]
 = AssertJ User Guide
 
+:icons: font
+
 This is now the official site for AssertJ Core replacing: http://joel-costigliola.github.io/assertj/assertj-core.html
 
 The migration from the old site is still in progress but this new site already contains useful information and even some not documented previously!
@@ -64,12 +66,13 @@ Special thanks to Nils Winkler for his work on the assertions convertion scripts
 
 [[assertj-core-3.13.0-breaking-changes]]
 ===== Breaking changes
+// ===== icon:sign-blank[] icon:exclamation-triangle[] Breaking changes
 
 In the new recursive comparison, we now use the expected field as a reference to determine how to compare it to corresponding the actual field.
 Sorted vs non sorted collections comparison semantics have been replaced by ordered vs unordered collections semantics (ordered types are `List`, `SortedSet` and `LinkedHashSet`).
 As a consequence of the two previous points, when comparing collection/map fields, if the actual field is ordered and the expected is unordered, the comparison is allowed but not the other way around (unless order is ignored explicitely in the comparison configuration).
 
-===== New features
+===== icon:plus-circle[] New features
 
 - Add link:#assertj-core-3.13.0-asInstanceOf[`asInstanceOf`] to chain specific type assertions. (Stefano Cordio)
 - Add link:#assertj-core-3.13.0-extracting[`extracting(String)`] to `Object` and `Map` assertions. (Stefano Cordio)
@@ -94,7 +97,7 @@ As a consequence of the two previous points, when comparing collection/map field
 - Allow returned values of `WithAssertions#fail` methods to be ignored by findbugs/spotbugs. (Jiri Pejchal)
 - Improve the error message when multiple (soft) assertions error are raised.
 
-===== Fixed
+===== icon:bug[] Fixed
 
 - Fix link:index.html#assertj-core-junit5-soft-assertions[Soft assertions JUnit 5 extension] that did not support parallel test nor `@TestInstance(PER_CLASS)` lifecycle semantics. (Sam Brannen)
 - Fix JavaDoc regarding `AnyOf` and `AllOf`. (Thomas Traude)
