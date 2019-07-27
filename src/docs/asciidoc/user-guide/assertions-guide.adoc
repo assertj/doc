@@ -1200,7 +1200,7 @@ Assumptions provide support for conditional test execution, if the assumptions a
 
 Assumptions are typically used whenever it does not make sense to continue execution of a given test method — a typical usage is running tests depending on a given OS/environment.
 
-All AssertJ assumptions are static methods in the `Assumptions` class, they match the assertion API but are names `assumeThat` insead of `assertThat`.
+All AssertJ assumptions are static methods in the `Assumptions` class, they match the assertion API but are names `assumeThat` instead of `assertThat`.
 You can also get assumptions through the `WithAssumptions` interface.
 
 Example resulting in the test to be ignored:
@@ -1347,7 +1347,7 @@ Replacing JUnit static imports by AssertJ ones, at this point you will probably 
 
 Here's a list of find/replace expressions to change JUnit assertions into AssertJ assertions (don't forget to check the regex mode in your editor replace window).
 
-This regexes described in this section are specfic to JUnit 4 but you can easily adapt them for JUnit 5 or TestNG.
+This regexes described in this section are specific to JUnit 4 but you can easily adapt them for JUnit 5 or TestNG.
 
 The order of find/replace is important to benefit from the most relevant AssertJ assertions. For example you should convert `assertEquals(0, myList.size())` to `assertThat(myList).isEmpty()` instead of `assertThat(myList.size()).isEqualTo(0)`.
 

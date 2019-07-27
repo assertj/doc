@@ -642,7 +642,7 @@ AssertJ uses introspection in various places, one example is extracting properti
 
 WARNING: Bare-named property introspection is enabled by default and thus changes AssertJ behavior which can break some existing tests relying on introspection, this is especially true as AssertJ wrongly tries static methods (https://github.com/joel-costigliola/assertj-core/issues/1458 had been created to address that).
 
-It is possible to avoid this probem by calling `Assertions.setExtractBareNamePropertyMethods(false);` before every impacted tests.
+It is possible to avoid this problem by calling `Assertions.setExtractBareNamePropertyMethods(false);` before every impacted tests.
 
 This is a bit tedious but an improvement is planned in the next release to provide a place to perform global configuration with the same mechanism allowing to link:#assertj-core-custom-representation-default-global-scope[register a custom representation].
 

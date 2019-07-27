@@ -41,7 +41,7 @@ Note that AssertJ Core 3.x includes all AssertJ Core 2.x features and adds Java 
 [[assertj-core-android]]
 ==== Android support
 
-AssertJ *does not officialy supports Android* but is mostly Android compatible:
+AssertJ *does not officially supports Android* but is mostly Android compatible:
 
 * AssertJ Core 3.x is compatible with Android API Level 26+, except for soft assertions and assumptions.
 * AssertJ Core 2.x is Android compatible with Android API Level 26+ and API Level < 26 except for `Path` assertions.
@@ -83,7 +83,7 @@ Check this page to find the relevant https://search.maven.org/artifact/org.asser
 
 The `Assertions` class is the only class you need to start using AssertJ, it provides all the methods you need.
 
-Alternatively your test class can implement `WithAssertions` to acccess the same methods.
+Alternatively your test class can implement `WithAssertions` to access the same methods.
 
 One `Assertions` static import to rule them all ...
 
