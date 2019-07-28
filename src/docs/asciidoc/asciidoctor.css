@@ -2,9 +2,7 @@
 /* Remove comment around @import statement below when using as a custom stylesheet */
 /*@import "https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700";*/
 @import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
-
 @import url('font-awesome/css/font-awesome.min.css');
-
 
 article,
 aside,
@@ -231,6 +229,7 @@ body {
   font-size: 100%
 }
 
+.release-note-category, 
 .release-note-item, 
 body {
   background: rgba(237, 217, 166);
@@ -245,14 +244,27 @@ body {
   cursor: auto
 }
 
+.release-note-item::before {
+  font-family: FontAwesome;
+  padding-right: 0.5em;
+  content: "\f0a9";
+}
+
 .release-note-item {
-  font-size: 1.4em;
+  font-size: 1.3em;
   padding-top: 0.5em;
   padding-bottom: 0.3em;
   /* used to draw a line the size of the page */
   border-bottom: 1px solid rgba(0, 0, 0, .8);
-  max-width: 100em;
   display: block;
+}
+
+.release-note-category {
+  font-size: 1.14em;
+  padding-top: 0.3em;
+  padding-bottom: 0.2em;
+  /* used to draw a line the size of the page */
+  border-bottom: 1px solid rgba(0, 0, 0, .8);
 }
 
 

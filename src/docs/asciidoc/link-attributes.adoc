@@ -1,8 +1,8 @@
-:javadoc-root:                           http://joel-costigliola.github.io/assertj/core-8/api
+:javadoc-root:                           https://www.javadoc.io/doc/org.assertj/assertj-core/
 //
 :assertj-core-repo:                      https://github.com/joel-costigliola/assertj-core
 :release-branch:                         master
 :current-branch:                         {assertj-core-repo}/tree/{release-branch}
 //
-:AssertJ:                                http://joel-costigliola.github.io/assertj/[AssertJ]
+:AssertJ:                                https://assertj.github.io/doc/[AssertJ]
 :StackOverflow:                          https://stackoverflow.com/questions/tagged/assertj[Stack Overflow]

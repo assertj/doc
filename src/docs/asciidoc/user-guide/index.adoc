@@ -1,13 +1,7 @@
 [[user-guide]]
-= AssertJ User Guide
+= AssertJ - fluent assertions java library
 
 :icons: font
-
-This is now the official site for AssertJ Core replacing: http://joel-costigliola.github.io/assertj/assertj-core.html
-
-The migration from the old site is still in progress but this new site already contains useful information and even some not documented previously!
-
-If you feel something is missing or not clear enough, please raise an issue in https://github.com/assertj/doc/issues or even better contribute to it!
 
 :imagesdir: images
 :imagesoutdir: {outdir}/user-guide/images
@@ -23,12 +17,12 @@ include::overview.adoc[]
 
 include::assertions-guide.adoc[]
 
-include::contributors.adoc[]
-
 [[release-notes]]
 == Release Notes
 
 === AssertJ Core
+
+NOTE: AssertJ Core would not exist without its contributors, you can find them all {assertj-core-repo}/graphs/contributors[directly on GitHub].
 
 Latest release notes:
 
@@ -39,7 +33,7 @@ Latest release notes:
 
 ==== AssertJ Core 3.13.0 Release notes
 
-Release date : 2019-07-xx
+Release date : 2019-07-28
 
 The highlight of this release is the addition of `asInstanceOf` which allows to chain specific type assertions from a value that was initially declared with a different type (usually `Object`). Thanks Stefano Cordio for this contribution!.
 
@@ -56,7 +50,8 @@ assertThat(value).asInstanceOf(InstanceOfAssertFactories.STRING).startsWith("ab"
 ----
 This feature is more detailed in the notes below.
 
-===== Contributors
+[[assertj-core-3.13.0-contributors]]
+[.release-note-category]#icon:user[] Contributors#
 
 Thanks to all the contributors of this release:
 
@@ -65,14 +60,14 @@ Pascal Schumacher, Erhard Pointl, Stefano Cordio, Thomas Traude, Andrei Solntsev
 Special thanks to Nils Winkler for his work on the assertions convertion scripts and Stefano Cordio for the `asInstanceOf` contribution.
 
 [[assertj-core-3.13.0-breaking-changes]]
-===== Breaking changes
-// ===== icon:sign-blank[] icon:exclamation-triangle[] Breaking changes
+[.release-note-category]#icon:exclamation-triangle[] Breaking changes#
 
 In the new recursive comparison, we now use the expected field as a reference to determine how to compare it to corresponding the actual field.
 Sorted vs non sorted collections comparison semantics have been replaced by ordered vs unordered collections semantics (ordered types are `List`, `SortedSet` and `LinkedHashSet`).
 As a consequence of the two previous points, when comparing collection/map fields, if the actual field is ordered and the expected is unordered, the comparison is allowed but not the other way around (unless order is ignored explicitely in the comparison configuration).
 
-===== icon:plus-circle[] New features
+[[assertj-core-3.13.0-new-features]]
+[.release-note-category]#icon:plus-circle[] New features#
 
 - Add link:#assertj-core-3.13.0-asInstanceOf[`asInstanceOf`] to chain specific type assertions. (Stefano Cordio)
 - Add link:#assertj-core-3.13.0-extracting[`extracting(String)`] to `Object` and `Map` assertions. (Stefano Cordio)
@@ -84,7 +79,8 @@ As a consequence of the two previous points, when comparing collection/map field
 - Add link:#assertj-core-3.13.0-containsExactlyInAnyOrderEntriesOf[`containsExactlyInAnyOrderEntriesOf`] to map assertions. (Stefano Cordio)
 - Add link:#assertj-core-3.13.0-isCloseToUtcNow[`isCloseToUtcNow`] to `LocalDateTime` and `OffsetDateTime` assertions. (Nikolaos Georgiou)
 
-===== Improvements
+[[assertj-core-3.13.0-improvements]]
+[.release-note-category]#icon:arrow-circle-up[] Improvements#
 
 - Junit 4/5 and TestNG assertions convertion scripts improvements. (Nils Winkler)
 - Add support for link:#assertj-core-3.13.0-millisecond-and-timezone-parsing[combined millisecond and timezone parsing]. (Matej Drobnič)
@@ -97,7 +93,8 @@ As a consequence of the two previous points, when comparing collection/map field
 - Allow returned values of `WithAssertions#fail` methods to be ignored by findbugs/spotbugs. (Jiri Pejchal)
 - Improve the error message when multiple (soft) assertions error are raised.
 
-===== icon:bug[] Fixed
+[[assertj-core-3.13.0-fixed]]
+[.release-note-category]#icon:wrench[] Fixed#
 
 - Fix link:index.html#assertj-core-junit5-soft-assertions[Soft assertions JUnit 5 extension] that did not support parallel test nor `@TestInstance(PER_CLASS)` lifecycle semantics. (Sam Brannen)
 - Fix JavaDoc regarding `AnyOf` and `AllOf`. (Thomas Traude)
@@ -105,7 +102,8 @@ As a consequence of the two previous points, when comparing collection/map field
 - Fix Javadoc typos. (GaspardPO, Michal Fotyga)
 - Fix typo in error message factories `ShouldBeBeforeOrEqualTo` and `ShouldBeAfterOrEqualTo`. (Stefano Cordio)
 
-===== Deprecated
+[[assertj-core-3.13.0-deprecated]]
+[.release-note-category]#icon:ban[] Deprecated#
 
 - Deprecate Java 6/Android assertions entry points as they don't truly provide 100% Java 6/Android compatibility.
 - Deprecate methods `isBeforeOrEqualTo` and `isAfterOrEqualTo` in favor of `isBeforeOrEqualsTo` and `isAfterOrEqualsTo` (Eddú Meléndez Gonzales).

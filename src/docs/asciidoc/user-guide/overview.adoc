@@ -7,14 +7,77 @@ programmers writing tests assertions with AssertJ.
 // ifdef::backend-html5[This document is also available as a link:index.pdf[PDF download].]
 
 [[overview-what-is-assertj]]
-=== What is AssertJ?
+=== What is AssertJ Core?
 
 AssertJ is a java library providing a rich set of assertions, truly helpful error messages, improves test code readability and is designed to be super easy to use within your favorite IDE.
+
+Here are a few examples of AssertJ assertions:
+
+[source,java,indent=0]
+----
+// entry point for all assertThat methods and utility methods (e.g. entry)
+import static org.assertj.core.api.Assertions.*;
+
+// basic assertions
+assertThat(frodo.getName()).isEqualTo("Frodo");
+assertThat(frodo).isNotEqualTo(sauron);
+
+// chaining string specific assertions
+assertThat(frodo.getName()).startsWith("Fro")
+                           .endsWith("do")
+                           .isEqualToIgnoringCase("frodo");
+
+// collection specific assertions (there are plenty more)
+// in the examples below fellowshipOfTheRing is a List<TolkienCharacter>
+assertThat(fellowshipOfTheRing).hasSize(9)
+                               .contains(frodo, sam)
+                               .doesNotContain(sauron);
+
+// as() is used to describe the test and will be shown before the error message
+assertThat(frodo.getAge()).as("check %s's age", frodo.getName()).isEqualTo(33);
+
+// exception assertion, standard style ...
+assertThatThrownBy(() -> { throw new Exception("boom!"); }).hasMessage("boom!");
+// ... or BDD style
+Throwable thrown = catchThrowable(() -> { throw new Exception("boom!"); });
+assertThat(thrown).hasMessageContaining("boom");
+
+// using the 'extracting' feature to check fellowshipOfTheRing character's names 
+assertThat(fellowshipOfTheRing).extracting(TolkienCharacter::getName)
+                               .doesNotContain("Sauron", "Elrond");
+
+// extracting multiple values at once grouped in tuples
+assertThat(fellowshipOfTheRing).extracting("name", "age", "race.name")
+                               .contains(tuple("Boromir", 37, "Man"),
+                                         tuple("Sam", 38, "Hobbit"),
+                                         tuple("Legolas", 1000, "Elf"));
+
+// filtering a collection before asserting 
+assertThat(fellowshipOfTheRing).filteredOn(character -> character.getName().contains("o"))
+                               .containsOnly(aragorn, frodo, legolas, boromir);
+
+// combining filtering and extraction (yes we can)
+assertThat(fellowshipOfTheRing).filteredOn(character -> character.getName().contains("o"))
+                               .containsOnly(aragorn, frodo, legolas, boromir)
+                               .extracting(character -> character.getRace().getName())
+                               .contains("Hobbit", "Elf", "Man");
+
+// and many more assertions: iterable, stream, array, map, dates, path, file, numbers, predicate, optional ...
+----
+
 
 [[overview-getting-help]]
 === Getting Help
 
 Ask AssertJ related questions on {StackOverflow}.
+
+=== Contributing to this guide
+
+You are very welcome to suggest or contribute improvements to this guide, that's one great way to give back to open source projects!
+
+The repository containing the guide is https://github.com/assertj/doc, you can https://github.com/assertj/doc/issues[create a new issue], submit a pull request. Et voila!
+
+This guide is written with the awesome https://asciidoctor.org/docs/asciidoc-writers-guide/[asciidoctor] which makes it easy to improve.
 
 [[assertj-core-quick-start]]
 == AssertJ Core quick start
@@ -79,7 +142,7 @@ testCompile("org.assertj:assertj-core:2.9.1")
 
 Check this page to find the relevant https://search.maven.org/artifact/org.assertj/assertj-core/{assertj-core-version}/bundle[assertj core dependency declaration].
 
-=== Use Assertions class
+=== Use Assertions class entry point
 
 The `Assertions` class is the only class you need to start using AssertJ, it provides all the methods you need.
 
@@ -108,24 +171,73 @@ import static org.assertj.core.api.Assertions.anyOf; // use with Condition
 import static org.assertj.core.api.Assertions.contentOf; // use with File assertions
 ----
 
-On Android (API Level < 26) use this static import :
+==== Alternative entry points
 
-[source,java,indent=0]
+AssertJ provides other entry points class, notably the `WithAssertions` interface and `BDDAssertions` for BDD style assertions that replace `assertThat` by `then`.
+
+`WithAssertions` example:
+[source,java]
 ----
-import static org.assertj.core.api.Java6Assertions.*;
+import org.assertj.core.api.WithAssertions;
+
+public class WithAssertionsExamples extends AbstractAssertionsExamples implements WithAssertions {
+
+  // the data used are initialized in AbstractAssertionsExamples.
+
+  @Test
+  public void withAssertions_examples() {
+
+    // assertThat methods come from WithAssertions - no static import needed
+    assertThat(frodo.age).isEqualTo(33);
+    assertThat(frodo.getName()).isEqualTo("Frodo").isNotEqualTo("Frodon");
+
+    assertThat(frodo).isIn(fellowshipOfTheRing);
+    assertThat(frodo).isIn(sam, frodo, pippin);
+    assertThat(sauron).isNotIn(fellowshipOfTheRing);
+
+    assertThat(frodo).matches(p -> p.age > 30 && p.getRace() == HOBBIT);
+    assertThat(frodo.age).matches(p -> p > 30);
+  }
+}
 ----
+
+`BDDAssertions` example:
+[source,java]
+----
+import static org.assertj.core.api.BDDAssertions.then;
+
+public class BDDAssertionsExamples extends AbstractAssertionsExamples {
+
+  // the data used are initialized in AbstractAssertionsExamples.
+
+  @Test
+  public void withAssertions_examples() {
+
+    // then methods come from BDDAssertions.then static 
+    then(frodo.age).isEqualTo(33);
+    then(frodo.getName()).isEqualTo("Frodo").isNotEqualTo("Frodon");
+
+    then(frodo).isIn(fellowshipOfTheRing);
+    then(frodo).isIn(sam, frodo, pippin);
+    then(sauron).isNotIn(fellowshipOfTheRing);
+
+    then(frodo).matches(p -> p.age > 30 && p.getRace() == HOBBIT);
+    then(frodo.age).matches(p -> p > 30);
+  }
+}
+----
+
+
+==== IDE configuration
 
 You can configure your IDE so that when you start typing `as` and trigger code completion `assertThat` will show up in the suggested completions.
 
-==== Eclipse configuration
-
+Eclipse:
 . Go to : Window > Preferences > Java > Editor > Content Assist > Favorites > New Type
 . Enter : `org.assertj.core.api.Assertions` and click OK
 . Check that you see `org.assertj.core.api.Assertions.*` in Favorites.
 
-==== Intellij Idea configuration
-
-No special configuration is needed, just start typing `asser` and then invoke completion (Ctrl-Space) twice.
+Intellij Idea: No special configuration is needed, just start typing `asser` and then invoke completion (Ctrl-Space) twice.
 
 === Use code completion
 
