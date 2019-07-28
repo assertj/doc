@@ -73,7 +73,7 @@ basketballPlayer.put("age", 25);
                                                        
 // Does not compile anymore! 
 assertThat(basketballPlayer).extracting("name")        
-                            .contains("kawhi"); // DOES NOT COMPILE
+                            .containsExactly("kawhi"); // DOES NOT COMPILE
 
 // Use Object assertions like isEqualTo 
 assertThat(basketballPlayer).extracting("name")        
@@ -81,7 +81,7 @@ assertThat(basketballPlayer).extracting("name")
 
 // multiple values work as before, no problem there!
 assertThat(basketballPlayer).extracting("name", "age")
-                            .contains("kawhi", 25);
+                            .containsExactly("kawhi", 25);
 ----
 
 
