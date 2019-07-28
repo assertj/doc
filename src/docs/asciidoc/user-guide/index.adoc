@@ -62,7 +62,30 @@ Special thanks to Nils Winkler for his work on the assertions convertion scripts
 [[assertj-core-3.13.0-breaking-changes]]
 [.release-note-category]#icon:exclamation-triangle[] Breaking changes#
 
-In the new recursive comparison, we now use the expected field as a reference to determine how to compare it to corresponding the actual field.
+* As the link:#assertj-core-3.13.0-extracting[`extracting(String)`] method for `Object` and `Map` extracts only one value, it now returns `Object` assertions instead of list assertions (on a singleton list). This means that any list assertions used won't compile anymore, they need to be replaced by `Object` assertions.
+
+[source,java,indent=0]
+----
+// GIVEN
+Map<String, Object> basketballPlayer = new HashMap<>();
+basketballPlayer.put("name", "kawhi");                 
+basketballPlayer.put("age", 25);                       
+                                                       
+// Does not compile anymore! 
+assertThat(basketballPlayer).extracting("name")        
+                            .contains("kawhi"); // DOES NOT COMPILE
+
+// Use Object assertions like isEqualTo 
+assertThat(basketballPlayer).extracting("name")        
+                            .isEqualTo("kawhi"); 
+
+// multiple values work as before, no problem there!
+assertThat(basketballPlayer).extracting("name", "age")
+                            .contains("kawhi", 25);
+----
+
+
+* In the new recursive comparison, we now use the expected field as a reference to determine how to compare it to corresponding the actual field.
 Sorted vs non sorted collections comparison semantics have been replaced by ordered vs unordered collections semantics (ordered types are `List`, `SortedSet` and `LinkedHashSet`).
 As a consequence of the two previous points, when comparing collection/map fields, if the actual field is ordered and the expected is unordered, the comparison is allowed but not the other way around (unless order is ignored explicitely in the comparison configuration).
 
