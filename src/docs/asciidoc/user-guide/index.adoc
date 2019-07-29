@@ -26,10 +26,42 @@ NOTE: AssertJ Core would not exist without its contributors, you can find them a
 
 Latest release notes:
 
+- link:#assertj-core-3-13-1-release-notes[AssertJ Core 3.13.1 release notes]
 - link:#assertj-core-3-13-0-release-notes[AssertJ Core 3.13.0 release notes]
 - link:#assertj-core-3-12-2-release-notes[AssertJ Core 3.12.2 release notes]
 - link:#assertj-core-3-12-1-release-notes[AssertJ Core 3.12.1 release notes]
 - link:#assertj-core-3-12-0-release-notes[AssertJ Core 3.12.0 release notes]
+
+==== AssertJ Core 3.13.1 Release notes
+
+Release date : 2019-07-29
+
+This release addresses the 3.13.0 https://github.com/joel-costigliola/assertj-core/issues/1563[issue] by which AssertJ required OpenTest4J to be on the classpath otherwise a `java.lang.NoClassDefFoundError: org/opentest4j/MultipleFailuresError` would be raised. Thanks Pascal Schumacher for the quick fix!
+
+[source,text,indent=0]
+----
+java.lang.NoClassDefFoundError: org/opentest4j/MultipleFailuresError
+	at java.base/java.lang.ClassLoader.defineClass1(Native Method)
+	at java.base/java.lang.ClassLoader.defineClass(ClassLoader.java:1016)
+	at java.base/java.security.SecureClassLoader.defineClass(SecureClassLoader.java:174)
+	at java.base/jdk.internal.loader.BuiltinClassLoader.defineClass(BuiltinClassLoader.java:802)
+	at java.base/jdk.internal.loader.BuiltinClassLoader.findClassOnClassPathOrNull(BuiltinClassLoader.java:700)
+	at java.base/jdk.internal.loader.BuiltinClassLoader.loadClassOrNull(BuiltinClassLoader.java:623)
+	at java.base/jdk.internal.loader.BuiltinClassLoader.loadClass(BuiltinClassLoader.java:581)
+	at java.base/jdk.internal.loader.ClassLoaders$AppClassLoader.loadClass(ClassLoaders.java:178)
+	at java.base/java.lang.ClassLoader.loadClass(ClassLoader.java:521)
+	at org.assertj.core.internal.Failures.<init>(Failures.java:46)
+	at org.assertj.core.internal.Failures.<clinit>(Failures.java:44)
+	at org.assertj.core.internal.Objects.<init>(Objects.java:87)
+	at org.assertj.core.internal.Objects.<init>(Objects.java:101)
+	at org.assertj.core.internal.Objects.<clinit>(Objects.java:82)
+	at org.assertj.core.api.AbstractAssert.<init>(AbstractAssert.java:65)
+	at org.assertj.core.api.AbstractCharSequenceAssert.<init>(AbstractCharSequenceAssert.java:53)
+	at org.assertj.core.api.AbstractStringAssert.<init>(AbstractStringAssert.java:28)
+	at org.assertj.core.api.StringAssert.<init>(StringAssert.java:25)
+	at org.assertj.core.api.AssertionsForClassTypes.assertThat(AssertionsForClassTypes.java:484)
+	at org.assertj.core.api.Assertions.assertThat(Assertions.java:2585)
+----
 
 ==== AssertJ Core 3.13.0 Release notes
 
