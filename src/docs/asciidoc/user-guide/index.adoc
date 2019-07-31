@@ -3,7 +3,6 @@
 :favicon: ./images/favicon.png
 
 :icons: font
-
 :imagesdir: images
 :imagesoutdir: {outdir}/user-guide/images
 //
@@ -27,11 +26,23 @@ NOTE: AssertJ Core would not exist without its contributors, you can find them a
 
 Latest release notes:
 
+- link:#assertj-core-3-13-2-release-notes[AssertJ Core 3.13.2 release notes]
 - link:#assertj-core-3-13-1-release-notes[AssertJ Core 3.13.1 release notes]
 - link:#assertj-core-3-13-0-release-notes[AssertJ Core 3.13.0 release notes]
 - link:#assertj-core-3-12-2-release-notes[AssertJ Core 3.12.2 release notes]
 - link:#assertj-core-3-12-1-release-notes[AssertJ Core 3.12.1 release notes]
 - link:#assertj-core-3-12-0-release-notes[AssertJ Core 3.12.0 release notes]
+
+==== AssertJ Core 3.13.2 Release notes
+
+Release date : 2019-08-04
+
+This release ships a few improvements:
+
+* Fix an annoyance in `InstanceOfAssertFactory` where `URL` and `URI` constants have been renamed to `URL_TYPE` and `URI_TYPE` respectively to avoid a clash with `java.net.URL` and `java.net.URI`. See https://github.com/joel-costigliola/assertj-core/issues/1567 for details.
+* Update ByteBuddy to version 1.10.0.
+* Fixe some javadoc typos
+* Enforce banned dependencies with `maven-enforcer-plugin`
 
 ==== AssertJ Core 3.13.1 Release notes
 
@@ -148,6 +159,7 @@ As a consequence of the two previous points, when comparing collection/map field
 - Introduce explicit module descriptor. (Christian Stein)
 - Allow returned values of `WithAssertions#fail` methods to be ignored by findbugs/spotbugs. (Jiri Pejchal)
 - Improve the error message when multiple (soft) assertions error are raised.
+- link:#assertj-core-3.13.0-extracting-type-propagation[Propagate value type with `extracting(Function)`]. (Stefano Cordio)
 
 [[assertj-core-3.13.0-fixed]]
 [.release-note-category]#icon:wrench[] Fixed#
@@ -648,6 +660,26 @@ assertThat(sherlock1).usingRecursiveComparison()
 // assertion fails as fields collection order is not ignored in the comparison
 assertThat(sherlock1).usingRecursiveComparison()
                      .isEqualTo(sherlock2);
+----
+
+[[assertj-core-3.13.0-extracting-type-propagation]]  
+[.release-note-item]#Propagate value type with `extracting(Function)`#
+
+`extracting(Function)` learned to propagate the type parameter of the resulting `ObjectAssert`  allowing then to chain other type aware methods (e.g. additional extracting).
+
+Example:
+
+[source,java,indent=0]
+----
+// Old implementation
+assertThat(yoda).extracting(Jedi::getName) // ObjectAssert<Object>
+                .extracting(String::length) // Not compiling
+                .isEqualTo(4);
+
+// New implementation
+assertThat(yoda).extracting(Jedi::getName) // ObjectAssert<String>
+                .extracting(String::length)  // Compiling!
+                .isEqualTo(4);
 ----
 
 ==== AssertJ Core 3.12.2 Release notes
