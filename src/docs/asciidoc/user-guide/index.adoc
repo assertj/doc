@@ -1,5 +1,6 @@
 [[user-guide]]
 = AssertJ - fluent assertions java library
+:favicon: ./images/favicon.png
 
 :icons: font
 
