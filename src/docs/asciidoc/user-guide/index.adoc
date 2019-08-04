@@ -39,10 +39,10 @@ Release date : 2019-08-04
 
 This release ships a few improvements:
 
-* Fix an annoyance in `InstanceOfAssertFactory` where `URL` and `URI` constants have been renamed to `URL_TYPE` and `URI_TYPE` respectively to avoid a clash with `java.net.URL` and `java.net.URI`. See https://github.com/joel-costigliola/assertj-core/issues/1567 for details.
-* Update ByteBuddy to version 1.10.0.
-* Fixe some javadoc typos
-* Enforce banned dependencies with `maven-enforcer-plugin`
+* Fixes an annoyance in `InstanceOfAssertFactories`, where `URL` and `URI` constants have been renamed to `URL_TYPE` and `URI_TYPE` respectively to avoid a clash with `java.net.URL` and `java.net.URI`. See https://github.com/joel-costigliola/assertj-core/issues/1567 for details.
+* Updates ByteBuddy to version 1.10.0.
+* Fixes some javadoc typos.
+* Enforces banned dependencies with `maven-enforcer-plugin`.
 
 ==== AssertJ Core 3.13.1 Release notes
 
@@ -79,7 +79,7 @@ java.lang.NoClassDefFoundError: org/opentest4j/MultipleFailuresError
 
 Release date : 2019-07-28
 
-The highlight of this release is the addition of `asInstanceOf` which allows to chain specific type assertions from a value that was initially declared with a different type (usually `Object`). Thanks Stefano Cordio for this contribution!.
+The highlight of this release is the addition of `asInstanceOf` which allows to chain specific type assertions from a value that was initially declared with a different type (usually `Object`). Thanks Stefano Cordio for this contribution!
 
 Example:
 [source,java,indent=0]
