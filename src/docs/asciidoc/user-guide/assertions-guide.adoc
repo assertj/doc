@@ -590,7 +590,7 @@ In this chapter is exception is used interchangeably with throwable.
 [[assertj-core-exception-assertions-java-8]]
 ==== With Java 8 (AssertJ 3.x)
 
-Thanks to lambdas testing assertions in Java 8 is elegant, AssertJ provides different style options:
+Testing assertions in Java 8 is elegant, thanks to lambdas! AssertJ provides different style options:
 
 - link:#assertj-core-exception-assertions-bdd-style[`catchThrowable(ThrowingCallable)`]
 - link:#assertj-core-exception-assertions-bdd-strongly-typed-style[`catchThrowableOfType(ThrowingCallable)`]
@@ -603,9 +603,9 @@ where `ThrowingCallable` is a functional interface which can be expressed as a l
 [[assertj-core-exception-assertions-bdd-style]]
 ===== BDD style
 
-BDD aficionados can separate _WHEN_ and _THEN_ steps by using `catchThrowable(ThrowingCallable)` to capture the throwable and then perform assertions.
+BDD aficionados can separate _WHEN_ and _THEN_ steps by using `catchThrowable(ThrowingCallable)` to capture the `Throwable` and then perform assertions.
 
-Example :
+Example:
 [source,java]
 ----
 @Test
@@ -621,11 +621,11 @@ public void bdd_exception_assertion_example() {
 ----
 
 [[assertj-core-exception-assertions-bdd-strongly-typed-style]]
-===== BDD style on specific throwable type
+===== BDD style on specific Throwable type
 
-This this a variation of `catchThrowable` where the caught exception type is specified allowing to check the custom exception fields/properties.
+This is a variation of `catchThrowable` where the caught exception type is specified, allowing to check the custom exception fields/properties.
 
-Example :
+Example:
 [source,java]
 ----
 class TextException extends Exception {
@@ -660,7 +660,7 @@ Starts with `assertThatThrownBy(ThrowingCallable)` to capture and then assert on
 
 Note that if the provided `ThrowingCallable` does not raise an exception, an assertion error is immediately thrown.
 
-Example :
+Example:
 [source,java]
 ----
 @Test
@@ -688,7 +688,7 @@ public void exception_assertion_example() {
 }
 ----
 
-This later syntax has been enriched for common exceptions :
+This latter syntax has been enriched for common exceptions:
 
 * `assertThatNullPointerException`
 * `assertThatIllegalArgumentException`
