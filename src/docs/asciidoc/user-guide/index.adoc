@@ -49,6 +49,10 @@ Thanks to all the contributors of this release:
 [[assertj-core-3.14.0-new-features]]
 [.release-note-category]#icon:plus-circle[] New features#
 
+- Add syntax sugar link:#assertj-core-3.14.0-instance-of-assert-factories-as[`as(InstanceOfAssertFactory)`] to improve readability. (Stefano Cordio)
+- Add link:#assertj-core-3.14.0-extracting-string[`extracting(String, InstanceOfAssertFactory)`] to `Object` assertions. (Stefano Cordio)
+- Add link:#assertj-core-3.14.0-extracting-function[`extracting(Function, InstanceOfAssertFactory)`] to `Object` assertions. (Stefano Cordio)
+
 [[assertj-core-3.14.0-improvements]]
 [.release-note-category]#icon:arrow-circle-up[] Improvements#
 
@@ -59,6 +63,53 @@ Thanks to all the contributors of this release:
 
 [[assertj-core-3.14.0-deprecated]]
 [.release-note-category]#icon:ban[] Deprecated#
+
+[[assertj-core-3.14.0-instance-of-assert-factories-as]]
+[.release-note-item]#Add syntax sugar `as(InstanceOfAssertFactory)` to improve readability#
+
+TODO
+
+[[assertj-core-3.14.0-extracting-string]]
+[.release-note-item]#Add `extracting` with `String` and `InstanceOfAssertFactory` parameters to `Object` assertions#
+
+Extracts the value of given field/property from the object under test, the extracted value becoming the new object under test.
+The `InstanceOfAssertFactory` parameter is used to get the assertions narrowed to the factory type.
+
+Examples:
+[source,java,indent=0]
+----
+// Create frodo, setting its name, age and Race (Race having a name property)
+TolkienCharacter frodo = new TolkienCharacter("Frodo", 33, HOBBIT);
+
+// let's extract and verify Frodo's name:
+assertThat(frodo).extracting("name", as(InstanceOfAssertFactories.STRING))
+                 .startsWith("Fro");
+
+// The following assertion will fail as Frodo's name is not an Integer:
+assertThat(frodo).extracting("name", as(InstanceOfAssertFactories.INTEGER))
+                 .isZero();
+----
+
+[[assertj-core-3.14.0-extracting-function]]
+[.release-note-item]#Add `extracting` with `Function` and `InstanceOfAssertFactory` parameters to `Object` assertions#
+
+Uses the given `Function` to extract a value from the object under test, the extracted value becoming the new object under test.
+The `InstanceOfAssertFactory` parameter is used to get the assertions narrowed to the factory type.
+
+Examples:
+[source,java,indent=0]
+----
+// Create frodo, setting its name, age and Race (Race having a name property)
+TolkienCharacter frodo = new TolkienCharacter("Frodo", 33, HOBBIT);
+
+// let's extract and verify Frodo's name:
+assertThat(frodo).extracting(TolkienCharacter::getName, as(InstanceOfAssertFactories.STRING))
+                 .startsWith("Fro");
+
+// The following assertion will fail as Frodo's name is not an Integer:
+assertThat(frodo).extracting(TolkienCharacter::getName, as(InstanceOfAssertFactories.INTEGER))
+                 .isZero();
+----
 
 ==== AssertJ Core 3.13.2 Release notes
 
