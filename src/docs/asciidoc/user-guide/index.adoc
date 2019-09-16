@@ -101,7 +101,7 @@ Thanks to all the contributors of this release:
 
 Pascal Schumacher, Erhard Pointl, Stefano Cordio, Thomas Traude, Andrei Solntsev, Matej Drobnič, Željko Mirović, Mike Gilchrist, Phillip Webb, Michal Fotyga,Valeriy Vyrva, Eddú Meléndez Gonzales, GaspardPO, Bengt Brodersen, Jiri Pejchal, Christian Stein, Nikolaos Georgiou and Sam Brannen.
 
-Special thanks to Nils Winkler for his work on the assertions convertion scripts and Stefano Cordio for the `asInstanceOf` contribution.
+Special thanks to Nils Winkler for his work on the assertions conversion scripts and Stefano Cordio for the `asInstanceOf` contribution.
 
 [[assertj-core-3.13.0-breaking-changes]]
 [.release-note-category]#icon:exclamation-triangle[] Breaking changes#
