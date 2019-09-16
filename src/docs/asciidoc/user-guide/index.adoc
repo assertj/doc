@@ -52,6 +52,8 @@ Thanks to all the contributors of this release:
 [[assertj-core-3.14.0-improvements]]
 [.release-note-category]#icon:arrow-circle-up[] Improvements#
 
+- Update ByteBuddy to version 1.10.1.
+
 [[assertj-core-3.14.0-fixed]]
 [.release-note-category]#icon:wrench[] Fixed#
 
