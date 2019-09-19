@@ -49,7 +49,7 @@ Thanks to all the contributors of this release:
 [[assertj-core-3.14.0-new-features]]
 [.release-note-category]#icon:plus-circle[] New features#
 
-- Add syntax sugar link:#assertj-core-3.14.0-instance-of-assert-factories-as[`as(InstanceOfAssertFactory)`] to improve readability. (Stefano Cordio)
+- Add syntax sugar link:#assertj-core-3.14.0-as-instance-of-assert-factory[`as(InstanceOfAssertFactory)`] to `Assertions` and `WithAssertions` for improved readability. (Stefano Cordio)
 - Add link:#assertj-core-3.14.0-extracting-string[`extracting(String, InstanceOfAssertFactory)`] to `Object` assertions. (Stefano Cordio)
 - Add link:#assertj-core-3.14.0-extracting-function[`extracting(Function, InstanceOfAssertFactory)`] to `Object` assertions. (Stefano Cordio)
 
@@ -64,10 +64,23 @@ Thanks to all the contributors of this release:
 [[assertj-core-3.14.0-deprecated]]
 [.release-note-category]#icon:ban[] Deprecated#
 
-[[assertj-core-3.14.0-instance-of-assert-factories-as]]
-[.release-note-item]#Add syntax sugar `as(InstanceOfAssertFactory)` to improve readability#
+[[assertj-core-3.14.0-as-instance-of-assert-factory]]
+[.release-note-item]#Add syntax sugar `as(InstanceOfAssertFactory)` to `Assertions` and `WithAssertions` for improved readability#
 
-TODO
+A syntax sugar to write fluent assertion with methods having an `InstanceOfAssertFactory` parameter. Added as a static method in `Assertions`, it is also available as a default method in the `WithAssertions` interface.
+
+Example:
+[source,java,indent=0]
+----
+Jedi yoda = new Jedi("Yoda", "Green");
+assertThat(yoda).extracting(Jedi::getName, as(InstanceOfAssertFactories.STRING))
+                .startsWith("Yo");
+----
+
+`as(InstanceOfAssertFactory)` can be used together with the following assertion methods:
+
+- link:#assertj-core-3.14.0-extracting-string[`ObjectAssert#extracting(String, InstanceOfAssertFactory)`]
+- link:#assertj-core-3.14.0-extracting-function[`ObjectAssert#extracting(Function, InstanceOfAssertFactory)`]
 
 [[assertj-core-3.14.0-extracting-string]]
 [.release-note-item]#Add `extracting` with `String` and `InstanceOfAssertFactory` parameters to `Object` assertions#
