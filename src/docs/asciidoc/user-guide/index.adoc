@@ -41,7 +41,7 @@ Release date : 2019-xx-xx
 [[assertj-core-3.14.0-contributors]]
 [.release-note-category]#icon:user[] Contributors#
 
-Thanks to all the contributors of this release: Erhard Pointl, Stefano Cordio, Jonas Berlin, Thami Inaflas, Geoffrey Arthaud,  Kevin Toublanc, 
+Thanks to all the contributors of this release: Erhard Pointl, Stefano Cordio, Jonas Berlin, Thami Inaflas, Geoffrey Arthaud,  Kevin Toublanc,
 
 [[assertj-core-3.14.0-breaking-changes]]
 [.release-note-category]#icon:exclamation-triangle[] Breaking changes#
@@ -54,6 +54,8 @@ Thanks to all the contributors of this release: Erhard Pointl, Stefano Cordio, J
 - Add syntax sugar link:#assertj-core-3.14.0-as-instance-of-assert-factory[`as(InstanceOfAssertFactory)`] to `Assertions` and `WithAssertions` for improved readability. (Stefano Cordio)
 - Add link:#assertj-core-3.14.0-extracting-string[`extracting(String, InstanceOfAssertFactory)`] to `Object` assertions. (Stefano Cordio)
 - Add link:#assertj-core-3.14.0-extracting-function[`extracting(Function, InstanceOfAssertFactory)`] to `Object` assertions. (Stefano Cordio)
+- Add `extractingByKey(KEY)` and `extractingByKeys(KEY...)` to `Map` assertions. (Stefano Cordio)
+- Add link:#assertj-core-3.14.0-map-extracting-by-key[`extractingByKey(KEY, InstanceOfAssertFactory)`] to `Map` assertions. (Stefano Cordio)
 - Add link:#assertj-core-3.14.0-assertAlso[`assertAlso`] `SoftAssertions` method to allow combining different soft assertions instances. (Kevin Toublanc)
 - Add IntelliJ IDEA regexp smart to AssertJ methods taking regexes. (Jonas Berlin)
 
@@ -79,7 +81,7 @@ Thanks to all the contributors of this release: Erhard Pointl, Stefano Cordio, J
 [.release-note-category]#icon:ban[] Deprecated#
 
 - Deprecate the confusing `containsOnlyElementsOf` in favor of `isSubsetOf` or `hasSameElementsAs`.
-
+- Deprecate `Map` assertions `extracting(Object)` and `extracting(Object...)` in favor of `extractingByKey(KEY)` and `extractingByKeys(KEY...)`, respectively. (Stefano Cordio)
 
 [[assertj-core-3.14.0-as-instance-of-assert-factory]]
 [.release-note-item]#Add syntax sugar `as(InstanceOfAssertFactory)` to `Assertions` and `WithAssertions` for improved readability#
@@ -98,6 +100,7 @@ assertThat(yoda).extracting(Jedi::getName, as(InstanceOfAssertFactories.STRING))
 
 - link:#assertj-core-3.14.0-extracting-string[`ObjectAssert#extracting(String, InstanceOfAssertFactory)`]
 - link:#assertj-core-3.14.0-extracting-function[`ObjectAssert#extracting(Function, InstanceOfAssertFactory)`]
+- link:#assertj-core-3.14.0-map-extracting-by-key[`MapAssert#extractingByKey(KEY, InstanceOfAssertFactory)`]
 
 [[assertj-core-3.14.0-extracting-string]]
 [.release-note-item]#Add `extracting` with `String` and `InstanceOfAssertFactory` parameters to `Object` assertions#
@@ -198,6 +201,27 @@ assertThat(frodo).extracting(TolkienCharacter::getName, as(InstanceOfAssertFacto
 // The following assertion will fail as Frodo's name is not an Integer:
 assertThat(frodo).extracting(TolkienCharacter::getName, as(InstanceOfAssertFactories.INTEGER))
                  .isZero();
+----
+
+[[assertj-core-3.14.0-map-extracting-by-key]]
+[.release-note-item]#Add `extractingByKey` with `KEY` and `InstanceOfAssertFactory` parameters to `Map` assertions#
+
+Extracts the value of given key from the map under test, the extracted value becoming the new object under test.
+The `InstanceOfAssertFactory` parameter is used to get the assertions narrowed to the factory type.
+
+Examples:
+[source,java,indent=0]
+----
+Map<String, Object> map = new HashMap<>();
+map.put("name", "kawhi");
+
+// The following assertion will succeed:
+assertThat(map).extractingByKey("name", as(InstanceOfAssertFactories.STRING))
+               .startsWith("kaw");
+
+// The following assertion will fail as the value is not an Integer:
+assertThat(map).extractingByKey("name", as(InstanceOfAssertFactories.INTEGER))
+               .isZero();
 ----
 
 ==== AssertJ Core 3.13.2 Release notes
