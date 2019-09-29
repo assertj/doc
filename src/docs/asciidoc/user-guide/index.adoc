@@ -41,10 +41,12 @@ Release date : 2019-xx-xx
 [[assertj-core-3.14.0-contributors]]
 [.release-note-category]#icon:user[] Contributors#
 
-Thanks to all the contributors of this release:
+Thanks to all the contributors of this release: Erhard Pointl, Stefano Cordio, Jonas Berlin, Thami Inaflas, Geoffrey Arthaud,  Kevin Toublanc, 
 
 [[assertj-core-3.14.0-breaking-changes]]
 [.release-note-category]#icon:exclamation-triangle[] Breaking changes#
+
+- Stop throwing an `IllegalArgumentException` when `isIn` and `isNotIn` are given an empty group of values.
 
 [[assertj-core-3.14.0-new-features]]
 [.release-note-category]#icon:plus-circle[] New features#
@@ -52,17 +54,32 @@ Thanks to all the contributors of this release:
 - Add syntax sugar link:#assertj-core-3.14.0-as-instance-of-assert-factory[`as(InstanceOfAssertFactory)`] to `Assertions` and `WithAssertions` for improved readability. (Stefano Cordio)
 - Add link:#assertj-core-3.14.0-extracting-string[`extracting(String, InstanceOfAssertFactory)`] to `Object` assertions. (Stefano Cordio)
 - Add link:#assertj-core-3.14.0-extracting-function[`extracting(Function, InstanceOfAssertFactory)`] to `Object` assertions. (Stefano Cordio)
+- Add link:#assertj-core-3.14.0-assertAlso[`assertAlso`] `SoftAssertions` method to allow combining different soft assertions instances. (Kevin Toublanc)
+- Add IntelliJ IDEA regexp smart to AssertJ methods taking regexes. (Jonas Berlin)
 
 [[assertj-core-3.14.0-improvements]]
 [.release-note-category]#icon:arrow-circle-up[] Improvements#
 
+- Clearly differentiate top level objects in the new recursive comparison.
+- Update message text in `ShouldHaveSameSizeAs` to show both actual and expected collections. (Thami Inaflas)
 - Update ByteBuddy to version 1.10.1.
+- Fix a few javadoc typos. (Erhard Pointl)
+- Use beautiful AssertJ's site code style for javadoc :)
+- Stop throwing an `IllegalArgumentException` when `isIn` and `isNotIn` are given an empty group of values.
 
 [[assertj-core-3.14.0-fixed]]
 [.release-note-category]#icon:wrench[] Fixed#
 
+- Fix possible `MissingFormatArgumentException` in `ShouldHaveMessage` and `ShouldContain`. (Erhard Pointl)
+- Fix javadoc search.
+- Fix javadoc links. (Stefano Cordio)
+- Fix `hasSizeBetween()` that did not work with strings. (Geoffrey Arthaud)
+
 [[assertj-core-3.14.0-deprecated]]
 [.release-note-category]#icon:ban[] Deprecated#
+
+- Deprecate the confusing `containsOnlyElementsOf` in favor of `isSubsetOf` or `hasSameElementsAs`.
+
 
 [[assertj-core-3.14.0-as-instance-of-assert-factory]]
 [.release-note-item]#Add syntax sugar `as(InstanceOfAssertFactory)` to `Assertions` and `WithAssertions` for improved readability#
@@ -105,6 +122,65 @@ assertThat(frodo).extracting("name", as(InstanceOfAssertFactories.INTEGER))
 
 [[assertj-core-3.14.0-extracting-function]]
 [.release-note-item]#Add `extracting` with `Function` and `InstanceOfAssertFactory` parameters to `Object` assertions#
+
+Uses the given `Function` to extract a value from the object under test, the extracted value becoming the new object under test.
+The `InstanceOfAssertFactory` parameter is used to get the assertions narrowed to the factory type.
+
+Examples:
+[source,java,indent=0]
+----
+// Create frodo, setting its name, age and Race (Race having a name property)
+TolkienCharacter frodo = new TolkienCharacter("Frodo", 33, HOBBIT);
+
+// let's extract and verify Frodo's name:
+assertThat(frodo).extracting(TolkienCharacter::getName, as(InstanceOfAssertFactories.STRING))
+                 .startsWith("Fro");
+
+// The following assertion will fail as Frodo's name is not an Integer:
+assertThat(frodo).extracting(TolkienCharacter::getName, as(InstanceOfAssertFactories.INTEGER))
+                 .isZero();
+----
+
+[[assertj-core-3.14.0-assertAlso]]
+[.release-note-item]#Add `assertAlso` `SoftAssertions` method to allow combining different soft assertions instances#
+
+`assertAlso` lets you combine other soft assertions instances together.
+
+Example:
+[source,java,indent=0]
+----
+public SoftAssertions check_kitchen() {
+  SoftAssertions softly = new SoftAssertions();
+  softly.assertThat(mansion.kitchen()).as("Kitchen").isEqualTo("clean");
+  return softly;
+}
+
+public SoftAssertions check_library() {
+  SoftAssertions softly = new SoftAssertions();
+  softly.assertThat(mansion.library()).as("Library").isEqualTo("clean");
+  return softly;
+}
+
+@Test
+public void host_dinner_party_where_nobody_dies() {
+  Mansion mansion = new Mansion();
+  mansion.hostPotentiallyMurderousDinnerParty();
+  softly.assertThat(mansion.guests()).as("Living Guests").isEqualTo(7);
+  softly.assertThat(mansion.revolverAmmo()).as("Revolver Ammo").isEqualTo(6);
+  softly.assertThat(mansion.candlestick()).as("Candlestick").isEqualTo("pristine");
+  softly.assertThat(mansion.colonel()).as("Colonel").isEqualTo("well kempt");
+  softly.assertThat(mansion.professor()).as("Professor").isEqualTo("well kempt");
+
+  SoftAssertions kitchen = check_kitchen();
+  softly.assertAlso(kitchen);
+
+  SoftAssertions library = check_library();
+  softly.assertAlso(library);
+
+  softly.assertAll();
+}
+----
+
 
 Uses the given `Function` to extract a value from the object under test, the extracted value becoming the new object under test.
 The `InstanceOfAssertFactory` parameter is used to get the assertions narrowed to the factory type.
