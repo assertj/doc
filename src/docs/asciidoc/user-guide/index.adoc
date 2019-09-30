@@ -41,7 +41,7 @@ Release date : 2019-xx-xx
 [[assertj-core-3.14.0-contributors]]
 [.release-note-category]#icon:user[] Contributors#
 
-Thanks to all the contributors of this release: Erhard Pointl, Stefano Cordio, Jonas Berlin, Thami Inaflas, Geoffrey Arthaud,  Kevin Toublanc, 
+Thanks to all the contributors of this release: Erhard Pointl, Stefano Cordio, Jonas Berlin, Thami Inaflas, Geoffrey Arthaud, Carter Kozak, Kevin Toublanc, Krishna Chaithanya Ganta,sowmiyamuthuraman, Clemens Grabmann
 
 [[assertj-core-3.14.0-breaking-changes]]
 [.release-note-category]#icon:exclamation-triangle[] Breaking changes#
@@ -56,6 +56,7 @@ Thanks to all the contributors of this release: Erhard Pointl, Stefano Cordio, J
 - Add link:#assertj-core-3.14.0-extracting-function[`extracting(Function, InstanceOfAssertFactory)`] to `Object` assertions. (Stefano Cordio)
 - Add link:#assertj-core-3.14.0-assertAlso[`assertAlso`] `SoftAssertions` method to allow combining different soft assertions instances. (Kevin Toublanc)
 - Add IntelliJ IDEA regexp smart to AssertJ methods taking regexes. (Jonas Berlin)
+- Add `String.format` support for link:#assertj-core-3.14.0-throwable-assertions-string-format[expected message] in `hasMessageStartingWith`, `hasMessageContaining`, `hasMessageEndingWith` and `hasStackTraceContaining` assertions.  (Krishna Chaithanya Ganta,)
 
 [[assertj-core-3.14.0-improvements]]
 [.release-note-category]#icon:arrow-circle-up[] Improvements#
@@ -63,9 +64,14 @@ Thanks to all the contributors of this release: Erhard Pointl, Stefano Cordio, J
 - Clearly differentiate top level objects in the new recursive comparison.
 - Update message text in `ShouldHaveSameSizeAs` to show both actual and expected collections. (Thami Inaflas)
 - Update ByteBuddy to version 1.10.1.
-- Fix a few javadoc typos. (Erhard Pointl)
+- Fix javadoc typos and incorrect references. (Erhard Pointl, Stefano Cordio)
 - Use beautiful AssertJ's site code style for javadoc :)
 - Stop throwing an `IllegalArgumentException` when `isIn` and `isNotIn` are given an empty group of values.
+- Bump opentest4j from 1.1.1 to 1.2.0. (still optional)
+- Remove `shouldHaveThrown(Assertion.class)` used internally. (sowmiyamuthuraman)
+- Improve `HamcrestCondition` generic type inference. (Carter Kozak)
+- Replace `catchThrowable` + `isInstanceOf(AssertionError.class)` by `expectAssertionError` ()internal use). (Clemens Grabmann)
+
 
 [[assertj-core-3.14.0-fixed]]
 [.release-note-category]#icon:wrench[] Fixed#
@@ -74,6 +80,7 @@ Thanks to all the contributors of this release: Erhard Pointl, Stefano Cordio, J
 - Fix javadoc search.
 - Fix javadoc links. (Stefano Cordio)
 - Fix `hasSizeBetween()` that did not work with strings. (Geoffrey Arthaud)
+- Fix failing soft assertions when combined with `asInstanceOf`.
 
 [[assertj-core-3.14.0-deprecated]]
 [.release-note-category]#icon:ban[] Deprecated#
@@ -181,23 +188,20 @@ public void host_dinner_party_where_nobody_dies() {
 }
 ----
 
+[[assertj-core-3.14.0-throwable-assertions-string-format]]  
+[.release-note-item]#Add String.format support for expected message in hasMessageStartingWith, hasMessageContaining, hasMessageEndingWith and hasStackTraceContaining assertions#
 
-Uses the given `Function` to extract a value from the object under test, the extracted value becoming the new object under test.
-The `InstanceOfAssertFactory` parameter is used to get the assertions narrowed to the factory type.
+Instead of taking a simple `String` the assertions mentioned above now accept a `String.format` like parameters, i.e. `(String description, Object... parameters)` making it easier to build more involved expected strings.
 
 Examples:
 [source,java,indent=0]
 ----
-// Create frodo, setting its name, age and Race (Race having a name property)
-TolkienCharacter frodo = new TolkienCharacter("Frodo", 33, HOBBIT);
+Throwable throwableWithMessage = new IllegalArgumentException("wrong amount 123");
 
-// let's extract and verify Frodo's name:
-assertThat(frodo).extracting(TolkienCharacter::getName, as(InstanceOfAssertFactories.STRING))
-                 .startsWith("Fro");
-
-// The following assertion will fail as Frodo's name is not an Integer:
-assertThat(frodo).extracting(TolkienCharacter::getName, as(InstanceOfAssertFactories.INTEGER))
-                 .isZero();
+assertThat(throwableWithMessage).hasMessageStartingWith("%s a", "wrong")
+                                .hasMessageContaining("wrong %s", "amount")
+                                .hasMessageEndingWith("%s 123", "amount")
+                                .hasStackTraceContaining("%s amount", "wrong");
 ----
 
 ==== AssertJ Core 3.13.2 Release notes
