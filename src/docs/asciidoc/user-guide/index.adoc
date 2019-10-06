@@ -72,7 +72,7 @@ Thanks to all the contributors of this release: Erhard Pointl, Stefano Cordio, J
 - Bump opentest4j from 1.1.1 to 1.2.0. (still optional)
 - Remove `shouldHaveThrown(Assertion.class)` used internally. (sowmiyamuthuraman)
 - Improve `HamcrestCondition` generic type inference. (Carter Kozak)
-- Replace `catchThrowable` + `isInstanceOf(AssertionError.class)` by `expectAssertionError` ()internal use). (Clemens Grabmann)
+- Replace `catchThrowable` + `isInstanceOf(AssertionError.class)` by `expectAssertionError` (internal use). (Clemens Grabmann)
 
 
 [[assertj-core-3.14.0-fixed]]
@@ -83,6 +83,7 @@ Thanks to all the contributors of this release: Erhard Pointl, Stefano Cordio, J
 - Fix javadoc links. (Stefano Cordio)
 - Fix `hasSizeBetween()` that did not work with strings. (Geoffrey Arthaud)
 - Fix failing soft assertions when combined with `asInstanceOf`.
+- Fix missing soft assertions proxying for `get` of `OptionalAssert`. (Stefano Cordio)
 
 [[assertj-core-3.14.0-deprecated]]
 [.release-note-category]#icon:ban[] Deprecated#
