@@ -41,7 +41,7 @@ Release date : 2019-xx-xx
 [[assertj-core-3.14.0-contributors]]
 [.release-note-category]#icon:user[] Contributors#
 
-Thanks to all the contributors of this release: Erhard Pointl, Stefano Cordio, Jonas Berlin, Thami Inaflas, Geoffrey Arthaud, Carter Kozak, Kevin Toublanc, Krishna Chaithanya Ganta,sowmiyamuthuraman, Clemens Grabmann
+Thanks to all the contributors of this release: Erhard Pointl, Stefano Cordio, Jonas Berlin, Thami Inaflas, Geoffrey Arthaud, Carter Kozak, Kevin Toublanc, Krishna Chaithanya Ganta,sowmiyamuthuraman, Edgar Asatryan, Clemens Grabmann
 
 [[assertj-core-3.14.0-breaking-changes]]
 [.release-note-category]#icon:exclamation-triangle[] Breaking changes#
@@ -63,6 +63,7 @@ Thanks to all the contributors of this release: Erhard Pointl, Stefano Cordio, J
 [[assertj-core-3.14.0-improvements]]
 [.release-note-category]#icon:arrow-circle-up[] Improvements#
 
+- Prettify `allOf` and `anyOf` link:#assertj-core-3.14.0-combined-condition-description[combined conditions description]. (Edgar Asatryan)
 - Clearly differentiate top level objects in the new recursive comparison.
 - Update message text in `ShouldHaveSameSizeAs` to show both actual and expected collections. (Thami Inaflas)
 - Update ByteBuddy to version 1.10.1.
@@ -73,7 +74,6 @@ Thanks to all the contributors of this release: Erhard Pointl, Stefano Cordio, J
 - Remove `shouldHaveThrown(Assertion.class)` used internally. (sowmiyamuthuraman)
 - Improve `HamcrestCondition` generic type inference. (Carter Kozak)
 - Replace `catchThrowable` + `isInstanceOf(AssertionError.class)` by `expectAssertionError` (internal use). (Clemens Grabmann)
-
 
 [[assertj-core-3.14.0-fixed]]
 [.release-note-category]#icon:wrench[] Fixed#
@@ -227,6 +227,44 @@ assertThat(map).extractingByKey("name", as(InstanceOfAssertFactories.STRING))
 // The following assertion will fail as the value is not an Integer:
 assertThat(map).extractingByKey("name", as(InstanceOfAssertFactories.INTEGER))
                .isZero();
+----
+
+[[assertj-core-3.14.0-combined-condition-description]]
+[.release-note-item]#Prettify `allOf` and `anyOf` combined conditions description#
+
+Reformat the error message when multiple combined conditions with `allOf` and `anyOf` fail.
+
+Examples: the following assertion will fail ...
+[source,java,indent=0]
+----
+private static Condition<String> contains(String s) {
+  return new Condition<>(value -> value.contains(s), "contains " + s);
+}
+
+// failing assertion:
+assertThat("Gandalf").has(anyOf(contains("i"),
+                                allOf(contains("o"),
+                                      anyOf(contains("a"),
+                                            contains("b"),
+                                            contains("c")))));
+----
+With the following error message
+[source,text,indent=0]
+----
+Expecting:
+ <"Gandalf">
+to have:
+ <any of:[
+   contains i,
+   all of:[
+      contains o,
+      any of:[
+         contains a,
+         contains b,
+         contains c
+      ]
+   ]
+]>
 ----
 
 ==== AssertJ Core 3.13.2 Release notes
