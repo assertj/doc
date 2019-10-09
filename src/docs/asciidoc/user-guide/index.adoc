@@ -41,7 +41,7 @@ Release date : 2019-xx-xx
 [[assertj-core-3.14.0-contributors]]
 [.release-note-category]#icon:user[] Contributors#
 
-Thanks to all the contributors of this release: Erhard Pointl, Stefano Cordio, Jonas Berlin, Thami Inaflas, Geoffrey Arthaud, Carter Kozak, Kevin Toublanc, Krishna Chaithanya Ganta,sowmiyamuthuraman, Edgar Asatryan, Clemens Grabmann
+Thanks to all the contributors of this release: Erhard Pointl, Stefano Cordio, Jonas Berlin, Thami Inaflas, Geoffrey Arthaud, Carter Kozak, Kevin Toublanc, Krishna Chaithanya Ganta,sowmiyamuthuraman, Edgar Asatryan, Oleksii Khomchenko, Gonzalo Müller Bravo, Clemens Grabmann
 
 [[assertj-core-3.14.0-breaking-changes]]
 [.release-note-category]#icon:exclamation-triangle[] Breaking changes#
@@ -51,6 +51,8 @@ Thanks to all the contributors of this release: Erhard Pointl, Stefano Cordio, J
 [[assertj-core-3.14.0-new-features]]
 [.release-note-category]#icon:plus-circle[] New features#
 
+- Add link:#assertj-core-3.14.0-bdd-assumptions[BDD assumptions]. (Gonzalo Müller Bravo)
+- Add link:#assertj-core-3.14.0-hasRootCauseMessage[`hasRootCauseMessage`] to `Throwable` assertions. (Oleksii Khomchenko)
 - Add syntax sugar link:#assertj-core-3.14.0-as-instance-of-assert-factory[`as(InstanceOfAssertFactory)`] to `Assertions` and `WithAssertions` for improved readability. (Stefano Cordio)
 - Add link:#assertj-core-3.14.0-extracting-string[`extracting(String, InstanceOfAssertFactory)`] to `Object` assertions. (Stefano Cordio)
 - Add link:#assertj-core-3.14.0-extracting-function[`extracting(Function, InstanceOfAssertFactory)`] to `Object` assertions. (Stefano Cordio)
@@ -70,10 +72,12 @@ Thanks to all the contributors of this release: Erhard Pointl, Stefano Cordio, J
 - Fix javadoc typos and incorrect references. (Erhard Pointl, Stefano Cordio)
 - Use beautiful AssertJ's site code style for javadoc :)
 - Stop throwing an `IllegalArgumentException` when `isIn` and `isNotIn` are given an empty group of values.
+- Expose `AbstractAssert.objects` to be used by subclasses.
 - Bump opentest4j from 1.1.1 to 1.2.0. (still optional)
-- Remove `shouldHaveThrown(Assertion.class)` used internally. (sowmiyamuthuraman)
 - Improve `HamcrestCondition` generic type inference. (Carter Kozak)
+- Remove `shouldHaveThrown(Assertion.class)` used internally. (sowmiyamuthuraman)
 - Replace `catchThrowable` + `isInstanceOf(AssertionError.class)` by `expectAssertionError` (internal use). (Clemens Grabmann)
+- Rewrite `CompletableFutureAssert` tests with `assertThatAssertionErrorIsThrownBy`.  (internal use). (Clemens Grabmann)
 
 [[assertj-core-3.14.0-fixed]]
 [.release-note-category]#icon:wrench[] Fixed#
@@ -265,6 +269,55 @@ to have:
       ]
    ]
 ]>
+----
+
+[[assertj-core-3.14.0-hasRootCauseMessage]]
+[.release-note-item]#Add `hasRootCauseMessage` to `Throwable` assertions#
+
+Verifies that the message of the root cause of the actual `Throwable` is equal to the given one, a simple `String` or `String.format` is supported to specify the expected message.
+
+Examples:
+[source,java,indent=0]
+----
+Throwable throwable = new Throwable(new IllegalStateException(new NullPointerException("expected message")));
+
+// assertions will pass
+assertThat(throwable).hasRootCauseMessage("expected message")
+                     .hasRootCauseMessage("expected %s", "message");
+
+// assertions will fail
+assertThat(throwable).hasRootCauseMessage("another message");
+assertThat(throwable).hasRootCauseMessage("%s", "message");
+// no root cause message
+assertThat(new Throwable()).hasRootCauseMessage("%s %s", "expected", "message");
+----
+
+[[assertj-core-3.14.0-bdd-assumptions]]
+[.release-note-item]#Add BDD assumptions#
+
+Behavior-driven development style entry point for assumption methods for different types, which allow to skip test execution when assumptions are not met.
+
+The difference with the Assumptions class is that entry point methods are named `given` instead of `assumeThat`.
+
+Example:
+[source,java,indent=0]
+----
+String hobbit = "HOBBIT";
+List<String> fellowshipOfTheRing = list("Aragorn", "Gandalf", "Frodo", "Legolas");
+
+@Test
+public void given_the_assumption_is_not_met_the_test_is_skipped() {
+  given(hobbit).isEqualTo("ORC");
+  // ... following code is not executed, the test is skipped
+  then(fellowshipOfTheRing).contains("Sauron");
+}
+
+@Test
+public void given_the_assumption_is_met_the_test_is_executed() {
+  given(hobbit).isEqualTo("HOBBIT");
+  // ... following code is executed and fails!
+  then(fellowshipOfTheRing).doesNotContain("Sauron");
+}
 ----
 
 ==== AssertJ Core 3.13.2 Release notes
