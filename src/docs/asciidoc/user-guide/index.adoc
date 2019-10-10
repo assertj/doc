@@ -41,7 +41,7 @@ Release date : 2019-xx-xx
 [[assertj-core-3.14.0-contributors]]
 [.release-note-category]#icon:user[] Contributors#
 
-Thanks to all the contributors of this release: Erhard Pointl, Stefano Cordio, Jonas Berlin, Thami Inaflas, Geoffrey Arthaud, Carter Kozak, Kevin Toublanc, Krishna Chaithanya Ganta,sowmiyamuthuraman, Edgar Asatryan, Oleksii Khomchenko, Gonzalo Müller Bravo, Clemens Grabmann
+Thanks to all the contributors of this release: Erhard Pointl, Stefano Cordio, Jonas Berlin, Thami Inaflas, Geoffrey Arthaud, Carter Kozak, Kevin Toublanc, Krishna Chaithanya Ganta,sowmiyamuthuraman, Edgar Asatryan, Oleksii Khomchenko, Gonzalo Müller Bravo, Jonas Berlin and Clemens Grabmann.
 
 [[assertj-core-3.14.0-breaking-changes]]
 [.release-note-category]#icon:exclamation-triangle[] Breaking changes#
@@ -60,7 +60,7 @@ Thanks to all the contributors of this release: Erhard Pointl, Stefano Cordio, J
 - Add link:#assertj-core-3.14.0-map-extracting-by-key[`extractingByKey(KEY, InstanceOfAssertFactory)`] to `Map` assertions. (Stefano Cordio)
 - Add link:#assertj-core-3.14.0-assertAlso[`assertAlso`] `SoftAssertions` method to allow combining different soft assertions instances. (Kevin Toublanc)
 - Add IntelliJ IDEA regexp smart to AssertJ methods taking regexes. (Jonas Berlin)
-- Add `String.format` support for link:#assertj-core-3.14.0-throwable-assertions-string-format[expected message] in `hasMessageStartingWith`, `hasMessageContaining`, `hasMessageEndingWith` and `hasStackTraceContaining` assertions.  (Krishna Chaithanya Ganta,)
+- Add `String.format` support for link:#assertj-core-3.14.0-throwable-assertions-string-format[expected message] in `hasMessageStartingWith`, `hasMessageContaining`, `hasMessageEndingWith` and `hasStackTraceContaining` assertions.  (Krishna Chaithanya Ganta)
 
 [[assertj-core-3.14.0-improvements]]
 [.release-note-category]#icon:arrow-circle-up[] Improvements#
@@ -68,6 +68,7 @@ Thanks to all the contributors of this release: Erhard Pointl, Stefano Cordio, J
 - Prettify `allOf` and `anyOf` link:#assertj-core-3.14.0-combined-condition-description[combined conditions description]. (Edgar Asatryan)
 - Clearly differentiate top level objects in the new recursive comparison.
 - Update message text in `ShouldHaveSameSizeAs` to show both actual and expected collections. (Thami Inaflas)
+- Add link:#assertj-core-3.14.0-hamcrest-matching[`matching` syntactic sugar method] to use Hamcrest Matcher as Condition. (Jonas Berlin)
 - Update ByteBuddy to version 1.10.1.
 - Fix javadoc typos and incorrect references. (Erhard Pointl, Stefano Cordio)
 - Use beautiful AssertJ's site code style for javadoc :)
@@ -317,6 +318,24 @@ public void given_the_assumption_is_met_the_test_is_executed() {
   given(hobbit).isEqualTo("HOBBIT");
   // ... following code is executed and fails!
   then(fellowshipOfTheRing).doesNotContain("Sauron");
+}
+----
+
+[[assertj-core-3.14.0-hamcrest-matching]]
+[.release-note-item]#Add `matching` syntactic sugar method to use Hamcrest Matcher as Condition#
+
+Syntactic sugar to construct a `Condition` using the Hamcrest Matcher given as a parameter. 
+
+Example:
+[source,java,indent=0]
+----
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.HamcrestCondition.matching;
+import static org.hamcrest.core.StringContains.containsString;
+
+@Test
+public void matching_example() {
+ assertThat("abc").is(matching(containsString("a")));
 }
 ----
 
