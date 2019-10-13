@@ -58,6 +58,7 @@ Thanks to all the contributors of this release: Erhard Pointl, Stefano Cordio, J
 - Add link:#assertj-core-3.14.0-extracting-function[`extracting(Function, InstanceOfAssertFactory)`] to `Object` assertions. (Stefano Cordio)
 - Add `extractingByKey(KEY)` and `extractingByKeys(KEY...)` to `Map` assertions. (Stefano Cordio)
 - Add link:#assertj-core-3.14.0-map-extracting-by-key[`extractingByKey(KEY, InstanceOfAssertFactory)`] to `Map` assertions. (Stefano Cordio)
+- Add link:#assertj-core-3.14.0-optional-get[`get(InstanceOfAssertFactory)`] to `Optional` assertions. (Stefano Cordio)
 - Add link:#assertj-core-3.14.0-assertAlso[`assertAlso`] `SoftAssertions` method to allow combining different soft assertions instances. (Kevin Toublanc)
 - Add IntelliJ IDEA regexp smart to AssertJ methods taking regexes. (Jonas Berlin)
 - Add `String.format` support for link:#assertj-core-3.14.0-throwable-assertions-string-format[expected message] in `hasMessageStartingWith`, `hasMessageContaining`, `hasMessageEndingWith` and `hasStackTraceContaining` assertions.  (Krishna Chaithanya Ganta)
@@ -116,6 +117,7 @@ assertThat(yoda).extracting(Jedi::getName, as(InstanceOfAssertFactories.STRING))
 - link:#assertj-core-3.14.0-extracting-string[`ObjectAssert#extracting(String, InstanceOfAssertFactory)`]
 - link:#assertj-core-3.14.0-extracting-function[`ObjectAssert#extracting(Function, InstanceOfAssertFactory)`]
 - link:#assertj-core-3.14.0-map-extracting-by-key[`MapAssert#extractingByKey(KEY, InstanceOfAssertFactory)`]
+- link:#assertj-core-3.14.0-optional-get[`OptionalAssert#get(InstanceOfAssertFactory)`]
 
 [[assertj-core-3.14.0-extracting-string]]
 [.release-note-item]#Add `extracting` with `String` and `InstanceOfAssertFactory` parameters to `Object` assertions#
@@ -234,6 +236,26 @@ assertThat(map).extractingByKey("name", as(InstanceOfAssertFactories.STRING))
 // The following assertion will fail as the value is not an Integer:
 assertThat(map).extractingByKey("name", as(InstanceOfAssertFactories.INTEGER))
                .isZero();
+----
+
+[[assertj-core-3.14.0-optional-get]]
+[.release-note-item]#Add `get` with `InstanceOfAssertFactory` parameters to `Optional` assertions#
+
+Verifies that the optional is not `null` and not empty and returns an new assertion instance to chain assertions on the optional value.
+The `InstanceOfAssertFactory` parameter is used to get the assertions narrowed to the factory type.
+
+Examples:
+[source,java,indent=0]
+----
+Optional<String> optional = Optional.of("Frodo");
+
+// The following assertion will succeed:
+assertThat(optional).get(as(InstanceOfAssertFactories.STRING))
+                    .startsWith("Fro");
+
+// The following assertion will fail as the value is not an Integer:
+assertThat(optional).get(as(InstanceOfAssertFactories.INTEGER))
+                    .isZero();
 ----
 
 [[assertj-core-3.14.0-combined-condition-description]]
