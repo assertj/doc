@@ -41,7 +41,7 @@ Release date : 2019-xx-xx
 [[assertj-core-3.14.0-contributors]]
 [.release-note-category]#icon:user[] Contributors#
 
-Thanks to all the contributors of this release: Erhard Pointl, Stefano Cordio, Jonas Berlin, Thami Inaflas, Geoffrey Arthaud, Carter Kozak, Kevin Toublanc, Krishna Chaithanya Ganta,sowmiyamuthuraman, Edgar Asatryan, Oleksii Khomchenko, Gonzalo Müller Bravo, Jonas Berlin and Clemens Grabmann.
+Thanks to all the contributors of this release: Erhard Pointl, Stefano Cordio, Jonas Berlin, Thami Inaflas, Geoffrey Arthaud, Carter Kozak, Kevin Toublanc, Krishna Chaithanya Ganta,sowmiyamuthuraman, Edgar Asatryan, Oleksii Khomchenko, Gonzalo Müller Bravo, Rob Spieldenner and Clemens Grabmann.
 
 [[assertj-core-3.14.0-breaking-changes]]
 [.release-note-category]#icon:exclamation-triangle[] Breaking changes#
@@ -61,6 +61,7 @@ Thanks to all the contributors of this release: Erhard Pointl, Stefano Cordio, J
 - Add link:#assertj-core-3.14.0-assertAlso[`assertAlso`] `SoftAssertions` method to allow combining different soft assertions instances. (Kevin Toublanc)
 - Add IntelliJ IDEA regexp smart to AssertJ methods taking regexes. (Jonas Berlin)
 - Add `String.format` support for link:#assertj-core-3.14.0-throwable-assertions-string-format[expected message] in `hasMessageStartingWith`, `hasMessageContaining`, `hasMessageEndingWith` and `hasStackTraceContaining` assertions.  (Krishna Chaithanya Ganta)
+- Add link:#assertj-core-3.14.0-hasSize[`hasSize(long expectedSizeInBytes)`] to `File` assertions. (Krishna Chaithanya Ganta)
 
 [[assertj-core-3.14.0-improvements]]
 [.release-note-category]#icon:arrow-circle-up[] Improvements#
@@ -83,6 +84,7 @@ Thanks to all the contributors of this release: Erhard Pointl, Stefano Cordio, J
 [[assertj-core-3.14.0-fixed]]
 [.release-note-category]#icon:wrench[] Fixed#
 
+- Fix `BDDSoftAssertions.then(URL actual)` that just did not work 🤦‍. (Rob Spieldenner)
 - Fix possible `MissingFormatArgumentException` in `ShouldHaveMessage` and `ShouldContain`. (Erhard Pointl)
 - Fix javadoc search.
 - Fix javadoc links. (Stefano Cordio)
@@ -322,7 +324,7 @@ public void given_the_assumption_is_met_the_test_is_executed() {
 ----
 
 [[assertj-core-3.14.0-hamcrest-matching]]
-[.release-note-item]#Add `matching` syntactic sugar method to use Hamcrest Matcher as Condition#
+[.release-note-item]#Add `matching` syntactic sugar method to use Hamcrest Matcher as `Condition`#
 
 Syntactic sugar to construct a `Condition` using the Hamcrest Matcher given as a parameter. 
 
@@ -337,6 +339,24 @@ import static org.hamcrest.core.StringContains.containsString;
 public void matching_example() {
  assertThat("abc").is(matching(containsString("a")));
 }
+----
+
+[[assertj-core-3.14.0-hasSize]]
+[.release-note-item]#Add `hasSize(long expectedSizeInBytes)` to `File` assertions#
+
+Verifies that the size of the File under test is exactly equal to the given size in *bytes*. 
+
+Example:
+[source,java,indent=0]
+----
+File file = File.createTempFile("tmp", "bin");
+Files.write(file.toPath(), new byte[] {1, 1});
+
+// assertion will pass
+assertThat(file).hasSize(2);
+
+// assertion will fail
+assertThat(file).hasSize(1);
 ----
 
 ==== AssertJ Core 3.13.2 Release notes
