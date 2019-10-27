@@ -2630,7 +2630,7 @@ AssertJ Core 2.x is in maintenance mode, it will only receive bugfixes.
   &lt;groupId&gt;org.assertj&lt;/groupId&gt;
   &lt;artifactId&gt;assertj-core&lt;/artifactId&gt;
   &lt;!-- use 2.9.1 for Java 7 projects --&gt;
-  &lt;version&gt;3.13.2&lt;/version&gt;
+  &lt;version&gt;3.14.0&lt;/version&gt;
   &lt;scope&gt;test&lt;/scope&gt;
 &lt;/dependency&gt;</code></pre>
 </div>
@@ -2643,7 +2643,7 @@ AssertJ Core 2.x is in maintenance mode, it will only receive bugfixes.
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">testCompile("org.assertj:assertj-core:3.13.2")</code></pre>
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">testCompile("org.assertj:assertj-core:3.14.0")</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2658,7 +2658,7 @@ AssertJ Core 2.x is in maintenance mode, it will only receive bugfixes.
 <div class="sect3">
 <h4 id="other-dependency-management-tool"><a class="anchor" href="#other-dependency-management-tool"></a>2.1.5. Other dependency management tool</h4>
 <div class="paragraph">
-<p>Check this page to find the relevant <a href="https://search.maven.org/artifact/org.assertj/assertj-core/3.13.2/bundle">assertj core dependency declaration</a>.</p>
+<p>Check this page to find the relevant <a href="https://search.maven.org/artifact/org.assertj/assertj-core/3.14.0/bundle">assertj core dependency declaration</a>.</p>
 </div>
 </div>
 </div>
@@ -3788,7 +3788,7 @@ If you use java 7, check the <a href="#assertj-core-exception-assertions-java-7"
 <div class="sect3">
 <h4 id="assertj-core-exception-assertions-java-8"><a class="anchor" href="#assertj-core-exception-assertions-java-8"></a>3.11.1. With Java 8 (AssertJ 3.x)</h4>
 <div class="paragraph">
-<p>Thanks to lambdas testing assertions in Java 8 is elegant, AssertJ provides different style options:</p>
+<p>Testing assertions in Java 8 is elegant, thanks to lambdas! AssertJ provides different style options:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -3815,10 +3815,10 @@ If you use java 7, check the <a href="#assertj-core-exception-assertions-java-7"
 <div class="sect4">
 <h5 id="assertj-core-exception-assertions-bdd-style"><a class="anchor" href="#assertj-core-exception-assertions-bdd-style"></a>BDD style</h5>
 <div class="paragraph">
-<p>BDD aficionados can separate <em>WHEN</em> and <em>THEN</em> steps by using <code>catchThrowable(ThrowingCallable)</code> to capture the throwable and then perform assertions.</p>
+<p>BDD aficionados can separate <em>WHEN</em> and <em>THEN</em> steps by using <code>catchThrowable(ThrowingCallable)</code> to capture the <code>Throwable</code> and then perform assertions.</p>
 </div>
 <div class="paragraph">
-<p>Example :</p>
+<p>Example:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -3836,12 +3836,12 @@ public void bdd_exception_assertion_example() {
 </div>
 </div>
 <div class="sect4">
-<h5 id="assertj-core-exception-assertions-bdd-strongly-typed-style"><a class="anchor" href="#assertj-core-exception-assertions-bdd-strongly-typed-style"></a>BDD style on specific <code>Throwable</code> type</h5>
+<h5 id="assertj-core-exception-assertions-bdd-strongly-typed-style"><a class="anchor" href="#assertj-core-exception-assertions-bdd-strongly-typed-style"></a>BDD style on specific Throwable type</h5>
 <div class="paragraph">
-<p>This is a variation of <code>catchThrowable</code> where the caught exception type is specified allowing to check the custom exception fields/properties.</p>
+<p>This is a variation of <code>catchThrowable</code> where the caught exception type is specified, allowing to check the custom exception fields/properties.</p>
 </div>
 <div class="paragraph">
-<p>Example :</p>
+<p>Example:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -3872,7 +3872,7 @@ public void bdd_exception_assertion_example() {
 </div>
 </div>
 <div class="sect4">
-<h5 id="assertj-core-exception-assertions-assertThatThrownBy"><a class="anchor" href="#assertj-core-exception-assertions-assertThatThrownBy"></a>Exception testing with <code>assertThatThrownBy</code></h5>
+<h5 id="assertj-core-exception-assertions-assertThatThrownBy"><a class="anchor" href="#assertj-core-exception-assertions-assertThatThrownBy"></a>Exception testing with assertThatThrownBy</h5>
 <div class="paragraph">
 <p>Starts with <code>assertThatThrownBy(ThrowingCallable)</code> to capture and then assert on the thrown <code>Throwable</code>.</p>
 </div>
@@ -3880,7 +3880,7 @@ public void bdd_exception_assertion_example() {
 <p>Note that if the provided <code>ThrowingCallable</code> does not raise an exception, an assertion error is immediately thrown.</p>
 </div>
 <div class="paragraph">
-<p>Example :</p>
+<p>Example:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -3893,7 +3893,7 @@ public void exception_assertion_example() {
 </div>
 </div>
 <div class="sect4">
-<h5 id="assertj-core-exception-assertions-assertThatExceptionOfType"><a class="anchor" href="#assertj-core-exception-assertions-assertThatExceptionOfType"></a>Exception testing with <code>assertThatExceptionOfType</code></h5>
+<h5 id="assertj-core-exception-assertions-assertThatExceptionOfType"><a class="anchor" href="#assertj-core-exception-assertions-assertThatExceptionOfType"></a>Exception testing with assertThatExceptionOfType</h5>
 <div class="paragraph">
 <p><code>assertThatExceptionOfType</code> is an alternative syntax that some people find more natural.</p>
 </div>
@@ -3912,7 +3912,7 @@ public void exception_assertion_example() {
 </div>
 </div>
 <div class="paragraph">
-<p>This later syntax has been enriched for common exceptions :</p>
+<p>This latter syntax has been enriched for common exceptions:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -4567,7 +4567,7 @@ void junit4_bdd_soft_assertions_example() {
 </div>
 <div class="paragraph">
 <p>The term "test method" refers to any method annotated with <code>@Test</code>, <code>@RepeatedTest</code>, <code>@ParameterizedTest</code>, <code>@TestFactory</code> or <code>@TestTemplate</code>.
-Notably, the extension is compatible with <a href="https://junit.org/junit5/docs/current/user-guide/#writing-tests-parameterized-tests">parameterized tests</a>, the parameterized arguments msut come first and the soft assertions argument last.</p>
+Notably, the extension is compatible with <a href="https://junit.org/junit5/docs/current/user-guide/#writing-tests-parameterized-tests">parameterized tests</a>, the parameterized arguments must come first and the soft assertions argument last.</p>
 </div>
 <div class="admonitionblock important">
 <table>
@@ -5055,6 +5055,9 @@ AssertJ Core would not exist without its contributors, you can find them all <a 
 <div class="ulist">
 <ul>
 <li>
+<p><a href="#assertj-core-3-14-0-release-notes">AssertJ Core 3.14.0 release notes</a></p>
+</li>
+<li>
 <p><a href="#assertj-core-3-13-2-release-notes">AssertJ Core 3.13.2 release notes</a></p>
 </li>
 <li>
@@ -5075,7 +5078,736 @@ AssertJ Core would not exist without its contributors, you can find them all <a 
 </ul>
 </div>
 <div class="sect3">
-<h4 id="assertj-core-3-13-2-release-notes"><a class="anchor" href="#assertj-core-3-13-2-release-notes"></a>7.1.1. AssertJ Core 3.13.2 Release notes</h4>
+<h4 id="assertj-core-3-14-0-release-notes"><a class="anchor" href="#assertj-core-3-14-0-release-notes"></a>7.1.1. AssertJ Core 3.14.0 Release notes</h4>
+<div class="paragraph">
+<p>Release date : 2019-xx-xx</p>
+</div>
+<div id="assertj-core-3.14.0-contributors" class="paragraph">
+<p><span class="release-note-category"><span class="icon"><i class="fa fa-user"></i></span> Contributors</span></p>
+</div>
+<div class="paragraph">
+<p>Thanks to all the contributors of this release: Erhard Pointl, Stefano Cordio, Jonas Berlin, Thami Inaflas, Geoffrey Arthaud, Carter Kozak, Kevin Toublanc, Krishna Chaithanya Ganta,sowmiyamuthuraman, Edgar Asatryan, Oleksii Khomchenko, Gonzalo Müller Bravo, Stephen O&#8217;Rourke, Sven Johansson, William Bakker, Rob Spieldenner, Raymond Pressly, Michael Keppler and Clemens Grabmann.</p>
+</div>
+<div id="assertj-core-3.14.0-breaking-changes" class="paragraph">
+<p><span class="release-note-category"><span class="icon"><i class="fa fa-exclamation-triangle"></i></span> Breaking changes</span></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Stop throwing an <code>IllegalArgumentException</code> when <code>isIn</code> and <code>isNotIn</code> are given an empty group of values.</p>
+</li>
+</ul>
+</div>
+<div id="assertj-core-3.14.0-new-features" class="paragraph">
+<p><span class="release-note-category"><span class="icon"><i class="fa fa-plus-circle"></i></span> New features</span></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Add <a href="#assertj-core-3.14.0-bdd-assumptions">BDD assumptions</a>. (Gonzalo Müller Bravo)</p>
+</li>
+<li>
+<p>Add <a href="#assertj-core-3.14.0-spliterator-assertions"><code>Spliterator</code> assertions</a>. (William Bakker)</p>
+</li>
+<li>
+<p>Add <a href="#assertj-core-3.14.0-isAtSameInstantAs"><code>isAtSameInstantAs</code></a> to <code>OffsetDateTime</code> assertions. (Raymond Pressly)</p>
+</li>
+<li>
+<p>Add <a href="#assertj-core-3.14.0-assertAlso"><code>assertAlso</code></a> <code>SoftAssertions</code> method to allow combining different soft assertions instances. (Kevin Toublanc)</p>
+</li>
+<li>
+<p>Add <a href="#assertj-core-3.14.0-isEmpty-isNotEmpty-file-assertions"><code>isEmpty</code> and <code>isNotEmpty</code></a> file assertions. (Stephen O&#8217;Rourke)</p>
+</li>
+<li>
+<p>Add <a href="#assertj-core-3.14.0-hasSize"><code>hasSize(long expectedSizeInBytes)</code></a> to <code>File</code> assertions. (Krishna Chaithanya Ganta)</p>
+</li>
+<li>
+<p>Avoid BDDMockito/BDDAssertions <code>then(object)</code> clash with <a href="#assertj-core-3.14.0-bdd-assertions-and"><code>and.then(object)</code></a> method. (Gonzalo Müller Bravo)</p>
+</li>
+<li>
+<p>Add <a href="#assertj-core-3.14.0-hasRootCauseMessage"><code>hasRootCauseMessage</code></a> to <code>Throwable</code> assertions. (Oleksii Khomchenko)</p>
+</li>
+<li>
+<p>Add syntax sugar <a href="#assertj-core-3.14.0-as-instance-of-assert-factory"><code>as(InstanceOfAssertFactory)</code></a> to <code>Assertions</code> and <code>WithAssertions</code> for improved readability. (Stefano Cordio)</p>
+</li>
+<li>
+<p>Add <a href="#assertj-core-3.14.0-extracting-string"><code>extracting(String, InstanceOfAssertFactory)</code></a> to <code>Object</code> assertions. (Stefano Cordio)</p>
+</li>
+<li>
+<p>Add <a href="#assertj-core-3.14.0-extracting-function"><code>extracting(Function, InstanceOfAssertFactory)</code></a> to <code>Object</code> assertions. (Stefano Cordio)</p>
+</li>
+<li>
+<p>Add <code>extractingByKey(KEY)</code> and <code>extractingByKeys(KEY&#8230;&#8203;)</code> to <code>Map</code> assertions. (Stefano Cordio)</p>
+</li>
+<li>
+<p>Add <a href="#assertj-core-3.14.0-map-extracting-by-key"><code>extractingByKey(KEY, InstanceOfAssertFactory)</code></a> to <code>Map</code> assertions. (Stefano Cordio)</p>
+</li>
+<li>
+<p>Add <a href="#assertj-core-3.14.0-optional-get"><code>get(InstanceOfAssertFactory)</code></a> to <code>Optional</code> assertions. (Stefano Cordio)</p>
+</li>
+<li>
+<p>Add <a href="#assertj-core-3.14.0-iterable-first"><code>first(InstanceOfAssertFactory)</code></a> to <code>Iterable</code> assertions. (Stefano Cordio)</p>
+</li>
+<li>
+<p>Add <a href="#assertj-core-3.14.0-iterable-last"><code>last(InstanceOfAssertFactory)</code></a> to <code>Iterable</code> assertions. (Stefano Cordio)</p>
+</li>
+<li>
+<p>Add <a href="#assertj-core-3.14.0-iterable-element"><code>element(int, InstanceOfAssertFactory)</code></a> to <code>Iterable</code> assertions. (Stefano Cordio)</p>
+</li>
+<li>
+<p>Add IntelliJ IDEA regexp smart to AssertJ methods taking regexes. (Jonas Berlin)</p>
+</li>
+<li>
+<p>Add <code>String.format</code> support for <a href="#assertj-core-3.14.0-throwable-assertions-string-format">expected message</a> in <code>hasMessageStartingWith</code>, <code>hasMessageContaining</code>, <code>hasMessageEndingWith</code> and <code>hasStackTraceContaining</code> assertions.  (Krishna Chaithanya Ganta)</p>
+</li>
+</ul>
+</div>
+<div id="assertj-core-3.14.0-improvements" class="paragraph">
+<p><span class="release-note-category"><span class="icon"><i class="fa fa-arrow-circle-up"></i></span> Improvements</span></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>AssertJ&#8217;s javadoc are now searchable.</p>
+</li>
+<li>
+<p>Use beautiful AssertJ&#8217;s site code style for javadoc :)</p>
+</li>
+<li>
+<p><code>ObjectAssert.extracting(String&#8230;&#8203;)</code> learned to extract <a href="#assertj-core-3.14.0-extract-nested-map">nested map key field/property</a>. (Sven Johansson)</p>
+</li>
+<li>
+<p>Prettify <code>allOf</code> and <code>anyOf</code> <a href="#assertj-core-3.14.0-combined-condition-description">combined conditions description</a>. (Edgar Asatryan)</p>
+</li>
+<li>
+<p>Clearly differentiate top level objects in the new recursive comparison.</p>
+</li>
+<li>
+<p>Show actual&#8217;s stack trace in <code>hasRootCause</code> and <code>hasRootCauseMessage</code> to give users more information. (Oleksii Khomchenko)</p>
+</li>
+<li>
+<p>Show actual&#8217;s stack trace in <code>hasMessageMatching</code> and <code>hasMessageFindingMatch</code> to give users more information. (Stephen O&#8217;Rourke)</p>
+</li>
+<li>
+<p>Update message text in <code>ShouldHaveSameSizeAs</code> to show both actual and expected collections. (Thami Inaflas)</p>
+</li>
+<li>
+<p>Add <a href="#assertj-core-3.14.0-hamcrest-matching"><code>matching</code> syntactic sugar method</a> to use Hamcrest Matcher as Condition. (Jonas Berlin)</p>
+</li>
+<li>
+<p>Update ByteBuddy to version 1.10.2.</p>
+</li>
+<li>
+<p>Fix javadoc typos and incorrect references. (Erhard Pointl, Stefano Cordio)</p>
+</li>
+<li>
+<p>Stop throwing an <code>IllegalArgumentException</code> when <code>isIn</code> and <code>isNotIn</code> are given an empty group of values.</p>
+</li>
+<li>
+<p>Expose <code>AbstractAssert.objects</code> to be used by subclasses.</p>
+</li>
+<li>
+<p>Bump opentest4j from 1.1.1 to 1.2.0. (still optional)</p>
+</li>
+<li>
+<p>Improve <code>HamcrestCondition</code> generic type inference. (Carter Kozak)</p>
+</li>
+<li>
+<p>Remove <code>shouldHaveThrown(Assertion.class)</code> used internally. (sowmiyamuthuraman)</p>
+</li>
+<li>
+<p>Replace <code>catchThrowable</code> + <code>isInstanceOf(AssertionError.class)</code> by <code>expectAssertionError</code> (internal use). (Clemens Grabmann)</p>
+</li>
+<li>
+<p>Rewrite <code>CompletableFutureAssert</code> tests with <code>assertThatAssertionErrorIsThrownBy</code>.  (internal use). (Clemens Grabmann)</p>
+</li>
+</ul>
+</div>
+<div id="assertj-core-3.14.0-fixed" class="paragraph">
+<p><span class="release-note-category"><span class="icon"><i class="fa fa-wrench"></i></span> Fixed</span></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Fix <code>BDDSoftAssertions.then(URL actual)</code> that just did not work 🤦‍. (Rob Spieldenner)</p>
+</li>
+<li>
+<p>Fix possible <code>MissingFormatArgumentException</code> in <code>ShouldHaveMessage</code> and <code>ShouldContain</code>. (Erhard Pointl)</p>
+</li>
+<li>
+<p>Fix javadoc search.</p>
+</li>
+<li>
+<p>Fix javadoc links. (Stefano Cordio)</p>
+</li>
+<li>
+<p>Fix <code>hasSizeBetween()</code> that did not work with strings. (Geoffrey Arthaud)</p>
+</li>
+<li>
+<p>Fix failing soft assertions when combined with <code>asInstanceOf</code>.</p>
+</li>
+<li>
+<p>Fix missing soft assertions proxying for <code>get</code> of <code>OptionalAssert</code>. (Stefano Cordio)</p>
+</li>
+<li>
+<p>Make <code>convert-junit-assertions-to-assertj.sh</code> conversion script work on Windows. (Michael Keppler)</p>
+</li>
+</ul>
+</div>
+<div id="assertj-core-3.14.0-deprecated" class="paragraph">
+<p><span class="release-note-category"><span class="icon"><i class="fa fa-ban"></i></span> Deprecated</span></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Deprecate the confusing <code>containsOnlyElementsOf</code> in favor of <code>isSubsetOf</code> or <code>hasSameElementsAs</code>.</p>
+</li>
+<li>
+<p>Deprecate <code>Map</code> assertions <code>extracting(Object)</code> and <code>extracting(Object&#8230;&#8203;)</code> in favor of <code>extractingByKey(KEY)</code> and <code>extractingByKeys(KEY&#8230;&#8203;)</code>, respectively. (Stefano Cordio)</p>
+</li>
+</ul>
+</div>
+<div id="assertj-core-3.14.0-bdd-assumptions" class="paragraph">
+<p><span class="release-note-item">Add BDD assumptions</span></p>
+</div>
+<div class="paragraph">
+<p>Add Behavior Driven Development style entry point for assumption methods for different types, which allow to skip test execution when assumptions are not met.</p>
+</div>
+<div class="paragraph">
+<p>The difference with the <code>Assumptions</code> class is that entry point methods are named <code>given</code> instead of <code>assumeThat</code>.</p>
+</div>
+<div class="paragraph">
+<p>Example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">String hobbit = "HOBBIT";
+List&lt;String&gt; fellowshipOfTheRing = list("Aragorn", "Gandalf", "Frodo", "Legolas");
+
+@Test
+public void given_the_assumption_is_not_met_the_test_is_skipped() {
+  given(hobbit).isEqualTo("ORC");
+  // ... following code is not executed, the test is skipped
+  then(fellowshipOfTheRing).contains("Sauron");
+}
+
+@Test
+public void given_the_assumption_is_met_the_test_is_executed() {
+  given(hobbit).isEqualTo("HOBBIT");
+  // ... following code is executed and fails!
+  then(fellowshipOfTheRing).doesNotContain("Sauron");
+}</code></pre>
+</div>
+</div>
+<div id="assertj-core-3.14.0-spliterator-assertions" class="paragraph">
+<p><span class="release-note-item">Add <code>Spliterator</code> assertions</span></p>
+</div>
+<div class="paragraph">
+<p>Add <code>hasCharacteristics</code> and <code>hasOnlyCharacteristics</code> assertions for the <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Spliterator.html?is-external=true"><code>Spliterator</code></a> type.</p>
+</div>
+<div class="paragraph">
+<p>Example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">Spliterator&lt;Integer&gt; spliterator = Stream.of(1, 2, 3).spliterator();
+
+assertThat(spliterator).hasCharacteristics(Spliterator.SIZED,
+                                           Spliterator.ORDERED)
+                       .hasOnlyCharacteristics(Spliterator.SIZED,
+                                               Spliterator.SUBSIZED,
+                                               Spliterator.IMMUTABLE,
+                                               Spliterator.ORDERED);</code></pre>
+</div>
+</div>
+<div id="assertj-core-3.14.0-isAtSameInstantAs" class="paragraph">
+<p><span class="release-note-item">Add <code>isAtSameInstantAs</code> to <code>OffsetDateTime</code> assertions</span></p>
+</div>
+<div class="paragraph">
+<p>Verifies that actual and given <code>OffsetDateTime</code> are at the same <code>Instant</code>.</p>
+</div>
+<div class="paragraph">
+<p>Example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">OffsetDateTime offsetDateTime1 = OffsetDateTime.of(2000, 12, 12, 3, 0, 0, 0, ZoneOffset.ofHours(3));
+OffsetDateTime offsetDateTime2 = OffsetDateTime.of(2000, 12, 12, 0, 0, 0, 0, ZoneOffset.ofHours(0));
+// assertion succeeds
+assertThat(offsetDateTime1).isAtSameInstantAs(offsetDateTime2);
+
+offsetDateTime2 = OffsetDateTime.of(2000, 12, 12, 2, 0, 0, 0, ZoneOffset.ofHours(0));
+// assertion fails
+assertThat(offsetDateTime1).isAtSameInstantAs(offsetDateTime2);</code></pre>
+</div>
+</div>
+<div id="assertj-core-3.14.0-assertAlso" class="paragraph">
+<p><span class="release-note-item">Add <code>assertAlso</code> <code>SoftAssertions</code> method to allow combining different soft assertions instances</span></p>
+</div>
+<div class="paragraph">
+<p><code>assertAlso</code> lets you combine other soft assertions instances together.</p>
+</div>
+<div class="paragraph">
+<p>Example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">public SoftAssertions check_kitchen() {
+  SoftAssertions softly = new SoftAssertions();
+  softly.assertThat(mansion.kitchen()).as("Kitchen").isEqualTo("clean");
+  return softly;
+}
+
+public SoftAssertions check_library() {
+  SoftAssertions softly = new SoftAssertions();
+  softly.assertThat(mansion.library()).as("Library").isEqualTo("clean");
+  return softly;
+}
+
+@Test
+public void host_dinner_party_where_nobody_dies() {
+  Mansion mansion = new Mansion();
+  mansion.hostPotentiallyMurderousDinnerParty();
+  softly.assertThat(mansion.guests()).as("Living Guests").isEqualTo(7);
+  softly.assertThat(mansion.revolverAmmo()).as("Revolver Ammo").isEqualTo(6);
+  softly.assertThat(mansion.candlestick()).as("Candlestick").isEqualTo("pristine");
+  softly.assertThat(mansion.colonel()).as("Colonel").isEqualTo("well kempt");
+  softly.assertThat(mansion.professor()).as("Professor").isEqualTo("well kempt");
+
+  SoftAssertions kitchen = check_kitchen();
+  softly.assertAlso(kitchen);
+
+  SoftAssertions library = check_library();
+  softly.assertAlso(library);
+
+  softly.assertAll();
+}</code></pre>
+</div>
+</div>
+<div id="assertj-core-3.14.0-isEmpty-isNotEmpty-file-assertions" class="paragraph">
+<p><span class="release-note-item">Add <code>isEmpty</code> and <code>isNotEmpty</code> file assertions</span></p>
+</div>
+<div class="paragraph">
+<p>Verify that the actual <code>File</code> is empty (i.e. the file size = 0) or not empty (i.e. the file size &gt; 0) .</p>
+</div>
+<div class="paragraph">
+<p>Example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">File file = File.createTempFile("tmp", "txt");
+
+// assertion will pass
+assertThat(file).isEmpty();
+
+Files.write(file.toPath(), new byte[]{1, 1});
+
+// assertion will pass
+assertThat(file).isNotEmpty();</code></pre>
+</div>
+</div>
+<div id="assertj-core-3.14.0-hasSize" class="paragraph">
+<p><span class="release-note-item">Add <code>hasSize(long expectedSizeInBytes)</code> to <code>File</code> assertions</span></p>
+</div>
+<div class="paragraph">
+<p>Verifies that the size of the <code>File</code> under test is exactly equal to the given size in <strong>bytes</strong>.</p>
+</div>
+<div class="paragraph">
+<p>Example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">File file = File.createTempFile("tmp", "bin");
+Files.write(file.toPath(), new byte[] {1, 1});
+
+// assertion will pass
+assertThat(file).hasSize(2);
+
+// assertion will fail
+assertThat(file).hasSize(1);</code></pre>
+</div>
+</div>
+<div id="assertj-core-3.14.0-bdd-assertions-and" class="paragraph">
+<p><span class="release-note-item">Avoid BDDMockito/BDDAssertions <code>then(object)</code> clash with <code>and.then(object)</code></span></p>
+</div>
+<div class="paragraph">
+<p>To avoid clash with libraries like Mockito that exposes a static <code>then(object)</code> method, you can statically use the <code>and</code> field.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">import static org.mockito.BDDMockito.then;
+// can't use import static org.assertj.core.api.BDDAssertions.then because of BDDMockito.then;
+import static org.assertj.core.api.BDDAssertions.and;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+
+// suppress and.then warning: The static method BDDAssertions.then() should be accessed in a static way
+@SuppressWarnings("static-access")
+@Test
+public void bdd_assertions_with_bdd_mockito() {
+  // GIVEN
+  Person person = mock(Person.class)
+  // WHEN
+  person.ride(bike);
+  person.ride(bike);
+  // THEN
+  // mockito then()
+  then(person).should(times(2)).ride(bike);
+  // use AssertJ and.then(person) as then(person) would clash with mockito then(person)
+  and.then(person.hasBike()).isTrue();
+}</code></pre>
+</div>
+</div>
+<div id="assertj-core-3.14.0-hasRootCauseMessage" class="paragraph">
+<p><span class="release-note-item">Add <code>hasRootCauseMessage</code> to <code>Throwable</code> assertions</span></p>
+</div>
+<div class="paragraph">
+<p>Verifies that the message of the root cause of the actual <code>Throwable</code> is equal to the given one, a simple <code>String</code> or <code>String.format</code> is supported to specify the expected root cause message.</p>
+</div>
+<div class="paragraph">
+<p>Example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">Throwable throwable = new Throwable(new IllegalStateException(new NullPointerException("expected message")));
+
+// assertions will pass
+assertThat(throwable).hasRootCauseMessage("expected message")
+                     .hasRootCauseMessage("expected %s", "message");
+
+// assertions will fail
+assertThat(throwable).hasRootCauseMessage("another message");
+assertThat(throwable).hasRootCauseMessage("%s", "message");
+// no root cause message
+assertThat(new Throwable()).hasRootCauseMessage("%s %s", "expected", "message");</code></pre>
+</div>
+</div>
+<div id="assertj-core-3.14.0-as-instance-of-assert-factory" class="paragraph">
+<p><span class="release-note-item">Add syntax sugar <code>as(InstanceOfAssertFactory)</code> to <code>Assertions</code> and <code>WithAssertions</code> for improved readability</span></p>
+</div>
+<div class="paragraph">
+<p>A syntax sugar to write fluent assertion with methods having an <code>InstanceOfAssertFactory</code> parameter. Added as a static method in <code>Assertions</code>, it is also available as a default method in the <code>WithAssertions</code> interface.</p>
+</div>
+<div class="paragraph">
+<p>Example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">Jedi yoda = new Jedi("Yoda", "Green");
+
+assertThat(yoda).extracting(Jedi::getName, as(InstanceOfAssertFactories.STRING))
+                .startsWith("Yo");</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>as(InstanceOfAssertFactory)</code> can be used together with the following assertion methods:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="#assertj-core-3.14.0-extracting-string"><code>ObjectAssert#extracting(String, InstanceOfAssertFactory)</code></a></p>
+</li>
+<li>
+<p><a href="#assertj-core-3.14.0-extracting-function"><code>ObjectAssert#extracting(Function, InstanceOfAssertFactory)</code></a></p>
+</li>
+<li>
+<p><a href="#assertj-core-3.14.0-map-extracting-by-key"><code>MapAssert#extractingByKey(KEY, InstanceOfAssertFactory)</code></a></p>
+</li>
+<li>
+<p><a href="#assertj-core-3.14.0-optional-get"><code>OptionalAssert#get(InstanceOfAssertFactory)</code></a></p>
+</li>
+</ul>
+</div>
+<div id="assertj-core-3.14.0-extracting-string" class="paragraph">
+<p><span class="release-note-item">Add <code>extracting</code> with <code>String</code> and <code>InstanceOfAssertFactory</code> parameters to <code>Object</code> assertions</span></p>
+</div>
+<div class="paragraph">
+<p>Extracts the value of given field/property from the object under test, the extracted value becoming the new object under test.
+The <code>InstanceOfAssertFactory</code> parameter is used to get the assertions narrowed to the factory type.</p>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">// Create frodo, setting its name, age and Race (Race having a name property)
+TolkienCharacter frodo = new TolkienCharacter("Frodo", 33, HOBBIT);
+
+// let's extract and verify Frodo's name:
+assertThat(frodo).extracting("name", as(InstanceOfAssertFactories.STRING))
+                 .startsWith("Fro");
+
+// The following assertion will fail as Frodo's name is not an Integer:
+assertThat(frodo).extracting("name", as(InstanceOfAssertFactories.INTEGER))
+                 .isZero();</code></pre>
+</div>
+</div>
+<div id="assertj-core-3.14.0-extracting-function" class="paragraph">
+<p><span class="release-note-item">Add <code>extracting</code> with <code>Function</code> and <code>InstanceOfAssertFactory</code> parameters to <code>Object</code> assertions</span></p>
+</div>
+<div class="paragraph">
+<p>Uses the given <code>Function</code> to extract a value from the object under test, the extracted value becoming the new object under test.
+The <code>InstanceOfAssertFactory</code> parameter is used to get the assertions narrowed to the factory type.</p>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">// Create frodo, setting its name, age and Race (Race having a name property)
+TolkienCharacter frodo = new TolkienCharacter("Frodo", 33, HOBBIT);
+
+// let's extract and verify Frodo's name:
+assertThat(frodo).extracting(TolkienCharacter::getName, as(InstanceOfAssertFactories.STRING))
+                 .startsWith("Fro");
+
+// The following assertion will fail as Frodo's name is not an Integer:
+assertThat(frodo).extracting(TolkienCharacter::getName, as(InstanceOfAssertFactories.INTEGER))
+                 .isZero();</code></pre>
+</div>
+</div>
+<div id="assertj-core-3.14.0-map-extracting-by-key" class="paragraph">
+<p><span class="release-note-item">Add <code>extractingByKey</code> with <code>KEY</code> and <code>InstanceOfAssertFactory</code> parameters to <code>Map</code> assertions</span></p>
+</div>
+<div class="paragraph">
+<p>Extracts the value of given key from the map under test, the extracted value becoming the new object under test.
+The <code>InstanceOfAssertFactory</code> parameter is used to get the assertions narrowed to the factory type.</p>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">Map&lt;String, Object&gt; map = new HashMap&lt;&gt;();
+map.put("name", "kawhi");
+
+// The following assertion will succeed:
+assertThat(map).extractingByKey("name", as(InstanceOfAssertFactories.STRING))
+               .startsWith("kaw");
+
+// The following assertion will fail as the value is not an Integer:
+assertThat(map).extractingByKey("name", as(InstanceOfAssertFactories.INTEGER))
+               .isZero();</code></pre>
+</div>
+</div>
+<div id="assertj-core-3.14.0-optional-get" class="paragraph">
+<p><span class="release-note-item">Add <code>get</code> with <code>InstanceOfAssertFactory</code> parameters to <code>Optional</code> assertions</span></p>
+</div>
+<div class="paragraph">
+<p>Verifies that the optional is not <code>null</code> and not empty and returns an new assertion instance to chain assertions on the optional value.
+The <code>InstanceOfAssertFactory</code> parameter is used to get the assertions narrowed to the factory type.</p>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">Optional&lt;String&gt; optional = Optional.of("Frodo");
+
+// The following assertion will succeed:
+assertThat(optional).get(as(InstanceOfAssertFactories.STRING))
+                    .startsWith("Fro");
+
+// The following assertion will fail as the value is not an Integer:
+assertThat(optional).get(as(InstanceOfAssertFactories.INTEGER))
+                    .isZero();</code></pre>
+</div>
+</div>
+<div id="assertj-core-3.14.0-iterable-first" class="paragraph">
+<p><span class="release-note-item">Add <code>first</code> with <code>InstanceOfAssertFactory</code> parameters to <code>Iterable</code> assertions</span></p>
+</div>
+<div class="paragraph">
+<p>Navigates and allows to perform assertions on the first element of the <code>Iterable</code> under test.
+The <code>InstanceOfAssertFactory</code> parameter is used to get the assertions narrowed to the factory type.</p>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">Iterable&lt;String&gt; hobbits = newArrayList("Frodo", "Sam", "Pippin");
+
+// assertion succeeds
+assertThat(hobbits).first(as(InstanceOfAssertFactories.STRING))
+                   .startsWith("Fro")
+                   .endsWith("do");
+// assertion fails
+assertThat(hobbits).first(as(InstanceOfAssertFactories.STRING))
+                   .startsWith("Pip");
+// assertion fails because of wrong factory type
+assertThat(hobbits).first(as(InstanceOfAssertFactories.INTEGER))
+                   .isZero();</code></pre>
+</div>
+</div>
+<div id="assertj-core-3.14.0-iterable-last" class="paragraph">
+<p><span class="release-note-item">Add <code>last</code> with <code>InstanceOfAssertFactory</code> parameters to <code>Iterable</code> assertions</span></p>
+</div>
+<div class="paragraph">
+<p>Navigates and allows to perform assertions on the last element of the <code>Iterable</code> under test.
+The <code>InstanceOfAssertFactory</code> parameter is used to get the assertions narrowed to the factory type.</p>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">Iterable&lt;String&gt; hobbits = newArrayList("Frodo", "Sam", "Pippin");
+
+// assertion succeeds
+assertThat(hobbits).last(as(InstanceOfAssertFactories.STRING))
+                   .startsWith("Pip")
+                   .endsWith("pin");
+// assertion fails
+assertThat(hobbits).last(as(InstanceOfAssertFactories.STRING))
+                   .startsWith("Fro");
+// assertion fails because of wrong factory type
+assertThat(hobbits).last(as(InstanceOfAssertFactories.INTEGER))
+                   .isZero();</code></pre>
+</div>
+</div>
+<div id="assertj-core-3.14.0-iterable-element" class="paragraph">
+<p><span class="release-note-item">Add <code>element</code> with <code>InstanceOfAssertFactory</code> parameters to <code>Iterable</code> assertions</span></p>
+</div>
+<div class="paragraph">
+<p>Navigates and allows to perform assertions on the chosen element of the <code>Iterable</code> under test.
+The <code>InstanceOfAssertFactory</code> parameter is used to get the assertions narrowed to the factory type.</p>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">Iterable&lt;String&gt; hobbits = newArrayList("Frodo", "Sam", "Pippin");
+
+// assertion succeeds
+assertThat(hobbits).element(1, as(InstanceOfAssertFactories.STRING))
+                   .startsWith("Sa")
+                   .endsWith("am");
+// assertion fails
+assertThat(hobbits).element(1, as(InstanceOfAssertFactories.STRING))
+                   .startsWith("Fro");
+// assertion fails because of wrong factory type
+assertThat(hobbits).element(1, as(InstanceOfAssertFactories.INTEGER))
+                   .isZero();</code></pre>
+</div>
+</div>
+<div id="assertj-core-3.14.0-throwable-assertions-string-format" class="paragraph">
+<p><span class="release-note-item">Add <code>String.format</code> support for expected message in <code>hasMessageStartingWith</code>, <code>hasMessageContaining</code>, <code>hasMessageEndingWith</code> and <code>hasStackTraceContaining</code> assertions</span></p>
+</div>
+<div class="paragraph">
+<p>Instead of taking a simple <code>String</code> the assertions mentioned above now accept a <code>String.format</code> like parameters, i.e. <code>(String description, Object&#8230;&#8203; parameters)</code> making it easier to build more involved expected strings.</p>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">Throwable throwableWithMessage = new IllegalArgumentException("wrong amount 123");
+
+assertThat(throwableWithMessage).hasMessageStartingWith("%s a", "wrong")
+                                .hasMessageContaining("wrong %s", "amount")
+                                .hasMessageEndingWith("%s 123", "amount")
+                                .hasStackTraceContaining("%s amount", "wrong");</code></pre>
+</div>
+</div>
+<div id="assertj-core-3.14.0-extract-nested-map" class="paragraph">
+<p><span class="release-note-item"><code>ObjectAssert.extracting(String&#8230;&#8203;)</code> learned to extract nested map key field/property</span></p>
+</div>
+<div class="paragraph">
+<p><code>extracting</code> is now able to extract a deeply nested map key, before this improvement extracting a value by key was only supported for a <code>Map</code> object under test (but not for fields of type <code>Map</code>).</p>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s clarify things with a concrete example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">Jedi luke = new Jedi(new Name("Luke", "Skywalker"), 26);
+// setAttribute puts a new entry in 'attributes' Map field
+luke.setAttribute("side", "light");
+
+Jedi leia = new Jedi(new Name("Leia", "Skywalker"), 26);
+// setRelation puts a new entry in 'relations' Map field
+luke.setRelation("sister", leia);
+leia.setRelation("brother", luke);
+
+assertThat(luke).extracting("name.last",
+                            "attributes.side",
+                            "relations.sister",
+                            "relations.sister.relations.brother")
+                .containsExactly("Skywalker",
+                                 "light",
+                                 leia,
+                                 luke);</code></pre>
+</div>
+</div>
+<div id="assertj-core-3.14.0-combined-condition-description" class="paragraph">
+<p><span class="release-note-item">Prettify <code>allOf</code> and <code>anyOf</code> combined conditions description</span></p>
+</div>
+<div class="paragraph">
+<p>To make it more readable, reformat the error message when multiple combined conditions with <code>allOf</code> and <code>anyOf</code> fail.</p>
+</div>
+<div class="paragraph">
+<p>Examples: the following assertion will fail &#8230;&#8203;</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">private static Condition&lt;String&gt; contains(String s) {
+  return new Condition&lt;&gt;(value -&gt; value.contains(s), "contains " + s);
+}
+
+// failing assertion:
+assertThat("Gandalf").has(anyOf(contains("i"),
+                                allOf(contains("o"),
+                                      anyOf(contains("a"),
+                                            contains("b"),
+                                            contains("c")))));</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>With the following error message</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">Expecting:
+ &lt;"Gandalf"&gt;
+to have:
+ &lt;any of:[
+   contains i,
+   all of:[
+      contains o,
+      any of:[
+         contains a,
+         contains b,
+         contains c
+      ]
+   ]
+]&gt;</code></pre>
+</div>
+</div>
+<div id="assertj-core-3.14.0-hamcrest-matching" class="paragraph">
+<p><span class="release-note-item">Add <code>matching</code> syntactic sugar method to use Hamcrest Matcher as <code>Condition</code></span></p>
+</div>
+<div class="paragraph">
+<p>Syntactic sugar to construct a <code>Condition</code> using the Hamcrest Matcher given as a parameter.</p>
+</div>
+<div class="paragraph">
+<p>Example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.HamcrestCondition.matching;
+import static org.hamcrest.core.StringContains.containsString;
+
+@Test
+public void matching_example() {
+ assertThat("abc").is(matching(containsString("a")));
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="assertj-core-3-13-2-release-notes"><a class="anchor" href="#assertj-core-3-13-2-release-notes"></a>7.1.2. AssertJ Core 3.13.2 Release notes</h4>
 <div class="paragraph">
 <p>Release date : 2019-08-04</p>
 </div>
@@ -5100,7 +5832,7 @@ AssertJ Core would not exist without its contributors, you can find them all <a 
 </div>
 </div>
 <div class="sect3">
-<h4 id="assertj-core-3-13-1-release-notes"><a class="anchor" href="#assertj-core-3-13-1-release-notes"></a>7.1.2. AssertJ Core 3.13.1 Release notes</h4>
+<h4 id="assertj-core-3-13-1-release-notes"><a class="anchor" href="#assertj-core-3-13-1-release-notes"></a>7.1.3. AssertJ Core 3.13.1 Release notes</h4>
 <div class="paragraph">
 <p>Release date : 2019-07-29</p>
 </div>
@@ -5134,7 +5866,7 @@ AssertJ Core would not exist without its contributors, you can find them all <a 
 </div>
 </div>
 <div class="sect3">
-<h4 id="assertj-core-3-13-0-release-notes"><a class="anchor" href="#assertj-core-3-13-0-release-notes"></a>7.1.3. AssertJ Core 3.13.0 Release notes</h4>
+<h4 id="assertj-core-3-13-0-release-notes"><a class="anchor" href="#assertj-core-3-13-0-release-notes"></a>7.1.4. AssertJ Core 3.13.0 Release notes</h4>
 <div class="paragraph">
 <p>Release date : 2019-07-28</p>
 </div>
@@ -5168,7 +5900,7 @@ assertThat(value).asInstanceOf(InstanceOfAssertFactories.STRING).startsWith("ab"
 <p>Pascal Schumacher, Erhard Pointl, Stefano Cordio, Thomas Traude, Andrei Solntsev, Matej Drobnič, Željko Mirović, Mike Gilchrist, Phillip Webb, Michal Fotyga,Valeriy Vyrva, Eddú Meléndez Gonzales, GaspardPO, Bengt Brodersen, Jiri Pejchal, Christian Stein, Nikolaos Georgiou and Sam Brannen.</p>
 </div>
 <div class="paragraph">
-<p>Special thanks to Nils Winkler for his work on the assertions convertion scripts and Stefano Cordio for the <code>asInstanceOf</code> contribution.</p>
+<p>Special thanks to Nils Winkler for his work on the assertions conversion scripts and Stefano Cordio for the <code>asInstanceOf</code> contribution.</p>
 </div>
 <div id="assertj-core-3.13.0-breaking-changes" class="paragraph">
 <p><span class="release-note-category"><span class="icon"><i class="fa fa-exclamation-triangle"></i></span> Breaking changes</span></p>
@@ -5888,7 +6620,7 @@ assertThat(yoda).extracting(Jedi::getName) // ObjectAssert&lt;String&gt;
 </div>
 </div>
 <div class="sect3">
-<h4 id="assertj-core-3-12-2-release-notes"><a class="anchor" href="#assertj-core-3-12-2-release-notes"></a>7.1.4. AssertJ Core 3.12.2 Release notes</h4>
+<h4 id="assertj-core-3-12-2-release-notes"><a class="anchor" href="#assertj-core-3-12-2-release-notes"></a>7.1.5. AssertJ Core 3.12.2 Release notes</h4>
 <div class="paragraph">
 <p>The main issue fixed was to ignore static methods when finding property accessors (contributed by Andy Wilkinson) which could break some tests since bare name method introspection was introduced in 3.12.0.</p>
 </div>
@@ -5897,13 +6629,13 @@ assertThat(yoda).extracting(Jedi::getName) // ObjectAssert&lt;String&gt;
 </div>
 </div>
 <div class="sect3">
-<h4 id="assertj-core-3-12-1-release-notes"><a class="anchor" href="#assertj-core-3-12-1-release-notes"></a>7.1.5. AssertJ Core 3.12.1 Release notes</h4>
+<h4 id="assertj-core-3-12-1-release-notes"><a class="anchor" href="#assertj-core-3-12-1-release-notes"></a>7.1.6. AssertJ Core 3.12.1 Release notes</h4>
 <div class="paragraph">
 <p>Fix a regression that included a bad module-info.class (thanks Jaro Kuruc) and other minor improvements.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="assertj-core-3-12-0-release-notes"><a class="anchor" href="#assertj-core-3-12-0-release-notes"></a>7.1.6. AssertJ Core 3.12.0 Release notes</h4>
+<h4 id="assertj-core-3-12-0-release-notes"><a class="anchor" href="#assertj-core-3-12-0-release-notes"></a>7.1.7. AssertJ Core 3.12.0 Release notes</h4>
 <div class="paragraph">
 <p>Release date : 2019-02-14</p>
 </div>
@@ -6130,7 +6862,7 @@ Bare-named property introspection is enabled by default and thus changes AssertJ
 <div id="footer">
 <div id="footer-text">
 Version 0.9.9<br>
-Last updated 2019-08-04 15:43:05 CEST
+Last updated 2019-10-27 21:12:39 NZDT
 </div>
 </div>
 <link rel="stylesheet" href="highlight/styles/railscasts.min.css">
