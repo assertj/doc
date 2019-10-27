@@ -26,12 +26,555 @@ NOTE: AssertJ Core would not exist without its contributors, you can find them a
 
 Latest release notes:
 
+- link:#assertj-core-3-14-0-release-notes[AssertJ Core 3.14.0 release notes]
 - link:#assertj-core-3-13-2-release-notes[AssertJ Core 3.13.2 release notes]
 - link:#assertj-core-3-13-1-release-notes[AssertJ Core 3.13.1 release notes]
 - link:#assertj-core-3-13-0-release-notes[AssertJ Core 3.13.0 release notes]
 - link:#assertj-core-3-12-2-release-notes[AssertJ Core 3.12.2 release notes]
 - link:#assertj-core-3-12-1-release-notes[AssertJ Core 3.12.1 release notes]
 - link:#assertj-core-3-12-0-release-notes[AssertJ Core 3.12.0 release notes]
+
+==== AssertJ Core 3.14.0 Release notes
+
+Release date : 2019-xx-xx
+
+[[assertj-core-3.14.0-contributors]]
+[.release-note-category]#icon:user[] Contributors#
+
+Thanks to all the contributors of this release: Erhard Pointl, Stefano Cordio, Jonas Berlin, Thami Inaflas, Geoffrey Arthaud, Carter Kozak, Kevin Toublanc, Krishna Chaithanya Ganta,sowmiyamuthuraman, Edgar Asatryan, Oleksii Khomchenko, Gonzalo Müller Bravo, Stephen O'Rourke, Sven Johansson, William Bakker, Rob Spieldenner, Raymond Pressly, Michael Keppler and Clemens Grabmann.
+
+[[assertj-core-3.14.0-breaking-changes]]
+[.release-note-category]#icon:exclamation-triangle[] Breaking changes#
+
+- Stop throwing an `IllegalArgumentException` when `isIn` and `isNotIn` are given an empty group of values.
+
+[[assertj-core-3.14.0-new-features]]
+[.release-note-category]#icon:plus-circle[] New features#
+
+- Add link:#assertj-core-3.14.0-bdd-assumptions[BDD assumptions]. (Gonzalo Müller Bravo)
+- Add link:#assertj-core-3.14.0-spliterator-assertions[`Spliterator` assertions]. (William Bakker)
+- Add link:#assertj-core-3.14.0-isAtSameInstantAs[`isAtSameInstantAs`] to `OffsetDateTime` assertions. (Raymond Pressly)
+- Add link:#assertj-core-3.14.0-assertAlso[`assertAlso`] `SoftAssertions` method to allow combining different soft assertions instances. (Kevin Toublanc)
+- Add link:#assertj-core-3.14.0-isEmpty-isNotEmpty-file-assertions[`isEmpty` and `isNotEmpty`] file assertions. (Stephen O'Rourke)
+- Add link:#assertj-core-3.14.0-hasSize[`hasSize(long expectedSizeInBytes)`] to `File` assertions. (Krishna Chaithanya Ganta)
+- Avoid BDDMockito/BDDAssertions `then(object)` clash with link:#assertj-core-3.14.0-bdd-assertions-and[`and.then(object)`] method. (Gonzalo Müller Bravo)
+- Add link:#assertj-core-3.14.0-hasRootCauseMessage[`hasRootCauseMessage`] to `Throwable` assertions. (Oleksii Khomchenko)
+- Add syntax sugar link:#assertj-core-3.14.0-as-instance-of-assert-factory[`as(InstanceOfAssertFactory)`] to `Assertions` and `WithAssertions` for improved readability. (Stefano Cordio)
+- Add link:#assertj-core-3.14.0-extracting-string[`extracting(String, InstanceOfAssertFactory)`] to `Object` assertions. (Stefano Cordio)
+- Add link:#assertj-core-3.14.0-extracting-function[`extracting(Function, InstanceOfAssertFactory)`] to `Object` assertions. (Stefano Cordio)
+- Add `extractingByKey(KEY)` and `extractingByKeys(KEY...)` to `Map` assertions. (Stefano Cordio)
+- Add link:#assertj-core-3.14.0-map-extracting-by-key[`extractingByKey(KEY, InstanceOfAssertFactory)`] to `Map` assertions. (Stefano Cordio)
+- Add link:#assertj-core-3.14.0-optional-get[`get(InstanceOfAssertFactory)`] to `Optional` assertions. (Stefano Cordio)
+- Add link:#assertj-core-3.14.0-iterable-first[`first(InstanceOfAssertFactory)`] to `Iterable` assertions. (Stefano Cordio)
+- Add link:#assertj-core-3.14.0-iterable-last[`last(InstanceOfAssertFactory)`] to `Iterable` assertions. (Stefano Cordio)
+- Add link:#assertj-core-3.14.0-iterable-element[`element(int, InstanceOfAssertFactory)`] to `Iterable` assertions. (Stefano Cordio)
+- Add IntelliJ IDEA regexp smart to AssertJ methods taking regexes. (Jonas Berlin)
+- Add `String.format` support for link:#assertj-core-3.14.0-throwable-assertions-string-format[expected message] in `hasMessageStartingWith`, `hasMessageContaining`, `hasMessageEndingWith` and `hasStackTraceContaining` assertions.  (Krishna Chaithanya Ganta)
+
+[[assertj-core-3.14.0-improvements]]
+[.release-note-category]#icon:arrow-circle-up[] Improvements#
+
+- AssertJ's javadoc are now searchable.
+- Use beautiful AssertJ's site code style for javadoc :)
+- `ObjectAssert.extracting(String...)` learned to extract link:#assertj-core-3.14.0-extract-nested-map[nested map key field/property]. (Sven Johansson)
+- Prettify `allOf` and `anyOf` link:#assertj-core-3.14.0-combined-condition-description[combined conditions description]. (Edgar Asatryan)
+- Clearly differentiate top level objects in the new recursive comparison.
+- Show actual's stack trace in `hasRootCause` and `hasRootCauseMessage` to give users more information. (Oleksii Khomchenko)
+- Show actual's stack trace in `hasMessageMatching` and `hasMessageFindingMatch` to give users more information. (Stephen O'Rourke)
+- Update message text in `ShouldHaveSameSizeAs` to show both actual and expected collections. (Thami Inaflas)
+- Add link:#assertj-core-3.14.0-hamcrest-matching[`matching` syntactic sugar method] to use Hamcrest Matcher as Condition. (Jonas Berlin)
+- Update ByteBuddy to version 1.10.2.
+- Fix javadoc typos and incorrect references. (Erhard Pointl, Stefano Cordio)
+- Stop throwing an `IllegalArgumentException` when `isIn` and `isNotIn` are given an empty group of values.
+- Expose `AbstractAssert.objects` to be used by subclasses.
+- Bump opentest4j from 1.1.1 to 1.2.0. (still optional)
+- Improve `HamcrestCondition` generic type inference. (Carter Kozak)
+- Remove `shouldHaveThrown(Assertion.class)` used internally. (sowmiyamuthuraman)
+- Replace `catchThrowable` + `isInstanceOf(AssertionError.class)` by `expectAssertionError` (internal use). (Clemens Grabmann)
+- Rewrite `CompletableFutureAssert` tests with `assertThatAssertionErrorIsThrownBy`.  (internal use). (Clemens Grabmann)
+
+[[assertj-core-3.14.0-fixed]]
+[.release-note-category]#icon:wrench[] Fixed#
+
+- Fix `BDDSoftAssertions.then(URL actual)` that just did not work 🤦‍. (Rob Spieldenner)
+- Fix possible `MissingFormatArgumentException` in `ShouldHaveMessage` and `ShouldContain`. (Erhard Pointl)
+- Fix javadoc search.
+- Fix javadoc links. (Stefano Cordio)
+- Fix `hasSizeBetween()` that did not work with strings. (Geoffrey Arthaud)
+- Fix failing soft assertions when combined with `asInstanceOf`.
+- Fix missing soft assertions proxying for `get` of `OptionalAssert`. (Stefano Cordio)
+- Make `convert-junit-assertions-to-assertj.sh` conversion script work on Windows. (Michael Keppler)
+
+[[assertj-core-3.14.0-deprecated]]
+[.release-note-category]#icon:ban[] Deprecated#
+
+- Deprecate the confusing `containsOnlyElementsOf` in favor of `isSubsetOf` or `hasSameElementsAs`.
+- Deprecate `Map` assertions `extracting(Object)` and `extracting(Object...)` in favor of `extractingByKey(KEY)` and `extractingByKeys(KEY...)`, respectively. (Stefano Cordio)
+
+
+[[assertj-core-3.14.0-bdd-assumptions]]
+[.release-note-item]#Add BDD assumptions#
+
+Add Behavior Driven Development style entry point for assumption methods for different types, which allow to skip test execution when assumptions are not met.
+
+The difference with the `Assumptions` class is that entry point methods are named `given` instead of `assumeThat`.
+
+Example:
+[source,java,indent=0]
+----
+String hobbit = "HOBBIT";
+List<String> fellowshipOfTheRing = list("Aragorn", "Gandalf", "Frodo", "Legolas");
+
+@Test
+public void given_the_assumption_is_not_met_the_test_is_skipped() {
+  given(hobbit).isEqualTo("ORC");
+  // ... following code is not executed, the test is skipped
+  then(fellowshipOfTheRing).contains("Sauron");
+}
+
+@Test
+public void given_the_assumption_is_met_the_test_is_executed() {
+  given(hobbit).isEqualTo("HOBBIT");
+  // ... following code is executed and fails!
+  then(fellowshipOfTheRing).doesNotContain("Sauron");
+}
+----
+
+[[assertj-core-3.14.0-spliterator-assertions]]
+[.release-note-item]#Add `Spliterator` assertions#
+
+Add `hasCharacteristics` and `hasOnlyCharacteristics` assertions for the link:https://docs.oracle.com/javase/8/docs/api/java/util/Spliterator.html?is-external=true[`Spliterator`] type.
+
+Example:
+[source,java,indent=0]
+----
+Spliterator<Integer> spliterator = Stream.of(1, 2, 3).spliterator();
+
+assertThat(spliterator).hasCharacteristics(Spliterator.SIZED, 
+                                           Spliterator.ORDERED)
+                       .hasOnlyCharacteristics(Spliterator.SIZED,
+                                               Spliterator.SUBSIZED,
+                                               Spliterator.IMMUTABLE,
+                                               Spliterator.ORDERED);
+----
+
+[[assertj-core-3.14.0-isAtSameInstantAs]]
+[.release-note-item]#Add `isAtSameInstantAs` to `OffsetDateTime` assertions#
+
+Verifies that actual and given `OffsetDateTime` are at the same `Instant`.
+
+Example:
+[source,java,indent=0]
+----
+OffsetDateTime offsetDateTime1 = OffsetDateTime.of(2000, 12, 12, 3, 0, 0, 0, ZoneOffset.ofHours(3));
+OffsetDateTime offsetDateTime2 = OffsetDateTime.of(2000, 12, 12, 0, 0, 0, 0, ZoneOffset.ofHours(0));
+// assertion succeeds
+assertThat(offsetDateTime1).isAtSameInstantAs(offsetDateTime2);
+
+offsetDateTime2 = OffsetDateTime.of(2000, 12, 12, 2, 0, 0, 0, ZoneOffset.ofHours(0));
+// assertion fails
+assertThat(offsetDateTime1).isAtSameInstantAs(offsetDateTime2);
+----
+
+[[assertj-core-3.14.0-assertAlso]]
+[.release-note-item]#Add `assertAlso` `SoftAssertions` method to allow combining different soft assertions instances#
+
+`assertAlso` lets you combine other soft assertions instances together.
+
+Example:
+[source,java,indent=0]
+----
+public SoftAssertions check_kitchen() {
+  SoftAssertions softly = new SoftAssertions();
+  softly.assertThat(mansion.kitchen()).as("Kitchen").isEqualTo("clean");
+  return softly;
+}
+
+public SoftAssertions check_library() {
+  SoftAssertions softly = new SoftAssertions();
+  softly.assertThat(mansion.library()).as("Library").isEqualTo("clean");
+  return softly;
+}
+
+@Test
+public void host_dinner_party_where_nobody_dies() {
+  Mansion mansion = new Mansion();
+  mansion.hostPotentiallyMurderousDinnerParty();
+  softly.assertThat(mansion.guests()).as("Living Guests").isEqualTo(7);
+  softly.assertThat(mansion.revolverAmmo()).as("Revolver Ammo").isEqualTo(6);
+  softly.assertThat(mansion.candlestick()).as("Candlestick").isEqualTo("pristine");
+  softly.assertThat(mansion.colonel()).as("Colonel").isEqualTo("well kempt");
+  softly.assertThat(mansion.professor()).as("Professor").isEqualTo("well kempt");
+
+  SoftAssertions kitchen = check_kitchen();
+  softly.assertAlso(kitchen);
+
+  SoftAssertions library = check_library();
+  softly.assertAlso(library);
+
+  softly.assertAll();
+}
+----
+
+[[assertj-core-3.14.0-isEmpty-isNotEmpty-file-assertions]]
+[.release-note-item]#Add `isEmpty` and `isNotEmpty` file assertions#
+
+Verify that the actual `File` is empty (i.e. the file size = 0) or not empty (i.e. the file size > 0) .
+
+Example:
+[source,java,indent=0]
+----
+File file = File.createTempFile("tmp", "txt");
+
+// assertion will pass
+assertThat(file).isEmpty();
+
+Files.write(file.toPath(), new byte[]{1, 1});
+
+// assertion will pass
+assertThat(file).isNotEmpty();
+----
+
+[[assertj-core-3.14.0-hasSize]]
+[.release-note-item]#Add `hasSize(long expectedSizeInBytes)` to `File` assertions#
+
+Verifies that the size of the `File` under test is exactly equal to the given size in *bytes*. 
+
+Example:
+[source,java,indent=0]
+----
+File file = File.createTempFile("tmp", "bin");
+Files.write(file.toPath(), new byte[] {1, 1});
+
+// assertion will pass
+assertThat(file).hasSize(2);
+
+// assertion will fail
+assertThat(file).hasSize(1);
+----
+
+[[assertj-core-3.14.0-bdd-assertions-and]]
+[.release-note-item]#Avoid BDDMockito/BDDAssertions `then(object)` clash with `and.then(object)`#
+
+To avoid clash with libraries like Mockito that exposes a static `then(object)` method, you can statically use the `and` field.
+
+[source,java,indent=0]
+----
+import static org.mockito.BDDMockito.then;
+// can't use import static org.assertj.core.api.BDDAssertions.then because of BDDMockito.then;
+import static org.assertj.core.api.BDDAssertions.and;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+
+// suppress and.then warning: The static method BDDAssertions.then() should be accessed in a static way
+@SuppressWarnings("static-access")
+@Test
+public void bdd_assertions_with_bdd_mockito() {
+  // GIVEN
+  Person person = mock(Person.class)
+  // WHEN
+  person.ride(bike);
+  person.ride(bike);
+  // THEN
+  // mockito then()
+  then(person).should(times(2)).ride(bike);
+  // use AssertJ and.then(person) as then(person) would clash with mockito then(person)
+  and.then(person.hasBike()).isTrue();
+}
+----
+
+[[assertj-core-3.14.0-hasRootCauseMessage]]
+[.release-note-item]#Add `hasRootCauseMessage` to `Throwable` assertions#
+
+Verifies that the message of the root cause of the actual `Throwable` is equal to the given one, a simple `String` or `String.format` is supported to specify the expected root cause message.
+
+Example:
+[source,java,indent=0]
+----
+Throwable throwable = new Throwable(new IllegalStateException(new NullPointerException("expected message")));
+
+// assertions will pass
+assertThat(throwable).hasRootCauseMessage("expected message")
+                     .hasRootCauseMessage("expected %s", "message");
+
+// assertions will fail
+assertThat(throwable).hasRootCauseMessage("another message");
+assertThat(throwable).hasRootCauseMessage("%s", "message");
+// no root cause message
+assertThat(new Throwable()).hasRootCauseMessage("%s %s", "expected", "message");
+----
+
+[[assertj-core-3.14.0-as-instance-of-assert-factory]]
+[.release-note-item]#Add syntax sugar `as(InstanceOfAssertFactory)` to `Assertions` and `WithAssertions` for improved readability#
+
+A syntax sugar to write fluent assertion with methods having an `InstanceOfAssertFactory` parameter. Added as a static method in `Assertions`, it is also available as a default method in the `WithAssertions` interface.
+
+Example:
+[source,java,indent=0]
+----
+Jedi yoda = new Jedi("Yoda", "Green");
+
+assertThat(yoda).extracting(Jedi::getName, as(InstanceOfAssertFactories.STRING))
+                .startsWith("Yo");
+----
+
+`as(InstanceOfAssertFactory)` can be used together with the following assertion methods:
+
+- link:#assertj-core-3.14.0-extracting-string[`ObjectAssert#extracting(String, InstanceOfAssertFactory)`]
+- link:#assertj-core-3.14.0-extracting-function[`ObjectAssert#extracting(Function, InstanceOfAssertFactory)`]
+- link:#assertj-core-3.14.0-map-extracting-by-key[`MapAssert#extractingByKey(KEY, InstanceOfAssertFactory)`]
+- link:#assertj-core-3.14.0-optional-get[`OptionalAssert#get(InstanceOfAssertFactory)`]
+
+[[assertj-core-3.14.0-extracting-string]]
+[.release-note-item]#Add `extracting` with `String` and `InstanceOfAssertFactory` parameters to `Object` assertions#
+
+Extracts the value of given field/property from the object under test, the extracted value becoming the new object under test.
+The `InstanceOfAssertFactory` parameter is used to get the assertions narrowed to the factory type.
+
+Examples:
+[source,java,indent=0]
+----
+// Create frodo, setting its name, age and Race (Race having a name property)
+TolkienCharacter frodo = new TolkienCharacter("Frodo", 33, HOBBIT);
+
+// let's extract and verify Frodo's name:
+assertThat(frodo).extracting("name", as(InstanceOfAssertFactories.STRING))
+                 .startsWith("Fro");
+
+// The following assertion will fail as Frodo's name is not an Integer:
+assertThat(frodo).extracting("name", as(InstanceOfAssertFactories.INTEGER))
+                 .isZero();
+----
+
+[[assertj-core-3.14.0-extracting-function]]
+[.release-note-item]#Add `extracting` with `Function` and `InstanceOfAssertFactory` parameters to `Object` assertions#
+
+Uses the given `Function` to extract a value from the object under test, the extracted value becoming the new object under test.
+The `InstanceOfAssertFactory` parameter is used to get the assertions narrowed to the factory type.
+
+Examples:
+[source,java,indent=0]
+----
+// Create frodo, setting its name, age and Race (Race having a name property)
+TolkienCharacter frodo = new TolkienCharacter("Frodo", 33, HOBBIT);
+
+// let's extract and verify Frodo's name:
+assertThat(frodo).extracting(TolkienCharacter::getName, as(InstanceOfAssertFactories.STRING))
+                 .startsWith("Fro");
+
+// The following assertion will fail as Frodo's name is not an Integer:
+assertThat(frodo).extracting(TolkienCharacter::getName, as(InstanceOfAssertFactories.INTEGER))
+                 .isZero();
+----
+
+[[assertj-core-3.14.0-map-extracting-by-key]]
+[.release-note-item]#Add `extractingByKey` with `KEY` and `InstanceOfAssertFactory` parameters to `Map` assertions#
+
+Extracts the value of given key from the map under test, the extracted value becoming the new object under test.
+The `InstanceOfAssertFactory` parameter is used to get the assertions narrowed to the factory type.
+
+Examples:
+[source,java,indent=0]
+----
+Map<String, Object> map = new HashMap<>();
+map.put("name", "kawhi");
+
+// The following assertion will succeed:
+assertThat(map).extractingByKey("name", as(InstanceOfAssertFactories.STRING))
+               .startsWith("kaw");
+
+// The following assertion will fail as the value is not an Integer:
+assertThat(map).extractingByKey("name", as(InstanceOfAssertFactories.INTEGER))
+               .isZero();
+----
+
+[[assertj-core-3.14.0-optional-get]]
+[.release-note-item]#Add `get` with `InstanceOfAssertFactory` parameters to `Optional` assertions#
+
+Verifies that the optional is not `null` and not empty and returns an new assertion instance to chain assertions on the optional value.
+The `InstanceOfAssertFactory` parameter is used to get the assertions narrowed to the factory type.
+
+Examples:
+[source,java,indent=0]
+----
+Optional<String> optional = Optional.of("Frodo");
+
+// The following assertion will succeed:
+assertThat(optional).get(as(InstanceOfAssertFactories.STRING))
+                    .startsWith("Fro");
+
+// The following assertion will fail as the value is not an Integer:
+assertThat(optional).get(as(InstanceOfAssertFactories.INTEGER))
+                    .isZero();
+----
+
+[[assertj-core-3.14.0-iterable-first]]
+[.release-note-item]#Add `first` with `InstanceOfAssertFactory` parameters to `Iterable` assertions#
+
+Navigates and allows to perform assertions on the first element of the `Iterable` under test.
+The `InstanceOfAssertFactory` parameter is used to get the assertions narrowed to the factory type.
+
+Examples:
+[source,java,indent=0]
+----
+Iterable<String> hobbits = newArrayList("Frodo", "Sam", "Pippin");
+
+// assertion succeeds
+assertThat(hobbits).first(as(InstanceOfAssertFactories.STRING))
+                   .startsWith("Fro")
+                   .endsWith("do");
+// assertion fails
+assertThat(hobbits).first(as(InstanceOfAssertFactories.STRING))
+                   .startsWith("Pip");
+// assertion fails because of wrong factory type
+assertThat(hobbits).first(as(InstanceOfAssertFactories.INTEGER))
+                   .isZero();
+----
+
+[[assertj-core-3.14.0-iterable-last]]
+[.release-note-item]#Add `last` with `InstanceOfAssertFactory` parameters to `Iterable` assertions#
+
+Navigates and allows to perform assertions on the last element of the `Iterable` under test.
+The `InstanceOfAssertFactory` parameter is used to get the assertions narrowed to the factory type.
+
+Examples:
+[source,java,indent=0]
+----
+Iterable<String> hobbits = newArrayList("Frodo", "Sam", "Pippin");
+
+// assertion succeeds
+assertThat(hobbits).last(as(InstanceOfAssertFactories.STRING))
+                   .startsWith("Pip")
+                   .endsWith("pin");
+// assertion fails
+assertThat(hobbits).last(as(InstanceOfAssertFactories.STRING))
+                   .startsWith("Fro");
+// assertion fails because of wrong factory type
+assertThat(hobbits).last(as(InstanceOfAssertFactories.INTEGER))
+                   .isZero();
+----
+
+[[assertj-core-3.14.0-iterable-element]]
+[.release-note-item]#Add `element` with `InstanceOfAssertFactory` parameters to `Iterable` assertions#
+
+Navigates and allows to perform assertions on the chosen element of the `Iterable` under test.
+The `InstanceOfAssertFactory` parameter is used to get the assertions narrowed to the factory type.
+
+Examples:
+[source,java,indent=0]
+----
+Iterable<String> hobbits = newArrayList("Frodo", "Sam", "Pippin");
+
+// assertion succeeds
+assertThat(hobbits).element(1, as(InstanceOfAssertFactories.STRING))
+                   .startsWith("Sa")
+                   .endsWith("am");
+// assertion fails
+assertThat(hobbits).element(1, as(InstanceOfAssertFactories.STRING))
+                   .startsWith("Fro");
+// assertion fails because of wrong factory type
+assertThat(hobbits).element(1, as(InstanceOfAssertFactories.INTEGER))
+                   .isZero();
+----
+
+[[assertj-core-3.14.0-throwable-assertions-string-format]]  
+[.release-note-item]#Add `String.format` support for expected message in `hasMessageStartingWith`, `hasMessageContaining`, `hasMessageEndingWith` and `hasStackTraceContaining` assertions#
+
+Instead of taking a simple `String` the assertions mentioned above now accept a `String.format` like parameters, i.e. `(String description, Object... parameters)` making it easier to build more involved expected strings.
+
+Examples:
+[source,java,indent=0]
+----
+Throwable throwableWithMessage = new IllegalArgumentException("wrong amount 123");
+
+assertThat(throwableWithMessage).hasMessageStartingWith("%s a", "wrong")
+                                .hasMessageContaining("wrong %s", "amount")
+                                .hasMessageEndingWith("%s 123", "amount")
+                                .hasStackTraceContaining("%s amount", "wrong");
+----
+
+[[assertj-core-3.14.0-extract-nested-map]]
+[.release-note-item]#`ObjectAssert.extracting(String...)` learned to extract nested map key field/property#
+
+`extracting` is now able to extract a deeply nested map key, before this improvement extracting a value by key was only supported for a `Map` object under test (but not for fields of type `Map`).
+
+Let's clarify things with a concrete example:
+[source,java,indent=0]
+----
+Jedi luke = new Jedi(new Name("Luke", "Skywalker"), 26);
+// setAttribute puts a new entry in 'attributes' Map field 
+luke.setAttribute("side", "light");
+
+Jedi leia = new Jedi(new Name("Leia", "Skywalker"), 26);
+// setRelation puts a new entry in 'relations' Map field 
+luke.setRelation("sister", leia);
+leia.setRelation("brother", luke);
+
+assertThat(luke).extracting("name.last", 
+                            "attributes.side", 
+                            "relations.sister", 
+                            "relations.sister.relations.brother")
+                .containsExactly("Skywalker", 
+                                 "light", 
+                                 leia, 
+                                 luke);
+----
+
+[[assertj-core-3.14.0-combined-condition-description]]
+[.release-note-item]#Prettify `allOf` and `anyOf` combined conditions description#
+
+To make it more readable, reformat the error message when multiple combined conditions with `allOf` and `anyOf` fail.
+
+Examples: the following assertion will fail ...
+[source,java,indent=0]
+----
+private static Condition<String> contains(String s) {
+  return new Condition<>(value -> value.contains(s), "contains " + s);
+}
+
+// failing assertion:
+assertThat("Gandalf").has(anyOf(contains("i"),
+                                allOf(contains("o"),
+                                      anyOf(contains("a"),
+                                            contains("b"),
+                                            contains("c")))));
+----
+With the following error message
+[source,text,indent=0]
+----
+Expecting:
+ <"Gandalf">
+to have:
+ <any of:[
+   contains i,
+   all of:[
+      contains o,
+      any of:[
+         contains a,
+         contains b,
+         contains c
+      ]
+   ]
+]>
+----
+
+[[assertj-core-3.14.0-hamcrest-matching]]
+[.release-note-item]#Add `matching` syntactic sugar method to use Hamcrest Matcher as `Condition`#
+
+Syntactic sugar to construct a `Condition` using the Hamcrest Matcher given as a parameter. 
+
+Example:
+[source,java,indent=0]
+----
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.HamcrestCondition.matching;
+import static org.hamcrest.core.StringContains.containsString;
+
+@Test
+public void matching_example() {
+ assertThat("abc").is(matching(containsString("a")));
+}
+----
 
 ==== AssertJ Core 3.13.2 Release notes
 
