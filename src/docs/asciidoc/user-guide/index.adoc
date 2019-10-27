@@ -36,7 +36,7 @@ Latest release notes:
 
 ==== AssertJ Core 3.14.0 Release notes
 
-Release date : 2019-xx-xx
+Release date : 2019-10-27
 
 [[assertj-core-3.14.0-contributors]]
 [.release-note-category]#icon:user[] Contributors#
