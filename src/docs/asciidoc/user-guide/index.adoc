@@ -1327,7 +1327,7 @@ This is a bit tedious but an improvement is planned in the next release to provi
 
 === AssertJ Guava
 
-NOTE: AssertJ Guava main documentation is still in http://joel-costigliola.github.io/assertj/assertj-guava.html until it is moved in this website. +
+NOTE: AssertJ Guava main documentation is still in http://joel-costigliola.github.io/assertj/assertj-guava.html until it is moved to this website. +
 The new release notes though will be published here.
 
 Latest release notes:
