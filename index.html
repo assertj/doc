@@ -2470,6 +2470,7 @@ p {
 <li><a href="#release-notes">7. Release Notes</a>
 <ul class="sectlevel2">
 <li><a href="#assertj-core">7.1. AssertJ Core</a></li>
+<li><a href="#assertj-guava">7.2. AssertJ Guava</a></li>
 </ul>
 </li>
 </ul>
@@ -5044,7 +5045,7 @@ Replacing JUnit static imports by AssertJ ones, at this point you will probably 
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-AssertJ Core would not exist without its contributors, you can find them all <a href="https://github.com/joel-costigliola/assertj-core/graphs/contributors">directly on GitHub</a>.
+AssertJ Core would not exist without its contributors, you can find them all <a href="https://github.com/joel-costigliola/assertj-core3raphs/contributors">directly on GitHub</a>.
 </td>
 </tr>
 </table>
@@ -6856,13 +6857,141 @@ Bare-named property introspection is enabled by default and thus changes AssertJ
 </div>
 </div>
 </div>
+<div class="sect2">
+<h3 id="assertj-guava"><a class="anchor" href="#assertj-guava"></a>7.2. AssertJ Guava</h3>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+AssertJ Guava main documentation is still in <a href="http://joel-costigliola.github.io/assertj/assertj-guava.html" class="bare">http://joel-costigliola.github.io/assertj/assertj-guava.html</a> until it is moved in this website.<br>
+The new release notes though will be published here.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Latest release notes:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="#assertj-guava-3-3-0-release-notes">AssertJ Guava 3.3.0 release notes</a></p>
+</li>
+<li>
+<p>older release notes are in the <a href="http://joel-costigliola.github.io/assertj/assertj-guava.html#latest-release">old site</a>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The javadoc for this release can be found here: <a href="https://www.javadoc.io/doc/org.assertj/assertj-guava/3.3.0/index.html" class="bare">https://www.javadoc.io/doc/org.assertj/assertj-guava/3.3.0/index.html</a></p>
+</div>
+<div class="sect3">
+<h4 id="assertj-guava-3-3-0-release-notes"><a class="anchor" href="#assertj-guava-3-3-0-release-notes"></a>7.2.1. AssertJ Guava 3.3.0 Release notes</h4>
+<div class="paragraph">
+<p>Release date : 2019-11-09</p>
+</div>
+<div id="assertj-guava-3.3.0-contributors" class="paragraph">
+<p><span class="release-note-category"><span class="icon"><i class="fa fa-user"></i></span> Contributors</span></p>
+</div>
+<div class="paragraph">
+<p>Thanks to chrisly42 and Stefano Cordio for their contributions!</p>
+</div>
+<div id="assertj-guava-3.3.0-new-features" class="paragraph">
+<p><span class="release-note-category"><span class="icon"><i class="fa fa-plus-circle"></i></span> New features</span></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Add <a href="#assertj-guava-3.3.0-InstanceOfAssertFactories"><code>InstanceOfAssertFactories</code></a> to chain specific type assertions. (Stefano Cordio)</p>
+</li>
+</ul>
+</div>
+<div id="assertj-guava-3.3.0-improvements" class="paragraph">
+<p><span class="release-note-category"><span class="icon"><i class="fa fa-arrow-circle-up"></i></span> Improvements</span></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>AssertJ&#8217;s javadoc are now searchable.</p>
+</li>
+<li>
+<p>Use beautiful AssertJ&#8217;s site code style for javadoc :)</p>
+</li>
+<li>
+<p>Migrate to JUnit 5 and latest assertj-core version 3.14.0.</p>
+</li>
+</ul>
+</div>
+<div id="assertj-guava-3.3.0-fixed" class="paragraph">
+<p><span class="release-note-category"><span class="icon"><i class="fa fa-wrench"></i></span> Fixed</span></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Fix for <code>OptionalAssert.contains()</code> that was not working for primitive arrays. (chrisly42)</p>
+</li>
+</ul>
+</div>
+<div id="assertj-guava-3.3.0-deprecated" class="paragraph">
+<p><span class="release-note-category"><span class="icon"><i class="fa fa-ban"></i></span> Deprecated</span></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Deprecate <code>org.assertj.guava.data.MapEntry</code> for <code>org.assertj.core.data.MapEntry</code></p>
+</li>
+</ul>
+</div>
+<div id="assertj-guava-3.3.0-InstanceOfAssertFactories" class="paragraph">
+<p><span class="release-note-item">Add <code>InstanceOfAssertFactories</code> to allow chain specific type assertions</span></p>
+</div>
+<div class="paragraph">
+<p>Add factories for <code>ByteSource</code>, <code>Multimap</code>, <code>Multiset</code>, <code>Optional</code> (guava) and <code>Table</code> to allow to chain specific type assertions from a value initially declared as a less specific type.</p>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s start with the problem <code>asInstanceOf</code> is solving: in the following example we would like to call <code>Table</code> assertions but this is not possible since <code>value</code> is declared as an <code>Object</code> thus only <code>Object</code> assertions are accessible.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">// Given a Table declared as an Object
+Object actual = HashBasedTable.&lt;Integer, Integer, String&gt; create();
+
+// We would like to call Table assertions but this is not possible since value is declared as an Object
+assertThat(actual).isEmpty(); // this does not compile !</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Thanks to <code>asInstanceOf</code> we can now tell AssertJ to consider <code>value</code> as a <code>Table</code> in order to call <code>Table</code> assertions.<br>
+To do so we need to pass an <code>InstanceOfAssertFactory</code> that can build a <code>TableAssert</code>, fortunately you don&#8217;t have to write it, it is already available in <code>InstanceOfAssertFactories</code>!</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">// Given a Table declared as an Object
+Object actual = HashBasedTable.&lt;Integer, Integer, String&gt; create();
+
+// With asInstanceOf, we switch to specific Table assertion by specifying the InstanceOfAssertFactory for Table
+assertThat(value).asInstanceOf(InstanceOfAssertFactories.TABLE)
+                 .isEmpty();</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>AssertJ verifies that the actual value is compatible with the assertions <code>InstanceOfAssertFactory</code> is going to give access to.</p>
+</div>
+<div class="paragraph">
+<p><code>InstanceOfAssertFactories</code> provides static factories for all types AssertJ provides assertions for, additional factories can be created with custom <code>InstanceOfAssertFactory</code> instances.</p>
+</div>
+</div>
+</div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
 Version 0.9.9<br>
-Last updated 2019-10-27 23:13:31 NZDT
+Last updated 2019-11-09 16:59:54 NZDT
 </div>
 </div>
 <link rel="stylesheet" href="highlight/styles/railscasts.min.css">
