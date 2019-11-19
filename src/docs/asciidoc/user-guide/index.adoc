@@ -6,9 +6,12 @@
 :imagesdir: images
 :imagesoutdir: {outdir}/user-guide/images
 //
+// :docinfo2:
+//
 ifdef::backend-pdf[:imagesdir: {imagesoutdir}]
 //
 :sectnums:
+:toclevels: 4
 //
 
 include::../link-attributes.adoc[]

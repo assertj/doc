@@ -51,6 +51,7 @@ asciidoctor {
 		from(sourceDir) {
 			include '**/images/**'
 			include '**/highlight/**'
+			include '**/tocbot-3.0.2/**'
 			include '**/*.css'
 			include '**/javadoc/**'
 		}
@@ -76,7 +77,7 @@ asciidoctor {
 							'idseparator': '-',
 							'assertj-core-version': assertjCoreVersion,
 							'stylesheet': '../../../docs/asciidoc/asciidoctor.css',
-							'docinfo': 'shared-head'
+							'docinfo': 'shared'
 }
 
 githubPages {
