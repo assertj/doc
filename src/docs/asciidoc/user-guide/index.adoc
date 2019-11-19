@@ -29,15 +29,16 @@ NOTE: AssertJ Core would not exist without its contributors, you can find them a
 
 Latest release notes:
 
-- link:#assertj-core-3-14-0-release-notes[AssertJ Core 3.14.0 release notes]
-- link:#assertj-core-3-13-2-release-notes[AssertJ Core 3.13.2 release notes]
-- link:#assertj-core-3-13-1-release-notes[AssertJ Core 3.13.1 release notes]
-- link:#assertj-core-3-13-0-release-notes[AssertJ Core 3.13.0 release notes]
-- link:#assertj-core-3-12-2-release-notes[AssertJ Core 3.12.2 release notes]
-- link:#assertj-core-3-12-1-release-notes[AssertJ Core 3.12.1 release notes]
-- link:#assertj-core-3-12-0-release-notes[AssertJ Core 3.12.0 release notes]
+- link:#assertj-core-3-14-0-release-notes[AssertJ Core 3.14.0]
+- link:#assertj-core-3-13-2-release-notes[AssertJ Core 3.13.2]
+- link:#assertj-core-3-13-1-release-notes[AssertJ Core 3.13.1]
+- link:#assertj-core-3-13-0-release-notes[AssertJ Core 3.13.0]
+- link:#assertj-core-3-12-2-release-notes[AssertJ Core 3.12.2]
+- link:#assertj-core-3-12-1-release-notes[AssertJ Core 3.12.1]
+- link:#assertj-core-3-12-0-release-notes[AssertJ Core 3.12.0]
 
-==== AssertJ Core 3.14.0 Release notes
+[[assertj-core-3-14-0-release-notes]]
+==== AssertJ Core 3.14.0
 
 Release date : 2019-10-27
 
@@ -579,7 +580,8 @@ public void matching_example() {
 }
 ----
 
-==== AssertJ Core 3.13.2 Release notes
+[[assertj-core-3-13-2-release-notes]]
+==== AssertJ Core 3.13.2
 
 Release date : 2019-08-04
 
@@ -590,7 +592,8 @@ This release ships a few improvements:
 * Fixes some javadoc typos.
 * Enforces banned dependencies with `maven-enforcer-plugin`.
 
-==== AssertJ Core 3.13.1 Release notes
+[[assertj-core-3-13-1-release-notes]]
+==== AssertJ Core 3.13.1
 
 Release date : 2019-07-29
 
@@ -621,7 +624,8 @@ java.lang.NoClassDefFoundError: org/opentest4j/MultipleFailuresError
 	at org.assertj.core.api.Assertions.assertThat(Assertions.java:2585)
 ----
 
-==== AssertJ Core 3.13.0 Release notes
+[[assertj-core-3-13-0-release-notes]]
+==== AssertJ Core 3.13.0
 
 Release date : 2019-07-28
 
@@ -1228,17 +1232,20 @@ assertThat(yoda).extracting(Jedi::getName) // ObjectAssert<String>
                 .isEqualTo(4);
 ----
 
-==== AssertJ Core 3.12.2 Release notes
+[[assertj-core-3-12-2-release-notes]]
+==== AssertJ Core 3.12.2
 
 The main issue fixed was to ignore static methods when finding property accessors (contributed by Andy Wilkinson) which could break some tests since bare name method introspection was introduced in 3.12.0.
 
 `anySatisfy` for `Maps` was improved and does not continue evaluating elements once a match is found (contributed by Erhard Pointl).
 
-==== AssertJ Core 3.12.1 Release notes
+[[assertj-core-3-12-1-release-notes]]
+==== AssertJ Core 3.12.1
 
 Fix a regression that included a bad module-info.class (thanks Jaro Kuruc) and other minor improvements.
 
-==== AssertJ Core 3.12.0 Release notes
+[[assertj-core-3-12-0-release-notes]]
+==== AssertJ Core 3.12.0
 
 Release date : 2019-02-14
 
@@ -1335,12 +1342,13 @@ The new release notes though will be published here.
 
 Latest release notes:
 
-- link:#assertj-guava-3-3-0-release-notes[AssertJ Guava 3.3.0 release notes]
+- link:#assertj-guava-3-3-0-release-notes[AssertJ Guava 3.3.0]
 - older release notes are in the http://joel-costigliola.github.io/assertj/assertj-guava.html#latest-release[old site]. 
 
 The javadoc for this release can be found here: https://www.javadoc.io/doc/org.assertj/assertj-guava/3.3.0/index.html
 
-==== AssertJ Guava 3.3.0 Release notes
+[[assertj-guava-3-3-0-release-notes]]
+==== AssertJ Guava 3.3.0
 
 Release date : 2019-11-09
 
