@@ -25,7 +25,7 @@ include::assertions-guide.adoc[]
 
 === AssertJ Core
 
-NOTE: AssertJ Core would not exist without its contributors, you can find them all {assertj-core-repo}3raphs/contributors[directly on GitHub].
+NOTE: AssertJ Core would not exist without its contributors, you can find them all {assertj-core-repo}/graphs/contributors[directly on GitHub].
 
 Latest release notes:
 
