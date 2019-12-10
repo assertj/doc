@@ -1011,7 +1011,7 @@ Example:
 
 
 [[assertj-core-recursive-comparison-comparators]]
-=== Comparators used in the comparison
+==== Comparators used in the comparison
 
 By default floats are compared with a precision of 1.0E-6 and doubles with 1.0E-15.
 
