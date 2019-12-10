@@ -2465,10 +2465,9 @@ p {
 <li><a href="#assertj-core-iterable-assertions">3.10. Iterable/Collection assertions (TODO)</a></li>
 <li><a href="#assertj-core-exception-assertions">3.11. Exception assertions</a></li>
 <li><a href="#assertj-core-recursive-comparison">3.12. Field by field recursive comparison</a></li>
-<li><a href="#assertj-core-recursive-comparison-comparators">3.13. Comparators used in the comparison</a></li>
-<li><a href="#assertj-core-soft-assertions">3.14. Soft assertions</a></li>
-<li><a href="#assertj-core-assumptions">3.15. Assumptions</a></li>
-<li><a href="#assertj-core-javadoc">3.16. Javadoc</a></li>
+<li><a href="#assertj-core-soft-assertions">3.13. Soft assertions</a></li>
+<li><a href="#assertj-core-assumptions">3.14. Assumptions</a></li>
+<li><a href="#assertj-core-javadoc">3.15. Javadoc</a></li>
 </ul>
 </li>
 <li><a href="#assertj-core-extensions">4. Extending assertions (TODO)</a>
@@ -4326,9 +4325,8 @@ assertThat(sherlock).usingRecursiveComparison()
 </div>
 </div>
 </div>
-</div>
-<div class="sect2">
-<h3 id="assertj-core-recursive-comparison-comparators"><a class="anchor" href="#assertj-core-recursive-comparison-comparators"></a>3.13. Comparators used in the comparison</h3>
+<div class="sect3">
+<h4 id="assertj-core-recursive-comparison-comparators"><a class="anchor" href="#assertj-core-recursive-comparison-comparators"></a>3.12.4. Comparators used in the comparison</h4>
 <div class="paragraph">
 <p>By default floats are compared with a precision of 1.0E-6 and doubles with 1.0E-15.</p>
 </div>
@@ -4382,8 +4380,9 @@ assertThat(frodo).usingRecursiveComparison()
 </div>
 </div>
 </div>
+</div>
 <div class="sect2">
-<h3 id="assertj-core-soft-assertions"><a class="anchor" href="#assertj-core-soft-assertions"></a>3.14. Soft assertions</h3>
+<h3 id="assertj-core-soft-assertions"><a class="anchor" href="#assertj-core-soft-assertions"></a>3.13. Soft assertions</h3>
 <div class="paragraph">
 <p>With soft assertions AssertJ collects all assertion errors instead of stopping at the first one.</p>
 </div>
@@ -4489,7 +4488,7 @@ but was not.</code></pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="assertj-core-bdd-soft-assertions"><a class="anchor" href="#assertj-core-bdd-soft-assertions"></a>3.14.1. BDD Soft assertions</h4>
+<h4 id="assertj-core-bdd-soft-assertions"><a class="anchor" href="#assertj-core-bdd-soft-assertions"></a>3.13.1. BDD Soft assertions</h4>
 <div class="paragraph">
 <p>BDD aficionados can use BDD soft assertions where <code>assertThat</code> is replaced by <code>then</code>.</p>
 </div>
@@ -4529,7 +4528,7 @@ void basic_bdd_soft_assertions_example() {
 </div>
 </div>
 <div class="sect3">
-<h4 id="assertj-core-junit4-soft-assertions"><a class="anchor" href="#assertj-core-junit4-soft-assertions"></a>3.14.2. JUnit 4 Soft assertions rule</h4>
+<h4 id="assertj-core-junit4-soft-assertions"><a class="anchor" href="#assertj-core-junit4-soft-assertions"></a>3.13.2. JUnit 4 Soft assertions rule</h4>
 <div class="paragraph">
 <p>The JUnit rule provided by AssertJ takes care of calling <code>assertAll()</code> at the end of each tests.</p>
 </div>
@@ -4569,7 +4568,7 @@ void junit4_bdd_soft_assertions_example() {
 </div>
 </div>
 <div class="sect3">
-<h4 id="assertj-core-junit5-soft-assertions"><a class="anchor" href="#assertj-core-junit5-soft-assertions"></a>3.14.3. JUnit 5 Soft assertions extension</h4>
+<h4 id="assertj-core-junit5-soft-assertions"><a class="anchor" href="#assertj-core-junit5-soft-assertions"></a>3.13.3. JUnit 5 Soft assertions extension</h4>
 <div class="paragraph">
 <p>Since 3.13.0, AssertJ provides <code>SoftAssertionsExtension</code> a JUnit 5 extension that takes care of two things:</p>
 </div>
@@ -4645,7 +4644,7 @@ public class JUnit5SoftAssertionsExample {
 </div>
 </div>
 <div class="sect3">
-<h4 id="assertj-core-closeable-soft-assertions"><a class="anchor" href="#assertj-core-closeable-soft-assertions"></a>3.14.4. Auto Closeable Soft assertions</h4>
+<h4 id="assertj-core-closeable-soft-assertions"><a class="anchor" href="#assertj-core-closeable-soft-assertions"></a>3.13.4. Auto Closeable Soft assertions</h4>
 <div class="paragraph">
 <p>As <code>AutoCloseableSoftAssertions</code> implements <code>AutoCloseable#close()</code> by calling <code>assertAll()</code>, when used in a try-with-resources block <code>assertAll()</code> is called automatically before exiting the block.</p>
 </div>
@@ -4683,7 +4682,7 @@ void auto_closeable_bdd_soft_assertions_example() {
 </div>
 </div>
 <div class="sect3">
-<h4 id="assertj-core-assertSoftly-assertions"><a class="anchor" href="#assertj-core-assertSoftly-assertions"></a>3.14.5. Soft assertions with <code>assertSoftly</code></h4>
+<h4 id="assertj-core-assertSoftly-assertions"><a class="anchor" href="#assertj-core-assertSoftly-assertions"></a>3.13.5. Soft assertions with <code>assertSoftly</code></h4>
 <div class="paragraph">
 <p>The <code>assertSoftly</code> static method takes care of calling <code>assertAll()</code> before exiting.</p>
 </div>
@@ -4706,7 +4705,7 @@ void assertSoftly_example() {
 </div>
 </div>
 <div class="sect2">
-<h3 id="assertj-core-assumptions"><a class="anchor" href="#assertj-core-assumptions"></a>3.15. Assumptions</h3>
+<h3 id="assertj-core-assumptions"><a class="anchor" href="#assertj-core-assumptions"></a>3.14. Assumptions</h3>
 <div class="paragraph">
 <p>Assumptions provide support for conditional test execution, if the assumptions are met the test is executed normally, if they don&#8217;t the test is aborted and marked as ignored.</p>
 </div>
@@ -4747,7 +4746,7 @@ public void when_all_assumptions_are_met_the_test_is_run_normally() {
 </div>
 </div>
 <div class="sect2">
-<h3 id="assertj-core-javadoc"><a class="anchor" href="#assertj-core-javadoc"></a>3.16. Javadoc</h3>
+<h3 id="assertj-core-javadoc"><a class="anchor" href="#assertj-core-javadoc"></a>3.15. Javadoc</h3>
 <div class="paragraph">
 <p>The latest version of assertj core javadoc is here:</p>
 </div>
