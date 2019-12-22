@@ -17,4 +17,7 @@ jobs:
     - name: Run Asciidoctor
       run: ./gradlew asciidoctor
     - name: Publish to GitHub Pages
-      run: ./gradlew --stacktrace  --info publishGhPages -PgithubToken=${{ secrets.ASCIIDOCTOR_TOKEN }}
+      run: |
+        git config user.name '${{ github.actor }}'
+        git config user.email '${{ github.actor }}@users.noreply.github.com'
+        ./gradlew --stacktrace  --info publishGhPages -PgithubToken=${{ secrets.ASCIIDOCTOR_TOKEN }}
