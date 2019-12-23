@@ -1,7 +1,8 @@
 # AssertJ User Guide
 
-This subproject contains the AsciiDoc sources for the AssertJ User Guide.
-The guide is available here: https://assertj.github.io/doc/
+The AssertJ User Guide is available here: https://assertj.github.io/doc/
+
+This project contains the AsciiDoc sources for the guide.
 
 ## Structure
 
