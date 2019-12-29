@@ -749,7 +749,7 @@ assertThat(throwable).hasMessage("%s is not a valid input", "bar");
 
 Asserting on exceptions is not as nice compared to the Java 8 way, this is how you would do it in AssertJ 2.x :
 
-. Put the code to should throw in a try-catch.
+. Put the code that should throw the exception in a try-catch.
 . Call fail method immediately after the code that should throw the exception, so that if it is not thrown, the test fails.
 . Make assertions on the caught exception
 
