@@ -4014,13 +4014,13 @@ assertThat(throwable).hasMessage("%s is not a valid input", "bar");</code></pre>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Put the code to should throw in a try-catch.</p>
+<p>Put the code that should throw the exception in a try-catch.</p>
 </li>
 <li>
-<p>Call fail method immediately after the code that should throw the exception, so that if it is not thrown, the test fails.</p>
+<p>Call fail method immediately after, so that the test fails if the exception is not thrown.</p>
 </li>
 <li>
-<p>Make assertions on the caught exception</p>
+<p>Make assertions on the caught exception.</p>
 </li>
 </ol>
 </div>
@@ -7007,7 +7007,7 @@ assertThat(value).asInstanceOf(InstanceOfAssertFactories.TABLE)
 <div id="footer">
 <div id="footer-text">
 Version 0.9.9<br>
-Last updated 2019-12-23 10:38:32 UTC
+Last updated 2019-12-29 15:43:13 UTC
 </div>
 </div>
 <script src="tocbot-3.0.2/tocbot.min.js"></script>
