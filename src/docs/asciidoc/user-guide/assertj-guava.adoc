@@ -1,0 +1,4 @@
+[[assertj-guava]]
+== AssertJ Guava
+
+include::assertj-guava-release-notes.adoc[]

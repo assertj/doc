@@ -1,0 +1,11 @@
+[[assertj-overview]]
+== AssertJ Overview
+
+AssertJ is composed of several modules:
+
+* A core module (this one) to provide assertions for JDK types (String, Iterable, Stream, Path, File, Map...)
+* A Guava module to provide assertions for Guava types (Multimap, Optional...)
+* A Joda Time module to provide assertions for Joda Time types (DateTime, LocalDateTime)
+* A Neo4J module to provide assertions for Neo4J types (Path, Node, Relationship...)
+* A DB module to provide assertions for relational database types (Table, Row, Column...)
+* A Swing module provides a simple and intuitive API for functional testing of Swing user interfaces

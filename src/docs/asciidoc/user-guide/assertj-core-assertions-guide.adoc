@@ -1,10 +1,10 @@
 [[assertj-core-assertions-guide]]
-== Core assertions guide
+=== Core assertions guide
 
 This section describes the assertions provided by AssertJ Core and other useful features to get the best of it.
 
 [[assertj-core-simple-example]]
-=== A simple example
+==== A simple example
 
 Let's start with a simple example showing a few important things.
 
@@ -20,13 +20,13 @@ include::{testDir}/example/core/SimpleAssertionsExample.java[tags=user_guide]
 Except for `isNotNull` which is a base assertion, the other assertions are `String` specific as our object under test is a `String`.
 
 [[assertj-core-supported-types]]
-=== Supported type assertions
+==== Supported type assertions
 
 AssertJ provides assertions specific to the object under test type, the following sections list the supported types grouped by categories.
 
 The provided assertions for each of these types are documented later on.
 
-==== Common types
+===== Common types
 
 [cols="2"]
 |===
@@ -49,10 +49,10 @@ a|
 |===
 
 
-==== Primitive types
+===== Primitive types
 
 [cols="2"]
-|===
+|====
 a| Primitive types and their wrapper:
 
 * short / Short
@@ -72,12 +72,12 @@ a| Primitive type arrays:
 * char[]
 * float[]
 * double[]
-|===
+|====
 
-==== Java 8 Temporal types
+===== Java 8 Temporal types
 
 [cols="2"]
-|===
+|====
 | Instant
 | LocalDate
 | LocalDateTime
@@ -85,12 +85,12 @@ a| Primitive type arrays:
 | OffsetDateTime
 | OffsetTime
 | ZonedDateTime
-|===
+|====
 
-==== Atomic types
+===== Atomic types
 
 [cols="2"]
-|===
+|====
 a| Atomic basic types:
 
 * AtomicInteger,
@@ -111,11 +111,11 @@ a| Atomic updater types:
 * AtomicIntegerFieldUpdater
 * AtomicLongFieldUpdater
 * AtomicReferenceFieldUpdater
-|===
+|====
 
 
 [[assertj-core-assertion-description]]
-=== Assertion description
+==== Assertion description
 
 It is often valuable to describe the assertion performed, especially for boolean assertions where the default error message just complains that it got `false` instead of `true` (or vice versa).
 
@@ -135,7 +135,7 @@ The error message starts with the given description in `[]` :
 ----
 
 [[assertj-core-overriding-error-message]]
-=== Overriding error message
+==== Overriding error message
 
 AssertJ tries its best to give helpful error messages but you always change it with `overridingErrorMessage()` or `withFailMessage()`.
 
@@ -154,11 +154,11 @@ java.lang.AssertionError: should be TolkienCharacter [name=Frodo, age=33, race=H
 
 
 [[assertj-core-incorrect-usage]]
-=== Avoiding incorrect usage
+==== Avoiding incorrect usage
 
 There are a few things to keep in mind when using AssertJ to avoid misusing it.
 
-==== Forgetting to call an assertion
+===== Forgetting to call an assertion
 
 The main trap is to pass the object under to test to `assertThat()` and forget to call an assertion afterward.
 This misuse can be detected by https://spotbugs.github.io/[SpotBugs] or http://findbugs.sourceforge.net/[Findbugs] thanks to the `@CheckReturnValue` annotation on all `assertThat()` methods.
@@ -206,7 +206,7 @@ assertThat(1).isEqualTo(2);
 assertThat(1 == 2).isTrue();
 ----
 
-==== Calling as() after the assertion
+===== Calling as() after the assertion
 
 Describing an assertion must be done before calling the assertion otherwise it is ignored as a failing assertion breaks will prevent the call to `as()`.
 
@@ -226,7 +226,7 @@ assertThat(actual).as("description").isEqualTo(expected);
 assertThat(actual).describedAs("description").isEqualTo(expected);
 ----
 
-==== Calling withFailMessage/overridingErrorMessage after the assertion
+===== Calling withFailMessage/overridingErrorMessage after the assertion
 
 Setting an error message must be done before calling the assertion otherwise it is ignored as a failing assertion breaks will prevent the call to `withFailMessage()` / `overridingErrorMessage()`.
 
@@ -246,7 +246,7 @@ assertThat(actual).overridingErrorMessage("custom error message").isEqualTo(expe
 assertThat(actual).withFailMessage("custom error message").isEqualTo(expected);
 ----
 
-==== Setting a comparator after the assertion
+===== Setting a comparator after the assertion
 
 Setting comparators must be done before calling the assertion otherwise it is ignored as a failing assertion breaks will prevent the call to `usingComparator()` / `usingElementComparator()`.
 
@@ -265,19 +265,19 @@ assertThat(actual).usingComparator(new CustomComparator()).isEqualTo("a");
 ----
 
 [[assertj-core-configuration]]
-=== Configuring AssertJ
+==== Configuring AssertJ
 
-This section describes the different ways to configure AssertJ, either by setting configuration properties individually or globally using the link:#assertj-configuration[`Configuration`] class. 
+This section describes the different ways to configure AssertJ, either by setting configuration properties individually or globally using the link:#assertj-configuration[`Configuration`] class.
 
 To be effective the configuration changes must be applied before the tests are executed, depending on the scope of the tests this means different things:
 
-* For a single test: change the configuration in the test and revert it in the https://junit.org/junit5/docs/current/api/org/junit/jupiter/api/AfterEach.html[`@AfterEach`] method  (JUnit 5). 
-* For all tests in a class: change the configuration in the https://junit.org/junit5/docs/current/api/org/junit/jupiter/api/BeforeAll.html[`@BeforeAll`] method and revert the changes in the https://junit.org/junit5/docs/current/api/org/junit/jupiter/api/AfterAll.html[`@AfterAll`] method (JUnit 5). 
+* For a single test: change the configuration in the test and revert it in the https://junit.org/junit5/docs/current/api/org/junit/jupiter/api/AfterEach.html[`@AfterEach`] method  (JUnit 5).
+* For all tests in a class: change the configuration in the https://junit.org/junit5/docs/current/api/org/junit/jupiter/api/BeforeAll.html[`@BeforeAll`] method and revert the changes in the https://junit.org/junit5/docs/current/api/org/junit/jupiter/api/AfterAll.html[`@AfterAll`] method (JUnit 5).
 * To change the configuration *before any tests*, you can use these options:
-** write a JUnit 5 extension implementing https://junit.org/junit5/docs/current/api/org/junit/jupiter/api/extension/BeforeAllCallback.html[`BeforeAllCallback`]. 
+** write a JUnit 5 extension implementing https://junit.org/junit5/docs/current/api/org/junit/jupiter/api/extension/BeforeAllCallback.html[`BeforeAllCallback`].
 ** register your own `Configuration` subclass and let AssertJ link:#automatic-configuration-discovery[discover it automagically].
 
-==== Configuring single properties
+===== Configuring single properties
 
 The `Assertions` class provides static methods to change each configuration properties.
 
@@ -294,47 +294,47 @@ Assertions.useRepresentation(myRepresentation);
 Assertions.registerCustomDateFormat(myCustomDateFormat);
 ----
 
-===== Representation
+====== Representation
 
 This property allows you to register a `Representation` to control the way AssertJ formats the different types displayed in the assertion error messages.
 Consult the <<assertj-core-representation>> chapter for details.
 
 Defaults to `StandardRepresentation`.
 
-===== AllowComparingPrivateFields
+====== AllowComparingPrivateFields
 
 Globally sets whether the use of private fields is allowed for field/property by field/property comparison. Defaults to true.
 
-===== AllowExtractingPrivateFields
+====== AllowExtractingPrivateFields
 
 Globally sets whether the AssertJ `extracting` capability should be allowed to extract private fields. Defaults to true.
 
-===== ExtractBareNamePropertyMethods
+====== ExtractBareNamePropertyMethods
 
 Globally sets whether the AssertJ `extracting` capability considers bare-named property methods like String name(). Defaults to true.
 
-===== LenientDateParsing
+====== LenientDateParsing
 
 Specify whether or not date/time parsing is to be lenient for AssertJ default date formats. With lenient parsing, the parser may use heuristics to interpret inputs that do not precisely match this object's format. With strict parsing, inputs must match this object's format.
 
-===== Custom DateFormat
+====== Custom DateFormat
 
 In addition to the default date formats, you can register some custom ones that AssertJ will use in date assertions (see also `Assertions.registerCustomDateFormat`).
 
 Note that custom date formats take precedence over default ones.
 
-===== MaxElementsForPrinting
+====== MaxElementsForPrinting
 
 In error messages, sets the threshold for how many elements from one iterable/array/map will be included in the in the description. Defaults to 1000.
 
 The point of this property is to avoid printing iterable/array/map with too many elements in error messages.
 
-===== MaxLengthForSingleLineDescription
+====== MaxLengthForSingleLineDescription
 
 In error messages, sets the threshold when iterable/array formatting will be on one line (if their String description
 is less than this parameter) or it will be formatted with one element per line. Defaults to 80.
 
-Example: 
+Example:
 
 [source,java,indent=0]
 ----
@@ -366,13 +366,13 @@ String[] greatBooks = array("A Game of Thrones", "The Lord of the Rings", "Assas
  "Guards! Guards! (Discworld)"]
 ----
 
-===== RemoveAssertJRelatedElementsFromStackTrace
+====== RemoveAssertJRelatedElementsFromStackTrace
 
 Sets whether the elements related to AssertJ are removed from assertion errors stack trace. Defaults to true.
 
 
 [[assertj-configuration]]
-==== AssertJ Configuration
+===== AssertJ Configuration
 
 Since 3.13.0, AssertJ exposes a `org.assertj.core.configuration.Configuration` object providing access to all AssertJ globally configurable properties.
 
@@ -398,7 +398,7 @@ configuration.setRemoveAssertJRelatedElementsFromStackTrace(false);
 configuration.applyAndDisplay();
 ----
 
-Printing the above configuration produces the following output: 
+Printing the above configuration produces the following output:
 
 [source,plaintext,indent=0]
 ----
@@ -416,7 +416,7 @@ Applying configuration org.assertj.core.configuration.Configuration
 
 
 [[automatic-configuration-discovery]]
-==== Automagic configuration discovery
+===== Automagic configuration discovery
 
 This section describes a way to register an AssertJ `Configuration` without using any test framework hooks like `BeforeAllCallback`.
 
@@ -442,7 +442,7 @@ With this custom configuration, the content of `META-INF/services/org.assertj.co
 example.core.CustomConfiguration
 ----
 
-Printing the  `CustomConfiguration` shows: 
+Printing the  `CustomConfiguration` shows:
 [source,plaintext,indent=0]
 ----
 Applying configuration example.core.CustomConfiguration
@@ -460,7 +460,7 @@ Applying configuration example.core.CustomConfiguration
 
 
 [[assertj-core-representation]]
-=== Controlling type formatting
+==== Controlling type formatting
 
 Assertions error messages use a `Representation` to format the different types involved. There are multiple ways of registering a custom `Representation` for assertions:
 
@@ -471,7 +471,7 @@ Assertions error messages use a `Representation` to format the different types i
 Let's go over these different options with a custom `Representation`.
 
 [[assertj-core-custom-representation]]
-==== Creating a custom Representation
+===== Creating a custom Representation
 
 An example of a custom `Representation`:
 [source,java,indent=0]
@@ -529,7 +529,7 @@ to start with:
 ----
 
 [[assertj-core-custom-representation-global-scope-change]]
-==== Changing the default global scope custom representation
+===== Changing the default global scope custom representation
 
 You only have to register `CustomRepresentation` once but need to do it before executing any tests, for the tests executed before that, AssertJ will use the default representation.
 
@@ -542,7 +542,7 @@ Assertions.useRepresentation(new CustomRepresentation());
 Consider writing a JUnit 5 extension implementing https://junit.org/junit5/docs/current/api/org/junit/jupiter/api/extension/BeforeAllCallback.html[`BeforeAllCallback`] to make sure the representation is set once for all before any test is executed.
 
 [[assertj-core-custom-representation-per-assertion-scope]]
-==== Per assertion scope custom representation
+===== Per assertion scope custom representation
 
 Follow this approach if you want to use a specific representation for a single assertion only.
 
@@ -561,22 +561,22 @@ assertThat("foo").withRepresentation(customRepresentation)
 
 
 [[assertj-core-common-assertions]]
-=== Common assertions
+==== Common assertions
 
 This section describes the assertions common to all types.
 
 [[assertj-core-object-assertions]]
-=== Object assertions (TODO)
+==== Object assertions (TODO)
 
 TODO
 
 [[assertj-core-iterable-assertions]]
-=== Iterable/Collection assertions (TODO)
+==== Iterable/Collection assertions (TODO)
 
 TODO
 
 [[assertj-core-exception-assertions]]
-=== Exception assertions
+==== Exception assertions
 
 This chapter answers the question: how to assert that an exception has been thrown and check that it is the expected one ?
 
@@ -588,7 +588,7 @@ All the available assertions are described in the link:#assertj-core-exception-a
 In this chapter is exception is used interchangeably with throwable.
 
 [[assertj-core-exception-assertions-java-8]]
-==== With Java 8 (AssertJ 3.x)
+===== With Java 8 (AssertJ 3.x)
 
 Testing assertions in Java 8 is elegant, thanks to lambdas! AssertJ provides different style options:
 
@@ -601,7 +601,7 @@ Testing assertions in Java 8 is elegant, thanks to lambdas! AssertJ provides dif
 where `ThrowingCallable` is a functional interface which can be expressed as a lambda.
 
 [[assertj-core-exception-assertions-bdd-style]]
-===== BDD style
+====== BDD style
 
 BDD aficionados can separate _WHEN_ and _THEN_ steps by using `catchThrowable(ThrowingCallable)` to capture the `Throwable` and then perform assertions.
 
@@ -621,7 +621,7 @@ public void bdd_exception_assertion_example() {
 ----
 
 [[assertj-core-exception-assertions-bdd-strongly-typed-style]]
-===== BDD style on specific Throwable type
+====== BDD style on specific Throwable type
 
 This is a variation of `catchThrowable` where the caught exception type is specified, allowing to check the custom exception fields/properties.
 
@@ -654,7 +654,7 @@ class TextException extends Exception {
 ----
 
 [[assertj-core-exception-assertions-assertThatThrownBy]]
-===== Exception testing with assertThatThrownBy
+====== Exception testing with assertThatThrownBy
 
 Starts with `assertThatThrownBy(ThrowingCallable)` to capture and then assert on the thrown `Throwable`.
 
@@ -671,7 +671,7 @@ public void exception_assertion_example() {
 ----
 
 [[assertj-core-exception-assertions-assertThatExceptionOfType]]
-===== Exception testing with assertThatExceptionOfType
+====== Exception testing with assertThatExceptionOfType
 
 `assertThatExceptionOfType` is an alternative syntax that some people find more natural.
 
@@ -708,7 +708,7 @@ public void exception_assertion_example() {
 ----
 
 [[assertj-core-exception-assertions-no-exception]]
-===== Testing that no exception is thrown
+====== Testing that no exception is thrown
 
 You can test that a piece of code does not throw any exception with:
 [source,java]
@@ -720,12 +720,12 @@ assertThatCode(() -> {
 ----
 
 [[assertj-core-exception-assertions-reference]]
-==== Throwable reference assertions reference (TODO)
+===== Throwable reference assertions reference (TODO)
 
 TODO: describe all assertions with code examples, see http://joel-costigliola.github.io/assertj/core-8/api/org/assertj/core/api/AbstractThrowableAssert.html#method.summary.
 
 [[assertj-core-exception-assertions-hasMessage]]
-===== Checking the exception message
+====== Checking the exception message
 
 There are two ways to check the exception message: `hasMessage(String message)` and `hasMessage(String message, Object... parameters)`, the latter allows you to build the expected message as https://docs.oracle.com/javase/8/docs/api/java/lang/String.html?is-external=true#format-java.lang.String-java.lang.Object...-[String.format].
 
@@ -745,7 +745,7 @@ assertThat(throwable).hasMessage("%s is not a valid input", "bar");
 ----
 
 [[assertj-core-exception-assertions-java-7]]
-==== With Java 7 (AssertJ 2.x)
+===== With Java 7 (AssertJ 2.x)
 
 Asserting on exceptions is not as nice compared to the Java 8 way, this is how you would do it in AssertJ 2.x :
 
@@ -788,7 +788,7 @@ try {
 ----
 
 [[assertj-core-recursive-comparison]]
-=== Field by field recursive comparison
+==== Field by field recursive comparison
 
 Since 3.12.0 AssertJ Core provides a new fluent recursive comparison API for `Object` assertions, it is meant to replace `isEqualToComparingFieldByFieldRecursively` with more capabilities including:
 
@@ -844,7 +844,7 @@ Here's a simple example to give an idea of what it can do:
 The comparison is *not symmetrical* since it is *limited to actual's fields*, the algorithm gather actual's fields and then compare them to the corresponding expected's fields. It is then possible for the expected object to have more fields than actual which can be handy when comparing a base type to a subtype with additional fields.
 
 [[assertj-core-recursive-comparison-strict]]
-==== Strict or lenient comparison
+===== Strict or lenient comparison
 
 By default the objects to compare can be of different types but must have the same properties/fields. For example if object under test has a `work` field of type `Address`, the expected object to compare the object under test to must also have one but it can of a different type like `AddressDto`.
 
@@ -903,7 +903,7 @@ assertThat(sherlock).usingRecursiveComparison()
 ----
 
 [[assertj-core-recursive-comparison-ignoring-fields]]
-==== Ignoring fields in the comparison
+===== Ignoring fields in the comparison
 
 It is possible to ignore fields of the object under test in the comparison, this is can be useful when a field has a generated value (like the current time) or is simply not relevant to compare.
 
@@ -953,7 +953,7 @@ assertThat(sherlock).usingRecursiveComparison()
 ----
 
 [[assertj-core-recursive-comparison-ignoring-equals]]
-==== Ignoring overridden equals
+===== Ignoring overridden equals
 
 By default the recursive comparison uses overridden `equals` methods to compare fields, it is possible to change that behavior and force a recursive comparison by calling:
 
@@ -1011,7 +1011,7 @@ Example:
 
 
 [[assertj-core-recursive-comparison-comparators]]
-==== Comparators used in the comparison
+===== Comparators used in the comparison
 
 By default floats are compared with a precision of 1.0E-6 and doubles with 1.0E-15.
 
@@ -1058,9 +1058,9 @@ assertThat(frodo).usingRecursiveComparison()
 
 
 [[assertj-core-soft-assertions]]
-=== Soft assertions
+==== Soft assertions
 
-With soft assertions AssertJ collects all assertion errors instead of stopping at the first one. 
+With soft assertions AssertJ collects all assertion errors instead of stopping at the first one.
 
 TIP: This is especially useful for long tests like end to end tests as we can fix all reported errors at once and avoid multiple failing runs.
 
@@ -1091,18 +1091,18 @@ The previous test fails with the message below reporting all the errors:
 ----
 Multiple Failures (3 failures)
 -- failure 1 --
-[great authors] 
+[great authors]
 Expecting:
  <"George Martin">
 to be equal to:
  <"JRR Tolkien">
 but was not.
 -- failure 2 --
-[response to Everything] 
+[response to Everything]
 Expecting:
  \<42>
 to be greater than:
- \<100> 
+ \<100>
 -- failure 3 --
 Expecting:
  <"gandalf">
@@ -1112,7 +1112,7 @@ but was not.
 ----
 
 [[assertj-core-bdd-soft-assertions]]
-==== BDD Soft assertions
+===== BDD Soft assertions
 
 BDD aficionados can use BDD soft assertions where `assertThat` is replaced by `then`.
 
@@ -1129,9 +1129,9 @@ There are BDD soft assertions versions for the different soft assertions approac
 * Using a JUnit 5 extension that takes care of calling `assertAll()` after each tests
 
 [[assertj-core-junit4-soft-assertions]]
-==== JUnit 4 Soft assertions rule
+===== JUnit 4 Soft assertions rule
 
-The JUnit rule provided by AssertJ takes care of calling `assertAll()` at the end of each tests. 
+The JUnit rule provided by AssertJ takes care of calling `assertAll()` at the end of each tests.
 
 Example:
 [source,java,indent=0]
@@ -1146,14 +1146,14 @@ include::{testDir}/example/core/JUnit4BDDSoftAssertionsExample.java[tags=junit4-
 ----
 
 [[assertj-core-junit5-soft-assertions]]
-==== JUnit 5 Soft assertions extension
+===== JUnit 5 Soft assertions extension
 
 Since 3.13.0, AssertJ provides `SoftAssertionsExtension` a JUnit 5 extension that takes care of two things:
 
 * Injecting a `SoftAssertions` or `BDDSoftAssertions` parameter in each test methods
 * Calling `assertAll()` at the end of each tests
 
-The term "test method" refers to any method annotated with `@Test`, `@RepeatedTest`, `@ParameterizedTest`, `@TestFactory` or `@TestTemplate`. 
+The term "test method" refers to any method annotated with `@Test`, `@RepeatedTest`, `@ParameterizedTest`, `@TestFactory` or `@TestTemplate`.
 Notably, the extension is compatible with link:https://junit.org/junit5/docs/current/user-guide/#writing-tests-parameterized-tests[parameterized tests], the parameterized arguments must come first and the soft assertions argument last.
 
 IMPORTANT: `JUnitJupiterSoftAssertions` and `JUnitJupiterBDDSoftAssertions` are now deprecated in favor of `SoftAssertionsExtension`.
@@ -1166,9 +1166,9 @@ include::{testDir}/example/core/JUnit5SoftAssertionsExample.java[tags=junit5-sof
 
 
 [[assertj-core-closeable-soft-assertions]]
-==== Auto Closeable Soft assertions
+===== Auto Closeable Soft assertions
 
-As `AutoCloseableSoftAssertions` implements `AutoCloseable#close()` by calling `assertAll()`, when used in a try-with-resources block `assertAll()` is called automatically before exiting the block. 
+As `AutoCloseableSoftAssertions` implements `AutoCloseable#close()` by calling `assertAll()`, when used in a try-with-resources block `assertAll()` is called automatically before exiting the block.
 
 Example:
 [source,java,indent=0]
@@ -1183,9 +1183,9 @@ include::{testDir}/example/core/AutoCloseableBDDSoftAssertionsExample.java[tags=
 ----
 
 [[assertj-core-assertSoftly-assertions]]
-==== Soft assertions with `assertSoftly`
+===== Soft assertions with `assertSoftly`
 
-The `assertSoftly` static method takes care of calling `assertAll()` before exiting. 
+The `assertSoftly` static method takes care of calling `assertAll()` before exiting.
 
 Example:
 [source,java,indent=0]
@@ -1194,7 +1194,7 @@ include::{testDir}/example/core/SoftAssertionsExample.java[tags=assertSoftly-sof
 ----
 
 [[assertj-core-assumptions]]
-=== Assumptions
+==== Assumptions
 
 Assumptions provide support for conditional test execution, if the assumptions are met the test is executed normally, if they don't the test is aborted and marked as ignored.
 
@@ -1212,216 +1212,13 @@ include::{testDir}/example/core/AssumptionsDemo.java[tags=assumption_not_met]
 Example resulting in the test to be executed normally:
 [source,java,indent=0]
 ----
-include::{testDir}/example/core/AssumptionsDemo.java[tags=assumption_met] 
+include::{testDir}/example/core/AssumptionsDemo.java[tags=assumption_met]
 ----
 
 
 [[assertj-core-javadoc]]
-=== Javadoc
+==== Javadoc
 
 The latest version of assertj core javadoc is here:
 
 http://www.javadoc.io/doc/org.assertj/assertj-core/
-
-[[assertj-core-extensions]]
-== Extending assertions (TODO)
-
-TODO
-
-[[assertj-core-conditions]]
-=== Conditions (TODO)
-
-TODO
-
-[[assertj-core-custom-assertions]]
-=== Custom Assertions (TODO)
-
-TODO
-
-[[assertj-migration]]
-== Migrating assertions
-
-This page will help you converting your existing JUnit assertions to AssertJ ones. Note that both types of assertions can coexist, you don't have to migrate all at once.
-
-The idea is to convert code like :
-
-[source,java,indent=0]
-----
-assertEquals(expected, actual);
-----
-
-to:
-
-[source,java,indent=0]
-----
-assertThat(actual).isEqualTo(expected);
-----
-
-There are several ways to perform the conversion :
-
-* Automatically using the provided link:#assertj-migration-using-scripts[migration scripts].
-* Manually using the regexes described in this link:#assertj-migration-using-regexes[section].
-* With IntelliJ IDEA, using these plugins:
-** https://plugins.jetbrains.com/plugin/10345-assertions2assertj[Assertions2Assertj] plugin.
-** https://plugins.jetbrains.com/plugin/12195-concise-assertj-optimizing-nitpicker-cajon-[Concise AssertJ Optimizing Nitpicker (Cajon)] plugin.
-* With IntelliJ IDEA, using the Structural Search and Replace (SSR) feature.
-
-The preferred way is using the scripts as it is quicker and covers more assertions that the other ones.
-
-[[assertj-migration-using-scripts]]
-=== Assertions migration scripts
-
-It is as simple as running one of the following script depending on which test framework you are using:
-
-* https://raw.githubusercontent.com/joel-costigliola/assertj-core/master/src/main/scripts/convert-junit-assertions-to-assertj.sh[JUnit 3/4 to AssertJ migration script]
-* https://raw.githubusercontent.com/joel-costigliola/assertj-core/master/src/main/scripts/convert-junit5-assertions-to-assertj.sh[JUnit 5 to AssertJ migration script]
-* https://raw.githubusercontent.com/joel-costigliola/assertj-core/master/src/main/scripts/convert-testng-assertions-to-assertj.sh[TestNG to AssertJ migration script]
-
-Each shell scripts is based on the sed stream editor and regexps. It *recursively* looks at all `*Test.java` files and
-performs search and replace to convert assertions to AssertJ ones.
-
-The script handles the cases where you use an assertion description, for example:
-
-[source,java,indent=0]
-----
-assertEquals("test context", "a", "a");
-----
-will be replaced by:
-[source,java,indent=0]
-----
-assertThat("a").as("test context").isEqualTo("a");
-----
-
-
-Note that the script does a best effort and some assertions might not be converted if formatted on multiple lines. Anyway the script usually migrates the vast majority of assertions.
-
-The script works on windows within a bash console like git bash (tested a long time ago) or cygwin (not tested).
-
-==== Usage
-
-Execute the script in the base directory containing the test files:
-
-[source,bash,indent=0]
-----
-cd ./src/test/java
-./convert-junit-assertions-to-assertj.sh
-----
-
-If the `*Test.java` file pattern does not suit you, just specify another as an argument:
-[source,bash,indent=0]
-----
-# enclose your pattern with double quotes "" to avoid it to be expanded by your shell prematurely
-./convert-junit-assertions-to-assertj.sh "*IT.java"
-----
-
-After executing it, you will need to :
-
-* Optimize imports with your IDE to remove unused imports.
-* If you were using `assertEquals` with a delta to compare numbers, you will need to statically import `org.assertj.core.api.Assertions.within` which is how you express deltas in AssertJ (see the https://github.com/joel-costigliola/assertj-examples/blob/master/assertions-examples/src/test/java/org/assertj/examples/NumberAssertionsExamples.java[number_assertions_with_offset_examples()] test at the end of `NumberAssertionsExamples`).
-
-==== Script output
-
-[source,bash,indent=0]
-----
-Converting JUnit assertions to AssertJ assertions on files matching pattern : *Test.java
-
- 1 - Replacing : assertEquals(0, myList.size()) ............... by : assertThat(myList).isEmpty()
- 2 - Replacing : assertEquals(expectedSize, myList.size()) .... by : assertThat(myList).hasSize(expectedSize)
- 3 - Replacing : assertEquals(expectedDouble, actual, delta) .. by : assertThat(actual).isCloseTo(expectedDouble, within(delta))
- 4 - Replacing : assertEquals(expected, actual) ............... by : assertThat(actual).isEqualTo(expected)
- 5 - Replacing : assertArrayEquals(expectedArray, actual) ..... by : assertThat(actual).isEqualTo(expectedArray)
- 6 - Replacing : assertNull(actual) ........................... by : assertThat(actual).isNull()
- 7 - Replacing : assertNotNull(actual) ........................ by : assertThat(actual).isNotNull()
- 8 - Replacing : assertTrue(logicalCondition) ................. by : assertThat(logicalCondition).isTrue()
- 9 - Replacing : assertFalse(logicalCondition) ................ by : assertThat(logicalCondition).isFalse()
-10 - Replacing : assertSame(expected, actual) ................. by : assertThat(actual).isSameAs(expected)
-11 - Replacing : assertNotSame(expected, actual) .............. by : assertThat(actual).isNotSameAs(expected)
-
-Replacing JUnit static imports by AssertJ ones, at this point you will probably need to :
-12 --- optimize imports with your IDE to remove unused imports
-12 --- add "import static org.assertj.core.api.Assertions.within;" if you were using JUnit number assertions with deltas
-----
-
-[[assertj-migration-using-regexes]]
-=== Assertions migration regexes
-
-Here's a list of find/replace expressions to change JUnit assertions into AssertJ assertions (don't forget to check the regex mode in your editor replace window).
-
-This regexes described in this section are specific to JUnit 4 but you can easily adapt them for JUnit 5 or TestNG.
-
-The order of find/replace is important to benefit from the most relevant AssertJ assertions. For example you should convert `assertEquals(0, myList.size())` to `assertThat(myList).isEmpty()` instead of `assertThat(myList.size()).isEqualTo(0)`.
-
-
-==== Converting `assertEquals(0, myList.size())` to `assertThat(myList).isEmpty()`
-
-Find/replace regex:
-
-[source,bash,indent=0]
-----
-assertEquals\(0,(.*).size\(\)\); -> assertThat(\1).isEmpty();
-----
-
-It's better to run this before the `assertEquals` -> `isEqualTo` conversion to avoid ending with `assertThat(myList.size()).isEqualTo(0)`.
-
-==== Converting `assertEquals(size, myList.size())` to `assertThat(myList).hasSize(size)`
-
-Find/replace regex:
-
-[source,bash,indent=0]
-----
-assertEquals\((.*),(.*).size\(\)\); -> assertThat(\2).hasSize(\1);
-----
-
-It's better to run this before the `assertEquals` -> `isEqualTo` conversion to avoid ending with `assertThat(myList.size()).isEqualTo(expectedSize)`.
-
-==== Converting `assertEquals(expected, actual)` to `assertThat(actual).isEqualTo(expected)`
-
-Find/replace regex:
-
-[source,bash,indent=0]
-----
-assertEquals\((.*),(.*)\); -> assertThat(\2).isEqualTo(\1);
-----
-
-==== Converting `assertNull(objectUnderTest)` to `assertThat(objectUnderTest).isNull()`
-
-Find/replace regex:
-
-[source,bash,indent=0]
-----
-assertNull\((.*)\); -> assertThat(\1).isNull();
-----
-
-==== Converting `assertNotNull(objectUnderTest)` to `assertThat(objectUnderTest).isNotNull()`
-
-Find/replace regex:
-
-[source,bash,indent=0]
-----
-assertNotNull\((.*)\); -> assertThat(\1).isNotNull();
-----
-
-==== Converting `assertFalse(logicalCondition)` to `assertThat(logicalCondition).isFalse()`
-
-Find/replace regex:
-
-[source,bash,indent=0]
-----
-assertFalse\((.*)\); -> assertThat(\1).isFalse();
-----
-
-
-[[assertj-samples]]
-== AssertJ Sample Projects
-
-The https://github.com/joel-costigliola/assertj-examples/tree/master/assertions-examples[assertions-examples] repository hosts executable AssertJ assertions examples that you can run as JUnit tests. Please have a look at assertions https://github.com/joel-costigliola/assertj-examples/tree/master/assertions-examples/src/test/java/org/assertj/examples[examples sources].
-
-The `master` branch contains examples with the latest released version of AssertJ modules for Java 8, similarly the `java-7` branch contains examples of AssertJ modules for Java 7. You should be able to build those two branches with `mvn clean install` command.
-
-In your IDE, add `src/test/generated-assertions` to the project java test sources otherwise you will have errors/missing classes. This is the folder where custom assertions classes are generated by default by the maven assertions generator plugin. Note that Intellij Idea wrongly adds `src/test/generated-assertions` to the production sources when it should be added the test sources, you will have to fix that in your module/project settings.
-
-Building the `with-latest-snapshot-versions` branch is a bit more complicated :
-
-* you need to build the needed SNAPSHOT dependencies before - most probably assertj-core and maybe other modules.
-* run `mvn clean install` in assertj-examples/assertions-examples.
-* In your IDE, add `src/test/generated-assertions` to the project java sources if you IDE shows errors/missing classes.
