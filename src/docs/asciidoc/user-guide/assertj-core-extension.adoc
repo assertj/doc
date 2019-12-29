@@ -1,0 +1,14 @@
+[[assertj-core-extensions]]
+=== Extending assertions (TODO)
+
+TODO
+
+[[assertj-core-conditions]]
+==== Conditions (TODO)
+
+TODO
+
+[[assertj-core-custom-assertions]]
+==== Custom Assertions (TODO)
+
+TODO

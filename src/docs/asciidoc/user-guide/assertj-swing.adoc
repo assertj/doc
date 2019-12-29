@@ -1,0 +1,2 @@
+[[assertj-swing]]
+== AssertJ Swing
