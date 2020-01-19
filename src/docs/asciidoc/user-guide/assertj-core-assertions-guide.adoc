@@ -3,6 +3,8 @@
 
 This section describes the assertions provided by AssertJ Core and other useful features to get the best of it.
 
+AssertJ Core http://www.javadoc.io/doc/org.assertj/assertj-core/[javadoc] explains each assertions most of them with code examples so be sure to check it if you want to know what a specific assertion does. 
+
 [[assertj-core-simple-example]]
 ==== A simple example
 
@@ -1219,6 +1221,4 @@ include::{testDir}/example/core/AssumptionsDemo.java[tags=assumption_met]
 [[assertj-core-javadoc]]
 ==== Javadoc
 
-The latest version of assertj core javadoc is here:
-
-http://www.javadoc.io/doc/org.assertj/assertj-core/
+http://www.javadoc.io/doc/org.assertj/assertj-core/ is the latest version of assertj core javadoc, each assertions is explained, most of them with code examples so be sure to check it if you want to know what a specific assertion does. 

@@ -8,7 +8,7 @@ IMPORTANT: AssertJ Core 2.x is in maintenance mode, it will only receive bugfixe
 [[get-assertj-core]]
 ==== Get assertj-core library
 
-AssertJ Core artifacts are in the Maven central repository.
+AssertJ Core artifacts are in the Maven central repository. 
 
 [[assertj-core-java-versions]]
 ===== Supported Java versions
@@ -57,7 +57,7 @@ Or version 2.9.1 for Java 7 projects
 testImplementation("org.assertj:assertj-core:2.9.1")
 ----
 
-===== Other dependency management tool
+===== Other build tools
 
 Check this page to find the relevant https://search.maven.org/artifact/org.assertj/assertj-core/{assertj-core-version}/bundle[assertj core dependency declaration].
 
@@ -171,3 +171,8 @@ assertThat(objectUnderTest). # <1>
 Example for String assertions:
 
 image::ide-completion.png[]
+
+[[assertj-core-javadoc-quickstart]]
+==== Javadoc
+
+http://www.javadoc.io/doc/org.assertj/assertj-core/ is the latest version of assertj core javadoc, each assertions is explained, most of them with code examples so be sure to check it if you want to know what a specific assertion does. 
