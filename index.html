@@ -2507,6 +2507,9 @@ programmers writing tests assertions with AssertJ.</p>
 <p>AssertJ is a java library providing a rich set of assertions, truly helpful error messages, improves test code readability and is designed to be super easy to use within your favorite IDE.</p>
 </div>
 <div class="paragraph">
+<p><a href="http://www.javadoc.io/doc/org.assertj/assertj-core/" class="bare">http://www.javadoc.io/doc/org.assertj/assertj-core/</a> is the latest version of assertj core javadoc, each assertions is explained, most of them with code examples so be sure to check it if you want to know what a specific assertion does.</p>
+</div>
+<div class="paragraph">
 <p>Here are a few examples of AssertJ assertions:</p>
 </div>
 <div class="listingblock">
@@ -2658,7 +2661,7 @@ AssertJ Core 2.x is in maintenance mode, it will only receive bugfixes.
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">testCompile("org.assertj:assertj-core:3.14.0")</code></pre>
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">testImplementation("org.assertj:assertj-core:3.14.0")</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2666,12 +2669,12 @@ AssertJ Core 2.x is in maintenance mode, it will only receive bugfixes.
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">testCompile("org.assertj:assertj-core:2.9.1")</code></pre>
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">testImplementation("org.assertj:assertj-core:2.9.1")</code></pre>
 </div>
 </div>
 </div>
 <div class="sect4">
-<h5 id="other-dependency-management-tool"><a class="anchor" href="#other-dependency-management-tool"></a>Other dependency management tool</h5>
+<h5 id="other-build-tools"><a class="anchor" href="#other-build-tools"></a>Other build tools</h5>
 <div class="paragraph">
 <p>Check this page to find the relevant <a href="https://search.maven.org/artifact/org.assertj/assertj-core/3.14.0/bundle">assertj core dependency declaration</a>.</p>
 </div>
@@ -2815,11 +2818,20 @@ public class BDDAssertionsExamples extends AbstractAssertionsExamples {
 </div>
 </div>
 </div>
+<div class="sect3">
+<h4 id="assertj-core-javadoc-quickstart"><a class="anchor" href="#assertj-core-javadoc-quickstart"></a>2.4.4. Javadoc</h4>
+<div class="paragraph">
+<p><a href="http://www.javadoc.io/doc/org.assertj/assertj-core/" class="bare">http://www.javadoc.io/doc/org.assertj/assertj-core/</a> is the latest version of assertj core javadoc, each assertions is explained, most of them with code examples so be sure to check it if you want to know what a specific assertion does.</p>
+</div>
+</div>
 </div>
 <div class="sect2">
 <h3 id="assertj-core-assertions-guide"><a class="anchor" href="#assertj-core-assertions-guide"></a>2.5. Core assertions guide</h3>
 <div class="paragraph">
 <p>This section describes the assertions provided by AssertJ Core and other useful features to get the best of it.</p>
+</div>
+<div class="paragraph">
+<p>AssertJ Core <a href="http://www.javadoc.io/doc/org.assertj/assertj-core/">javadoc</a> explains each assertions most of them with code examples so be sure to check it if you want to know what a specific assertion does.</p>
 </div>
 <div class="sect3">
 <h4 id="assertj-core-simple-example"><a class="anchor" href="#assertj-core-simple-example"></a>2.5.1. A simple example</h4>
@@ -4744,10 +4756,7 @@ public void when_all_assumptions_are_met_the_test_is_run_normally() {
 <div class="sect3">
 <h4 id="assertj-core-javadoc"><a class="anchor" href="#assertj-core-javadoc"></a>2.5.15. Javadoc</h4>
 <div class="paragraph">
-<p>The latest version of assertj core javadoc is here:</p>
-</div>
-<div class="paragraph">
-<p><a href="http://www.javadoc.io/doc/org.assertj/assertj-core/" class="bare">http://www.javadoc.io/doc/org.assertj/assertj-core/</a></p>
+<p><a href="http://www.javadoc.io/doc/org.assertj/assertj-core/" class="bare">http://www.javadoc.io/doc/org.assertj/assertj-core/</a> is the latest version of assertj core javadoc, each assertions is explained, most of them with code examples so be sure to check it if you want to know what a specific assertion does.</p>
 </div>
 </div>
 </div>
@@ -7022,7 +7031,7 @@ assertThat(value).asInstanceOf(InstanceOfAssertFactories.TABLE)
 <div id="footer">
 <div id="footer-text">
 Version 0.9.9<br>
-Last updated 2019-12-31 05:46:40 UTC
+Last updated 2020-01-19 05:07:16 UTC
 </div>
 </div>
 <script src="tocbot-3.0.2/tocbot.min.js"></script>
