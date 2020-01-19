@@ -13,6 +13,8 @@ Latest release notes:
 - link:#assertj-core-3-12-1-release-notes[AssertJ Core 3.12.1]
 - link:#assertj-core-3-12-0-release-notes[AssertJ Core 3.12.0]
 
+Older release notes can be found in the old site: https://joel-costigliola.github.io/assertj/assertj-core-news.html, this is important to be aware of breaking changes if you are migrating from an old version.
+
 [[assertj-core-3-14-0-release-notes]]
 ==== AssertJ Core 3.14.0
 
