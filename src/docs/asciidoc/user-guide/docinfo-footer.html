@@ -20,11 +20,13 @@
                 collapseDepth: 6,
                 activeLinkClass: 'ignoreactive',
                 throttleTimeout: 1000,
+                collapseDepth: 3,
                 smoothScroll: false });
         }
         else {
             tocbot.refresh({ contentSelector: '#content',
                 headingSelector: 'h1, h2, h3, h4, h5',
+                collapseDepth: 3,
                 smoothScroll: false });
         }
     };
