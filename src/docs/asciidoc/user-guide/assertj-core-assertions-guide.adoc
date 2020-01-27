@@ -799,11 +799,8 @@ Since 3.12.0 AssertJ Core provides a new fluent recursive comparison API for `Ob
 * link:#assertj-core-recursive-comparison-comparators[Specifying comparators to use in the comparison]
 * link:#assertj-core-recursive-comparison-ignoring-equals[Force recursive comparison on classes that have redefined `equals`]
 
-This is a *Beta* version but it is worth using it already, we want to have feedback from the community to make it even better before freezing the API.
-There are more capabilities to come in the next releases, stay tuned!
-
 The recursive comparison mode starts after calling `usingRecursiveComparison()`.
-By default it uses `equals` methods of classes that have overriden it, this can be changed and force recursive comparison on this classes (link:#assertj-core-recursive-comparison-ignoring-equals[see this section]).
+By default it uses `equals` methods of classes that have overriden it, this behavior can be changed forcing recursive comparison on these classes (link:#assertj-core-recursive-comparison-ignoring-equals[see this section]).
 
 Here's a simple example to give an idea of what it can do:
 
@@ -913,6 +910,7 @@ There are a few ways to specify the fields to ignore:
 
 * directly with `ignoringFields(String... fieldsToIgnore)`
 * by regexes with `ignoringFieldsMatchingRegexes(String... regexes)`
+* by types with `ignoringFieldsOfTypes(Class... typesToIgnore)`
 
 Nested fields can be specified like this: `home.address.street`
 
@@ -941,7 +939,7 @@ assertThat(sherlock).usingRecursiveComparison()
                     .ignoringFields("name", "home")
                     .isEqualTo(moriarty);
 
-// ignoring with regexes: name and home match .*me
+// ignoring fields matching regexes: name and home match .*me
 assertThat(sherlock).usingRecursiveComparison()
                     .ignoringFieldsMatchingRegexes(".*me")
                     .isEqualTo(moriarty);
@@ -952,6 +950,14 @@ sherlock.home.address.street = null;
 assertThat(sherlock).usingRecursiveComparison()
                     .ignoringActualNullFields()
                     .isEqualTo(moriarty);
+
+// ignore height and address fields by type: 
+Person tallSherlock = new Person("sherlock", 2.10);
+tallSherlock.home.address.street = "Long Baker Street";
+tallSherlock.home.address.number = 222;
+assertThat(sherlock).usingRecursiveComparison()
+                    .ignoringFieldsOfTypes(double.class, Address.class)
+                    .isEqualTo(tallSherlock);
 ----
 
 [[assertj-core-recursive-comparison-ignoring-equals]]
@@ -1221,4 +1227,4 @@ include::{testDir}/example/core/AssumptionsDemo.java[tags=assumption_met]
 [[assertj-core-javadoc]]
 ==== Javadoc
 
-http://www.javadoc.io/doc/org.assertj/assertj-core/ is the latest version of assertj core javadoc, each assertions is explained, most of them with code examples so be sure to check it if you want to know what a specific assertion does. 
+http://www.javadoc.io/doc/org.assertj/assertj-core/ is the latest version of assertj core javadoc, each assertion is explained, most of them with code examples so be sure to check it if you want to know what a specific assertion does. 

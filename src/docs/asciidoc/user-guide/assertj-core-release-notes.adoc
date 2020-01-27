@@ -5,6 +5,7 @@ NOTE: AssertJ Core would not exist without its contributors, you can find them a
 
 Latest release notes:
 
+- link:#assertj-core-3-15-0-release-notes[AssertJ Core 3.15.0]
 - link:#assertj-core-3-14-0-release-notes[AssertJ Core 3.14.0]
 - link:#assertj-core-3-13-2-release-notes[AssertJ Core 3.13.2]
 - link:#assertj-core-3-13-1-release-notes[AssertJ Core 3.13.1]
@@ -15,6 +16,327 @@ Latest release notes:
 
 Older release notes can be found in the old site: https://joel-costigliola.github.io/assertj/assertj-core-news.html, this is important to be aware of breaking changes if you are migrating from an old version.
 
+[[assertj-core-3-15-0-release-notes]]
+==== AssertJ Core 3.15.0
+
+Release date : 2020-0x-xx
+
+The recursive comparison API has been promoted and is not a beta API anymore.
+
+[[assertj-core-3.15.0-contributors]]
+[.release-note-category]#icon:user[] Contributors#
+
+Thanks to all the contributors of this release: Erhard Pointl, Stefano Cordio, Pascal Schumacher, BJ Hargrave, Raymond Augé, Thomas Weißschuh, Maciej Wajcht, Hayden Meloche, Filip Hrisafov, Jayati Goyal, Gyumin Kim, Clemens Grabmann, Roman Leventov, Fr Jeremy Krieg, Benoit Dupont, Nikolaos Georgiou, Christian Stein, Jeremy Landis, Graham Dennis, Fabien Duminy, Tommy Situ and Vincent Ricard.
+
+Shout ou to Vincent Ricard for the various tests refactoring, that was quite a lot of work!
+
+[[assertj-core-3.15.0-breaking-changes]]
+[.release-note-category]#icon:exclamation-triangle[] Breaking changes#
+
+* Compares `OffsetDateTime`, `ZonedDateTime` and `LocalDateTime` using their `timeLineOrder()` comparator as default.
+** For `OffsetDateTime` the `timeLineOrder` comparator only compares the underlying instant and ignores different timezones / offsets / chronologies.
+** For `ZonedDateTime` the `timeLineOrder` comparator ignores the chronology, this is equivalent to comparing the epoch-second and nano-of-second.
+** For `LocalDateTime` the `timeLineOrder` comparator ignores the chronology, this is equivalent to comparing the epoch-day and nano-of-day and allows dates in different calendar systems to be compared based on the position of the date-time on the local time-line.
+* A single `Path` parameter for `containsOnlyKeys` in `Map` assertions is treated as a single key rather than an `Iterable` of keys.
+
+[[assertj-core-3.15.0-new-features]]
+[.release-note-category]#icon:plus-circle[] New features#
+
+- Add link:#assertj-core-3.15.0-Duration[`java.time.Duration`] assertions. (Filip Hrisafov)
+- Add link:#assertj-core-3.15.0-isPackagePrivate[`isPackagePrivate`] to `Class` assertions. (Hayden Meloche)
+- Add link:#assertj-core-3.15.0-hasSameBinaryContentAs[`hasSameBinaryContentAs`] to `File`/`Path` assertions. (Nikolaos Georgiou)
+- Add link:#assertj-core-3.15.0-succeedsWithin[`succeedsWithin`] to `CompletableFuture` assertions. (Nikolaos Georgiou)
+- Add link:#assertj-core-3.15.0-hasSuperclass[`hasSuperclass`] to `Class` assertions. (Stefano Cordio)
+- Add link:#assertj-core-3.15.0-hasNoSuperclass[`hasNoSuperclass`] to `Class` assertions. (Stefano Cordio)
+- Make the link:#assertj-core-3.15.0-recursive-comparison[recursive comparison API] directly available to `Iterable`, `Map`, `Optional` and array assertions.
+- Allow to <<assertj-core-assertions-guide.adoc#assertj-core-recursive-comparison-ignoring-fields,ignore fields by type>> in the recursive comparison. (Tommy Situ)
+
+[[assertj-core-3.15.0-improvements]]
+[.release-note-category]#icon:arrow-circle-up[] Improvements#
+
+- Show explicitely if a class is package private in `ClassModifierShouldBe` error message.
+- Various module descriptor improvements: (Christian Stein and Stefano Cordio)
+** Remove JSR-305 due to issues with java 9 modules. (Stefano Cordio)
+** Remove .core.internal from exported packages. (Stefano Cordio)
+- Update ByteBuddy to version 1.10.6.
+- Update JUnit to version 4.13 (still optional).
+- Update JUnit Jupiter to version 5.6.0 (still optional).
+- Make OSGi import of jdk.* packages optional. (BJ Hargrave)
+- Use bnd 5.0.0 to a) use -noclassforname instruction b) generate most up to date OSGi metadata c) add verification that additional package imports never sneak in. (Raymond Augé)
+- Get rid of unnecessary extra arguments in `String.format`. (Erhard Pointl)
+- Unify `actual` and `expected` formatting in `hasToString()` error which is now `AssertionFailedError` to allow visual comparison. (Thomas Weißschuh)
+- Add missing BDD assertions for exception handling (`thenExceptionOfType`, `thenNullPointerException`, `thenIllegalArgumentException`, `thenIOException` and `thenIllegalStateException`). (Maciej Wajcht)
+- Rewrite `LocalDateAssert`, `LocalDateTimeAssert`, `LocalTimeAssert` and `OffsetDateTimeAssert` tests to be more compliant with the contribution guidelines. (Clemens Grabmann)
+- Remove IntelliJ IDEA configuration file for Language Injection as the rules are part of the built-in configuration since IntelliJ IDEA
+2019.3. (Stefano Cordio)
+- Improve performance of `containsOnly()`` on very large collections. (Roman Leventov)
+- Configure GitHub Actions for Windows and MacOS. (Filip Hrisafov)
+- Remove duplication for `Descriptable` implementations using default methods. (Fr Jeremy Krieg)
+- Use parameterized tests for `assertHasParameter()` in URI assertions. (Stefano Cordio)
+- Show the stack trace of the Throwable under test when `hasMessageContaining` and `hasMessageContainingAll` fails. (Benoit Dupont)
+- Bump maven wrapper to 0.5.6. (Jeremy Landis)
+- Improve the representation of failed `CompletableFuture` showing the exception that caused the failure.
+- Use `Objects.requireNonNull` instead of manually creating NullPointerExceptions. (Pascal Schumacher)
+- Remove unused methods. (Fabien Duminy)
+- Replace `try`/`catch` exception assertion with `catchThrowable` pattern. (Vincent Ricard)
+- Remove `failBecauseExpectedAssertionErrorWasNotThrown`. (Vincent Ricard)
+- Replace the `TestFailures` helper class by the `catchThrowable` pattern. (Vincent Ricard)
+- Update license year to 2020
+
+[[assertj-core-3.15.0-fixed]]
+[.release-note-category]#icon:wrench[] Fixed#
+
+- Fix grammatical errors in README.md (Jayati Goyal)
+- Fix `allOf(Iterable)` and `anyOf(Iterable)` that no longer tracked descriptions when built with an `Iterable<Condition>`.
+- Fix typos in javadoc and comments. (Erhard Pointl)
+- Add `abstract` modifier for `Java6AbstractStandardSoftAssertions`. (Stefano Cordio)
+- Fix typo in javadoc. (Gyumin Kim)
+- Fix how `Enum` are compared in recursive comparison which now compares them by value.
+- Fix floating point comparison behavior in `DoubleAssert` and `FloatAssert`, which now follows primitive comparison (`==`, `<=`, `>=`) when the expected value is primitive but uses the corresponding `equals` semantic when the expected value is a wrapper.
+- Fix tests failing only on Windows. (Fr Jeremy Krieg)
+- Fix a double decoding issue in `UriAssert`, which now uses the raw query to evaluate URI parameters avoiding the mishandling of escaped `&` and `=`. (Graham Dennis)
+- Refactoring: remove useless null check. (Pascal Schumacher)
+- Fix use `equals` to compare enum names in recursive comparison.
+- Fix how `containsOnlyKeys` in `MapAssert` considers a single `Path` parameter, which is now treated as a single key rather than an `Iterable` of keys. (Stefano Cordio)
+- Fix the recursive comparison that used to register fields of objects with overridden `equals` when it should not have to.
+- Fix property and field extraction with `Map` input, which now tries at first to extract a property or a field by name and only in case of failure uses the input name as a `Map` key. (Stefano Cordio)
+
+[[assertj-core-3.15.0-deprecated]]
+[.release-note-category]#icon:ban[] Dep recated#
+
+- Deprecate `hasSameContentAs` in favor of `hasSameTextualContentAs` and the new `hasSameBinaryContentAs`.
+- Deprecate `Preconditions#checkNotNull(Object)` in favor of `Objects.requireNonNull(Object)`.
+- Deprecate `Preconditions#checkNotNull(Object, String)` in favor of `Objects.requireNonNull(Object, String)`.
+
+[[assertj-core-3.15.0-Duration]]
+[.release-note-item]#Add `java.time.Duration` assertions.#
+
+The following `java.time.Duration` assertions are available
+
+- `hasDays​(long otherDays)`: Verifies that the actual Duration has the given days.
+- `hasHours​(long otherHours)`: Verifies that the actual Duration has the given hours.
+- `hasMillis​(long otherMillis)`: Verifies that the actual Duration has the given millis.
+- `hasMinutes​(long otherMinutes)`: Verifies that the actual Duration has the given minutes.
+- `hasNanos​(long otherNanos)`: Verifies that the actual Duration has the given nanos.
+- `hasSeconds​(long otherSeconds)`: Verifies that the actual Duration has the given seconds.
+- `isNegative()`: Verifies that the actual Duration is negative (i.e. < `Duration.ZERO`)
+- `isPositive()`: Verifies that the actual Duration is positive (i.e. > `Duration.ZERO`)
+- `isZero()`: Verifies that the actual Duration is `Duration.ZERO`.
+
+Examples:
+[source,java,indent=0]
+----
+assertThat(Duration.ofDays(5)).hasDays(5);
+assertThat(Duration.ofHours(15)).hasHours(15);
+
+assertThat(Duration.ofMinutes(65)).hasMinutes(65);
+assertThat(Duration.ofSeconds(250)).hasSeconds(250);
+
+assertThat(Duration.ofMillis(250)).hasMillis(250);
+assertThat(Duration.ofNanos(145)).hasNanos(145);
+
+assertThat(Duration.ofHours(5)).isPositive();
+assertThat(Duration.ofMinutes(-15)).isNegative();
+assertThat(Duration.ZERO).isZero();
+----
+
+[[assertj-core-3.15.0-isPackagePrivate]]
+[.release-note-item]#Add `isPackagePrivate` to `Class` assertions#
+
+Verifies that the actual `Class` is package-private (i.e. has no modifier).
+
+Example:
+[source,java,indent=0]
+----
+class MyClass {}
+
+// this assertion succeeds:
+assertThat(MyClass.class).isPackagePrivate();
+
+// this assertion fails:
+assertThat(String.class).isPackagePrivate();
+----
+
+[[assertj-core-3.15.0-hasSameBinaryContentAs]]
+[.release-note-item]#Add `hasSameBinaryContentAs` to `File`/`Path` assertions#
+
+Verifies that the content of the actual file/path is equal to the content of the given one, the comparison is done at the binary level.
+
+Example with `Path` (works the same with `File`):
+[source,java,indent=0]
+----
+// The first two paths have the same content, the third does not
+Path aPath = Files.write(Paths.get("a-file.bin"), new byte[] { 42 });
+Path bPath = Files.write(Paths.get("b-file.bin"), new byte[] { 42 });
+Path cPath = Files.write(Paths.get("c-file.bin"), new byte[] { 24 });
+
+// The following assertion succeeds:
+assertThat(aPath).hasSameBinaryContentAs(bPath);
+
+// The following assertion fails:
+assertThat(aPath).hasSameBinaryContent(cPath);
+----
+
+[[assertj-core-3.15.0-succeedsWithin]]
+[.release-note-item]#Add `succeedsWithin` to `CompletableFuture` assertions#
+
+Waits if necessary for at most the given time for this future to complete, and then returns its result for futher assertions.
+If the future's result is not available for any reason an assertion error is thrown.
+
+The time to wait for can be expressed with a `Duration` or a `TimeUnit`.
+
+To get assertions for the future result's type use `succeedsWithin` that takes an additional `InstanceOfAssertFactory` parameter. 
+
+Examples:
+[source,java,indent=0]
+----
+CompletableFuture<String> future = CompletableFuture.completedFuture("ook!");
+
+// assertion expressed with TimeUnit
+assertThat(future).succeedsWithin(100, TimeUnit.MILLISECONDS)
+                  .isEqualTo("ook!");
+
+// same assertion with Duration
+assertThat(future).succeedsWithin(Duration.ofMillis(100))
+                  .isEqualTo("ook!");
+
+// STRING is a static import of InstanceOfAssertFactories.STRING
+// we can then chain String assertions
+assertThat(future).succeedsWithin(100, TimeUnit.MILLISECONDS, STRING)
+                  .startsWith("oo");                   
+----
+
+[[assertj-core-3.15.0-hasSuperclass]]
+[.release-note-item]#Add `hasSuperclass` to `Class` assertions#
+
+Verifies that the actual `Class` has the given superclass.
+
+Example:
+[source,java,indent=0]
+----
+// this assertion succeeds:
+assertThat(Integer.class).hasSuperclass(Number.class);
+
+// this assertion succeeds as superclass for array classes is Object:
+assertThat(Integer[].class).hasSuperclass(Object.class);
+
+// this assertion fails:
+assertThat(String.class).hasSuperclass(Number.class);
+
+// this assertion fails as only direct superclass matches:
+assertThat(String.class).hasSuperclass(Object.class);
+
+// this assertion fails as interfaces are not superclasses:
+assertThat(String.class).hasSuperclass(Comparable.class);
+----
+
+[[assertj-core-3.15.0-hasNoSuperclass]]
+[.release-note-item]#Add `hasNoSuperclass` to `Class` assertions#
+
+Verifies that the actual `Class` has no superclass.
+
+Example:
+[source,java,indent=0]
+----
+// this assertion succeeds as interfaces have no superclass:
+assertThat(Cloneable.class).hasNoSuperclass();
+
+// this assertion succeeds as primitive types have no superclass:
+assertThat(Integer.TYPE).hasNoSuperclass();
+
+// this assertion succeeds as void type has no superclass:
+assertThat(Void.TYPE).hasNoSuperclass();
+
+// this assertion fails as Integer has Number as superclass:
+assertThat(Integer.class).hasNoSuperclass();
+----
+
+[[assertj-core-3.15.0-recursive-comparison]]
+[.release-note-item]#Make recursive comparison API directly available to `Iterable`, `Map`, `Optional` and array assertions#
+
+Expose the recursive comparison for `Iterable`, `Map`, `Optional` and array assertions without having to cast them to `Object` as previously (because the API was only available for `Object` assertions).
+
+At the moment, the only assertion available after in the recursive comparison is `isEqualTo`, there are plans to provide type specific recursive assertions in future (ex: iterable `contains`).
+
+The recursive comparison API lets you finely control how to compare instances, please consult the <<assertj-core-assertions-guide.adoc#assertj-core-recursive-comparison,documentation>>  for a detailed guide. 
+
+For the following examples we use `Person` and `Doctor`, two classes with the same structure:
+[source,java,indent=0]
+----
+public class Person {
+  String name;
+  boolean hasPhd;
+}
+
+public class Doctor {
+ String name;
+ boolean hasPhd;
+}
+
+Doctor drSheldon = new Doctor("Sheldon Cooper", true);
+Doctor drLeonard = new Doctor("Leonard Hofstadter", true);
+Doctor drRaj = new Doctor("Raj Koothrappali", true);
+
+Person sheldon = new Person("Sheldon Cooper", true);
+Person leonard = new Person("Leonard Hofstadter", true);
+Person raj = new Person("Raj Koothrappali", true);
+----
+
+`Iterable` example:
+[source,java,indent=0]
+----
+
+List<Doctor> doctors = list(drSheldon, drLeonard, drRaj);
+List<Person> people = list(sheldon, leonard, raj);
+
+// assertion succeeds as both lists contains equivalent items in order.
+assertThat(doctors).usingRecursiveComparison()
+                   .isEqualTo(people);
+----
+
+Array example:
+[source,java,indent=0]
+----
+
+Doctor[] doctors = { drSheldon, drLeonard, drRaj };
+Person[] people = { sheldon, leonard, raj };
+
+// assertion succeeds as both lists contains equivalent items in order.
+assertThat(doctors).usingRecursiveComparison()
+                   .isEqualTo(people);
+----
+
+`Map` example:
+[source,java,indent=0]
+----
+
+Map<String, Doctor> doctors = mapOf(entry(drSheldon.name, drSheldon),
+                                    entry(drLeonard.name, drLeonard),
+                                    entry(drRaj.name, drRaj));
+
+Map<String, Person> people = mapOf(entry(sheldon.name, sheldon),
+                                   entry(leonard.name, leonard),
+                                   entry(raj.name, raj));
+
+// assertion succeeds as both maps contains equivalent items.
+assertThat(doctors).usingRecursiveComparison()
+                   .isEqualTo(people);
+----
+
+`Optional` example:
+[source,java,indent=0]
+----
+Optional<Doctor> doctor = Optional.of(drSheldon);
+Optional<Person> person = Optional.of(sheldon);
+
+// assertion succeeds as both maps contains equivalent items.
+assertThat(doctor).usingRecursiveComparison()
+                  .isEqualTo(person);
+----
+
+
+// 3.14.0 release notes
+
 [[assertj-core-3-14-0-release-notes]]
 ==== AssertJ Core 3.14.0
 
@@ -23,7 +345,7 @@ Release date : 2019-10-27
 [[assertj-core-3.14.0-contributors]]
 [.release-note-category]#icon:user[] Contributors#
 
-Thanks to all the contributors of this release: Erhard Pointl, Stefano Cordio, Jonas Berlin, Thami Inaflas, Geoffrey Arthaud, Carter Kozak, Kevin Toublanc, Krishna Chaithanya Ganta,sowmiyamuthuraman, Edgar Asatryan, Oleksii Khomchenko, Gonzalo Müller Bravo, Stephen O'Rourke, Sven Johansson, William Bakker, Rob Spieldenner, Raymond Pressly, Michael Keppler and Clemens Grabmann.
+Thanks to all the contributors of this release: Erhard Pointl, Stefano Cordio, Jonas Berlin, Thami Inaflas, Geoffrey Arthaud, Carter Kozak, Kevin Toublanc, Krishna Chaithanya Ganta, sowmiyamuthuraman, Edgar Asatryan, Oleksii Khomchenko, Gonzalo Müller Bravo, Stephen O'Rourke, Sven Johansson, William Bakker, Rob Spieldenner, Raymond Pressly, Michael Keppler and Clemens Grabmann.
 
 [[assertj-core-3.14.0-breaking-changes]]
 [.release-note-category]#icon:exclamation-triangle[] Breaking changes#
@@ -50,7 +372,7 @@ Thanks to all the contributors of this release: Erhard Pointl, Stefano Cordio, J
 - Add link:#assertj-core-3.14.0-iterable-first[`first(InstanceOfAssertFactory)`] to `Iterable` assertions. (Stefano Cordio)
 - Add link:#assertj-core-3.14.0-iterable-last[`last(InstanceOfAssertFactory)`] to `Iterable` assertions. (Stefano Cordio)
 - Add link:#assertj-core-3.14.0-iterable-element[`element(int, InstanceOfAssertFactory)`] to `Iterable` assertions. (Stefano Cordio)
-- Add IntelliJ IDEA regexp smart to AssertJ methods taking regexes. (Jonas Berlin)
+- Add IntelliJ IDEA configuration file for Language Injection to add syntax highlighting on AssertJ methods with regexp parameters. (Jonas Berlin)
 - Add `String.format` support for link:#assertj-core-3.14.0-throwable-assertions-string-format[expected message] in `hasMessageStartingWith`, `hasMessageContaining`, `hasMessageEndingWith` and `hasStackTraceContaining` assertions.  (Krishna Chaithanya Ganta)
 
 [[assertj-core-3.14.0-improvements]]
@@ -66,6 +388,7 @@ Thanks to all the contributors of this release: Erhard Pointl, Stefano Cordio, J
 - Update message text in `ShouldHaveSameSizeAs` to show both actual and expected collections. (Thami Inaflas)
 - Add link:#assertj-core-3.14.0-hamcrest-matching[`matching` syntactic sugar method] to use Hamcrest Matcher as Condition. (Jonas Berlin)
 - Update ByteBuddy to version 1.10.2.
+- Update Hamcrest to version 2.2.
 - Fix javadoc typos and incorrect references. (Erhard Pointl, Stefano Cordio)
 - Stop throwing an `IllegalArgumentException` when `isIn` and `isNotIn` are given an empty group of values.
 - Expose `AbstractAssert.objects` to be used by subclasses.
