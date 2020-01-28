@@ -19,7 +19,7 @@ Older release notes can be found in the old site: https://joel-costigliola.githu
 [[assertj-core-3-15-0-release-notes]]
 ==== AssertJ Core 3.15.0
 
-Release date : 2020-0x-xx
+Release date : 2020-01-28
 
 The recursive comparison API has been promoted and is not a beta API anymore.
 
