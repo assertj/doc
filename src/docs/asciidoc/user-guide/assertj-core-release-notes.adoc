@@ -45,7 +45,7 @@ Shout ou to Vincent Ricard for the various tests refactoring, that was quite a l
 - Add link:#assertj-core-3.15.0-Duration[`java.time.Duration`] assertions. (Filip Hrisafov)
 - Add link:#assertj-core-3.15.0-isPackagePrivate[`isPackagePrivate`] to `Class` assertions. (Hayden Meloche)
 - Add link:#assertj-core-3.15.0-hasSameBinaryContentAs[`hasSameBinaryContentAs`] to `File`/`Path` assertions. (Nikolaos Georgiou)
-- Add link:#assertj-core-3.15.0-succeedsWithin[`succeedsWithin`] to `CompletableFuture` assertions. (Nikolaos Georgiou)
+- Add link:#assertj-core-3.15.0-succeedsWithin[`succeedsWithin`] to `CompletableFuture` assertions.
 - Add link:#assertj-core-3.15.0-hasSuperclass[`hasSuperclass`] to `Class` assertions. (Stefano Cordio)
 - Add link:#assertj-core-3.15.0-hasNoSuperclass[`hasNoSuperclass`] to `Class` assertions. (Stefano Cordio)
 - Make the link:#assertj-core-3.15.0-recursive-comparison[recursive comparison API] directly available to `Iterable`, `Map`, `Optional` and array assertions.
@@ -54,7 +54,7 @@ Shout ou to Vincent Ricard for the various tests refactoring, that was quite a l
 [[assertj-core-3.15.0-improvements]]
 [.release-note-category]#icon:arrow-circle-up[] Improvements#
 
-- Show explicitely if a class is package private in `ClassModifierShouldBe` error message.
+- Show explicitly if a class is `package-private` in `ClassModifierShouldBe` error message.
 - Various module descriptor improvements: (Christian Stein and Stefano Cordio)
 ** Remove JSR-305 due to issues with java 9 modules. (Stefano Cordio)
 ** Remove .core.internal from exported packages. (Stefano Cordio)
@@ -81,7 +81,7 @@ Shout ou to Vincent Ricard for the various tests refactoring, that was quite a l
 - Replace `try`/`catch` exception assertion with `catchThrowable` pattern. (Vincent Ricard)
 - Remove `failBecauseExpectedAssertionErrorWasNotThrown`. (Vincent Ricard)
 - Replace the `TestFailures` helper class by the `catchThrowable` pattern. (Vincent Ricard)
-- Update license year to 2020
+- Update license year to 2020.
 
 [[assertj-core-3.15.0-fixed]]
 [.release-note-category]#icon:wrench[] Fixed#
