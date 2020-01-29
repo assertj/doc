@@ -1,4 +1,4 @@
-[[release-notes]]
+[[assertj-guava-release-notes]]
 === Release Notes
 
 NOTE: AssertJ Guava main documentation is still in http://joel-costigliola.github.io/assertj/assertj-guava.html until it is moved to this website. +
@@ -31,7 +31,7 @@ Thanks to chrisly42 and Stefano Cordio for their contributions!
 
 - AssertJ's javadoc are now searchable.
 - Use beautiful AssertJ's site code style for javadoc :)
-- Migrate to JUnit 5 and latest assertj-core version 3.14.0.
+- Migrate to JUnit 5 and assertj-core version 3.14.0.
 
 [[assertj-guava-3.3.0-fixed]]
 [.release-note-category]#icon:wrench[] Fixed#
