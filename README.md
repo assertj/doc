@@ -1,4 +1,5 @@
 # AssertJ User Guide
+![Publish](https://github.com/assertj/doc/workflows/Publish/badge.svg)
 
 The AssertJ User Guide is available here: https://assertj.github.io/doc/
 
