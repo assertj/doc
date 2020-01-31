@@ -5143,6 +5143,9 @@ AssertJ Core would not exist without its contributors, you can find them all <a 
 <li>
 <p>A single <code>Path</code> parameter for <code>containsOnlyKeys</code> in <code>Map</code> assertions is treated as a single key rather than an <code>Iterable</code> of keys.</p>
 </li>
+<li>
+<p>Fix floating point comparison behavior in <code>DoubleAssert</code> and <code>FloatAssert</code>, which now follows primitive comparison (<code>==</code>, <code>&#x2264;</code>, <code>&#x2265;</code>) when the expected value is primitive but uses the corresponding <code>equals</code> semantic when the expected value is a wrapper.</p>
+</li>
 </ul>
 </div>
 <div id="assertj-core-3.15.0-new-features" class="paragraph">
@@ -5291,9 +5294,6 @@ AssertJ Core would not exist without its contributors, you can find them all <a 
 </li>
 <li>
 <p>Fix how <code>Enum</code> are compared in recursive comparison which now compares them by value.</p>
-</li>
-<li>
-<p>Fix floating point comparison behavior in <code>DoubleAssert</code> and <code>FloatAssert</code>, which now follows primitive comparison (<code>==</code>, <code>&#8656;</code>, <code>&gt;=</code>) when the expected value is primitive but uses the corresponding <code>equals</code> semantic when the expected value is a wrapper.</p>
 </li>
 <li>
 <p>Fix tests failing only on Windows. (Fr Jeremy Krieg)</p>
@@ -7557,7 +7557,7 @@ assertThat(value).asInstanceOf(InstanceOfAssertFactories.TABLE)
 <div id="footer">
 <div id="footer-text">
 Version 0.9.9<br>
-Last updated 2020-01-31 00:34:21 UTC
+Last updated 2020-01-31 10:10:38 UTC
 </div>
 </div>
 <script src="tocbot-3.0.2/tocbot.min.js"></script>
