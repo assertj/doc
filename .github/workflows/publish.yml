@@ -6,8 +6,8 @@ on:
       - master
 
 jobs:
-  publish_gh_pages:
-    name: "Publish to GitHub Pages"
+  gh_pages:
+    name: "GitHub Pages"
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2

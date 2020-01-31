@@ -1,5 +1,5 @@
 # AssertJ User Guide
-![Publish](https://github.com/assertj/doc/workflows/Publish/badge.svg)
+[![Publish](https://github.com/assertj/doc/workflows/Publish/badge.svg)](https://github.com/assertj/doc/actions?query=workflow%3APublish) 
 
 The AssertJ User Guide is available here: https://assertj.github.io/doc/
 
