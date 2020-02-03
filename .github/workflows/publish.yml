@@ -9,6 +9,7 @@ jobs:
   gh_pages:
     name: "GitHub Pages"
     runs-on: ubuntu-latest
+    if: github.repository == 'assertj/doc'
     steps:
     - uses: actions/checkout@v2
     - name: Set up JDK 11
