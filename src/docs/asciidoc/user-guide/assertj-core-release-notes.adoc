@@ -39,6 +39,7 @@ Shout ou to Vincent Ricard for the various tests refactoring, that was quite a l
 ** For `LocalDateTime` the `timeLineOrder` comparator ignores the chronology, this is equivalent to comparing the epoch-day and nano-of-day and allows dates in different calendar systems to be compared based on the position of the date-time on the local time-line.
 * A single `Path` parameter for `containsOnlyKeys` in `Map` assertions is treated as a single key rather than an `Iterable` of keys.
 * Fix floating point comparison behavior in `DoubleAssert` and `FloatAssert`, which now follows primitive comparison (`==`, `&#x2264;`, `&#x2265;`) when the expected value is primitive but uses the corresponding `equals` semantic when the expected value is a wrapper.
+* Fix a double decoding issue in `UriAssert`, which now uses the raw query to evaluate URI parameters avoiding the mishandling of escaped `&` and `=`. (Graham Dennis)
 
 [[assertj-core-3.15.0-new-features]]
 [.release-note-category]#icon:plus-circle[] New features#
@@ -94,7 +95,6 @@ Shout ou to Vincent Ricard for the various tests refactoring, that was quite a l
 - Fix typo in javadoc. (Gyumin Kim)
 - Fix how `Enum` are compared in recursive comparison which now compares them by value.
 - Fix tests failing only on Windows. (Fr Jeremy Krieg)
-- Fix a double decoding issue in `UriAssert`, which now uses the raw query to evaluate URI parameters avoiding the mishandling of escaped `&` and `=`. (Graham Dennis)
 - Refactoring: remove useless null check. (Pascal Schumacher)
 - Fix use `equals` to compare enum names in recursive comparison.
 - Fix how `containsOnlyKeys` in `MapAssert` considers a single `Path` parameter, which is now treated as a single key rather than an `Iterable` of keys. (Stefano Cordio)
