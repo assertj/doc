@@ -40,6 +40,7 @@ Shout ou to Vincent Ricard for the various tests refactoring, that was quite a l
 * A single `Path` parameter for `containsOnlyKeys` in `Map` assertions is treated as a single key rather than an `Iterable` of keys.
 * Fix floating point comparison behavior in `DoubleAssert` and `FloatAssert`, which now follows primitive comparison (`==`, `&#x2264;`, `&#x2265;`) when the expected value is primitive but uses the corresponding `equals` semantic when the expected value is a wrapper.
 * Fix a double decoding issue in `UriAssert`, which now uses the raw query to evaluate URI parameters avoiding the mishandling of escaped `&` and `=`. (Graham Dennis)
+* Remove duplication for `Descriptable` implementations using default methods. (Fr Jeremy Krieg)
 
 [[assertj-core-3.15.0-new-features]]
 [.release-note-category]#icon:plus-circle[] New features#
@@ -73,7 +74,6 @@ Shout ou to Vincent Ricard for the various tests refactoring, that was quite a l
 2019.3. (Stefano Cordio)
 - Improve performance of `containsOnly()` on very large collections. (Roman Leventov)
 - Configure GitHub Actions for Windows and MacOS. (Filip Hrisafov)
-- Remove duplication for `Descriptable` implementations using default methods. (Fr Jeremy Krieg)
 - Use parameterized tests for `assertHasParameter()` in URI assertions. (Stefano Cordio)
 - Show the stack trace of the Throwable under test when `hasMessageContaining` and `hasMessageContainingAll` fails. (Benoit Dupont)
 - Bump maven wrapper to 0.5.6. (Jeremy Landis)
