@@ -5149,6 +5149,9 @@ AssertJ Core would not exist without its contributors, you can find them all <a 
 <li>
 <p>Fix a double decoding issue in <code>UriAssert</code>, which now uses the raw query to evaluate URI parameters avoiding the mishandling of escaped <code>&amp;</code> and <code>=</code>. (Graham Dennis)</p>
 </li>
+<li>
+<p>Remove duplication for <code>Descriptable</code> implementations using default methods. (Fr Jeremy Krieg)</p>
+</li>
 </ul>
 </div>
 <div id="assertj-core-3.15.0-new-features" class="paragraph">
@@ -5239,9 +5242,6 @@ AssertJ Core would not exist without its contributors, you can find them all <a 
 </li>
 <li>
 <p>Configure GitHub Actions for Windows and MacOS. (Filip Hrisafov)</p>
-</li>
-<li>
-<p>Remove duplication for <code>Descriptable</code> implementations using default methods. (Fr Jeremy Krieg)</p>
 </li>
 <li>
 <p>Use parameterized tests for <code>assertHasParameter()</code> in URI assertions. (Stefano Cordio)</p>
@@ -7557,7 +7557,7 @@ assertThat(value).asInstanceOf(InstanceOfAssertFactories.TABLE)
 <div id="footer">
 <div id="footer-text">
 Version 0.9.9<br>
-Last updated 2020-02-04 09:54:08 UTC
+Last updated 2020-02-05 22:10:32 UTC
 </div>
 </div>
 <script src="tocbot-3.0.2/tocbot.min.js"></script>
