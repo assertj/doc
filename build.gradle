@@ -12,7 +12,7 @@ buildscript {
 
 plugins {
 	id 'java'
-  id 'org.ajoberstar.github-pages' version '1.5.1'
+  id 'org.ajoberstar.github-pages' version '1.7.2'
   id 'org.asciidoctor.gradle.asciidoctor' version '1.5.1'
   id 'org.asciidoctor.convert' version '1.5.8.1'
 }
