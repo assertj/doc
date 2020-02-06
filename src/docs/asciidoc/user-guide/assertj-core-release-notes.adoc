@@ -40,7 +40,7 @@ Shout ou to Vincent Ricard for the various tests refactoring, that was quite a l
 * A single `Path` parameter for `containsOnlyKeys` in `Map` assertions is treated as a single key rather than an `Iterable` of keys.
 * Fix floating point comparison behavior in `DoubleAssert` and `FloatAssert`, which now follows primitive comparison (`==`, `&#x2264;`, `&#x2265;`) when the expected value is primitive but uses the corresponding `equals` semantic when the expected value is a wrapper.
 * Fix a double decoding issue in `UriAssert`, which now uses the raw query to evaluate URI parameters avoiding the mishandling of escaped `&` and `=`. (Graham Dennis)
-* Remove duplication for `Descriptable` implementations using default methods. (Fr Jeremy Krieg)
+* Remove duplication for `Descriptable` implementations using default methods. This is a binary incompatible change. (Fr Jeremy Krieg)
 
 [[assertj-core-3.15.0-new-features]]
 [.release-note-category]#icon:plus-circle[] New features#
