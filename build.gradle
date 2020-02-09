@@ -1,24 +1,10 @@
-buildscript {
-	dependencies {
-		// upgrade to latest jruby version due to a bugfix needed for Windows 10.
-		// can be removed, when asciidoctorj uses this as a default version.
-		classpath('org.jruby:jruby-complete:9.1.17.0')
-
-		// classpath('org.asciidoctor:asciidoctorj-epub3:1.5.0-alpha.16')
-		classpath('org.asciidoctor:asciidoctorj-pdf:1.5.0-alpha.16')
-		classpath('org.asciidoctor:asciidoctorj-diagram:1.5.9')
-	}
-}
-
 plugins {
 	id 'java'
-  id 'org.ajoberstar.github-pages' version '1.7.2'
-  id 'org.asciidoctor.gradle.asciidoctor' version '1.5.1'
-  id 'org.asciidoctor.convert' version '1.5.8.1'
+	id 'org.ajoberstar.github-pages' version '1.7.2'
+	id 'org.asciidoctor.convert' version '1.5.12'
 }
 
 dependencies {
-	asciidoctor('org.jruby:jruby-complete:9.1.17.0')
 	testCompile("org.assertj:assertj-core:" + project.getProperty('assertjCoreVersion'))
 	testCompile('junit:junit:4.12')
 
@@ -28,10 +14,6 @@ dependencies {
 	testRuntime("org.junit.jupiter:junit-jupiter-engine:$junitJupiterVersion")
 }
 
-asciidoctorj {
-	version = '1.5.6'
-}
-
 ext {
 	docsVersion = project.version.contains('SNAPSHOT') ? 'snapshot' : project.version
 
@@ -39,9 +21,6 @@ ext {
 }
 
 asciidoctor {
-
-	// enable the Asciidoctor Diagram extension
-	requires 'asciidoctor-diagram'
 
 	separateOutputDirs false
 	sources {
@@ -57,7 +36,6 @@ asciidoctor {
 		}
 	}
 
-	// backends 'html5', 'pdf'
 	backends 'html5'
 
 	attributes	'release-branch': releaseBranch,
