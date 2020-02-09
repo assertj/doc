@@ -1,7 +1,7 @@
 plugins {
 	id 'java'
 	id 'org.ajoberstar.github-pages' version '1.7.2'
-	id 'org.asciidoctor.convert' version '1.5.12'
+	id 'org.asciidoctor.convert' version '2.4.0'
 }
 
 dependencies {
@@ -22,7 +22,6 @@ ext {
 
 asciidoctor {
 
-	separateOutputDirs false
 	sources {
 		include '**/index.adoc'
 	}
@@ -38,24 +37,24 @@ asciidoctor {
 
 	backends 'html5'
 
-	attributes	'release-branch': releaseBranch,
-							'docs-version': docsVersion,
-							'revnumber' : version,
-							'releaseBranch' : version,
-							'testDir': '../../../test/java',
-							'outdir': outputDir.absolutePath,
-							'source-highlighter': 'highlightjs',
-							'highlightjsdir': 'highlight',
-							'highlightjs-theme': 'railscasts',
-							'tabsize': '3',
-							'toc': 'left',
-							'icons': 'font',
-							'sectanchors': true,
-							'idprefix': '',
-							'idseparator': '-',
-							'assertj-core-version': assertjCoreVersion,
-							'stylesheet': '../../../docs/asciidoc/asciidoctor.css',
-							'docinfo': 'shared'
+	attributes 'release-branch': releaseBranch,
+			'docs-version': docsVersion,
+			'revnumber': version,
+			'releaseBranch': version,
+			'testDir': '../../../test/java',
+			'outdir': outputDir.absolutePath,
+			'source-highlighter': 'highlightjs',
+			'highlightjsdir': 'highlight',
+			'highlightjs-theme': 'railscasts',
+			'tabsize': '3',
+			'toc': 'left',
+			'icons': 'font',
+			'sectanchors': true,
+			'idprefix': '',
+			'idseparator': '-',
+			'assertj-core-version': assertjCoreVersion,
+			'stylesheet': '../../../docs/asciidoc/asciidoctor.css',
+			'docinfo': 'shared'
 }
 
 githubPages {
