@@ -95,7 +95,7 @@ a| Primitive type arrays:
 |====
 a| Atomic basic types:
 
-* AtomicInteger,
+* AtomicInteger
 * AtomicLong
 * AtomicBoolean
 a| Atomic array types:
