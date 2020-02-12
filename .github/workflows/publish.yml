@@ -19,7 +19,6 @@ jobs:
     - name: Run Asciidoctor
       run: ./gradlew asciidoctor
     - name: Publish to GitHub Pages
-      run: |
-        ./gradlew --stacktrace  --info gitPublishPush
+      run: ./gradlew --stacktrace  --info gitPublishPush
       env:
         GRGIT_USER: ${{ secrets.ASCIIDOCTOR_TOKEN }}
