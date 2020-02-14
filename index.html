@@ -5890,21 +5890,23 @@ assertThat(offsetDateTime1).isAtSameInstantAs(offsetDateTime2);</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code data-lang="java" class="language-java hljs">public SoftAssertions check_kitchen() {
+<pre class="highlightjs highlight"><code data-lang="java" class="language-java hljs">Mansion mansion = new Mansion();
+
+SoftAssertions check_kitchen() {
   SoftAssertions softly = new SoftAssertions();
   softly.assertThat(mansion.kitchen()).as("Kitchen").isEqualTo("clean");
   return softly;
 }
 
-public SoftAssertions check_library() {
+SoftAssertions check_library() {
   SoftAssertions softly = new SoftAssertions();
   softly.assertThat(mansion.library()).as("Library").isEqualTo("clean");
   return softly;
 }
 
 @Test
-public void host_dinner_party_where_nobody_dies() {
-  Mansion mansion = new Mansion();
+void host_dinner_party_where_nobody_dies() {
+  SoftAssertions softly = new SoftAssertions();
   mansion.hostPotentiallyMurderousDinnerParty();
   softly.assertThat(mansion.guests()).as("Living Guests").isEqualTo(7);
   softly.assertThat(mansion.revolverAmmo()).as("Revolver Ammo").isEqualTo(6);
@@ -7557,7 +7559,7 @@ assertThat(value).asInstanceOf(InstanceOfAssertFactories.TABLE)
 <div id="footer">
 <div id="footer-text">
 Version 0.9.9<br>
-Last updated 2020-02-12 22:25:19 UTC
+Last updated 2020-02-14 09:47:44 UTC
 </div>
 </div>
 <link rel="stylesheet" href="highlight/styles/railscasts.min.css">
