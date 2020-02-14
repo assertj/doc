@@ -746,6 +746,57 @@ assertThat(throwable).hasMessage("bar is not a valid input");
 assertThat(throwable).hasMessage("%s is not a valid input", "bar");
 ----
 
+====== Checking cause and root cause
+
+It is possible to assert on the cause and/or root cause properties of an exception
+by using `getCause()` and `getRootCause()`.
+
+Examples:
+[source,java]
+----
+NullPointerException rootCause = new NullPointerException("root cause message");
+IllegalArgumentException cause = new IllegalArgumentException("cause message", rootCause);
+Throwable throwable = new Throwable("top level", cause);
+
+// This assertion succeeds:
+assertThat(throwable).hasMessage("top level")
+  .getCause() // All further chaining is against the cause of the throwable
+  .hasMessage("cause message");
+assertThat(throwable).hasMessage("top level")
+  .getRootCause()
+  .hasMessage("root cause message");
+
+// This assertion fails:
+assertThat(throwable).hasMessage("top level")
+  .getCause()
+  .hasMessage("some other message");
+----
+
+The same is also possible using `assertThatExceptionOfType(Throwable t)`.
+This example checks if the type of `Throwable` is `RuntimeException` and if it has a cause that has a message "cause message".
+
+[source,java]
+----
+assertThatExceptionOfType(RuntimeException.class)
+  .isThrownBy(() -> {
+    throw new RuntimeException(new IllegalArgumentException("cause message"));
+  })
+  .havingCause()
+  .withMessage("cause message");
+----
+
+Example with `havingRootCause`:
+
+[source,java]
+----
+assertThatExceptionOfType(RuntimeException.class)
+  .isThrownBy(() -> {
+    throw new RuntimeException(new IllegalArgumentException(new NullPointerException("root cause message")));
+  })
+  .havingRootCause()
+  .withMessage("root cause message");
+----
+
 [[assertj-core-exception-assertions-java-7]]
 ===== With Java 7 (AssertJ 2.x)
 
