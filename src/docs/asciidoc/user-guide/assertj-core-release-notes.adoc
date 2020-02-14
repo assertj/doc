@@ -489,21 +489,23 @@ assertThat(offsetDateTime1).isAtSameInstantAs(offsetDateTime2);
 Example:
 [source,java,indent=0]
 ----
-public SoftAssertions check_kitchen() {
+Mansion mansion = new Mansion();
+
+SoftAssertions check_kitchen() {
   SoftAssertions softly = new SoftAssertions();
   softly.assertThat(mansion.kitchen()).as("Kitchen").isEqualTo("clean");
   return softly;
 }
 
-public SoftAssertions check_library() {
+SoftAssertions check_library() {
   SoftAssertions softly = new SoftAssertions();
   softly.assertThat(mansion.library()).as("Library").isEqualTo("clean");
   return softly;
 }
 
 @Test
-public void host_dinner_party_where_nobody_dies() {
-  Mansion mansion = new Mansion();
+void host_dinner_party_where_nobody_dies() {
+  SoftAssertions softly = new SoftAssertions();
   mansion.hostPotentiallyMurderousDinnerParty();
   softly.assertThat(mansion.guests()).as("Living Guests").isEqualTo(7);
   softly.assertThat(mansion.revolverAmmo()).as("Revolver Ammo").isEqualTo(6);
