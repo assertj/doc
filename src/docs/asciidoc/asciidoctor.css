@@ -489,7 +489,8 @@ h5 {
 }
 
 h6 {
-  font-size: 1em
+  font-size: 1.15em;
+  text-decoration: underline;
 }
 
 hr {
@@ -648,6 +649,12 @@ blockquote p {
   }
   h4 {
     font-size: 1.4375em
+  }
+  h5 {
+    font-size: 1.35em
+  }
+  h6 {
+    font-size: 1.15em
   }
 }
 
