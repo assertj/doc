@@ -59,6 +59,12 @@ asciidoctor {
 			'docinfo': 'shared'
 }
 
+asciidoctorj {
+	modules {
+		diagram.use()
+	}
+}
+
 gitPublish {
 	repoUri = 'https://github.com/assertj/doc.git'
 	branch = 'gh-pages'
