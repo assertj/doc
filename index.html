@@ -2458,26 +2458,26 @@ p {
 <li><a href="#assertj-core-release-notes">2.9. Release Notes</a></li>
 </ul>
 </li>
-<li><a href="#assertj-db">3. AssertJ DB</a>
+<li><a href="#assertj-guava">3. AssertJ Guava</a>
 <ul class="sectlevel2">
-<li><a href="#assertj-db-quickstart">3.1. Quick start</a></li>
-<li><a href="#assertj-db-concepts">3.2. Concepts</a></li>
-<li><a href="#assertj-db-features">3.3. Features highlight</a></li>
-<li><a href="#javadoc">3.4. Javadoc</a></li>
-<li><a href="#examples">3.5. Examples</a></li>
-<li><a href="#mailing-list">3.6. Mailing list</a></li>
-<li><a href="#code-and-issue-tracker">3.7. Code and issue tracker</a></li>
-<li><a href="#contributing">3.8. Contributing</a></li>
-<li><a href="#assertj-db-release-notes">3.9. Release Notes</a></li>
+<li><a href="#assertj-guava-release-notes">3.1. Release Notes</a></li>
 </ul>
 </li>
-<li><a href="#assertj-guava">4. AssertJ Guava</a>
+<li><a href="#assertj-joda">4. AssertJ Joda</a></li>
+<li><a href="#assertj-neo4j">5. AssertJ Neo4j</a></li>
+<li><a href="#assertj-db">6. AssertJ DB</a>
 <ul class="sectlevel2">
-<li><a href="#assertj-guava-release-notes">4.1. Release Notes</a></li>
+<li><a href="#assertj-db-quickstart">6.1. Quick start</a></li>
+<li><a href="#assertj-db-concepts">6.2. Concepts</a></li>
+<li><a href="#assertj-db-features">6.3. Features highlight</a></li>
+<li><a href="#javadoc">6.4. Javadoc</a></li>
+<li><a href="#examples">6.5. Examples</a></li>
+<li><a href="#mailing-list">6.6. Mailing list</a></li>
+<li><a href="#code-and-issue-tracker">6.7. Code and issue tracker</a></li>
+<li><a href="#contributing">6.8. Contributing</a></li>
+<li><a href="#assertj-db-release-notes">6.9. Release Notes</a></li>
 </ul>
 </li>
-<li><a href="#assertj-joda">5. AssertJ Joda</a></li>
-<li><a href="#assertj-neo4j">6. AssertJ Neo4j</a></li>
 <li><a href="#assertj-swing">7. AssertJ Swing</a></li>
 </ul>
 </div>
@@ -2492,22 +2492,22 @@ p {
 <div class="ulist">
 <ul>
 <li>
-<p>A core module (this one) to provide assertions for JDK types (String, Iterable, Stream, Path, File, Map&#8230;&#8203;)</p>
+<p>A <a href="#assertj-core">core module</a> to provide assertions for JDK types (String, Iterable, Stream, Path, File, Map&#8230;&#8203;)</p>
 </li>
 <li>
-<p>A Guava module to provide assertions for Guava types (Multimap, Optional&#8230;&#8203;)</p>
+<p>A <a href="#assertj-guava">Guava module</a> to provide assertions for Guava types (Multimap, Optional&#8230;&#8203;)</p>
 </li>
 <li>
-<p>A Joda Time module to provide assertions for Joda Time types (DateTime, LocalDateTime)</p>
+<p>A <a href="#assertj-joda">Joda Time module</a> to provide assertions for Joda Time types (DateTime, LocalDateTime)</p>
 </li>
 <li>
-<p>A Neo4J module to provide assertions for Neo4J types (Path, Node, Relationship&#8230;&#8203;)</p>
+<p>A <a href="#assertj-neo4j">Neo4J module</a> to provide assertions for Neo4J types (Path, Node, Relationship&#8230;&#8203;)</p>
 </li>
 <li>
-<p>A DB module to provide assertions for relational database types (Table, Row, Column&#8230;&#8203;)</p>
+<p>A <a href="#assertj-db">DB module</a> to provide assertions for relational database types (Table, Row, Column&#8230;&#8203;)</p>
 </li>
 <li>
-<p>A Swing module provides a simple and intuitive API for functional testing of Swing user interfaces</p>
+<p>A <a href="#assertj-swing">Swing module</a> provides a simple and intuitive API for functional testing of Swing user interfaces</p>
 </li>
 </ul>
 </div>
@@ -7418,7 +7418,152 @@ Bare-named property introspection is enabled by default and thus changes AssertJ
 </div>
 </div>
 <div class="sect1">
-<h2 id="assertj-db"><a class="anchor" href="#assertj-db"></a>3. AssertJ DB</h2>
+<h2 id="assertj-guava"><a class="anchor" href="#assertj-guava"></a>3. AssertJ Guava</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="assertj-guava-release-notes"><a class="anchor" href="#assertj-guava-release-notes"></a>3.1. Release Notes</h3>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+AssertJ Guava main documentation is still in <a href="http://joel-costigliola.github.io/assertj/assertj-guava.html" class="bare">http://joel-costigliola.github.io/assertj/assertj-guava.html</a> until it is moved to this website.<br>
+The new release notes though will be published here.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Latest release notes:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="#assertj-guava-3-3-0-release-notes">AssertJ Guava 3.3.0</a></p>
+</li>
+<li>
+<p>older release notes are in the <a href="http://joel-costigliola.github.io/assertj/assertj-guava.html#latest-release">old site</a>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The javadoc for this release can be found here: <a href="https://www.javadoc.io/doc/org.assertj/assertj-guava/3.3.0/index.html" class="bare">https://www.javadoc.io/doc/org.assertj/assertj-guava/3.3.0/index.html</a></p>
+</div>
+<div class="sect3">
+<h4 id="assertj-guava-3-3-0-release-notes"><a class="anchor" href="#assertj-guava-3-3-0-release-notes"></a>3.1.1. AssertJ Guava 3.3.0</h4>
+<div class="paragraph">
+<p>Release date : 2019-11-09</p>
+</div>
+<div id="assertj-guava-3.3.0-contributors" class="paragraph">
+<p><span class="release-note-category"><span class="icon"><i class="fa fa-user"></i></span> Contributors</span></p>
+</div>
+<div class="paragraph">
+<p>Thanks to chrisly42 and Stefano Cordio for their contributions!</p>
+</div>
+<div id="assertj-guava-3.3.0-new-features" class="paragraph">
+<p><span class="release-note-category"><span class="icon"><i class="fa fa-plus-circle"></i></span> New features</span></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Add <a href="#assertj-guava-3.3.0-InstanceOfAssertFactories"><code>InstanceOfAssertFactories</code></a> to chain specific type assertions. (Stefano Cordio)</p>
+</li>
+</ul>
+</div>
+<div id="assertj-guava-3.3.0-improvements" class="paragraph">
+<p><span class="release-note-category"><span class="icon"><i class="fa fa-arrow-circle-up"></i></span> Improvements</span></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>AssertJ&#8217;s javadoc are now searchable.</p>
+</li>
+<li>
+<p>Use beautiful AssertJ&#8217;s site code style for javadoc :)</p>
+</li>
+<li>
+<p>Migrate to JUnit 5 and assertj-core version 3.14.0.</p>
+</li>
+</ul>
+</div>
+<div id="assertj-guava-3.3.0-fixed" class="paragraph">
+<p><span class="release-note-category"><span class="icon"><i class="fa fa-wrench"></i></span> Fixed</span></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Fix for <code>OptionalAssert.contains()</code> that was not working for primitive arrays. (chrisly42)</p>
+</li>
+</ul>
+</div>
+<div id="assertj-guava-3.3.0-deprecated" class="paragraph">
+<p><span class="release-note-category"><span class="icon"><i class="fa fa-ban"></i></span> Deprecated</span></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Deprecate <code>org.assertj.guava.data.MapEntry</code> for <code>org.assertj.core.data.MapEntry</code></p>
+</li>
+</ul>
+</div>
+<div id="assertj-guava-3.3.0-InstanceOfAssertFactories" class="paragraph">
+<p><span class="release-note-item">Add <code>InstanceOfAssertFactories</code> to allow chain specific type assertions</span></p>
+</div>
+<div class="paragraph">
+<p>Add factories for <code>ByteSource</code>, <code>Multimap</code>, <code>Multiset</code>, <code>Optional</code> (guava) and <code>Table</code> to allow to chain specific type assertions from a value initially declared as a less specific type.</p>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s start with the problem <code>asInstanceOf</code> is solving: in the following example we would like to call <code>Table</code> assertions but this is not possible since <code>value</code> is declared as an <code>Object</code> thus only <code>Object</code> assertions are accessible.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="java" class="language-java hljs">// Given a Table declared as an Object
+Object actual = HashBasedTable.&lt;Integer, Integer, String&gt; create();
+
+// We would like to call Table assertions but this is not possible since value is declared as an Object
+assertThat(actual).isEmpty(); // this does not compile !</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Thanks to <code>asInstanceOf</code> we can now tell AssertJ to consider <code>value</code> as a <code>Table</code> in order to call <code>Table</code> assertions.<br>
+To do so we need to pass an <code>InstanceOfAssertFactory</code> that can build a <code>TableAssert</code>, fortunately you don&#8217;t have to write it, it is already available in <code>InstanceOfAssertFactories</code>!</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="java" class="language-java hljs">// Given a Table declared as an Object
+Object actual = HashBasedTable.&lt;Integer, Integer, String&gt; create();
+
+// With asInstanceOf, we switch to specific Table assertion by specifying the InstanceOfAssertFactory for Table
+assertThat(value).asInstanceOf(InstanceOfAssertFactories.TABLE)
+                 .isEmpty();</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>AssertJ verifies that the actual value is compatible with the assertions <code>InstanceOfAssertFactory</code> is going to give access to.</p>
+</div>
+<div class="paragraph">
+<p><code>InstanceOfAssertFactories</code> provides static factories for all types AssertJ provides assertions for, additional factories can be created with custom <code>InstanceOfAssertFactory</code> instances.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="assertj-joda"><a class="anchor" href="#assertj-joda"></a>4. AssertJ Joda</h2>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1">
+<h2 id="assertj-neo4j"><a class="anchor" href="#assertj-neo4j"></a>5. AssertJ Neo4j</h2>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1">
+<h2 id="assertj-db"><a class="anchor" href="#assertj-db"></a>6. AssertJ DB</h2>
 <div class="sectionbody">
 <div class="imageblock">
 <div class="content">
@@ -7442,7 +7587,7 @@ It requires Java 7 or later and can be used with either JUnit or TestNG.</p>
 <p><em>Régis Pouiller (AssertJ-DB creator)</em></p>
 </div>
 <div class="sect2">
-<h3 id="assertj-db-quickstart"><a class="anchor" href="#assertj-db-quickstart"></a>3.1. Quick start</h3>
+<h3 id="assertj-db-quickstart"><a class="anchor" href="#assertj-db-quickstart"></a>6.1. Quick start</h3>
 <div class="paragraph">
 <p>Suppose that the database contains this table <strong>MEMBERS</strong> :</p>
 </div>
@@ -7502,7 +7647,7 @@ It requires Java 7 or later and can be used with either JUnit or TestNG.</p>
 <p>To quickly start using DataBase assertions, follow the steps below.</p>
 </div>
 <div class="sect3">
-<h4 id="assertj-db-quickstart-dependency"><a class="anchor" href="#assertj-db-quickstart-dependency"></a>3.1.1. Add the assertj-db dependency to your project</h4>
+<h4 id="assertj-db-quickstart-dependency"><a class="anchor" href="#assertj-db-quickstart-dependency"></a>6.1.1. Add the assertj-db dependency to your project</h4>
 <div class="sect4">
 <h5 id="maven-2"><a class="anchor" href="#maven-2"></a>Maven</h5>
 <div class="listingblock">
@@ -7535,7 +7680,7 @@ It requires Java 7 or later and can be used with either JUnit or TestNG.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="statically-import-org-assertj-db-api-assertions-assertthat"><a class="anchor" href="#statically-import-org-assertj-db-api-assertions-assertthat"></a>3.1.2. Statically import org.assertj.db.api.Assertions.assertThat</h4>
+<h4 id="statically-import-org-assertj-db-api-assertions-assertthat"><a class="anchor" href="#statically-import-org-assertj-db-api-assertions-assertthat"></a>6.1.2. Statically import org.assertj.db.api.Assertions.assertThat</h4>
 <div class="paragraph">
 <p>... and use your preferred IDE code completion after assertThat.</p>
 </div>
@@ -7620,7 +7765,7 @@ and after that to each value (<code>value()</code> calls have similar behavior f
 </div>
 </div>
 <div class="sect2">
-<h3 id="assertj-db-concepts"><a class="anchor" href="#assertj-db-concepts"></a>3.2. Concepts</h3>
+<h3 id="assertj-db-concepts"><a class="anchor" href="#assertj-db-concepts"></a>6.2. Concepts</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -7958,7 +8103,7 @@ and after that to each value (<code>value()</code> calls have similar behavior f
 </tbody>
 </table>
 <div class="sect3">
-<h4 id="assertj-db-concepts-connection"><a class="anchor" href="#assertj-db-concepts-connection"></a>3.2.1. Connection to the database</h4>
+<h4 id="assertj-db-concepts-connection"><a class="anchor" href="#assertj-db-concepts-connection"></a>6.2.1. Connection to the database</h4>
 <div class="paragraph">
 <p>To make assertions on a database, it is necessary to connect. For that, either to use a <code>DataSource</code>
 or a <code>Source</code>.</p>
@@ -8032,7 +8177,7 @@ for the tables, columns and primary keys.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="assertj-db-concepts-elements"><a class="anchor" href="#assertj-db-concepts-elements"></a>3.2.2. Elements of the database</h4>
+<h4 id="assertj-db-concepts-elements"><a class="anchor" href="#assertj-db-concepts-elements"></a>6.2.2. Elements of the database</h4>
 <div class="paragraph">
 <p>Here the elements on which it is possible to make assertions.</p>
 </div>
@@ -9708,7 +9853,7 @@ of "changes3"</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="assertj-db-concepts-type"><a class="anchor" href="#assertj-db-concepts-type"></a>3.2.3. Type</h4>
+<h4 id="assertj-db-concepts-type"><a class="anchor" href="#assertj-db-concepts-type"></a>6.2.3. Type</h4>
 <div class="sect4">
 <h5 id="assertj-db-concepts-datatype"><a class="anchor" href="#assertj-db-concepts-datatype"></a>Data Type</h5>
 <div class="paragraph">
@@ -9819,7 +9964,7 @@ All the possible types of order are contained in the <a href="https://www.javado
 </div>
 </div>
 <div class="sect3">
-<h4 id="assertj-db-concepts-navigation"><a class="anchor" href="#assertj-db-concepts-navigation"></a>3.2.4. Navigation</h4>
+<h4 id="assertj-db-concepts-navigation"><a class="anchor" href="#assertj-db-concepts-navigation"></a>6.2.4. Navigation</h4>
 <div class="paragraph">
 <p>The navigation offers the ability to chain assertions at different levels and instructions to go inside the sub-elements and return to root element.</p>
 </div>
@@ -9887,7 +10032,7 @@ assertThat(changes)...</code></pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="assertj-db-concepts-datevaluetimevaluedatetimevalue"><a class="anchor" href="#assertj-db-concepts-datevaluetimevaluedatetimevalue"></a>3.2.5. DateValue, TimeValue and DateTimeValue</h4>
+<h4 id="assertj-db-concepts-datevaluetimevaluedatetimevalue"><a class="anchor" href="#assertj-db-concepts-datevaluetimevaluedatetimevalue"></a>6.2.5. DateValue, TimeValue and DateTimeValue</h4>
 <div class="paragraph">
 <p>AssertJ-DB is compatible with Java 7, but we need a system to simply compare data in a database with date, time and date/time like LocalDate, LocalTime and LocalDateTime of Java 8.</p>
 </div>
@@ -9996,7 +10141,7 @@ DateTimeValue dateTimeValue = DateTimeValue.now();       // The current date/tim
 </div>
 </div>
 <div class="sect3">
-<h4 id="assertj-db-concepts-description"><a class="anchor" href="#assertj-db-concepts-description"></a>3.2.6. Default description</h4>
+<h4 id="assertj-db-concepts-description"><a class="anchor" href="#assertj-db-concepts-description"></a>6.2.6. Default description</h4>
 <div class="paragraph">
 <p>In assertj, it is possible to add a description with the methods of the <a href="https://www.javadoc.io/doc/org.assertj/assertj-core/latest/org/assertj/core/api/Descriptable.html">Descriptable</a> interface.
 This description is used in the error message if the assertion fails.</p>
@@ -10042,7 +10187,7 @@ for an assertion on a value of the row at end point of a change on a table</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="assertj-db-concepts-dblettercase"><a class="anchor" href="#assertj-db-concepts-dblettercase"></a>3.2.7. Letter Case of the database</h4>
+<h4 id="assertj-db-concepts-dblettercase"><a class="anchor" href="#assertj-db-concepts-dblettercase"></a>6.2.7. Letter Case of the database</h4>
 <div class="paragraph">
 <p>Since <a href="#assertj-db-1-1-0-release-notes">1.1.0</a></p>
 </div>
@@ -10211,7 +10356,7 @@ So this is not limited to the implementations in the corresponding enumerations.
 </div>
 </div>
 <div class="sect3">
-<h4 id="assertj-db-concepts-output"><a class="anchor" href="#assertj-db-concepts-output"></a>3.2.8. Output</h4>
+<h4 id="assertj-db-concepts-output"><a class="anchor" href="#assertj-db-concepts-output"></a>6.2.8. Output</h4>
 <div class="paragraph">
 <p>Since <a href="#assertj-db-1-1-0-release-notes">1.1.0</a></p>
 </div>
@@ -10314,7 +10459,7 @@ output(table).toConsole().withType(OutputType.HTML).toFile("test.html");</code><
 </div>
 </div>
 <div class="sect2">
-<h3 id="assertj-db-features"><a class="anchor" href="#assertj-db-features"></a>3.3. Features highlight</h3>
+<h3 id="assertj-db-features"><a class="anchor" href="#assertj-db-features"></a>6.3. Features highlight</h3>
 <div class="paragraph">
 <p>Before reading this page, it is recommended to be familiar with the <a href="#assertj-db-concepts">concepts of AssertJ-DB</a>.</p>
 </div>
@@ -10543,7 +10688,7 @@ output(table).toConsole().withType(OutputType.HTML).toFile("test.html");</code><
 </ul>
 </div>
 <div class="sect3">
-<h4 id="assertj-db-features-navigation"><a class="anchor" href="#assertj-db-features-navigation"></a>3.3.1. Navigation</h4>
+<h4 id="assertj-db-features-navigation"><a class="anchor" href="#assertj-db-features-navigation"></a>6.3.1. Navigation</h4>
 <div class="sect4">
 <h5 id="assertj-db-features-tableorrequestasroot"><a class="anchor" href="#assertj-db-features-tableorrequestasroot"></a>With a Table or a Request as root</h5>
 <div class="paragraph">
@@ -11428,7 +11573,7 @@ assertThat(changes).change().rowAtEndPoint().value().value()...</code></pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="assertj-db-features-assertions"><a class="anchor" href="#assertj-db-features-assertions"></a>3.3.2. Assertions</h4>
+<h4 id="assertj-db-features-assertions"><a class="anchor" href="#assertj-db-features-assertions"></a>6.3.2. Assertions</h4>
 <div class="sect4">
 <h5 id="assertj-db-features-onchangetype"><a class="anchor" href="#assertj-db-features-onchangetype"></a>On the type of change</h5>
 <div class="paragraph">
@@ -12366,13 +12511,13 @@ assertThat(changes).change().column().valueAtStartPoint()
 </div>
 </div>
 <div class="sect2">
-<h3 id="javadoc"><a class="anchor" href="#javadoc"></a>3.4. Javadoc</h3>
+<h3 id="javadoc"><a class="anchor" href="#javadoc"></a>6.4. Javadoc</h3>
 <div class="paragraph">
 <p>Latest javadoc release : <a href="https://www.javadoc.io/doc/org.assertj/assertj-db/latest/index.html">AssertJ DB javadoc</a>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="examples"><a class="anchor" href="#examples"></a>3.5. Examples</h3>
+<h3 id="examples"><a class="anchor" href="#examples"></a>6.5. Examples</h3>
 <div class="paragraph">
 <p>Some implementations examples are visible at the <a href="https://github.com/joel-costigliola/assertj-examples/tree/master/assertions-examples/src/test/java/org/assertj/examples/db">assertj-db-examples tests</a>.
 They show what is possible with AssertJ DB Assertions with running code.
@@ -12380,13 +12525,13 @@ You can clone the repository and run its tests !</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="mailing-list"><a class="anchor" href="#mailing-list"></a>3.6. Mailing list</h3>
+<h3 id="mailing-list"><a class="anchor" href="#mailing-list"></a>6.6. Mailing list</h3>
 <div class="paragraph">
 <p>If you have any questions, please use the <a href="https://groups.google.com/forum/?fromgroups=#!forum/assertj">AssertJ google group</a>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="code-and-issue-tracker"><a class="anchor" href="#code-and-issue-tracker"></a>3.7. Code and issue tracker</h3>
+<h3 id="code-and-issue-tracker"><a class="anchor" href="#code-and-issue-tracker"></a>6.7. Code and issue tracker</h3>
 <div class="paragraph">
 <p>AssertJ-DB is hosted on github : <a href="https://github.com/assertj/assertj-db">https://github.com/assertj/assertj-db</a>.</p>
 </div>
@@ -12395,13 +12540,13 @@ You can clone the repository and run its tests !</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="contributing"><a class="anchor" href="#contributing"></a>3.8. Contributing</h3>
+<h3 id="contributing"><a class="anchor" href="#contributing"></a>6.8. Contributing</h3>
 <div class="paragraph">
 <p>Thanks for your interest ! Please check our <a href="https://github.com/assertj/assertj-db/blob/master/CONTRIBUTING.md#contributing">contributor&#8217;s guidelines</a>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="assertj-db-release-notes"><a class="anchor" href="#assertj-db-release-notes"></a>3.9. Release Notes</h3>
+<h3 id="assertj-db-release-notes"><a class="anchor" href="#assertj-db-release-notes"></a>6.9. Release Notes</h3>
 <div class="paragraph">
 <p>Latest release notes:</p>
 </div>
@@ -12428,7 +12573,7 @@ You can clone the repository and run its tests !</p>
 </ul>
 </div>
 <div class="sect3">
-<h4 id="assertj-db-1-3-0-release-notes"><a class="anchor" href="#assertj-db-1-3-0-release-notes"></a>3.9.1. AssertJ DB 1.3.0</h4>
+<h4 id="assertj-db-1-3-0-release-notes"><a class="anchor" href="#assertj-db-1-3-0-release-notes"></a>6.9.1. AssertJ DB 1.3.0</h4>
 <div class="paragraph">
 <p>Release date : 2019-12-26</p>
 </div>
@@ -12460,7 +12605,7 @@ You can clone the repository and run its tests !</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="assertj-db-1-2-0-release-notes"><a class="anchor" href="#assertj-db-1-2-0-release-notes"></a>3.9.2. AssertJ DB 1.2.0</h4>
+<h4 id="assertj-db-1-2-0-release-notes"><a class="anchor" href="#assertj-db-1-2-0-release-notes"></a>6.9.2. AssertJ DB 1.2.0</h4>
 <div class="paragraph">
 <p>Release date : 2017-05-08</p>
 </div>
@@ -12504,7 +12649,7 @@ You can clone the repository and run its tests !</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="assertj-db-1-1-1-release-notes"><a class="anchor" href="#assertj-db-1-1-1-release-notes"></a>3.9.3. AssertJ DB 1.1.1</h4>
+<h4 id="assertj-db-1-1-1-release-notes"><a class="anchor" href="#assertj-db-1-1-1-release-notes"></a>6.9.3. AssertJ DB 1.1.1</h4>
 <div class="paragraph">
 <p>Release date : 2016-04-23</p>
 </div>
@@ -12520,7 +12665,7 @@ You can clone the repository and run its tests !</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="assertj-db-1-1-0-release-notes"><a class="anchor" href="#assertj-db-1-1-0-release-notes"></a>3.9.4. AssertJ DB 1.1.0</h4>
+<h4 id="assertj-db-1-1-0-release-notes"><a class="anchor" href="#assertj-db-1-1-0-release-notes"></a>6.9.4. AssertJ DB 1.1.0</h4>
 <div class="paragraph">
 <p>Release date : 2016-04-14</p>
 </div>
@@ -12582,7 +12727,7 @@ You can clone the repository and run its tests !</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="assertj-db-1-0-1-release-notes"><a class="anchor" href="#assertj-db-1-0-1-release-notes"></a>3.9.5. AssertJ DB 1.0.1</h4>
+<h4 id="assertj-db-1-0-1-release-notes"><a class="anchor" href="#assertj-db-1-0-1-release-notes"></a>6.9.5. AssertJ DB 1.0.1</h4>
 <div class="paragraph">
 <p>Release date : 2015-08-09</p>
 </div>
@@ -12598,7 +12743,7 @@ You can clone the repository and run its tests !</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="assertj-db-1-0-0-release-notes"><a class="anchor" href="#assertj-db-1-0-0-release-notes"></a>3.9.6. AssertJ DB 1.0.0</h4>
+<h4 id="assertj-db-1-0-0-release-notes"><a class="anchor" href="#assertj-db-1-0-0-release-notes"></a>6.9.6. AssertJ DB 1.0.0</h4>
 <div class="paragraph">
 <p>Release date : 2015-07-12</p>
 </div>
@@ -12607,151 +12752,6 @@ You can clone the repository and run its tests !</p>
 </div>
 </div>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="assertj-guava"><a class="anchor" href="#assertj-guava"></a>4. AssertJ Guava</h2>
-<div class="sectionbody">
-<div class="sect2">
-<h3 id="assertj-guava-release-notes"><a class="anchor" href="#assertj-guava-release-notes"></a>4.1. Release Notes</h3>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-AssertJ Guava main documentation is still in <a href="http://joel-costigliola.github.io/assertj/assertj-guava.html" class="bare">http://joel-costigliola.github.io/assertj/assertj-guava.html</a> until it is moved to this website.<br>
-The new release notes though will be published here.
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Latest release notes:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><a href="#assertj-guava-3-3-0-release-notes">AssertJ Guava 3.3.0</a></p>
-</li>
-<li>
-<p>older release notes are in the <a href="http://joel-costigliola.github.io/assertj/assertj-guava.html#latest-release">old site</a>.</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>The javadoc for this release can be found here: <a href="https://www.javadoc.io/doc/org.assertj/assertj-guava/3.3.0/index.html" class="bare">https://www.javadoc.io/doc/org.assertj/assertj-guava/3.3.0/index.html</a></p>
-</div>
-<div class="sect3">
-<h4 id="assertj-guava-3-3-0-release-notes"><a class="anchor" href="#assertj-guava-3-3-0-release-notes"></a>4.1.1. AssertJ Guava 3.3.0</h4>
-<div class="paragraph">
-<p>Release date : 2019-11-09</p>
-</div>
-<div id="assertj-guava-3.3.0-contributors" class="paragraph">
-<p><span class="release-note-category"><span class="icon"><i class="fa fa-user"></i></span> Contributors</span></p>
-</div>
-<div class="paragraph">
-<p>Thanks to chrisly42 and Stefano Cordio for their contributions!</p>
-</div>
-<div id="assertj-guava-3.3.0-new-features" class="paragraph">
-<p><span class="release-note-category"><span class="icon"><i class="fa fa-plus-circle"></i></span> New features</span></p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Add <a href="#assertj-guava-3.3.0-InstanceOfAssertFactories"><code>InstanceOfAssertFactories</code></a> to chain specific type assertions. (Stefano Cordio)</p>
-</li>
-</ul>
-</div>
-<div id="assertj-guava-3.3.0-improvements" class="paragraph">
-<p><span class="release-note-category"><span class="icon"><i class="fa fa-arrow-circle-up"></i></span> Improvements</span></p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>AssertJ&#8217;s javadoc are now searchable.</p>
-</li>
-<li>
-<p>Use beautiful AssertJ&#8217;s site code style for javadoc :)</p>
-</li>
-<li>
-<p>Migrate to JUnit 5 and assertj-core version 3.14.0.</p>
-</li>
-</ul>
-</div>
-<div id="assertj-guava-3.3.0-fixed" class="paragraph">
-<p><span class="release-note-category"><span class="icon"><i class="fa fa-wrench"></i></span> Fixed</span></p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Fix for <code>OptionalAssert.contains()</code> that was not working for primitive arrays. (chrisly42)</p>
-</li>
-</ul>
-</div>
-<div id="assertj-guava-3.3.0-deprecated" class="paragraph">
-<p><span class="release-note-category"><span class="icon"><i class="fa fa-ban"></i></span> Deprecated</span></p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Deprecate <code>org.assertj.guava.data.MapEntry</code> for <code>org.assertj.core.data.MapEntry</code></p>
-</li>
-</ul>
-</div>
-<div id="assertj-guava-3.3.0-InstanceOfAssertFactories" class="paragraph">
-<p><span class="release-note-item">Add <code>InstanceOfAssertFactories</code> to allow chain specific type assertions</span></p>
-</div>
-<div class="paragraph">
-<p>Add factories for <code>ByteSource</code>, <code>Multimap</code>, <code>Multiset</code>, <code>Optional</code> (guava) and <code>Table</code> to allow to chain specific type assertions from a value initially declared as a less specific type.</p>
-</div>
-<div class="paragraph">
-<p>Let&#8217;s start with the problem <code>asInstanceOf</code> is solving: in the following example we would like to call <code>Table</code> assertions but this is not possible since <code>value</code> is declared as an <code>Object</code> thus only <code>Object</code> assertions are accessible.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code data-lang="java" class="language-java hljs">// Given a Table declared as an Object
-Object actual = HashBasedTable.&lt;Integer, Integer, String&gt; create();
-
-// We would like to call Table assertions but this is not possible since value is declared as an Object
-assertThat(actual).isEmpty(); // this does not compile !</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Thanks to <code>asInstanceOf</code> we can now tell AssertJ to consider <code>value</code> as a <code>Table</code> in order to call <code>Table</code> assertions.<br>
-To do so we need to pass an <code>InstanceOfAssertFactory</code> that can build a <code>TableAssert</code>, fortunately you don&#8217;t have to write it, it is already available in <code>InstanceOfAssertFactories</code>!</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code data-lang="java" class="language-java hljs">// Given a Table declared as an Object
-Object actual = HashBasedTable.&lt;Integer, Integer, String&gt; create();
-
-// With asInstanceOf, we switch to specific Table assertion by specifying the InstanceOfAssertFactory for Table
-assertThat(value).asInstanceOf(InstanceOfAssertFactories.TABLE)
-                 .isEmpty();</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>AssertJ verifies that the actual value is compatible with the assertions <code>InstanceOfAssertFactory</code> is going to give access to.</p>
-</div>
-<div class="paragraph">
-<p><code>InstanceOfAssertFactories</code> provides static factories for all types AssertJ provides assertions for, additional factories can be created with custom <code>InstanceOfAssertFactory</code> instances.</p>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="assertj-joda"><a class="anchor" href="#assertj-joda"></a>5. AssertJ Joda</h2>
-<div class="sectionbody">
-
-</div>
-</div>
-<div class="sect1">
-<h2 id="assertj-neo4j"><a class="anchor" href="#assertj-neo4j"></a>6. AssertJ Neo4j</h2>
-<div class="sectionbody">
-
 </div>
 </div>
 <div class="sect1">
@@ -12764,7 +12764,7 @@ assertThat(value).asInstanceOf(InstanceOfAssertFactories.TABLE)
 <div id="footer">
 <div id="footer-text">
 Version 0.9.9<br>
-Last updated 2020-03-03 05:25:53 UTC
+Last updated 2020-03-04 21:28:51 UTC
 </div>
 </div>
 <link rel="stylesheet" href="highlight/styles/railscasts.min.css">
