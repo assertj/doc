@@ -20,12 +20,12 @@ include::assertj-overview.adoc[]
 
 include::assertj-core.adoc[]
 
-include::assertj-db.adoc[]
-
 include::assertj-guava.adoc[]
 
 include::assertj-joda.adoc[]
 
 include::assertj-neo4j.adoc[]
+
+include::assertj-db.adoc[]
 
 include::assertj-swing.adoc[]
