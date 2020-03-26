@@ -28,7 +28,7 @@ The recursive comparison API has been promoted and is not a beta API anymore.
 
 Thanks to all the contributors of this release: Erhard Pointl, Stefano Cordio, Pascal Schumacher, BJ Hargrave, Raymond Augé, Thomas Weißschuh, Maciej Wajcht, Hayden Meloche, Filip Hrisafov, Jayati Goyal, Gyumin Kim, Clemens Grabmann, Roman Leventov, Fr Jeremy Krieg, Benoit Dupont, Nikolaos Georgiou, Christian Stein, Jeremy Landis, Graham Dennis, Fabien Duminy, Tommy Situ and Vincent Ricard.
 
-Shout ou to Vincent Ricard for the various tests refactoring, that was quite a lot of work!
+Shout out to Vincent Ricard for the various tests refactoring, that was quite a lot of work!
 
 [[assertj-core-3.15.0-breaking-changes]]
 [.release-note-category]#icon:exclamation-triangle[] Breaking changes#
