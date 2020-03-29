@@ -7801,7 +7801,7 @@ and after that to each value (<code>value()</code> calls have similar behavior f
 <p><a href="#assertj-db-concepts-changes">Changes</a></p>
 </li>
 <li>
-<p><a href="#assertj-db-concepts-change">change</a></p>
+<p><a href="#assertj-db-concepts-change">Change</a></p>
 </li>
 <li>
 <p><a href="#assertj-db-concepts-row">Row</a></p>
@@ -8614,7 +8614,7 @@ are the differences of states in database between a <code>start point</code> and
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="images/db-changes-1.png" alt="db changes 1">
+<img src="images/db-changes-concept.png" alt="db changes concept">
 </div>
 </div>
 <div class="paragraph">
@@ -9998,7 +9998,7 @@ assertThat(request)...</code></pre>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="images/db-navigation-with-table-or-request.png" alt="db navigation with table or request">
+<img src="images/db-navigation-with-table-or-request.png" alt="db navigation with table or request" width="820" height="224">
 </div>
 </div>
 <div class="paragraph">
@@ -10023,7 +10023,7 @@ assertThat(changes)...</code></pre>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="images/db-navigation-with-changes.png" alt="db navigation with changes">
+<img src="images/db-navigation-with-changes.png" alt="db navigation with changes" width="970" height="224">
 </div>
 </div>
 <div class="paragraph">
@@ -10771,7 +10771,7 @@ assertThat(tableOrRequest).row(2).row()...</code></pre>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="images/db-navigation-with-table-or-request-to-row.png" alt="db navigation with table or request to row">
+<img src="images/db-navigation-with-table-or-request-to-row.png" alt="db navigation with table or request to row" width="780" height="266">
 </div>
 </div>
 <div class="paragraph">
@@ -10861,7 +10861,7 @@ assertThat(tableOrRequest).column("surname").column().column(6).column("id")...<
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="images/db-navigation-with-table-or-request-to-column.png" alt="db navigation with table or request to column">
+<img src="images/db-navigation-with-table-or-request-to-column.png" alt="db navigation with table or request to column" width="790" height="266">
 </div>
 </div>
 <div class="paragraph">
@@ -10947,7 +10947,7 @@ assertThat(tableOrRequest).row().value("surname").value().value(6).value("id")..
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="images/db-navigation-with-table-or-request-to-value.png" alt="db navigation with table or request to value">
+<img src="images/db-navigation-with-table-or-request-to-value.png" alt="db navigation with table or request to value" width="880" height="294">
 </div>
 </div>
 <div class="paragraph">
@@ -11072,7 +11072,7 @@ assertThat(changes).ofCreation().ofAll()...</code></pre>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="images/db-navigation-with-changes-to-changes.png" alt="db navigation with changes to changes">
+<img src="images/db-navigation-with-changes-to-changes.png" alt="db navigation with changes to changes" width="950" height="280">
 </div>
 </div>
 <div class="paragraph">
@@ -11150,11 +11150,11 @@ methods which allows to navigate to the next change of creation, modification an
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>// If it is the first call, navigate to the first change of creation
+<pre class="highlightjs highlight"><code data-lang="java" class="language-java hljs">// If it is the first call, navigate to the first change of creation
 assertThat(changes).changeOfCreation()...
 // Navigate to the the first change of creation
 // and after the second change of creation
-assertThat(changes).changeOfCreation().changeOfCreation()...</pre>
+assertThat(changes).changeOfCreation().changeOfCreation()...</code></pre>
 </div>
 </div>
 <div class="ulist">
@@ -11167,14 +11167,14 @@ methods with <code>index</code> as parameter which allows to navigate to the cha
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>// Navigate to the change of modification at index 2
+<pre class="highlightjs highlight"><code data-lang="java" class="language-java hljs">// Navigate to the change of modification at index 2
 assertThat(changes).changeOfModification()
                    .changeOfModification(2)...
 // It is possible to chain the calls
 // to navigate to another change of modification.
 // Here change of modification at index 5
 assertThat(changes).changeOfModification(4)
-                   .changeOfModification()...</pre>
+                   .changeOfModification()...</code></pre>
 </div>
 </div>
 <div class="ulist">
@@ -11187,7 +11187,7 @@ methods with <code>tableName</code> as parameter which allows to navigate to the
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>// If it is the first call, navigate
+<pre class="highlightjs highlight"><code data-lang="java" class="language-java hljs">// If it is the first call, navigate
 // to the first change of creation on "members" table
 assertThat(changes).changeOfCreationOnTable("members")...
 // It is possible to chain the calls to navigate
@@ -11195,7 +11195,7 @@ assertThat(changes).changeOfCreationOnTable("members")...
 // after the first change of creation on the "members" table
 // (so the second change of creation)
 assertThat(changes).changeOfCreationOnTable("members")
-                   .changeOfCreationOnTable("members")...</pre>
+                   .changeOfCreationOnTable("members")...</code></pre>
 </div>
 </div>
 <div class="ulist">
@@ -11208,14 +11208,14 @@ methods with <code>tableName</code> and <code>index</code> as parameters which a
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>// Navigate to the change of deletion at index 2 of "members" table
+<pre class="highlightjs highlight"><code data-lang="java" class="language-java hljs">// Navigate to the change of deletion at index 2 of "members" table
 assertThat(changes).changeOfDeletionOnTable("members")
                    .changeOfDeletionOnTable("members", 2)...
 // It is possible to chain the calls
 // to navigate to another change of deletion.
 // Here change of deletion at index 7 of "members" table
 assertThat(changes).changeOfDeletionOnTable("members", 6)
-                   .changeOfDeletionOnTable("members")...</pre>
+                   .changeOfDeletionOnTable("members")...</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -11236,7 +11236,7 @@ assertThat(changes).changeOnTableWithPks("members", 1).change()...</code></pre>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="images/db-navigation-with-changes-to-change.png" alt="db navigation with changes to change">
+<img src="images/db-navigation-with-changes-to-change.png" alt="db navigation with changes to change" width="780" height="294">
 </div>
 </div>
 <div class="paragraph">
@@ -11305,7 +11305,7 @@ assertThat(changes).change().rowAtStartPoint().rowAtEndPoint()...</code></pre>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="images/db-navigation-with-changes-to-row.png" alt="db navigation with changes to row">
+<img src="images/db-navigation-with-changes-to-row.png" alt="db navigation with changes to row" width="740" height="266">
 </div>
 </div>
 <div class="paragraph">
@@ -11434,7 +11434,7 @@ assertThat(changes).change().column("surname").columnAmongTheModifiedOnes()
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="images/db-navigation-with-changes-to-column.png" alt="db navigation with changes to column">
+<img src="images/db-navigation-with-changes-to-column.png" alt="db navigation with changes to column" width="750" height="266">
 </div>
 </div>
 <div class="paragraph">
@@ -11535,7 +11535,7 @@ assertThat(changes).change().column().valueAtStartPoint().valueAtEndPoint()...</
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="images/db-navigation-with-changes-to-value.png" alt="db navigation with changes to value">
+<img src="images/db-navigation-with-changes-to-value.png" alt="db navigation with changes to value" width="920" height="294">
 </div>
 </div>
 <div class="paragraph">
@@ -12764,7 +12764,7 @@ You can clone the repository and run its tests !</p>
 <div id="footer">
 <div id="footer-text">
 Version 0.9.9<br>
-Last updated 2020-03-26 20:59:23 UTC
+Last updated 2020-03-29 00:11:02 UTC
 </div>
 </div>
 <link rel="stylesheet" href="highlight/styles/railscasts.min.css">
