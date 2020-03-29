@@ -136,7 +136,24 @@ assertThat(tableOrRequest).row(2).row()...
 
 This picture shows from where it is possible to navigate to a row.
 
-image::db-navigation-with-table-or-request-to-row.png[]
+[ditaa, target="db-navigation-with-table-or-request-to-row", shadows=false, transparent=true]
+....
+                            +-----------+<--------+----------------------+
+                 +--------->|On a Column|         |On a Value Of a Column|
+                 |          +-----+-----+-------->+---------------------++
+                 |                |     :                               |
++----------------+------+<--------+     |                               |
+|On a Table Or a Request|        navigate to a row                      |
++----+-----------+------+<--------+     |                               |
+     :           |                |     v                               |
+     |           |          +-----+-----+<--------+-------------------+ |
+     |           +--------->|  On a Row |         |On a Value Of a Row| |
+     |                      +--+----+---+-------->+----------+--------+ |
+     |                      ^  ^    :   ^                    :          |
+     |  navigate to a row   |  |    |   |                    |          |
+     +----------------------+  +----+   +--------------------+----------+
+                         navigate to a row         navigate to a row
+....
 
 The origin point of the `row(...)` methods is the Table or the Request.
 So if the method is executed from a row, from a column or from a value
@@ -215,7 +232,24 @@ assertThat(tableOrRequest).column("surname").column().column(6).column("id")...
 
 This picture shows from where it is possible to navigate to a column.
 
-image::db-navigation-with-table-or-request-to-column.png[]
+[ditaa, target="db-navigation-with-table-or-request-to-column", shadows=false, transparent=true]
+....
+      navigate to a column  navigate to a column    navigate to a column
+     +----------------------+  +----+   +---------------------+-----------+
+     |                      |  |    |   |                     |           |
+     |                      v  v    :   v                     |           |
+     |                      +--+----+---+<--------+-----------+----------+|
+     |           +--------->|On a Column|         |On a Value Of a Column||
+     |           |          +-----+-----+-------->+---------------------++|
+     :           |                |     ^                                 |
++----+-----------+------+<--------+     |                                 |
+|On a Table Or a Request|        navigate to a column                     |
++----------------+------+<--------+     |                                 |
+                 |                |     :                                 |
+                 |          +-----+-----+<--------+-------------------+   |
+                 +--------->|  On a Row |         |On a Value Of a Row+-=-+
+                            +-----------+-------->+-------------------+
+....
 
 The origin point of the `column(...)` methods is the Table or the Request.
 So if the method is executed from a row, from a column or from a value
@@ -290,7 +324,26 @@ assertThat(tableOrRequest).row().value("surname").value().value(6).value("id")..
 
 This picture shows from where it is possible to navigate to a value.
 
-image::db-navigation-with-table-or-request-to-value.png[]
+[ditaa, target="db-navigation-with-table-or-request-to-value", shadows=false, transparent=true]
+....
+                           +--------------------+
+                           |navigate to a value |
+                           :                    v
+                     +-----+-----+<--+----------+-----------+=--+
+                 +-->|On a Column|   |On a Value Of a Column|   |navigate to a value
+                 |   +-----+-----+-->+----------------------+<--+
+                 |         |
++----------------+------+<-+
+|On a Table Or a Request|
++----------------+------+<-+
+                 |         |
+                 |   +-----+-----+<--+-------------------+=--+
+                 +-->|  On a Row |   |On a Value Of a Row|   |navigate to a value
+                     +-----+-----+-->+----------+--------+<--+
+                           :                    ^
+                           |navigate to a value |
+                           +--------------------+
+....
 
 The origin point of the `value(...)` methods is the Row or the Column.
 So if the method is executed from a value
@@ -399,7 +452,25 @@ assertThat(changes).ofCreation().ofAll()...
 
 This picture shows from where it is possible to navigate to changes.
 
-image::db-navigation-with-changes-to-changes.png[]
+[ditaa, target="db-navigation-with-changes-to-changes", shadows=false, transparent=true]
+....
+                       +--------------------------------+----------------------+
+                       |         navigate to changes    |                      :
+                       |                          +-----+-----+<---+-----------+----------+
+                       |navigate to changes   +-->|On a Column|    |On a Value Of a Column|
+                       +------------------+   |   +-----+-----+--->+----------------------+
+                       |                  |   |         |
+ navigate to changes   v                  :   |         |
+   +------------=+-----+-----+<-----+-----+---+-+<------+
+   |             |On Changes |      |On a Change|
+   +------------>+-----+-----+----->+---------+-+<------+
+                       ^                      |         |
+                       |                      |   +-----+--+<---+-------------------+
+                       |                      +-->|On a Row|    |On a Value Of a Row|
+                       |                          +-----+--+--->+-----------+-------+
+                       |         navigate to changes    :                   |
+                       +--------------------------------+-------------------+
+....
 
 The origin point of these methods is the Changes.
 So if the method is executed from a change, a column, a row or a value
@@ -461,6 +532,7 @@ There are 12 other methods which are derived from the 4 methods above :
 
 *   `changeOfCreation()`, `changeOfModification()` and `changeOfDeletion()`
 methods which allows to navigate to the next change of creation, modification and deletion like `change()` method
+
 [source,java]
 ----
 // If it is the first call, navigate to the first change of creation
@@ -472,6 +544,7 @@ assertThat(changes).changeOfCreation().changeOfCreation()...
 
 *   `changeOfCreation(int index)`, `changeOfModification(int index)` and `changeOfDeletion(int index)`
 methods with `index` as parameter which allows to navigate to the change of creation, modification and deletion corresponding to change of creation, modification and deletion at the index like `change(int index)` method
+
 [source,java]
 ----
 // Navigate to the change of modification at index 2
@@ -486,6 +559,7 @@ assertThat(changes).changeOfModification(4)
 
 *   `changeOfCreationOnTable(String tableName)`, `changeOfModificationOnTable(String tableName)` and `changeOfDeletionOnTable(String tableName)`
 methods with `tableName` as parameter which allows to navigate to the next change of creation, modification and deletion corresponding to the table name like `changeOnTable(String tableName)` method
+
 [source,java]
 ----
 // If it is the first call, navigate
@@ -501,6 +575,7 @@ assertThat(changes).changeOfCreationOnTable("members")
 
 *   `changeOfCreationOnTable(String tableName, int index)`, `changeOfModificationOnTable(String tableName, int index)` and `changeOfDeletionOnTable(String tableName, int index)`
 methods with `tableName` and `index` as parameters which allows to navigate to the next change of creation, modification and deletion corresponding to the table name and index like `changeOnTable(String tableName, int index)` method
+
 [source,java]
 ----
 // Navigate to the change of deletion at index 2 of "members" table
@@ -527,7 +602,26 @@ assertThat(changes).changeOnTableWithPks("members", 1).change()...
 
 This picture shows from where it is possible to navigate to a change.
 
-image::db-navigation-with-changes-to-change.png[]
+[ditaa, target="db-navigation-with-changes-to-change", shadows=false, transparent=true]
+....
+                                    navigate to change
+                         +-------------+----------------------+
+                         |             |                      :
+      navigate to change |       +-----+-----+<---+-----------+----------+
+      +------------------+   +-->|On a Column|    |On a Value Of a Column|
+      |                  |   |   +-----+-----+--->+----------------------+
+      :                  v   |         |
++-----+-----+<-----+-----+---+-+<------+
+|On Changes |      |On a Change|
++-----------+----->+-----+---+-+<------+
+                   |     ^   |         |
+                   |     |   |   +-----+--+<---+-------------------+
+ navigate to change|     |   +-->|On a Row|    |On a Value Of a Row|
+                   |     |       +-----+--+--->+-----------+-------+
+                   |     |             :                   |
+                   +-----+-------------+-------------------+
+                                    navigate to change
+....
 
 The origin point of the `change(...)` methods is the current Changes
 and the origin point of other methods is the Changes of origin.
@@ -586,7 +680,24 @@ assertThat(changes).change().rowAtStartPoint().rowAtEndPoint()...
 
 This picture shows from where it is possible to navigate to a row.
 
-image::db-navigation-with-changes-to-row.png[]
+[ditaa, target="db-navigation-with-changes-to-row", shadows=false, transparent=true]
+....
+                             +-----------+<---+----------------------+
+                         +-->|On a Column|    |On a Value Of a Column|
+                         |   +-----+--+--+--->+--------------------+-+
+                         |         |  :                            :
++-----------+<-----+-----+-----+<--+  |                            |
+|On Changes |      |On a Change|  navigate to a row                |
++-----------+----->+-+---+-----+<--+  |                            |
+                     :   |         |  v                            |
+    navigate to a row|   |   +-----+--+<---+-------------------+   |
+                     |   +-->|On a Row|    |On a Value Of a Row|   |
+                     +------>++--+--+-+--->+-----------+-------+   |
+                              :  ^  ^                  |           |
+                              |  |  |                  |           |
+                              +--+  +------------------+-----------+
+                       navigate to a row      navigate to a row
+....
 
 The origin point of the `rowAtStartPoint()` and `rowAtEndPoint()` methods is the Change.
 So if the method is executed from a row, from a column or from a value
@@ -701,7 +812,24 @@ assertThat(changes).change().column("surname").columnAmongTheModifiedOnes()
 
 This picture shows from where it is possible to navigate to a column.
 
-image::db-navigation-with-changes-to-column.png[]
+[ditaa, target="db-navigation-with-changes-to-column", shadows=false, transparent=true]
+....
+                       navigate to a column     navigate to a column
+                               +---+    +-----------------+-----------+
+                               |   |    |                 |           |
+                               :   v    v                 |           |
+                     +------>+-+---+-----+<---+-----------+----------+|
+ navigate to a column|   +-->|On a Column|    |On a Value Of a Column||
+                     |   |   +-----+-----+--->+----------------------+|
+                     :   |         |  ^                               |
++-----------+<-----+-+---+-----+<--+  |                               |
+|On Changes |      |On a Change|  navigate to a column                |
++-----------+----->+-----+-----+<--+  |                               |
+                         |         |  :                               |
+                         |   +-----+--+<---+-------------------+      |
+                         +-->|On a Row|    |On a Value Of a Row|=-----+
+                             +--------+--->+-------------------+
+....
 
 The origin point of the `column(...)` methods is the Change.
 So if the method is executed from a row, from a column or from a value
@@ -789,7 +917,26 @@ assertThat(changes).change().column().valueAtStartPoint().valueAtEndPoint()...
 
 This picture shows from where it is possible to navigate to a value.
 
-image::db-navigation-with-changes-to-value.png[]
+[ditaa, target="db-navigation-with-changes-to-value", shadows=false, transparent=true]
+....
+                             +-------------------+
+                             |navigate to a value|
+                             :                   v
+                         +---+-------+<---+------+---------------+=-+
+                     +-->|On a Column|    |On a Value Of a Column|  |navigate to a value
+                     |   +-----+-----+--->+----------------------+<-+
+                     |         |
++-----------+<-+-----+-----+<--+
+|On Changes |  |On a Change|
++-----------+->+-----+-----+<--+
+                     |         |
+                     |   +-----+--+<---+-------------------+=-+
+                     +-->|On a Row|    |On a Value Of a Row|  |navigate to a value
+                         +---+----+--->+---------+---------+<-+
+                             :                   ^
+                             |navigate to a value|
+                             +-------------------+
+....
 
 The origin point of the `value(...)` methods is the Row or the Column.
 So if the method is executed from a value

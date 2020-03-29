@@ -11,7 +11,7 @@
 ** <<assertj-db-concepts-table, Table>> [.small]#(modified in <<assertj-db-1-2-0-release-notes,1.2.0>>)#
 ** <<assertj-db-concepts-request, Request>>
 ** <<assertj-db-concepts-changes, Changes>>
-** <<assertj-db-concepts-change, change>>
+** <<assertj-db-concepts-change, Change>>
 ** <<assertj-db-concepts-row, Row>>
 ** <<assertj-db-concepts-column, Column>>
 ** <<assertj-db-concepts-value, Value>>
@@ -337,7 +337,7 @@ Request request4 = new Request(dataSource,
 The https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Changes.html[Changes]
 are the differences of states in database between a `start point` and a `end point`.
 
-image::db-changes-1.png[]
+image::db-changes-concept.png[]
 
 Assume that there are these SQL statements between the start point and the end point.
 
@@ -742,7 +742,21 @@ assertThat(request)...
 
 From these root assertions, it is possible to navigate to the sub elements and return to the root element as in the picture below.
 
-image::db-navigation-with-table-or-request.png[]
+[ditaa, target="db-navigation-with-table-or-request", shadows=false, transparent=true]
+....
+                                             origin
+                 instantiate+-----------+<-----------=+----------------------+
+                 +--------->|On a Column| instantiate |On a Value Of a Column|
+                 |          +-----+-----+=----------->+----------------------+
+                 :          origin:
++----------------+------+<--------+
+|On a Table Or a Request|
++----------------+------+<--------+
+                 :          origin:       origin
+                 |          +-----+--+<-----------=+-------------------+
+                 +--------->|On a Row| instantiate |On a Value Of a Row|
+                 instantiate+--------+=----------->+-------------------+
+....
 
 More details on this concept in assertj-db-features-highlight.html#tableorrequestasroot[feature highlight].
 
@@ -761,7 +775,22 @@ assertThat(changes)...
 
 From this root assertion, it is possible to navigate to the sub elements and return to the root element as in the picture below.
 
-image::db-navigation-with-changes.png[]
+[ditaa, target="db-navigation-with-changes", shadows=false, transparent=true]
+....
+                                                            origin
+                                instantiate+-----------+<-----------=+----------------------+
+                                +--------->|On a Column| instantiate |On a Value Of a Column|
+                                |          +-----+-----+=----------->+----------------------+
+                 origin         :          origin:
++-----------+<=-----------+-----+-----+<---------+
+|On Changes | instantiate |On a Change|
++-----------+=----------->+-----+-----+<---------+
+                                :          origin:       origin
+                                |          +-----+--+<-----------=+-------------------+
+                                +--------->|On a Row| instantiate |On a Value Of a Row|
+                                instantiate+--------+=----------->+-------------------+
+....
+
 
 More details on this concept in <<assertj-db-features-changesasroot,feature highlight>>.
 
