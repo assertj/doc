@@ -170,7 +170,7 @@ or a https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/typ
 // Get a DataSource
 DataSource dataSource = ...
 // Declare the "members" table by using a DataSource
-Table table1 = new Table(dateSource, "members");
+Table table1 = new Table(dataSource, "members");
 // Declare the "members" table by using a Source
 Table table2 = new Table(source, "members");
 ----
