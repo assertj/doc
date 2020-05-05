@@ -5,6 +5,7 @@ NOTE: AssertJ Core would not exist without its contributors, you can find them a
 
 Latest release notes:
 
+- link:#assertj-core-3-16-0-release-notes[AssertJ Core 3.16.0]
 - link:#assertj-core-3-15-0-release-notes[AssertJ Core 3.15.0]
 - link:#assertj-core-3-14-0-release-notes[AssertJ Core 3.14.0]
 - link:#assertj-core-3-13-2-release-notes[AssertJ Core 3.13.2]
@@ -15,6 +16,336 @@ Latest release notes:
 - link:#assertj-core-3-12-0-release-notes[AssertJ Core 3.12.0]
 
 Older release notes can be found in the old site: https://joel-costigliola.github.io/assertj/assertj-core-news.html, this is important to be aware of breaking changes if you are migrating from an old version.
+
+[[assertj-core-3-16-0-release-notes]]
+==== AssertJ Core 3.16.0
+
+Release date : 2020-05-05
+
+[[assertj-core-3.16.0-contributors]]
+[.release-note-category]#icon:user[] Contributors#
+
+Thanks to all the contributors of this release: Erhard Pointl, Stefano Cordio, Pascal Schumacher, Wim Deblauwe, Fabien Duminy, Piotrek Żygieło, Indrek Priks, Jakzi666, Daniel Avila, Harisha Talanki, Grzegorz Piwowarek, Andreas Mager, Sunt-ing, ebundy, Stefan Birkner, WuYff, Cal027, Yubin Hu and Fr Jeremy Krieg.
+
+[[assertj-core-3.16.0-breaking-changes]]
+[.release-note-category]#icon:exclamation-triangle[] Breaking changes#
+
+* `AbstractSoftAssertions` is now `abstract`
+* The following base soft assertions classes were changed to interfaces (with default methods) and renamed:
+** `AbstractBDDSoftAssertions` was renamed to `BDDSoftAssertionsProvider`
+** `AbstractStandardSoftAssertions` was renamed to `StandardSoftAssertionsProvider`
+** `Java6AbstractBDDSoftAssertions` was renamed to `Java6BDDSoftAssertionsProvider`
+** `Java6AbstractStandardSoftAssertions` was renamed to `Java6StandardSoftAssertionsProvider`
+* Move ThrowingCallable from `AbstractSoftAssertions` to  `SoftAssertionsProvider`.
+
+[[assertj-core-3.16.0-new-features]]
+[.release-note-category]#icon:plus-circle[] New features#
+
+- Allow link:#assertj-core-soft-assertions-combining[combining soft assertions entry points]. (Fr Jeremy Krieg) 
+- Support link:#assertj-core-junit5-soft-assertions-custom-injection[injecting custom soft assertions in JUnit 5 `SoftAssertionExtension`]. (Fr Jeremy Krieg) 
+- Add assertions on the link:#assertj-core-throwable-cause-and-root-cause-assertions[cause and root cause exception message]. (Wim Deblauwe)
+- Recursive comparison learned to link:#assertj-core-recursive-comparison-ignoring-all-expected-null-fields[ignore null fields from the expected object].
+- Recursive comparison learned to link:#assertj-core-recursive-comparison-ignoring-all-actual-empty-optional-fields[ ignore all actual empty optional fields].
+- Add assertion to link:#assertj-core-3.16.0-string-ignoring-punctuation[compare string ignoring punctuation and normalizing whitespaces]. (Harisha Talanki) 
+- Add link:#assertj-core-3.16.0-string-isBase64[`isBase64`] to `String` assertions. (Stefano Cordio)
+- Add link:#assertj-core-3.16.0-string-decodedAsBase64[`decodedAsBase64`] to `String` assertions. (Stefano Cordio)
+- Add link:#assertj-core-3.16.0-byte-array-encodedAsBase64[`encodedAsBase64`] to `byte[]` assertions. (Stefano Cordio)
+- Add link:#assertj-core-3.16.0-LongAdder[`java.util.concurrent.atomic.LongAdder`] assertions. (Grzegorz Piwowarek)
+- Add link:#assertj-core-3.16.0-byte-array-asHexString[`asHexString`] to `byte[]` assertions. (Andreas Mager) 
+- Add link:#assertj-core-3.16.0-url-isEqualToWithSortedQueryParameters[`isEqualToWithSortedQueryParameters`] to `URL` assertions. (Sunt-ing) 
+- Add link:#assertj-core-3.16.0-isDirectoryRecursivelyContaining[`isDirectoryRecursivelyContaining`] to `File`/`Path` assertions. (ebundy) 
+- Add link:#assertj-core-3.16.0-hasBinaryContent[`hasBinaryContent`] to `InputStream` assertions. (Stefan Birkner) 
+- Add link:#assertj-core-3.16.0-containsOnlyOnceElementsOf[`containsOnlyOnceElementsOf`] to `Iterable`/`Object array`/`AtomicReferenceArray` assertions. (Cal027) 
+
+[[assertj-core-3.16.0-improvements]]
+[.release-note-category]#icon:arrow-circle-up[] Improvements#
+
+- `ByteArrayAssert.containsExactly(byte...)` error message now mentions not found and unexpected elements. (Indrek Priks)
+- In "should be package private" class assertion, the error message now explicitly mentions package-private instead of a blank value.  
+- Use primitive comparison in `Float` and `Double` `isNotEqualTo` when compared to primitive float/double values.
+- link:#assertj-core-3.16.0-disambiguate-date-representation[Disambiguate colliding date/time representation].
+- Support up to four arguments for `satisfiesAnyOf()`. (Jakzi666)
+- Clarify the error message when comparing float/double NaN with ==.
+- Use a more descriptive element's name in ShouldContain/ShouldContainOnly error message. (WuYff)
+- Add short array assertions taking `int...`. (Daniel Avila)
+- Use AssertJ site theme for javadoc.
+- Improve converting JUnit/JUnit5 assertions to AssertJ. (Yubin Hu)
+- Move core `extracting` features from `AbstractObjectAssert` to `AbstractAssert`, making them available for custom assertions. (Stefano Cordio)
+- Improve line number accuracy in soft assertion error messages. (Stefano Cordio)
+- Internal: introduce EqualsVerifier for internal tests. (Stefano Cordio)
+- Internal: optimize Charset finding in tests. (Fabien Duminy)
+- Internal: clean up unused imports (Erhard Pointl, Piotrek Żygieło, Stefano Cordio, Pascal Schumacher)
+- Internal: use static imports. (Piotrek Żygieło)
+- Internal: remove unnecessary type parameters from extractors. (Stefano Cordio)
+- Internal: access assertion info directly in `AtomicLongAssert`/`AtomicIntegerAssert`. (Grzegorz Piwowarek)
+- Re-enable Sonar reports. (Stefano Cordio)
+- Update ByteBuddy to version 1.10.10.
+- Update JUnit Jupiter to version 5.6.2 (still optional).
+
+[[assertj-core-3.16.0-fixed]]
+[.release-note-category]#icon:wrench[] Fixed#
+
+- Fix infinite recursion in recursive comparison when dealing with Path. (#1855)
+- Fix recursive comparison way of tracking already visited objects. (#1854)
+- Fix typos (Wim Deblauwe, Stefano Cordio)
+
+[[assertj-core-3.16.0-deprecated]]
+[.release-note-category]#icon:ban[] Deprecated#
+
+- Deprecate `areEqual()` and `areEqualArrays()` in `org.assertj.core.util.Objects`.
+- Deprecate `temporaryFolder()` in `org.assertj.core.util.Files`. (Sunt-ing) 
+
+[[assertj-core-3.16.0-LongAdder]]
+[.release-note-item]#Add `java.util.concurrent.atomic.LongAdder` assertions#
+
+The following `java.util.concurrent.atomic.LongAdder` assertions are available:
+
+- `hasValue(long expected)`, which verifies that the actual LongAdder sum has the given value.
+- `doesNotHaveValue(long unexpected)`, which verifies that the actual LongAdder sum has not the given value.
+- All the assertions provided by `NumberAssert`, using the LongAdder sum as actual value.
+- All the assertions provided by `ComparableAssert`, using the LongAdder sum as actual value.
+
+[[assertj-core-3.16.0-string-ignoring-punctuation]]
+[.release-note-item]#Comparison ignoring punctuation and normalizing whitespaces#
+
+Verifies that the actual `CharSequence` is equal to the given one, after the punctuation of both strings have been normalized.
+
+To be exact, the following rules are applied:
+
+* All punctuation of actual and expected strings are ignored and whitespaces are normalized
+* Punctuation is any of the following characters: `!"#$%&'()*+,-./:;=<>?@[\]^_{|}~\`` 
+
+Examples:
+[source,java]
+----
+// assertions succeed:
+assertThat("Game'of'Thrones").isEqualToNormalizingPunctuationAndWhitespace("GameofThrones")
+assertThat("Game of Throne's").isEqualToNormalizingPunctuationAndWhitespace("Game of Thrones")
+assertThat(":Game of Thrones:").isEqualToNormalizingPunctuationAndWhitespace("Game of Thrones")
+assertThat(":Game-of-Thrones:").isEqualToNormalizingPunctuationAndWhitespace("Game of Thrones")
+assertThat("Game of Thrones?").isEqualToNormalizingPunctuationAndWhitespace("Game of Thrones")
+assertThat("Game of Thrones!!!").isEqualToNormalizingPunctuationAndWhitespace("Game of Thrones")
+assertThat("Game of  {{(!)}}    Thrones!!!").isEqualToNormalizingPunctuationAndWhitespace("Game of Thrones")
+assertThat("{(Game)-(of)-(Thrones)!!!}").isEqualToNormalizingPunctuationAndWhitespace("GameofThrones");
+
+// assertions fail:
+assertThat("Game-of-Thrones").isEqualToNormalizingPunctuationAndWhitespace("Game of Thrones");
+assertThat("{Game:of:Thrones}").isEqualToNormalizingPunctuationAndWhitespace("Game of Thrones");
+assertThat("{(Game)-(of)-(Thrones)!!!}").isEqualToNormalizingPunctuationAndWhitespace("Game of Thrones");
+----
+
+[[assertj-core-3.16.0-string-isBase64]]
+[.release-note-item]#isBase64#
+
+Verifies that the given `String` is a valid Base64 encoded string. (this is not available for `CharSequence`).
+
+Examples:
+[source,java]
+----
+// assertions succeeds
+assertThat("QXNzZXJ0Sg==").isValidBase64();
+
+// assertion succeeds even without padding as it is optional by specification
+assertThat("QXNzZXJ0Sg").isValidBase64();
+
+// assertion fails as it has invalid Base64 characters
+assertThat("inv@lid").isValidBase64();
+----
+
+[[assertj-core-3.16.0-string-decodedAsBase64]]
+[.release-note-item]#decodedAsBase64#
+
+Decodes the actual `String` value as a Base64 encoded string, the decoded bytes becoming the new array under test.
+
+Examples:
+[source,java]
+----
+// assertions succeeds
+assertThat("QXNzZXJ0Sg==").decodedAsBase64()
+                          .containsExactly("AssertJ".getBytes());
+
+// assertion succeeds even without padding as it is optional by specification
+assertThat("QXNzZXJ0Sg").decodedAsBase64()
+                        .containsExactly("AssertJ".getBytes());
+
+// assertion fails as it has invalid Base64 characters
+assertThat("inv@lid").decodedAsBase64();
+----
+
+
+[[assertj-core-3.16.0-byte-array-asHexString]]
+[.release-note-item]#Add `asHexString` to `byte[]` assertions#
+
+Converts the actual byte array under test to an hexadecimal String and returns assertions for the computed String allowing String specific assertions from this call. +
+The hexadecimal `String` representation is in upper case.
+
+Example :
+[source,java]
+----
+byte[] bytes = new byte[] { -1, 0, 1 };
+
+// assertion will pass
+assertThat(bytes).asHexString()
+                 .startsWith("FF")
+                 .isEqualTo("FF0001");
+----
+
+[[assertj-core-3.16.0-url-isEqualToWithSortedQueryParameters]]
+[.release-note-item]#Add `isEqualToWithSortedQueryParameters`] to `URL` assertions#
+
+Verifies that the actual URL is equivalent to the given one after their parameters are sorted. 
+
+Example :
+[source,java]
+----
+URL url = new URL("http://example.com?a=b&c=d");
+
+// these assertions succeed ...
+assertThat(url).isEqualToWithSortedQueryParameters(new URL("http://example.com?c=d&a=b"))
+               .isEqualToWithSortedQueryParameters(new URL("http://example.com?a=b&c=d"));
+
+// ... but this one fails as parameters do not match.
+assertThat(url).isEqualToWithSortedQueryParameters(new URL("http://example.com?a=b&c=e"));
+
+//... and this one fails as domains are different.
+assertThat(url).isEqualToWithSortedQueryParameters(new URL("http://example2.com?amp;a=b&c=d")); 
+----
+
+
+[[assertj-core-3.16.0-isDirectoryRecursivelyContaining]]
+[.release-note-item]#Add `isDirectoryRecursivelyContaining` to `File`/`Path` assertions#
+
+Verify that the actual `File`/`Path` directory or any of its subdirectories (recursively) contains at least one file matching the given criteria expressed as:
+
+* a `String` interpreted as a path matcher (as per `FileSystem.getPathMatcher(String)`)
+* a `String` interpreted as a path matcher (as per `FileSystem.getPathMatcher(String)`)
+
+These assertions are similart to `isDirectoryContaining` but recursively go into subdirectories.
+
+Note that the actual `File`/`Path` must exist and be a directory.
+
+Examples with files given the following directory structure:
+
+[source,text]
+----
+ root
+ |—— foo
+ |    |—— foobar
+ |         |—— foo-file-1.ext
+ |—— foo-file-2.ext
+----
+
+Examples with syntax patterns: 
+[source,java]
+----
+File root = new File("root");
+
+// The following assertions succeed:
+assertThat(root).isDirectoryRecursivelyContaining("glob:**foo")
+                .isDirectoryRecursivelyContaining("glob:**ooba*")
+                .isDirectoryRecursivelyContaining("glob:**file-1.ext")
+                .isDirectoryRecursivelyContaining("regex:.*file-2.*")
+                .isDirectoryRecursivelyContaining("glob:**.{ext,dummy}");
+
+// The following assertions fail:
+assertThat(root).isDirectoryRecursivelyContaining("glob:**fooba");
+assertThat(root).isDirectoryRecursivelyContaining("glob:**.bin");
+assertThat(root).isDirectoryRecursivelyContaining("glob:**.{java,class}");
+----
+
+Examples with predicates: 
+[source,java]
+----
+File root = new File("root");
+
+// The following assertions succeed:
+assertThat(root).isDirectoryRecursivelyContaining(file -> file.getName().startsWith("foo-file-1"))
+                .isDirectoryRecursivelyContaining(file -> file.getName().endsWith("file-2.ext"))
+                .isDirectoryRecursivelyContaining(file -> file.getName().equals("foo"))
+                .isDirectoryRecursivelyContaining(file -> file.getParentFile().getName().equals("foo"))
+
+// The following assertions fail:
+assertThat(root).isDirectoryRecursivelyContaining(file -> file.getName().equals("foo-file-1"))
+assertThat(root).isDirectoryRecursivelyContaining(file -> file.getName().equals("foo/foobar")); 
+----
+
+[[assertj-core-3.16.0-hasBinaryContent]]
+[.release-note-item]#Add `hasBinaryContent` to `InputStream` assertions#
+
+Verifies that the binary content of the actual InputStream is exactly equal to the given one.
+
+Example: the following failing assertion ... 
+[source,java,indent=0]
+----
+InputStream inputStream = new ByteArrayInputStream(new byte[] {1, 2});
+
+// assertion will pass
+assertThat(inputStream).hasContent(new byte[] {1, 2});
+
+// assertions will fail
+assertThat(inputStream).hasBinaryContent(new byte[] { });
+assertThat(inputStream).hasBinaryContent(new byte[] {0, 0});
+----
+
+
+[[assertj-core-3.16.0-containsOnlyOnceElementsOf]]
+[.release-note-item]#Add `containsOnlyOnceElementsOf` to `Iterable`/`Object array`/`AtomicReferenceArray` assertions#
+
+Verifies that the actual group contains the elements of the given iterable only once (same semantic as `containsOnlyOnce(Object...)`). 
+
+Examples:
+[source,java,indent=0]
+----
+// assertions will pass
+assertThat(list("winter", "is", "coming")).containsOnlyOnceElementsOf(list("winter"))
+                                          .containsOnlyOnceElementsOf(list("coming", "winter"));
+
+// assertions will fail
+assertThat(list("winter", "is", "coming")).containsOnlyOnceElementsOf(list("Lannister"));
+assertThat(list("Arya", "Stark", "daughter", "of", "Ned", "Stark")).containsOnlyOnceElementsOf(list("Stark"));
+assertThat(list("Arya", "Stark", "daughter", "of", "Ned", "Stark")).containsOnlyOnceElementsOf(list("Stark", "Lannister", "Arya"));
+----
+
+[[assertj-core-3.16.0-disambiguate-date-representation]]
+[.release-note-item]#Disambiguate colliding date/time representation#
+
+Different date/time types can be represented the same way (`LocalDateTime` and `Date` for example) which makes it difficult to understand error messages as they don't show any difference between actual and expected values. AssertJ now adds the date/time type name for types whose representation may collide.
+
+Example: the following failing assertion ... 
+[source,java,indent=0]
+----
+Date now = new Date();
+Object localDateTime = LocalDateTime.ofInstant(now.toInstant(), ZoneId.systemDefault());
+
+assertThat(List.of(localDateTime)).containsExactly(now);
+----
+
+\... fails with this error:
+
+[source,indent=0]
+----
+Expecting:
+  <[2020-03-19T22:32:42.875 (java.time.LocalDateTime)]>
+to contain exactly (and in same order):
+  <[2020-03-19T22:32:42.875 (java.util.Date)]>
+but some elements were not found:
+  <[2020-03-19T22:32:42.875 (java.util.Date)]>
+and others were not expected:
+  <[2020-03-19T22:32:42.875 (java.time.LocalDateTime)]>
+----
+
+Before that the error would have been confusing:
+[source,indent=0]
+----
+Expecting:
+  <[2020-03-19T22:32:42.875]>
+to contain exactly (and in same order):
+  <[2020-03-19T22:32:42.875]>
+but some elements were not found:
+  <[2020-03-19T22:32:42.875]>
+and others were not expected:
+  <[2020-03-19T22:32:42.875]>
+----
 
 [[assertj-core-3-15-0-release-notes]]
 ==== AssertJ Core 3.15.0
@@ -109,9 +440,9 @@ Shout out to Vincent Ricard for the various tests refactoring, that was quite a 
 - Deprecate `Preconditions#checkNotNull(Object, String)` in favor of `Objects.requireNonNull(Object, String)`.
 
 [[assertj-core-3.15.0-Duration]]
-[.release-note-item]#Add `java.time.Duration` assertions.#
+[.release-note-item]#Add `java.time.Duration` assertions#
 
-The following `java.time.Duration` assertions are available
+The following `java.time.Duration` assertions are available:
 
 - `hasDays​(long otherDays)`: Verifies that the actual Duration has the given days.
 - `hasHours​(long otherHours)`: Verifies that the actual Duration has the given hours.
