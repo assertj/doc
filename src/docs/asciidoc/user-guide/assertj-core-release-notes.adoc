@@ -5,6 +5,7 @@ NOTE: AssertJ Core would not exist without its contributors, you can find them a
 
 Latest release notes:
 
+- link:#assertj-core-3-16-1-release-notes[AssertJ Core 3.16.1]
 - link:#assertj-core-3-16-0-release-notes[AssertJ Core 3.16.0]
 - link:#assertj-core-3-15-0-release-notes[AssertJ Core 3.15.0]
 - link:#assertj-core-3-14-0-release-notes[AssertJ Core 3.14.0]
@@ -16,6 +17,23 @@ Latest release notes:
 - link:#assertj-core-3-12-0-release-notes[AssertJ Core 3.12.0]
 
 Older release notes can be found in the old site: https://joel-costigliola.github.io/assertj/assertj-core-news.html, this is important to be aware of breaking changes if you are migrating from an old version.
+
+[[assertj-core-3-16-1-release-notes]]
+==== AssertJ Core 3.16.1
+
+Release date : 2020-05-09
+
+[[assertj-core-3.16.1-contributors]]
+[.release-note-category]#icon:user[] Contributors#
+
+Thanks to Erhard Pointl and Eddú Meléndez Gonzales for their contributions.
+
+[[assertj-core-3.16.1-fixed]]
+[.release-note-category]#icon:wrench[] Fixed#
+
+- Fix NPE in recursive comparison when checking local or aninymous classes. (#1868)
+- Fix `assertThat(Duration actual)` javadoc. (Eddú Meléndez Gonzales)
+
 
 [[assertj-core-3-16-0-release-notes]]
 ==== AssertJ Core 3.16.0
