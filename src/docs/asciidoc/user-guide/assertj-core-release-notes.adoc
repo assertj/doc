@@ -31,7 +31,7 @@ Thanks to Erhard Pointl and Eddú Meléndez Gonzales for their contributions.
 [[assertj-core-3.16.1-fixed]]
 [.release-note-category]#icon:wrench[] Fixed#
 
-- Fix NPE in recursive comparison when checking local or aninymous classes. (#1868)
+- Fix NPE in recursive comparison when checking local or anonymous classes. (#1868)
 - Fix `assertThat(Duration actual)` javadoc. (Eddú Meléndez Gonzales)
 
 
