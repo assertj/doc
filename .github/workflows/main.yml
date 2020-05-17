@@ -1,15 +1,17 @@
-name: Publish
+name: CI
 
 on:
   push:
     branches:
       - master
+  pull_request:
+    branches:
+      - master
 
 jobs:
-  gh_pages:
-    name: "GitHub Pages"
+  asciidoctor:
+    name: "Asciidoctor"
     runs-on: ubuntu-latest
-    if: github.repository == 'assertj/doc'
     steps:
       - uses: actions/checkout@v2
       - name: Set up JDK 11
@@ -19,6 +21,7 @@ jobs:
       - name: Run Asciidoctor
         run: ./gradlew asciidoctor
       - name: Publish to GitHub Pages
+        if: github.repository == 'assertj/doc' && github.event_name == 'push'
         run: ./gradlew --stacktrace --info gitPublishPush
         env:
           GRGIT_USER: ${{ secrets.ASCIIDOCTOR_TOKEN }}
