@@ -1,0 +1,74 @@
+[[assertj-guava-assertions-guide]]
+=== Assertions guide
+
+This section describes the assertions provided by AssertJ Guava.
+
+==== ByteSource
+
+|===
+|Assertion |Description
+
+|https://www.javadoc.io/static/org.assertj/assertj-guava/3.4.0/org/assertj/guava/api/ByteSourceAssert.html#hasSameContentAs(com.google.common.io.ByteSource)[`hasSameContentAs`]
+|Verifies that the actual `ByteSource` has the same content as the provided one.
+
+|https://www.javadoc.io/static/org.assertj/assertj-guava/3.4.0/org/assertj/guava/api/ByteSourceAssert.html#hasSize(long)[`hasSize`]
+|Verifies that the size of the actual `ByteSource` is equal to the given one.
+
+|https://www.javadoc.io/static/org.assertj/assertj-guava/3.4.0/org/assertj/guava/api/ByteSourceAssert.html#isEmpty()[`isEmpty`]
+|Verifies that the actual `ByteSource` is empty.
+|===
+
+==== Multimap
+
+|===
+|Assertion |Description
+
+|https://www.javadoc.io/static/org.assertj/assertj-guava/3.4.0/org/assertj/guava/api/MultimapAssert.html#contains(org.assertj.core.data.MapEntry...)[`contains`]
+|Verifies that the actual `Multimap` contains the given entries.
+
+|https://www.javadoc.io/static/org.assertj/assertj-guava/3.4.0/org/assertj/guava/api/MultimapAssert.html#containsAllEntriesOf(com.google.common.collect.Multimap)[`containsAllEntriesOf`]
+|Verifies that the actual `Multimap` contains all entries of the given one (it might contain more entries).
+
+|https://www.javadoc.io/static/org.assertj/assertj-guava/3.4.0/org/assertj/guava/api/MultimapAssert.html#containsKeys(K...)[`containsKeys`]
+|Verifies that the actual `Multimap` contains the given keys.
+
+|https://www.javadoc.io/static/org.assertj/assertj-guava/3.4.0/org/assertj/guava/api/MultimapAssert.html#containsValues(V...)[`containsValues`]
+|Verifies that the actual `Multimap` contains the given values for any key.
+
+|https://www.javadoc.io/static/org.assertj/assertj-guava/3.4.0/org/assertj/guava/api/MultimapAssert.html#hasSameEntriesAs(com.google.common.collect.Multimap)[`hasSameEntriesAs`]
+|Verifies that the actual `Multimap` has the same entries as the given one.
+
+|https://www.javadoc.io/static/org.assertj/assertj-guava/3.4.0/org/assertj/guava/api/MultimapAssert.html#hasSize(int)[`hasSize`]
+|Verifies that the number of values in the actual `Multimap` is equal to the given one.
+
+|https://www.javadoc.io/static/org.assertj/assertj-guava/3.4.0/org/assertj/guava/api/MultimapAssert.html#isEmpty()[`isEmpty`]
+|Verifies that the actual `Multimap` is empty.
+
+|https://www.javadoc.io/static/org.assertj/assertj-guava/3.4.0/org/assertj/guava/api/MultimapAssert.html#isNotEmpty()[`isNotEmpty`]
+|Verifies that the actual `Multimap` is not empty.
+|===
+
+==== Multiset
+
+|===
+|Assertion |Description
+
+|https://www.javadoc.io/static/org.assertj/assertj-guava/3.4.0/org/assertj/guava/api/MultisetAssert.html#contains(int,T)[`contains`]
+|Verifies the actual `Multiset` contains the given value *exactly* the given number of times.
+
+|https://www.javadoc.io/static/org.assertj/assertj-guava/3.4.0/org/assertj/guava/api/MultisetAssert.html#containsAtLeast(int,T)[`containsAtLeast`]
+|Verifies the actual `Multiset` contains the given value *at least* the given number of times.
+
+|https://www.javadoc.io/static/org.assertj/assertj-guava/3.4.0/org/assertj/guava/api/MultisetAssert.html#containsAtMost(int,T)[`containsAtMost`]
+|Verifies the actual `Multiset` contains the given value *at most* the given number of times.
+|===
+
+==== Optional
+
+==== Range
+
+==== RangeMap
+
+==== RangeSet
+
+==== Table
