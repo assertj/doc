@@ -5,6 +5,7 @@ This section describes the assertions provided by AssertJ Guava.
 
 ==== ByteSource
 
+[%autowidth]
 |===
 |Assertion |Description
 
@@ -20,6 +21,7 @@ This section describes the assertions provided by AssertJ Guava.
 
 ==== Multimap
 
+[%autowidth]
 |===
 |Assertion |Description
 
@@ -50,6 +52,7 @@ This section describes the assertions provided by AssertJ Guava.
 
 ==== Multiset
 
+[%autowidth]
 |===
 |Assertion |Description
 
