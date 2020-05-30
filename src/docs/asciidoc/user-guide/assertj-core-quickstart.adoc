@@ -23,7 +23,7 @@ Note that AssertJ Core 3.x includes all AssertJ Core 2.x features and adds Java 
 [[assertj-core-android]]
 ===== Android support
 
-AssertJ *does not officially supports Android* but is mostly Android compatible:
+AssertJ *does not officially support Android* but is mostly Android compatible:
 
 * AssertJ Core 3.x is compatible with Android API Level 26+, except for soft assertions and assumptions.
 * AssertJ Core 2.x is Android compatible with Android API Level 26+ and API Level < 26 except for `Path` assertions.
