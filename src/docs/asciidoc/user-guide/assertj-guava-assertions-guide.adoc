@@ -151,6 +151,95 @@ In addition to `Iterable` link:#assertj-core-iterable-assertions[assertions], th
 
 ==== RangeSet
 
+[%autowidth]
+|===
+|Assertion |Description
+
+|{assertj-guava-javadoc-root}org/assertj/guava/api/RangeSetAssert.html#contains(T...)[`contains`]
+|Verifies that the given `RangeSet` contains the given ranges.
+
+|{assertj-guava-javadoc-root}org/assertj/guava/api/RangeSetAssert.html#containsAll(java.lang.Iterable)[`containsAll`]
+|Verifies that the given `RangeSet` contains all the given ranges.
+
+|{assertj-guava-javadoc-root}org/assertj/guava/api/RangeSetAssert.html#containsAnyOf(T...)[`containsAnyOf`]
+|Verifies that the given `RangeSet` contains at least one of the given ranges.
+
+|{assertj-guava-javadoc-root}org/assertj/guava/api/RangeSetAssert.html#containsAnyRangesOf(java.lang.Iterable)[`containsAnyRangesOf`]
+|Verifies that the given `RangeSet` contains at least one of the given ranges.
+
+|{assertj-guava-javadoc-root}org/assertj/guava/api/RangeSetAssert.html#doesNotContain(T...)[`doesNotContain`]
+|Verifies that the given `RangeSet` does not contain any of the given ranges.
+
+|{assertj-guava-javadoc-root}org/assertj/guava/api/RangeSetAssert.html#doesNotContainAll(java.lang.Iterable)[`doesNotContainAll`]
+|Verifies that the given `RangeSet` does not contain any of the given ranges.
+
+|{assertj-guava-javadoc-root}org/assertj/guava/api/RangeSetAssert.html#doesNotEnclose(com.google.common.collect.Range...)[`doesNotEnclose`]
+|Verifies that the given `RangeSet` does not enclose the given ranges.
+
+|{assertj-guava-javadoc-root}org/assertj/guava/api/RangeSetAssert.html#doesNotEncloseAnyRangesOf(com.google.common.collect.RangeSet)[`doesNotEncloseAnyRangesOf`]
+|Verifies that the given `RangeSet` does not enclose any range from the given range set.
+
+|{assertj-guava-javadoc-root}org/assertj/guava/api/RangeSetAssert.html#doesNotEncloseAnyRangesOf(java.lang.Iterable)[`doesNotEncloseAnyRangesOf`]
+|Verifies that the given `RangeSet` does not enclose any of the given ranges.
+
+|{assertj-guava-javadoc-root}org/assertj/guava/api/RangeSetAssert.html#doesNotIntersect(com.google.common.collect.Range...)[`doesNotIntersect`]
+|Verifies that the given `RangeSet` does not intersect the given ranges.
+
+|{assertj-guava-javadoc-root}org/assertj/guava/api/RangeSetAssert.html#doesNotIntersectAnyRangeFrom(com.google.common.collect.RangeSet)[`doesNotIntersectAnyRangeFrom`]
+|Verifies that the given `RangeSet` does not intersect ranges from the given range set.
+
+|{assertj-guava-javadoc-root}org/assertj/guava/api/RangeSetAssert.html#doesNotIntersectAnyRangeFrom(java.lang.Iterable)[`doesNotIntersectAnyRangeFrom`]
+|Verifies that the given `RangeSet` does not intersect all the given ranges.
+
+|{assertj-guava-javadoc-root}org/assertj/guava/api/RangeSetAssert.html#encloses(com.google.common.collect.Range...)[`encloses`]
+|Verifies that the given `RangeSet` encloses the given ranges.
+
+|{assertj-guava-javadoc-root}org/assertj/guava/api/RangeSetAssert.html#enclosesAll(com.google.common.collect.RangeSet)[`enclosesAll`]
+|Verifies that the given `RangeSet` encloses all ranges from the given range set.
+
+|{assertj-guava-javadoc-root}org/assertj/guava/api/RangeSetAssert.html#enclosesAll(java.lang.Iterable)[`enclosesAll`]
+|Verifies that the given `RangeSet` encloses all the given ranges.
+
+|{assertj-guava-javadoc-root}org/assertj/guava/api/RangeSetAssert.html#enclosesAnyOf(com.google.common.collect.Range...)[`enclosesAnyOf`]
+|Verifies that the given `RangeSet` encloses at least one of the given ranges.
+
+|{assertj-guava-javadoc-root}org/assertj/guava/api/RangeSetAssert.html#enclosesAnyRangesOf(com.google.common.collect.RangeSet)[`enclosesAnyRangesOf`]
+|Verifies that the given `RangeSet` encloses at least one range from the given range set.
+
+|{assertj-guava-javadoc-root}org/assertj/guava/api/RangeSetAssert.html#enclosesAnyRangesOf(java.lang.Iterable)[`enclosesAnyRangesOf`]
+|Verifies that the given `RangeSet` encloses at least one range of the given ranges.
+
+|{assertj-guava-javadoc-root}org/assertj/guava/api/RangeSetAssert.html#hasSize(int)[`hasSize`]
+|Verifies that the given `RangeSet` has specific `size` of disconnected `Range` elements.
+
+|{assertj-guava-javadoc-root}org/assertj/guava/api/RangeSetAssert.html#intersects(com.google.common.collect.Range...)[`intersects`]
+|Verifies that the given `RangeSet` intersects all the given ranges.
+
+|{assertj-guava-javadoc-root}org/assertj/guava/api/RangeSetAssert.html#intersectsAll(com.google.common.collect.RangeSet)[`intersectsAll`]
+|Verifies that the given `RangeSet` intersects all the given range set.
+
+|{assertj-guava-javadoc-root}org/assertj/guava/api/RangeSetAssert.html#intersectsAll(java.lang.Iterable)[`intersectsAll`]
+|Verifies that the given `RangeSet` intersects all the given ranges.
+
+|{assertj-guava-javadoc-root}org/assertj/guava/api/RangeSetAssert.html#intersectsAnyOf(com.google.common.collect.Range...)[`intersectsAnyOf`]
+|Verifies that the given `RangeSet` intersects at least one of the given ranges.
+
+|{assertj-guava-javadoc-root}org/assertj/guava/api/RangeSetAssert.html#intersectsAnyRangesOf(com.google.common.collect.RangeSet)[`intersectsAnyRangesOf`]
+|Verifies that the given `RangeSet` intersects at least one range of the given range set.
+
+|{assertj-guava-javadoc-root}org/assertj/guava/api/RangeSetAssert.html#intersectsAnyRangesOf(java.lang.Iterable)[`intersectsAnyRangesOf`]
+|Verifies that the given `RangeSet` intersects at least one of the given ranges.
+
+|{assertj-guava-javadoc-root}org/assertj/guava/api/RangeSetAssert.html#isEmpty()[`isEmpty`]
+|Verifies that the actual `RangeSet` is empty.
+
+|{assertj-guava-javadoc-root}org/assertj/guava/api/RangeSetAssert.html#isNotEmpty()[`isNotEmpty`]
+|Verifies that the actual `RangeSet` is not empty.
+
+|{assertj-guava-javadoc-root}org/assertj/guava/api/RangeSetAssert.html#isNullOrEmpty()[`isNullOrEmpty`]
+|Verifies that the actual `RangeSet` is null or empty.
+|===
+
 ==== Table
 
 [%autowidth]
