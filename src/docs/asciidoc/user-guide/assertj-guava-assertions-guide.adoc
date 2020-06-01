@@ -52,6 +52,8 @@ This section describes the assertions provided by AssertJ Guava.
 
 ==== Multiset
 
+On top of `Iterable` link:#assertj-core-iterable-assertions[assertions], the following are also available.
+
 [%autowidth]
 |===
 |Assertion |Description
@@ -67,6 +69,31 @@ This section describes the assertions provided by AssertJ Guava.
 |===
 
 ==== Optional
+
+[%autowidth]
+|===
+|Assertion |Description
+
+|{assertj-guava-javadoc-root}org/assertj/guava/api/OptionalAssert.html#contains(java.lang.Object)[`contains`]
+|Verifies that the actual `Optional` contains the given value.
+
+|{assertj-guava-javadoc-root}org/assertj/guava/api/OptionalAssert.html#isAbsent()[`isAbsent`]
+|Verifies that the actual `Optional` contained instance is absent/null.
+
+|{assertj-guava-javadoc-root}org/assertj/guava/api/OptionalAssert.html#isPresent()[`isPresent`]
+|Verifies that the actual `Optional` contains a (non-null) instance.
+|===
+
+[%autowidth]
+|===
+|--FIXME-- |Description
+
+|{assertj-guava-javadoc-root}org/assertj/guava/api/OptionalAssert.html#extractingCharSequence()[`extractingCharSequence`]
+|Chain assertion on the content of the `Optional`.
+
+|{assertj-guava-javadoc-root}org/assertj/guava/api/OptionalAssert.html#extractingValue()[`extractingValue`]
+|Chain assertion on the content of the `Optional`.
+|===
 
 ==== Range
 
