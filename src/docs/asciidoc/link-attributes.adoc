@@ -1,4 +1,5 @@
 :javadoc-root:                           https://www.javadoc.io/doc/org.assertj/assertj-core/
+:assertj-guava-javadoc-root:             https://www.javadoc.io/static/org.assertj/assertj-guava/{assertj-guava-version}/
 //
 :assertj-core-repo:                      https://github.com/joel-costigliola/assertj-core
 :assertj-guava-repo:                     https://github.com/joel-costigliola/assertj-guava
