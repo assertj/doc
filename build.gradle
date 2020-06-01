@@ -55,7 +55,6 @@ asciidoctor {
 			'idprefix': '',
 			'idseparator': '-',
 			'assertj-core-version': assertjCoreVersion,
-			'assertj-guava-version': assertjGuavaVersion,
 			'assertj-db-version': assertjDbVersion,
 			'stylesheet': '../../../docs/asciidoc/asciidoctor.css',
 			'docinfo': 'shared'

@@ -52,7 +52,7 @@ This section describes the assertions provided by AssertJ Guava.
 
 ==== Multiset
 
-On top of `Iterable` link:#assertj-core-iterable-assertions[assertions], the following are also available.
+In addition to `Iterable` link:#assertj-core-iterable-assertions[assertions], the following are available.
 
 [%autowidth]
 |===
