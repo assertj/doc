@@ -5,6 +5,7 @@ Suppose that the database contains this table *MEMBERS* :
 
 |====
 |ID |NAME |FIRSTNAME |SURNAME |BIRTHDATE |SIZE
+
 |1 |'Hewson' |'Paul David' |'Bono' |05-10-60 |1.75
 |2 |'Evans' |'David Howell' |'The Edge' |08-08-61 |1.77
 |3 |'Clayton' |'Adam' |&nbsp; |03-13-60 |1.78
