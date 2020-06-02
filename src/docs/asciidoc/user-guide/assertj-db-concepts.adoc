@@ -44,6 +44,7 @@ For the examples below, suppose that the database contains these three tables :
 .MEMBERS
 |====
 |ID |NAME |FIRSTNAME |SURNAME |BIRTHDATE |SIZE
+
 |1 |'Hewson' |'Paul David' |'Bono' |05-10-60 |1.75
 |2 |'Evans' |'David Howell' |'The Edge' |08-08-61 |1.77
 |3 |'Clayton' |'Adam' | |03-13-60 |1.78
@@ -53,6 +54,7 @@ For the examples below, suppose that the database contains these three tables :
 .ALBUMS
 |====
 |ID |RELEASE |TITLE |NUMBEROFSONGS |DURATION |LIVE
+
 |1 |10-20-80 |'Boy' |12 |42:17 |
 |2 |10-12-81 |'October' |11 |41:08 |
 |3 |02-28-83 |'War' |10 |42:07 |
@@ -73,6 +75,7 @@ For the examples below, suppose that the database contains these three tables :
 .GROUP
 |====
 |ID |NAME
+
 |1 |'U2'
 |2 |'Coldplay'
 |====
@@ -181,6 +184,7 @@ The two https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/
 .Representation of "table1" or "table2"
 |====
 |ID |NAME |FIRSTNAME |SURNAME |BIRTHDATE |SIZE
+
 |1 |'Hewson' |'Paul David' |'Bono' |05-10-60 |1.75
 |2 |'Evans' |'David Howell' |'The Edge' |08-08-61 |1.77
 |3 |'Clayton' |'Adam' | |03-13-60 |1.78
@@ -203,6 +207,7 @@ Table table5 = new Table(source, "members", new String[] { "id", "name" }, new S
 .Representation of "table3"
 |====
 |ID |NAME
+
 |1 |'Hewson'
 |2 |'Evans'
 |3 |'Clayton'
@@ -212,6 +217,7 @@ Table table5 = new Table(source, "members", new String[] { "id", "name" }, new S
 .Representation of "table4"
 |====
 |ID |NAME |FIRSTNAME |SURNAME |SIZE
+
 |1 |'Hewson' |'Paul David' |'Bono' |1.75
 |2 |'Evans' |'David Howell' |'The Edge' |1.77
 |3 |'Clayton' |'Adam' | |1.78
@@ -221,6 +227,7 @@ Table table5 = new Table(source, "members", new String[] { "id", "name" }, new S
 .Representation of "table5"
 |====
 |NAME
+
 |'Hewson'
 |'Evans'
 |'Clayton'
@@ -249,6 +256,7 @@ Table table8 = new Table(source, "members", new Order[] {
 .Representation of "table7"
 |====
 |ID |NAME
+
 |1 |'U2'
 |2 |'Colplay'
 |====
@@ -256,6 +264,7 @@ Table table8 = new Table(source, "members", new Order[] {
 .Representation of "table8"
 |====
 |ID |NAME |FIRSTNAME |SURNAME |BIRTHDATE |SIZE
+
 |3 |'Clayton' |'Adam' | |03-13-60 |1.78
 |2 |'Evans' |'David Howell' |'The Edge' |08-08-61 |1.77
 |1 |'Hewson' |'Paul David' |'Bono' |05-10-60 |1.75
@@ -293,6 +302,7 @@ The two https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/
 .Representation of "request1" or "request2"
 |====
 |NAME |FIRSTNAME |SURNAME
+
 |'Evans' |'David Howell' |'The Edge'
 |'Clayton' |'Adam' |
 |====
@@ -320,6 +330,7 @@ Request request4 = new Request(dataSource,
 .Representation of "request3"
 |====
 |NAME |FIRSTNAME |SURNAME
+
 |'Hewson' |'Paul David' |'Bono'
 |'Evans' |'David Howell' |'The Edge'
 |'Mullen' |'Larry' |
@@ -328,6 +339,7 @@ Request request4 = new Request(dataSource,
 .Representation of "request4"
 |====
 |NAME |FIRSTNAME |SURNAME
+
 |'Hewson' |'Paul David' |'Bono'
 |====
 
@@ -389,24 +401,28 @@ In Representation of "changes4" or "changes5" the modification of first row of t
 |Creation |"MEMBERS" table |`5` as PK |
 !====
 !!ID !NAME !FIRSTNAME !SURNAME !BIRTHDATE !SIZE
+
 !At start point !!!!!!
 !At end point !5 !'McGuiness' !'Paul' !!!
 !====
 |Modification |"ALBUMS" table |`8` as PK |
 !====
 !!ID !RELEASE !TITLE !NUMBEROFSONGS !DURATION !LIVE
+
 !At start point !8 !10-10-88 !'Rattle and Hum' !17 !72:27 !
 !At end point !8 !10-10-88 !'Rattle & Hum' !17 !72:27 !true
 !====
 |Modification |"MEMBERS" table |`1` as PK |
 !====
-! !ID !NAME !FIRSTNAME !SURNAME !BIRTHDATE !SIZE
+!!ID !NAME !FIRSTNAME !SURNAME !BIRTHDATE !SIZE
+
 !At start point !1 !'Hewson' !'Paul David' !'Bono' !05-10-60 !1.75
 !At end point !1 !'Hewson' !'Paul David' !'Bono Vox' !05-10-60 !1.75
 !====
 |Deletion |"ALBUMS" table |`15` as PK |
 !====
-! !ID !RELEASE !TITLE !NUMBEROFSONGS !DURATION !LIVE
+!!ID !RELEASE !TITLE !NUMBEROFSONGS !DURATION !LIVE
+
 !At start point !15 !09-09-14   !'Songs of Innocence' !11 !48:11!
 !At end point !!!!!!
 !====
@@ -417,13 +433,15 @@ In Representation of "changes4" or "changes5" the modification of first row of t
 |====
 |Creation |"MEMBERS" table |`5` as PK |
 !====
-! !ID !NAME !FIRSTNAME !SURNAME !SIZE
+!!ID !NAME !FIRSTNAME !SURNAME !SIZE
+
 !At start point !!!!!
 !At end point !5 !'McGuiness' !'Paul' ! !
 !====
 |Modification |"MEMBERS" table |`1` as PK |
 !====
-! !ID !NAME !FIRSTNAME !SURNAME !SIZE
+!!ID !NAME !FIRSTNAME !SURNAME !SIZE
+
 !At start point !1 !'Hewson' !'Paul David' !'Bono' !1.75
 !At end point !1 !'Hewson' !'Paul David' !'Bono Vox' !1.75
 !====
@@ -434,19 +452,22 @@ In Representation of "changes4" or "changes5" the modification of first row of t
 |====
 |Creation | |No PK |
 !====
-! !NAME !FIRSTNAME !SURNAME
+!!NAME !FIRSTNAME !SURNAME
+
 !At start point !!!
 !At end point !'Hewson' !'Paul David' !'Bono Vox'
 !====
 |Creation | |No PK |
 !====
-! !NAME !FIRSTNAME !SURNAME
+!!NAME !FIRSTNAME !SURNAME
+
 !At start point !!!
 !At end point !'McGuiness' !'Paul' !
 !====
 |Deletion | |No PK |
 !====
-! !NAME !FIRSTNAME !SURNAME
+!!NAME !FIRSTNAME !SURNAME
+
 !At start point !!!
 !At end point !'Hewson' !'Paul David' !'Bono Vox'
 !====
@@ -457,13 +478,15 @@ In Representation of "changes4" or "changes5" the modification of first row of t
 |====
 |Creation | |`'McGuiness'` as PK |
 !====
-! !NAME !FIRSTNAME !SURNAME
+!!NAME !FIRSTNAME !SURNAME
+
 !At start point !!!
 !At end point !'McGuiness' !'Paul' !
 !====
 |Modification | |`'Hewson'` as PK |
 !====
-! !NAME !FIRSTNAME !SURNAME
+!!NAME !FIRSTNAME !SURNAME
+
 !At start point !'Hewson' !'Paul David' !'Bono'
 !At end point !'Hewson' !'Paul David' !'Bono Vox'
 !====
@@ -483,13 +506,15 @@ of "changes3".
 |====
 |Creation |"MEMBERS" table |`5` as PK |
 !====
-! !ID !NAME !FIRSTNAME !SURNAME !SIZE
+!!ID !NAME !FIRSTNAME !SURNAME !SIZE
+
 !At start point !!!!!
 !At end point !5 !'McGuiness' !'Paul' ! !
 !====
 |Modification |"MEMBERS" table |`1` as PK |
 !====
-! !ID !NAME !FIRSTNAME !SURNAME !SIZE
+!!ID !NAME !FIRSTNAME !SURNAME !SIZE
+
 !At start point !1 !'Hewson' !'Paul David' !'Bono' !1.75
 !At end point !1 !'Hewson' !'Paul David' !'Bono Vox' !1.75
 !====
@@ -508,6 +533,7 @@ Below framed in red the third https://www.javadoc.io/doc/org.assertj/assertj-db/
 .Representation of "table4"
 |====
 |ID |NAME |FIRSTNAME |SURNAME |SIZE
+
 |1 |'Hewson' |'Paul David' |'Bono' |1.75
 |2 |'Evans' |'David Howell' |'The Edge' |1.77
 |3 |'Clayton' |'Adam' | |1.78
@@ -519,6 +545,7 @@ Below framed in red the second https://www.javadoc.io/doc/org.assertj/assertj-db
 .Representation of "request3"
 |====
 |NAME |FIRSTNAME |SURNAME
+
 |'Hewson' |'Paul David' |'Bono'
 |'Evans' |'David Howell' |'The Edge'
 |'Mullen' |'Larry' |
@@ -533,13 +560,15 @@ of "changes3".
 |====
 |Creation |"MEMBERS" table |`5` as PK |
 !====
-! !ID !NAME !FIRSTNAME !SURNAME !SIZE
+!!ID !NAME !FIRSTNAME !SURNAME !SIZE
+
 !At start point !!!!!
 !At end point !5 !'McGuiness' !'Paul' ! !
 !====
 |Modification |"MEMBERS" table |`1` as PK |
 !====
-! !ID !NAME !FIRSTNAME !SURNAME !SIZE
+!!ID !NAME !FIRSTNAME !SURNAME !SIZE
+
 !At start point !1 !'Hewson' !'Paul David' !'Bono' !1.75
 !At end point !1 !'Hewson' !'Paul David' !'Bono Vox' !1.75
 !====
@@ -558,6 +587,7 @@ Below framed in red the second https://www.javadoc.io/doc/org.assertj/assertj-db
 .Representation of "table4"
 |====
 |ID |NAME |FIRSTNAME |SURNAME |SIZE
+
 |1 |'Hewson' |'Paul David' |'Bono' |1.75
 |2 |'Evans' |'David Howell' |'The Edge' |1.77
 |3 |'Clayton' |'Adam' | |1.78
@@ -569,6 +599,7 @@ Below framed in red the second https://www.javadoc.io/doc/org.assertj/assertj-db
 .Representation of "request3"
 |====
 |NAME |FIRSTNAME |SURNAME
+
 |'Hewson' |'Paul David' |'Bono'
 |'Evans' |'David Howell' |'The Edge'
 |'Mullen' |'Larry' |
@@ -583,13 +614,15 @@ of "changes3".
 |====
 |Creation |"MEMBERS" table |`5` as PK |
 !====
-! !ID !NAME !FIRSTNAME !SURNAME !SIZE
+!!ID !NAME !FIRSTNAME !SURNAME !SIZE
+
 !At start point !!!!!
 !At end point !5 !'McGuiness' !'Paul' ! !
 !====
 |Modification |"MEMBERS" table |`1` as PK |
 !====
-! !ID !NAME !FIRSTNAME !SURNAME !SIZE
+!!ID !NAME !FIRSTNAME !SURNAME !SIZE
+
 !At start point !1 !'Hewson' !'Paul David' !'Bono' !1.75
 !At end point !1 !'Hewson' !'Paul David' !'Bono Vox' !1.75
 !====
@@ -609,6 +642,7 @@ Below framed in red (depending of the path) :
 .Representation of "table4"
 |====
 |ID |NAME |FIRSTNAME |SURNAME |SIZE
+
 |1 |'Hewson' |'Paul David' |'Bono' |1.75
 |2 |'Evans' |'David Howell' |'The Edge' |1.77
 |3 |'Clayton' |'Adam' | |1.78
@@ -623,6 +657,7 @@ Below framed in red (depending of the path) :
 .Representation of "request3"
 |====
 |NAME |FIRSTNAME |SURNAME
+
 |'Hewson' |'Paul David' |'Bono'
 |'Evans' |'David Howell' |'The Edge'
 |'Mullen' |'Larry' |
@@ -642,13 +677,15 @@ of "changes3"
 |====
 |Creation |"MEMBERS" table |`5` as PK |
 !====
-! !ID !NAME !FIRSTNAME !SURNAME !SIZE
+!!ID !NAME !FIRSTNAME !SURNAME !SIZE
+
 !At start point !!!!!
 !At end point !5 !'McGuiness' !'Paul' ! !
 !====
 |Modification |"MEMBERS" table |`1` as PK |
 !====
-! !ID !NAME !FIRSTNAME !SURNAME !SIZE
+!!ID !NAME !FIRSTNAME !SURNAME !SIZE
+
 !At start point !1 !'Hewson' !'Paul David' !'Bono' !1.75
 !At end point !1 !'Hewson' !'Paul David' !'Bono Vox' !1.75
 !====
