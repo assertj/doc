@@ -1704,11 +1704,6 @@ tfoot tr th p {
   font-weight: bold
 }
 
-p.tableblock>code:only-child {
-  background: none;
-  padding: 0
-}
-
 /* p.tableblock {
   font-size: 1em
 } */
