@@ -4866,7 +4866,7 @@ public class JUnit5SoftAssertionsExample {
   @ParameterizedTest
   @CsvSource({ "1, 1, 2", "1, 2, 3" })
   // test parameters come first, soft assertion must come last.
-  void junit5_bdd_soft_assertions_parameterized_test_example(int a, int b, int sum, SoftAssertions softly) {
+  void junit5_soft_assertions_parameterized_test_example(int a, int b, int sum, SoftAssertions softly) {
     softly.assertThat(a + b).as("sum").isEqualTo(sum);
     softly.assertThat(a).isLessThan(sum);
     softly.assertThat(b).isLessThan(sum);
@@ -14240,7 +14240,7 @@ You can clone the repository and run its tests !</p>
 <div id="footer">
 <div id="footer-text">
 Version 1.0<br>
-Last updated 2020-06-02 22:11:41 UTC
+Last updated 2020-06-16 07:06:19 UTC
 </div>
 </div>
 <link rel="stylesheet" href="highlight/styles/railscasts.min.css">
