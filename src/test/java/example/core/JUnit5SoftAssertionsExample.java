@@ -31,7 +31,7 @@ public class JUnit5SoftAssertionsExample {
   @ParameterizedTest
   @CsvSource({ "1, 1, 2", "1, 2, 3" })
   // test parameters come first, soft assertion must come last.
-  void junit5_bdd_soft_assertions_parameterized_test_example(int a, int b, int sum, SoftAssertions softly) {
+  void junit5_soft_assertions_parameterized_test_example(int a, int b, int sum, SoftAssertions softly) {
     softly.assertThat(a + b).as("sum").isEqualTo(sum);
     softly.assertThat(a).isLessThan(sum);
     softly.assertThat(b).isLessThan(sum);
