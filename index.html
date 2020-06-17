@@ -4982,7 +4982,7 @@ public interface GoTSoftAssertionsProvider extends SoftAssertionsProvider {
 </div>
 <div class="paragraph">
 <p><span class="underline">Step 2</span><br>
-In order to get a concrete entry point exposing all custom entry points, create a class implementing all custom <code>SoftAssertionsProvider</code> and extending <code>AbstractSoftAssertions</code>.
+In order to get a concrete entry point exposing all custom entry points, create a class implementing all custom <code>SoftAssertionsProvider`s and extending `AbstractSoftAssertions</code>.
 <code>AbstractSoftAssertions</code> provides the core internal implementation to collect all errors from the different implemented entry points (it also implements <code>SoftAssertionsProvider</code>).</p>
 </div>
 <div class="paragraph">
@@ -5024,6 +5024,41 @@ softly.assertThat("Games of Thrones").startsWith("Games")
 // verify assertions
 softly.assertAll();</code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p>[.underline]#Optional step: create a custom JUnit 4 <code>Rule</code></p>
+</div>
+<div class="paragraph">
+<p>Because our custom assertions are defined in an interface, we can also combine them with AssertJ&#8217;s
+JUnit 4 rule so that we can use our custom assertions as a test rule for use in JUnit 4:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="java" class="language-java hljs">// we extend JUnitSoftAssertions to get standard soft assertions classes
+public class JUnitFantasySoftAssertions extends JUnitSoftAssertions
+                                   implements TolkienSoftAssertionsProvider, GoTSoftAssertionsProvider {}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Then in our test class we use it per normal:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="java" class="language-java hljs">public class JUnit4_StandardAndCustomSoftAssertionsExamples {
+  @Rule
+  public final JUnitFantasySoftAssertions softly = new JUnitFantasySoftAssertions();
+
+  @Test
+  public void successful_junit_soft_custom_assertion_example(FantasySoftAssertions softly) {
+    softly.assertThat(frodo).hasName("Frodo")
+                            .hasAge(33);
+    softly.assertThat(frodo.age).isEqualTo(33);
+  }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The rule will automatically take care of calling <code>assertAll()</code> at the end of every test.</p>
 </div>
 <div id="assertj-core-junit5-soft-assertions-custom-injection" class="paragraph">
 <p><span class="underline">Optional step: use <code>SoftAssertionsExtension</code></span><br></p>
@@ -14240,7 +14275,7 @@ You can clone the repository and run its tests !</p>
 <div id="footer">
 <div id="footer-text">
 Version 1.0<br>
-Last updated 2020-06-16 07:06:19 UTC
+Last updated 2020-06-17 11:05:53 UTC
 </div>
 </div>
 <link rel="stylesheet" href="highlight/styles/railscasts.min.css">
