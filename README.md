@@ -19,7 +19,7 @@ This project contains the AsciiDoc sources for the guide.
 ### Generate AsciiDoc
 
 This following Gradle command generates the HTML version of the User Guide as
-`build/asciidoc/index.html`.
+`build/docs/asciidoc/user-guide/index.html`.
 
 ```bash
 gradlew asciidoctor
