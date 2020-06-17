@@ -1450,7 +1450,7 @@ softly.assertThat("Games of Thrones").startsWith("Games")
 softly.assertAll();
 ----
 
-[.underline]#Optional step: create a custom JUnit 4 `TestRule`
+[.underline]#Optional step: create a custom JUnit 4 `Rule`
 
 Because our custom assertions are defined in an interface, we can also combine them with AssertJ's
 JUnit 4 rule so that we can use our custom assertions as a test rule for use in JUnit 4:
@@ -1464,7 +1464,7 @@ Then in our test class we use it per normal:
 [source,java,indent=0]
 ----
 public class JUnit4_StandardAndCustomSoftAssertionsExamples {
-  @TestRule
+  @Rule
   public final JUnitFantasySoftAssertions softly = new JUnitFantasySoftAssertions();
   
   @Test
