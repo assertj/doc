@@ -1,1 +1,1 @@
-firefox build/asciidoc/user-guide/index.html
+firefox build/docs/asciidoc/user-guide/index.html
