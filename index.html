@@ -5026,7 +5026,7 @@ softly.assertAll();</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>[.underline]#Optional step: create a custom JUnit 4 <code>Rule</code></p>
+<p><span class="underline">Optional step: create a custom JUnit 4 <code>Rule</code></span><br></p>
 </div>
 <div class="paragraph">
 <p>Because our custom assertions are defined in an interface, we can also combine them with AssertJ&#8217;s
@@ -5049,7 +5049,7 @@ public class JUnitFantasySoftAssertions extends JUnitSoftAssertions
   public final JUnitFantasySoftAssertions softly = new JUnitFantasySoftAssertions();
 
   @Test
-  public void successful_junit_soft_custom_assertion_example(FantasySoftAssertions softly) {
+  public void successful_junit_soft_custom_assertion_example() {
     softly.assertThat(frodo).hasName("Frodo")
                             .hasAge(33);
     softly.assertThat(frodo.age).isEqualTo(33);
@@ -14275,7 +14275,7 @@ You can clone the repository and run its tests !</p>
 <div id="footer">
 <div id="footer-text">
 Version 1.0<br>
-Last updated 2020-06-17 11:21:30 UTC
+Last updated 2020-06-18 05:06:45 UTC
 </div>
 </div>
 <link rel="stylesheet" href="highlight/styles/railscasts.min.css">
