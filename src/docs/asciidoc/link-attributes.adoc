@@ -3,7 +3,7 @@
 //
 :assertj-core-repo:                      https://github.com/joel-costigliola/assertj-core
 :assertj-guava-repo:                     https://github.com/joel-costigliola/assertj-guava
-:release-branch:                         master
+:release-branch:                         main
 :current-branch:                         {assertj-core-repo}/tree/{release-branch}
 //
 :AssertJ:                                https://assertj.github.io/doc/[AssertJ]
