@@ -28,6 +28,9 @@ jobs:
         run: ./gradlew asciidoctor
       - name: Publish to GitHub Pages
         if: github.repository == 'assertj/doc' && github.event_name == 'push'
-        run: ./gradlew --stacktrace --info gitPublishPush
+        run: |
+          git config --global user.name '${{ github.actor }}'
+          git config --global user.email '${{ github.actor }}@users.noreply.github.com'
+          ./gradlew --stacktrace --info gitPublishPush
         env:
           GRGIT_USER: ${{ secrets.ASCIIDOCTOR_TOKEN }}
