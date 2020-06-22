@@ -5765,13 +5765,13 @@ assertThat("{(Game)-(of)-(Thrones)!!!}").isEqualToNormalizingPunctuationAndWhite
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code data-lang="java" class="language-java hljs">// assertions succeeds
-assertThat("QXNzZXJ0Sg==").isValidBase64();
+assertThat("QXNzZXJ0Sg==").isBase64();
 
 // assertion succeeds even without padding as it is optional by specification
-assertThat("QXNzZXJ0Sg").isValidBase64();
+assertThat("QXNzZXJ0Sg").isBase64();
 
 // assertion fails as it has invalid Base64 characters
-assertThat("inv@lid").isValidBase64();</code></pre>
+assertThat("inv@lid").isBase64();</code></pre>
 </div>
 </div>
 <div id="assertj-core-3.16.0-string-decodedAsBase64" class="paragraph">
@@ -14275,7 +14275,7 @@ You can clone the repository and run its tests !</p>
 <div id="footer">
 <div id="footer-text">
 Version 1.0<br>
-Last updated 2020-06-21 22:55:47 UTC
+Last updated 2020-06-22 04:54:09 UTC
 </div>
 </div>
 <link rel="stylesheet" href="highlight/styles/railscasts.min.css">
