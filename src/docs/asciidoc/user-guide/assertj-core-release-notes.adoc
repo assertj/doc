@@ -161,13 +161,13 @@ Examples:
 [source,java]
 ----
 // assertions succeeds
-assertThat("QXNzZXJ0Sg==").isValidBase64();
+assertThat("QXNzZXJ0Sg==").isBase64();
 
 // assertion succeeds even without padding as it is optional by specification
-assertThat("QXNzZXJ0Sg").isValidBase64();
+assertThat("QXNzZXJ0Sg").isBase64();
 
 // assertion fails as it has invalid Base64 characters
-assertThat("inv@lid").isValidBase64();
+assertThat("inv@lid").isBase64();
 ----
 
 [[assertj-core-3.16.0-string-decodedAsBase64]]
