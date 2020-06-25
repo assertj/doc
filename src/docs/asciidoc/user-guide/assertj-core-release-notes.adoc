@@ -298,7 +298,7 @@ Example: the following failing assertion ...
 InputStream inputStream = new ByteArrayInputStream(new byte[] {1, 2});
 
 // assertion will pass
-assertThat(inputStream).hasContent(new byte[] {1, 2});
+assertThat(inputStream).hasBinaryContent(new byte[] {1, 2});
 
 // assertions will fail
 assertThat(inputStream).hasBinaryContent(new byte[] { });
