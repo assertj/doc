@@ -5927,7 +5927,7 @@ assertThat(root).isDirectoryRecursivelyContaining(file -&gt; file.getName().equa
 <pre class="highlightjs highlight"><code data-lang="java" class="language-java hljs">InputStream inputStream = new ByteArrayInputStream(new byte[] {1, 2});
 
 // assertion will pass
-assertThat(inputStream).hasContent(new byte[] {1, 2});
+assertThat(inputStream).hasBinaryContent(new byte[] {1, 2});
 
 // assertions will fail
 assertThat(inputStream).hasBinaryContent(new byte[] { });
@@ -14275,7 +14275,7 @@ You can clone the repository and run its tests !</p>
 <div id="footer">
 <div id="footer-text">
 Version 1.0<br>
-Last updated 2020-06-22 04:54:09 UTC
+Last updated 2020-06-25 05:56:05 UTC
 </div>
 </div>
 <link rel="stylesheet" href="highlight/styles/railscasts.min.css">
