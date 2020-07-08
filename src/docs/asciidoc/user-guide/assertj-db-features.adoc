@@ -1045,65 +1045,57 @@ assertThat(changes).change().column().hasValues(5);
 [[assertj-db-features-oncolumnequality-date]]
 ====== With Date
 
-This assertion use https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/DateValue.html[DateValue]
-presented in <<assertj-db-concepts-datevaluetimevaluedatetimevalue,concepts>>.
-
 [source,java]
 ----
 // Verify that the values of the first column of the table
 // was equal to December 23rd 2007 and May 19th 1975 
 assertThat(table).column()
-            .hasValues(DateValue.of(2007, 12, 23),
-                       DateValue.of(1975, 5, 19));
+            .hasValues(LocalDate.of(2007, 12, 23),
+                       LocalDate.of(1975, 5, 19));
 // Verify that the value of the first column of the first change
 // was equal December 23rd 2007 at start point
 // and is equal to May 19th 1975 at end point
 assertThat(changes).change().column()
-            .hasValues(DateValue.parse("2007-12-23"),
-                       DateValue.parse("1975-05-19"));
+            .hasValues(LocalDate.parse("2007-12-23"),
+                       LocalDate.parse("1975-05-19"));
 ----
 
 [[assertj-db-features-oncolumnequality-time]]
 ====== With Time
-
-This assertion use https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/TimeValue.html[TimeValue]
-presented in <<assertj-db-concepts-datevaluetimevaluedatetimevalue,concepts>>.
 
 [source,java]
 ----
 // Verify that the values of the first column of the table
 // was equal to 09:01am and 05:30:50pm 
 assertThat(table).column()
-            .hasValues(TimeValue.of(9, 1),
-                       TimeValue.of(17, 30, 50));
+            .hasValues(LocalTime.of(9, 1),
+                       LocalTime.of(17, 30, 50));
 // Verify that the value of the first column of the first change
 // was equal to 09:01am at start point
 // and is equal to 05:30:50pm at end point
 assertThat(changes).change().column()
-            .hasValues(TimeValue.parse("09:01"),
-                       TimeValue.parse("17:30:50"));
+            .hasValues(LocalTime.parse("09:01"),
+                       LocalTime.parse("17:30:50"));
 ----
 
 [[assertj-db-features-oncolumnequality-datetime]]
 ====== With Date/Time
-
-This assertion use https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/DateTimeValue.html[DateTimeValue]
-presented in <<assertj-db-concepts-datevaluetimevaluedatetimevalue,concepts>>.
 
 [source,java]
 ----
 // Verify that the values of the first column of the table
 // was equal to December 23rd 2007 09:01am and May 19th 1975 
 assertThat(table).column()
-            .hasValues(DateTimeValue.of(DateValue.of(2007, 12, 23), 
-                                        TimeValue.parse("09:01")),
-                       DateTimeValue.of(DateValue.of(1975, 5, 19)));
+            .hasValues(LocalDateTime.of(LocalDate.of(2007, 12, 23),
+                                        LocalTime.parse("09:01")),
+                       LocalDateTime.of(LocalDate.of(1975, 5, 19),
+                                        LocalTime.MIDNIGHT));
 // Verify that the value of the first column of the first change
 // was equal December 23rd 2007 09:01am at start point
 // and is equal to May 19th 1975 at end point
 assertThat(changes).change().column()
-            .hasValues(DateTimeValue.parse("2007-12-23T09:01"),
-                       DateTimeValue.parse("1975-05-19"));
+            .hasValues(LocalDateTime.parse("2007-12-23T09:01"),
+                       LocalDateTime.parse("1975-05-19T00:00"));
 ----
 
 [[assertj-db-features-oncolumnequality-string]]
@@ -1585,13 +1577,13 @@ assertThat(request).column("size").value().isEqualTo(1.77)
 assertThat(changes).changeOfCreation()
                        .rowAtEndPoint()
                            .value("birthdate")
-                               .isEqualTo(DateValue.of(1951, 6, 17))
+                               .isEqualTo(LocalDate.of(1951, 6, 17))
                    .changeOfModification()
                        .column("birthdate")
                            .isEqualTo()
-                               .isNotEqualTo(DateValue.parse("1960-05-10"))
+                               .isNotEqualTo(LocalDate.parse("1960-05-10"))
                            .valueAtEndPoint()
-                               .isEqualTo(DateValue.of(1960, 5, 10));
+                               .isEqualTo(LocalDate.of(1960, 5, 10));
 ----
 
 [[assertj-db-features-onvaluequality-time]]
@@ -1600,7 +1592,7 @@ assertThat(changes).changeOfCreation()
 [source,java]
 ----
 // Verify that the value is equal to a time
-assertThat(table).row().value("duration").isEqualTo(TimeValue.of(9, 1));
+assertThat(table).row().value("duration").isEqualTo(LocalTime.of(9, 1));
 ----
 
 [[assertj-db-features-onvaluequality-datetime]]
@@ -1610,9 +1602,8 @@ assertThat(table).row().value("duration").isEqualTo(TimeValue.of(9, 1));
 ----
 // Verify that the value is equal to a date/time
 assertThat(request).column().value()
-                   .isEqualTo(DateTimeValue.of(DateValue.of(2007, 12, 23), 
-                                               TimeValue.of(9, 1)))
-                   .isEqualTo(DateTimeValue.parse("2007-12-23T09:01"));
+                   .isEqualTo(LocalDateTime.of(2007, 12, 23,9, 1, 0))
+                   .isEqualTo(LocalDateTime.parse("2007-12-23T09:01"));
 ----
 
 [[assertj-db-features-onvaluequality-string]]
@@ -1707,13 +1698,13 @@ assertThat(request).column("size").value().isNotEqualTo(1.78)
 assertThat(changes).changeOfCreation()
                        .rowAtEndPoint()
                            .value("birthdate")
-                               .isNotEqualTo(DateValue.of(1951, 6, 17))
+                               .isNotEqualTo(LocalDate.of(1951, 6, 17))
                    .changeOfModification()
                        .column("birthdate")
                            .valueAtStartPoint()
-                               .isNotEqualTo(DateValue.parse("1960-05-10"))
+                               .isNotEqualTo(LocalDate.parse("1960-05-10"))
                            .valueAtEndPoint()
-                               .isNotEqualTo(DateValue.of(1960, 5, 10));
+                               .isNotEqualTo(LocalDate.of(1960, 5, 10));
 ----
 
 [[assertj-db-features-onvaluenonquality-time]]
@@ -1722,7 +1713,7 @@ assertThat(changes).changeOfCreation()
 [source,java]
 ----
 // Verify that the value is equal to a time
-assertThat(table).row().value("duration").isNotEqualTo(TimeValue.of(9, 1));
+assertThat(table).row().value("duration").isNotEqualTo(LocalTime.of(9, 1));
 ----
 
 [[assertj-db-features-onvaluenonquality-datetime]]
@@ -1732,9 +1723,8 @@ assertThat(table).row().value("duration").isNotEqualTo(TimeValue.of(9, 1));
 ----
 // Verify that the value is not equal to a date/time
 assertThat(request).column().value()
-                   .isNotEqualTo(DateTimeValue.of(DateValue.of(2015, 5, 26), 
-                                               TimeValue.of(22, 46)))
-                   .isNotEqualTo(DateTimeValue.parse("2015-05-26T22:46"));
+                   .isNotEqualTo(LocalDateTime.of(2015, 5, 26,22, 46)))
+                   .isNotEqualTo(LocalDateTime.parse("2015-05-26T22:46"));
 ----
 
 [[assertj-db-features-onvaluenonquality-string]]

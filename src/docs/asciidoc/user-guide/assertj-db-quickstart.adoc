@@ -69,4 +69,5 @@ and after that to each value (each call of ``value()`` moves to the next value o
 (``row(1)`` moves the assertion to the row),
 from this row to the first value
 and after that to each value (``value()`` calls have similar behavior for rows and columns).
-* <<assertj-db-concepts-datevaluetimevaluedatetimevalue,DateValue>> : AssertJ-DB works with Java7. So AssertJ-DB provides way to easily compare values with date, time and date/time.
+* <<assertj-db-concepts-datevaluetimevaluedatetimevalue,DateValue>> : Since 2.0.0, AssertJ-DB baseline is Java 8. The preferred way to compare values with date, time and date/time is to use java.time.LocalDate, java.time.LocalTime, java.time.LocalDateTime.
+But for the backward compatibility, it's always possible to use AssertJ-DB DateValue utilities.

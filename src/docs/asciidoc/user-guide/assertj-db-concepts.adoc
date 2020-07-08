@@ -834,7 +834,9 @@ More details on this concept in <<assertj-db-features-changesasroot,feature high
 [[assertj-db-concepts-datevaluetimevaluedatetimevalue]]
 ==== DateValue, TimeValue and DateTimeValue
 
-AssertJ-DB is compatible with Java 7, but we need a system to simply compare data in a database with date, time and date/time like LocalDate, LocalTime and LocalDateTime of Java 8.
+Since 2.0.0, AssertJ-DB baseline is Java 8. The preferred way to compare values with date, time and date/time is to use java.time.LocalDate, java.time.LocalTime, java.time.LocalDateTime directly.
+
+But for the backward compatibility, it's always possible to use AssertJ-DB DateValue utilities.
 
 So The https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/DateValue.html[DateValue],
       https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/TimeValue.html[TimeValue] and
