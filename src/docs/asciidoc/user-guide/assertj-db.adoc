@@ -4,7 +4,7 @@
 image::assertj-db_icon.png[]
 
 AssertJ-DB provides assertions to test data in a database.
-It requires Java 7 or later and can be used with either JUnit or TestNG.
+It requires Java 8 or later and can be used with either JUnit or TestNG.
 
 If you need additional assertions, please create a ticket in the https://github.com/assertj/assertj-db/issues?labels=&milestone=&page=1&state=open[AssertJ-DB issue tracker].
 
