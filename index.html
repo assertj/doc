@@ -9007,7 +9007,7 @@ assertThat(value).asInstanceOf(InstanceOfAssertFactories.TABLE)
 </div>
 <div class="paragraph">
 <p>AssertJ-DB provides assertions to test data in a database.
-It requires Java 7 or later and can be used with either JUnit or TestNG.</p>
+It requires Java 8 or later and can be used with either JUnit or TestNG.</p>
 </div>
 <div class="paragraph">
 <p>If you need additional assertions, please create a ticket in the <a href="https://github.com/assertj/assertj-db/issues?labels=&amp;milestone=&amp;page=1&amp;state=open">AssertJ-DB issue tracker</a>.</p>
@@ -9092,7 +9092,7 @@ It requires Java 7 or later and can be used with either JUnit or TestNG.</p>
 <pre class="highlightjs highlight"><code data-lang="xml" class="language-xml hljs">&lt;dependency&gt;
   &lt;groupId&gt;org.assertj&lt;/groupId&gt;
   &lt;artifactId&gt;assertj-db&lt;/artifactId&gt;
-  &lt;version&gt;1.3.0&lt;/version&gt;
+  &lt;version&gt;2.0.0&lt;/version&gt;
   &lt;scope&gt;test&lt;/scope&gt;
 &lt;/dependency&gt;</code></pre>
 </div>
@@ -9105,7 +9105,7 @@ It requires Java 7 or later and can be used with either JUnit or TestNG.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code data-lang="java" class="language-java hljs">testCompile("org.assertj:assertj-db:1.3.0")</code></pre>
+<pre class="highlightjs highlight"><code data-lang="java" class="language-java hljs">testCompile("org.assertj:assertj-db:2.0.0")</code></pre>
 </div>
 </div>
 </div>
@@ -9195,7 +9195,8 @@ and after that to each value (<code>value()</code> calls have similar behavior f
 </div>
 </li>
 <li>
-<p><a href="#assertj-db-concepts-datevaluetimevaluedatetimevalue">DateValue</a> : AssertJ-DB works with Java7. So AssertJ-DB provides way to easily compare values with date, time and date/time.</p>
+<p><a href="#assertj-db-concepts-datevaluetimevaluedatetimevalue">DateValue</a> : Since 2.0.0, AssertJ-DB baseline is Java 8. The preferred way to compare values with date, time and date/time is to use java.time.LocalDate, java.time.LocalTime, java.time.LocalDateTime.
+But for the backward compatibility, it&#8217;s always possible to use AssertJ-DB DateValue utilities.</p>
 </li>
 </ul>
 </div>
@@ -11545,7 +11546,10 @@ assertThat(changes)...</code></pre>
 <div class="sect3">
 <h4 id="assertj-db-concepts-datevaluetimevaluedatetimevalue"><a class="anchor" href="#assertj-db-concepts-datevaluetimevaluedatetimevalue"></a>6.2.5. DateValue, TimeValue and DateTimeValue</h4>
 <div class="paragraph">
-<p>AssertJ-DB is compatible with Java 7, but we need a system to simply compare data in a database with date, time and date/time like LocalDate, LocalTime and LocalDateTime of Java 8.</p>
+<p>Since 2.0.0, AssertJ-DB baseline is Java 8. The preferred way to compare values with date, time and date/time is to use java.time.LocalDate, java.time.LocalTime, java.time.LocalDateTime directly.</p>
+</div>
+<div class="paragraph">
+<p>But for the backward compatibility, it&#8217;s always possible to use AssertJ-DB DateValue utilities.</p>
 </div>
 <div class="paragraph">
 <p>So The <a href="https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/DateValue.html">DateValue</a>,
@@ -13164,68 +13168,57 @@ assertThat(changes).change().column().hasValues(5);</code></pre>
 </div>
 <div class="sect5">
 <h6 id="assertj-db-features-oncolumnequality-date"><a class="anchor" href="#assertj-db-features-oncolumnequality-date"></a>With Date</h6>
-<div class="paragraph">
-<p>This assertion use <a href="https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/DateValue.html">DateValue</a>
-presented in <a href="#assertj-db-concepts-datevaluetimevaluedatetimevalue">concepts</a>.</p>
-</div>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code data-lang="java" class="language-java hljs">// Verify that the values of the first column of the table
 // was equal to December 23rd 2007 and May 19th 1975
 assertThat(table).column()
-            .hasValues(DateValue.of(2007, 12, 23),
-                       DateValue.of(1975, 5, 19));
+            .hasValues(LocalDate.of(2007, 12, 23),
+                       LocalDate.of(1975, 5, 19));
 // Verify that the value of the first column of the first change
 // was equal December 23rd 2007 at start point
 // and is equal to May 19th 1975 at end point
 assertThat(changes).change().column()
-            .hasValues(DateValue.parse("2007-12-23"),
-                       DateValue.parse("1975-05-19"));</code></pre>
+            .hasValues(LocalDate.parse("2007-12-23"),
+                       LocalDate.parse("1975-05-19"));</code></pre>
 </div>
 </div>
 </div>
 <div class="sect5">
 <h6 id="assertj-db-features-oncolumnequality-time"><a class="anchor" href="#assertj-db-features-oncolumnequality-time"></a>With Time</h6>
-<div class="paragraph">
-<p>This assertion use <a href="https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/TimeValue.html">TimeValue</a>
-presented in <a href="#assertj-db-concepts-datevaluetimevaluedatetimevalue">concepts</a>.</p>
-</div>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code data-lang="java" class="language-java hljs">// Verify that the values of the first column of the table
 // was equal to 09:01am and 05:30:50pm
 assertThat(table).column()
-            .hasValues(TimeValue.of(9, 1),
-                       TimeValue.of(17, 30, 50));
+            .hasValues(LocalTime.of(9, 1),
+                       LocalTime.of(17, 30, 50));
 // Verify that the value of the first column of the first change
 // was equal to 09:01am at start point
 // and is equal to 05:30:50pm at end point
 assertThat(changes).change().column()
-            .hasValues(TimeValue.parse("09:01"),
-                       TimeValue.parse("17:30:50"));</code></pre>
+            .hasValues(LocalTime.parse("09:01"),
+                       LocalTime.parse("17:30:50"));</code></pre>
 </div>
 </div>
 </div>
 <div class="sect5">
 <h6 id="assertj-db-features-oncolumnequality-datetime"><a class="anchor" href="#assertj-db-features-oncolumnequality-datetime"></a>With Date/Time</h6>
-<div class="paragraph">
-<p>This assertion use <a href="https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/DateTimeValue.html">DateTimeValue</a>
-presented in <a href="#assertj-db-concepts-datevaluetimevaluedatetimevalue">concepts</a>.</p>
-</div>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code data-lang="java" class="language-java hljs">// Verify that the values of the first column of the table
 // was equal to December 23rd 2007 09:01am and May 19th 1975
 assertThat(table).column()
-            .hasValues(DateTimeValue.of(DateValue.of(2007, 12, 23),
-                                        TimeValue.parse("09:01")),
-                       DateTimeValue.of(DateValue.of(1975, 5, 19)));
+            .hasValues(LocalDateTime.of(LocalDate.of(2007, 12, 23),
+                                        LocalTime.parse("09:01")),
+                       LocalDateTime.of(LocalDate.of(1975, 5, 19),
+                                        LocalTime.MIDNIGHT));
 // Verify that the value of the first column of the first change
 // was equal December 23rd 2007 09:01am at start point
 // and is equal to May 19th 1975 at end point
 assertThat(changes).change().column()
-            .hasValues(DateTimeValue.parse("2007-12-23T09:01"),
-                       DateTimeValue.parse("1975-05-19"));</code></pre>
+            .hasValues(LocalDateTime.parse("2007-12-23T09:01"),
+                       LocalDateTime.parse("1975-05-19T00:00"));</code></pre>
 </div>
 </div>
 </div>
@@ -13753,13 +13746,13 @@ assertThat(request).column("size").value().isEqualTo(1.77)
 assertThat(changes).changeOfCreation()
                        .rowAtEndPoint()
                            .value("birthdate")
-                               .isEqualTo(DateValue.of(1951, 6, 17))
+                               .isEqualTo(LocalDate.of(1951, 6, 17))
                    .changeOfModification()
                        .column("birthdate")
                            .isEqualTo()
-                               .isNotEqualTo(DateValue.parse("1960-05-10"))
+                               .isNotEqualTo(LocalDate.parse("1960-05-10"))
                            .valueAtEndPoint()
-                               .isEqualTo(DateValue.of(1960, 5, 10));</code></pre>
+                               .isEqualTo(LocalDate.of(1960, 5, 10));</code></pre>
 </div>
 </div>
 </div>
@@ -13768,7 +13761,7 @@ assertThat(changes).changeOfCreation()
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code data-lang="java" class="language-java hljs">// Verify that the value is equal to a time
-assertThat(table).row().value("duration").isEqualTo(TimeValue.of(9, 1));</code></pre>
+assertThat(table).row().value("duration").isEqualTo(LocalTime.of(9, 1));</code></pre>
 </div>
 </div>
 </div>
@@ -13778,9 +13771,8 @@ assertThat(table).row().value("duration").isEqualTo(TimeValue.of(9, 1));</code><
 <div class="content">
 <pre class="highlightjs highlight"><code data-lang="java" class="language-java hljs">// Verify that the value is equal to a date/time
 assertThat(request).column().value()
-                   .isEqualTo(DateTimeValue.of(DateValue.of(2007, 12, 23),
-                                               TimeValue.of(9, 1)))
-                   .isEqualTo(DateTimeValue.parse("2007-12-23T09:01"));</code></pre>
+                   .isEqualTo(LocalDateTime.of(2007, 12, 23,9, 1, 0))
+                   .isEqualTo(LocalDateTime.parse("2007-12-23T09:01"));</code></pre>
 </div>
 </div>
 </div>
@@ -13879,13 +13871,13 @@ assertThat(request).column("size").value().isNotEqualTo(1.78)
 assertThat(changes).changeOfCreation()
                        .rowAtEndPoint()
                            .value("birthdate")
-                               .isNotEqualTo(DateValue.of(1951, 6, 17))
+                               .isNotEqualTo(LocalDate.of(1951, 6, 17))
                    .changeOfModification()
                        .column("birthdate")
                            .valueAtStartPoint()
-                               .isNotEqualTo(DateValue.parse("1960-05-10"))
+                               .isNotEqualTo(LocalDate.parse("1960-05-10"))
                            .valueAtEndPoint()
-                               .isNotEqualTo(DateValue.of(1960, 5, 10));</code></pre>
+                               .isNotEqualTo(LocalDate.of(1960, 5, 10));</code></pre>
 </div>
 </div>
 </div>
@@ -13894,7 +13886,7 @@ assertThat(changes).changeOfCreation()
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code data-lang="java" class="language-java hljs">// Verify that the value is equal to a time
-assertThat(table).row().value("duration").isNotEqualTo(TimeValue.of(9, 1));</code></pre>
+assertThat(table).row().value("duration").isNotEqualTo(LocalTime.of(9, 1));</code></pre>
 </div>
 </div>
 </div>
@@ -13904,9 +13896,8 @@ assertThat(table).row().value("duration").isNotEqualTo(TimeValue.of(9, 1));</cod
 <div class="content">
 <pre class="highlightjs highlight"><code data-lang="java" class="language-java hljs">// Verify that the value is not equal to a date/time
 assertThat(request).column().value()
-                   .isNotEqualTo(DateTimeValue.of(DateValue.of(2015, 5, 26),
-                                               TimeValue.of(22, 46)))
-                   .isNotEqualTo(DateTimeValue.parse("2015-05-26T22:46"));</code></pre>
+                   .isNotEqualTo(LocalDateTime.of(2015, 5, 26,22, 46)))
+                   .isNotEqualTo(LocalDateTime.parse("2015-05-26T22:46"));</code></pre>
 </div>
 </div>
 </div>
@@ -14064,6 +14055,9 @@ You can clone the repository and run its tests !</p>
 <div class="ulist">
 <ul>
 <li>
+<p><a href="#assertj-db-2-0-0-release-notes">AssertJ DB 2.0.0</a></p>
+</li>
+<li>
 <p><a href="#assertj-db-1-3-0-release-notes">AssertJ DB 1.3.0</a></p>
 </li>
 <li>
@@ -14084,7 +14078,64 @@ You can clone the repository and run its tests !</p>
 </ul>
 </div>
 <div class="sect3">
-<h4 id="assertj-db-1-3-0-release-notes"><a class="anchor" href="#assertj-db-1-3-0-release-notes"></a>6.9.1. AssertJ DB 1.3.0</h4>
+<h4 id="assertj-db-2-0-0-release-notes"><a class="anchor" href="#assertj-db-2-0-0-release-notes"></a>6.9.1. AssertJ DB 2.0.0</h4>
+<div class="paragraph">
+<p>Release date : 2020-07-06</p>
+</div>
+<div id="assertj-db-2-0-0-contributors" class="paragraph">
+<p><span class="release-note-category"><span class="icon"><i class="fa fa-user"></i></span> Contributors</span></p>
+</div>
+<div class="paragraph">
+<p>Thanks to Yosuke Nishikawa ( @sciencesakura ), Pascal Schumacher and @sullis for their contributions.</p>
+</div>
+<div id="assertj-db-2.0.0-improvements" class="paragraph">
+<p><span class="release-note-category"><span class="icon"><i class="fa fa-arrow-circle-up"></i></span> Improvements</span></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Baseline upgrade to Java 8</p>
+</li>
+<li>
+<p>Upgrade to AssertJ Core 3.16.1</p>
+</li>
+<li>
+<p>Support JSR-310 types ( LocalDate, LocalTime, LocalDateTime )</p>
+</li>
+<li>
+<p>Move from CGLIB to Bytebuddy for soft assertions</p>
+</li>
+</ul>
+</div>
+<div id="assertj-db-2.0.0-breaking-changes" class="paragraph">
+<p><span class="release-note-category"><span class="icon"><i class="fa fa-exclamation-triangle"></i></span> Breaking changes</span></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Baseline upgrade to Java 8</p>
+</li>
+<li>
+<p>Upgrade to AssertJ Core 3.16.1</p>
+</li>
+</ul>
+</div>
+<div id="assertj-db-2.0.0-chore" class="paragraph">
+<p><span class="release-note-category"><span class="icon"><i class="fa fa-cog"></i></span> Chore</span></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Replace Travis by GitHub actions</p>
+</li>
+<li>
+<p>Activate SonarCloud analysis</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="assertj-db-1-3-0-release-notes"><a class="anchor" href="#assertj-db-1-3-0-release-notes"></a>6.9.2. AssertJ DB 1.3.0</h4>
 <div class="paragraph">
 <p>Release date : 2019-12-26</p>
 </div>
@@ -14116,7 +14167,7 @@ You can clone the repository and run its tests !</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="assertj-db-1-2-0-release-notes"><a class="anchor" href="#assertj-db-1-2-0-release-notes"></a>6.9.2. AssertJ DB 1.2.0</h4>
+<h4 id="assertj-db-1-2-0-release-notes"><a class="anchor" href="#assertj-db-1-2-0-release-notes"></a>6.9.3. AssertJ DB 1.2.0</h4>
 <div class="paragraph">
 <p>Release date : 2017-05-08</p>
 </div>
@@ -14160,7 +14211,7 @@ You can clone the repository and run its tests !</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="assertj-db-1-1-1-release-notes"><a class="anchor" href="#assertj-db-1-1-1-release-notes"></a>6.9.3. AssertJ DB 1.1.1</h4>
+<h4 id="assertj-db-1-1-1-release-notes"><a class="anchor" href="#assertj-db-1-1-1-release-notes"></a>6.9.4. AssertJ DB 1.1.1</h4>
 <div class="paragraph">
 <p>Release date : 2016-04-23</p>
 </div>
@@ -14176,7 +14227,7 @@ You can clone the repository and run its tests !</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="assertj-db-1-1-0-release-notes"><a class="anchor" href="#assertj-db-1-1-0-release-notes"></a>6.9.4. AssertJ DB 1.1.0</h4>
+<h4 id="assertj-db-1-1-0-release-notes"><a class="anchor" href="#assertj-db-1-1-0-release-notes"></a>6.9.5. AssertJ DB 1.1.0</h4>
 <div class="paragraph">
 <p>Release date : 2016-04-14</p>
 </div>
@@ -14238,7 +14289,7 @@ You can clone the repository and run its tests !</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="assertj-db-1-0-1-release-notes"><a class="anchor" href="#assertj-db-1-0-1-release-notes"></a>6.9.5. AssertJ DB 1.0.1</h4>
+<h4 id="assertj-db-1-0-1-release-notes"><a class="anchor" href="#assertj-db-1-0-1-release-notes"></a>6.9.6. AssertJ DB 1.0.1</h4>
 <div class="paragraph">
 <p>Release date : 2015-08-09</p>
 </div>
@@ -14254,7 +14305,7 @@ You can clone the repository and run its tests !</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="assertj-db-1-0-0-release-notes"><a class="anchor" href="#assertj-db-1-0-0-release-notes"></a>6.9.6. AssertJ DB 1.0.0</h4>
+<h4 id="assertj-db-1-0-0-release-notes"><a class="anchor" href="#assertj-db-1-0-0-release-notes"></a>6.9.7. AssertJ DB 1.0.0</h4>
 <div class="paragraph">
 <p>Release date : 2015-07-12</p>
 </div>
@@ -14275,7 +14326,7 @@ You can clone the repository and run its tests !</p>
 <div id="footer">
 <div id="footer-text">
 Version 1.0<br>
-Last updated 2020-06-25 05:56:05 UTC
+Last updated 2020-07-09 05:15:30 UTC
 </div>
 </div>
 <link rel="stylesheet" href="highlight/styles/railscasts.min.css">
