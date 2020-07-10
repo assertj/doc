@@ -754,7 +754,7 @@ The type of the order can be :
 
 The navigation offers the ability to chain assertions at different levels and instructions to go inside the sub-elements and return to root element.
 
-There are examples of the navigation in https://github.com/joel-costigliola/assertj-examples/blob/master/assertions-examples/src/test/java/org/assertj/examples/db/NavigationExamples.java[NavigationExamples.java]
+There are examples of the navigation in {assertj-examples-repo}/blob/main/assertions-examples/src/test/java/org/assertj/examples/db/NavigationExamples.java[NavigationExamples.java]
 
 [[assertj-db-concepts-tableorrequestasroot]]
 ===== With a Table or a Request as root

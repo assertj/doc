@@ -27,7 +27,7 @@ Latest javadoc release : https://www.javadoc.io/doc/org.assertj/assertj-db/lates
 
 === Examples
 
-Some implementations examples are visible at the https://github.com/joel-costigliola/assertj-examples/tree/master/assertions-examples/src/test/java/org/assertj/examples/db[assertj-db-examples tests].
+Some implementations examples are visible at the {assertj-examples-repo}/tree/main/assertions-examples/src/test/java/org/assertj/examples/db[assertj-db-examples tests].
 They show what is possible with AssertJ DB Assertions with running code.
 You can clone the repository and run its tests !
 
@@ -43,7 +43,7 @@ Please report bugs or missing features in the https://github.com/assertj/assertj
 
 === Contributing
 
-Thanks for your interest ! Please check our https://github.com/assertj/assertj-db/blob/master/CONTRIBUTING.md#contributing[contributor's guidelines].
+Thanks for your interest ! Please check our https://github.com/assertj/assertj-db/blob/main/CONTRIBUTING.md#contributing[contributor's guidelines].
 
 include::assertj-db-release-notes.adoc[]
 
