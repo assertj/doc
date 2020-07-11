@@ -46,7 +46,7 @@ Check this page to find the relevant http://search.maven.org/#artifactdetails|or
 
 \... and use your preferred IDE code completion after assertThat.
 
-Example from https://github.com/joel-costigliola/assertj-examples/blob/master/assertions-examples/src/test/java/org/assertj/examples/db/TableAssertionExamples.java[TableAssertionExamples.java] :
+Example from {assertj-examples-repo}/blob/main/assertions-examples/src/test/java/org/assertj/examples/db/TableAssertionExamples.java[TableAssertionExamples.java] :
 
 [source,java,indent=0]
 ----

@@ -2,6 +2,7 @@
 :assertj-guava-javadoc-root:             https://www.javadoc.io/doc/org.assertj/assertj-guava/latest/
 //
 :assertj-core-repo:                      https://github.com/joel-costigliola/assertj-core
+:assertj-examples-repo:                  https://github.com/joel-costigliola/assertj-examples
 :assertj-guava-repo:                     https://github.com/joel-costigliola/assertj-guava
 :release-branch:                         main
 :current-branch:                         {assertj-core-repo}/tree/{release-branch}
