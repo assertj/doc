@@ -184,7 +184,7 @@ assertThat(new ByteArrayInputStream(new byte[] {})).isNotEmpty();
 ----
 
 [[assertj-core-3.17.0-doesNotContainIgnoringCase-CharSequence-assertion]]
-[.release-note-item]#Add `doesNotContainIgnoringCase`] to `CharSequence` assertions#
+[.release-note-item]#Add `doesNotContainIgnoringCase` to `CharSequence` assertions#
 
 Verifies that the actual CharSequence does not contain any of the given values, ignoring case considerations.
 
