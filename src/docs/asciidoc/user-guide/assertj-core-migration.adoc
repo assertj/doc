@@ -81,7 +81,7 @@ After executing it, you will need to :
 
 ===== Script output
 
-[source,bash,indent=0]
+[source, text]
 ----
 Converting JUnit assertions to AssertJ assertions on files matching pattern : *Test.java
 

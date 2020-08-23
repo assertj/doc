@@ -5,6 +5,7 @@ NOTE: AssertJ Core would not exist without its contributors, you can find them a
 
 Latest release notes:
 
+- link:#assertj-core-3-17-0-release-notes[AssertJ Core 3.17.0]
 - link:#assertj-core-3-16-1-release-notes[AssertJ Core 3.16.1]
 - link:#assertj-core-3-16-0-release-notes[AssertJ Core 3.16.0]
 - link:#assertj-core-3-15-0-release-notes[AssertJ Core 3.15.0]
@@ -17,6 +18,321 @@ Latest release notes:
 - link:#assertj-core-3-12-0-release-notes[AssertJ Core 3.12.0]
 
 Older release notes can be found in the old site: https://joel-costigliola.github.io/assertj/assertj-core-news.html, this is important to be aware of breaking changes if you are migrating from an old version.
+
+[[assertj-core-3-17-0-release-notes]]
+==== AssertJ Core 3.17.0
+
+Release date : 2020-08-23
+
+[[assertj-core-3.17.0-contributors]]
+[.release-note-category]#icon:user[] Contributors#
+
+Thanks to all the contributors of this release: Erhard Pointl, Stefano Cordio, Pascal Schumacher, darkliang, Bibibiu, Andrey "Bass" Shcheglov, SuntCrick, Eveneko, rpolton, Ting Sun, Peng Weiyuan, Brummolix, Maciej Wajcht, Hayden Meloche, Cal027, sullis, mgrafl, Rupert Madden-Abbott, Shiva, Ahmad M, Phillip Webb and bjhargrave.
+
+_Joel Costigliola_: Apologies to Hayden Meloche, when integrating his work the final squashed commit was pushed with me as the author instead of him, sorry Hayden!
+
+[[assertj-core-3.17.0-breaking-changes]]
+[.release-note-category]#icon:exclamation-triangle[] Breaking changes#
+
+* Make the link:#assertj-core-recursive-comparison[recursive comparison] to ignore all overridden equals by default as most users were confused by it, call `usingOverriddenEquals` to revert to the previous behaviour.
+* Improve `AssertionFailedError` by replacing actual and expected by their representation as some default `toString` are not great (arrays for example).
+* Make `Offset`, `MapEntry`, `Percentage`, `FieldLocation` and `Index` final.
+
+[[assertj-core-3.17.0-new-features]]
+[.release-note-category]#icon:plus-circle[] New features#
+
+* Add link:#assertj-core-3.17.0-Period-assertion[`java.time.Period`] assertions. (Hayden Meloche)
+* Allow link:#assertj-core-assertion-description-consumer[printing or consuming assertions description].
+* Add link:#assertj-core-exception-assertions-no-exception[`assertThatNoException().isThrownBy(code)`] assertion (and also `thenNoException()`). (Phillip Webb)
+* Add link:#assertj-core-recursive-comparison-isNotEqualTo[isNotEqualTo()] to `RecursiveComparisonAssert`. (darkliang)
+* Add JUnit 5 link:#assertj-core-junit5-softly-extension[`SoftlyExtension`] to setup `SoftAssertions` field and automatically call `assertAll()` after each test. (Bibibiu)
+* Add link:#assertj-core-lazy-error-message[lazy error message overriding] to only build the message when the assertion fails. (Eveneko)
+* Add link:#assertj-core-recursive-comparison-for-iterable[`usingRecursiveFieldByFieldElementComparator(RecursiveComparisonConfiguration)`] to get the recursive api full power to all iterable assertions. 
+* Add link:#assertj-core-3.17.0-isEmpty-InputStream-assertion[`isEmpty`] to `InputStream` assertion. (Peng Weiyuan)
+* Add link:#assertj-core-3.17.0-isNotEmpty-InputStream-assertion[`isNotEmpty`] to `InputStream` assertion. (Peng Weiyuan)
+* Add link:#assertj-core-3.17.0-doesNotContainIgnoringCase-CharSequence-assertion[`doesNotContainIgnoringCase`] to `CharSequence` assertions. (Brummolix)
+* Add primitive and `Object` link:#assertj-core-3.17.0-2d-array-assertions[2D array] assertions . (Maciej Wajcht)
+* Add link:#assertj-core-3.17.0-even-odd-assertions[`isEven/isOdd`] assertions for `byte`, `short`, `int` and `long`. (Cal027)
+* Soft assertions: add a way to link:#assertj-core-soft-assertions-collect-listener[react to collected assertion error].
+* Add link:#assertj-core-3.17.0-singleElement[`singleElement()`] and `singleElement(InstanceOfAssertFactory)` to iterable assertions (it replaces `hasOnlyOneElementSatisfying`). (mgrafl)
+* Add link:#assertj-core-3.17.0-filteredOn[`filteredOn(Function, expectedValue)`] to `Iterable`, `Object[]` and `AtomicReferenceArray` assertions. (mgrafl)
+* Add link:#assertj-core-3.17.0-succeedsWithin[`succeedsWithin`] to `Future` and `CompletableFuture` assertions. (Rupert Madden-Abbott)
+
+[[assertj-core-3.17.0-improvements]]
+[.release-note-category]#icon:arrow-circle-up[] Improvements#
+
+* Allow to specify link:#assertj-core-recursive-comparison-comparators[`equals BiPredicate`] instead of `Comparator` in recursive comparison.
+* Display the link:#assertj-core-3.17.0-better-huge-group-display[beginning and the end of huge iterables/array/map] instead of just the beginning. (SuntCrick)
+* Handle infinite or singly-traversable iterables for sequences assertions. (rpolton) - see #1938 for details.
+* Explicitly set Javadoc locale to English. (Erhard Pointl)
+* Make `Percentage` and `FieldLocation` final, update `equals()` and `hashCode()`. (Ahmad M)
+* Make `Offset`, `MapEntry` and `Index` final, update `equals()` and `hashCode()`. (scordio)
+* Javadoc improvements. (scordio, Erhard Pointl)
+* Better handle soft proxies for custom assert classes in OSGi bundles. (bjhargrave) 
+* Best effort to avoid cycles when representing iterables or object arrays.
+* Internal: Refactor urls test classes. (SuntCrick)
+* Internal: Add tests for `hasNoPath` URL/URI assertions. (Ting Sun)
+* Internal: Bump equalsverifier from 3.2 to 3.4.2.
+* Internal: Bump commons-io from 2.6 to 2.7.
+* Internal: Bump commons-lang3 from 3.10 to 3.11.
+* Internal: Bump `bnd.version` from 5.0.1 to 5.1.2 and reenable java 15 build (Pascal Schumacher)
+* Internal: Bump maven-shade-plugin from 3.2.3 to 3.2.4
+* Internal: Bump byte-buddy.version from 1.10.10 to 1.10.14
+* Internal: Bump mockito.version from 3.3.3 to 3.5.5. (Erhard Pointl)
+* Internal: Add dependabot. (sullis)
+* Internal: Bump actions/cache from v1 to v2.
+* Internal: Fix "Remove this 'public' modifier" sonar violations. (Erhard Pointl, Shiva)
+* Internal: Make `Longs_assertIsOne_Test#should_succeed_since_actual_is_one` testing assertIsOne. (Erhard Pointl)
+* Internal: Make `IterableAssert_anyMatch_Test` testing `anyMatch` and `IterableAssert_anySatisfy_Test` testing `anySatisfy`. (Erhard Pointl)
+* Internal: Add missing `ObjectArrayAssert_anySatisfy_Test` test. (Erhard Pointl)
+* Internal: Fix mockito warnings. (Erhard Pointl)
+* Internal: Disable shallow clone during Sonar analysis. (scordio)
+* Internal: Clean up code. (scordio, Erhard Pointl)
+
+[[assertj-core-3.17.0-fixed]]
+[.release-note-category]#icon:wrench[] Fixed#
+
+* `AbstractByteArrayAssert#asString` now build a new String with the default or a given charset instead returning the byte array toString.
+* Allow soft assertion failures to be recorded from multiple threads. (Andrey "Bass" Shcheglov) (#1879)
+* Fix `containsExactly` assertion that failed for iterable that can only be read once. (rpolton)
+* Fix references to `main` branch after `master` was renamed to `main` to support Black Lives Matter. (Steven Crockett)
+* Fix Recursive comparison that did not compare enums as they don't have fields, now it compares enums with `equals`.
+
+[[assertj-core-3.17.0-deprecated]]
+[.release-note-category]#icon:ban[] Deprecated#
+
+* `hasOnlyOneElementSatisfying(Consumer<? super ELEMENT> elementAssertions)` has been deprecated in favor of `singleElement()`
+* Deprecate all non recursive field by field comparison assertions in favor of the link:#assertj-core-recursive-comparison[recursive comparison] ones:
+** `isEqualToComparingFieldByField`
+** `isEqualToIgnoringNullFields`
+** `isEqualToComparingOnlyGivenFields` 
+* Deprecate `AssertionErrorMessagesAggregrator` in favor of `AssertionErrorMessagesAggregator`. (Ahmad M) 
+
+[[assertj-core-3.17.0-Period-assertion]]
+[.release-note-item]#Add `java.time.Period` assertions#
+
+Provides the following assertions for the `Period`:
+
+*	`hasDays​(int expectedDays)`: Verifies that the actual Period has the given days.
+*	`hasMonths​(int expectedMonths)`: Verifies that the actual Period has the given months.
+*	`hasYears​(int expectedYears)`: Verifies that the actual Period has the given years.
+*	`isNegative()`: Verifies that the actual Period is negative (i.e. is less than Period.ZERO). 
+*	`isPositive()`: Verifies that the actual Period is positive (i.e. is greater than Period.ZERO).
+
+Examples:
+[source,java]
+----
+assertThat(Period.ofYears(5)).hasYears(5);
+
+assertThat(Period.ofMonths(5)).hasMonths(5);
+
+assertThat(Period.ofDays(5)).hasDays(5)
+                            .isPositive();
+
+assertThat(Period.ofMonths(-5)).isNegative();
+----
+
+[[assertj-core-3.17.0-]]
+[.release-note-item]#Display the beginning and the end of huge iterables/array/map#
+
+Before this version only the the first `maxElementsForPrinting` elements would be displayed, now the `maxElementsForPrinting` displayed elements are split between first and last elements.
+
+The number of elements to display can be set with `Assertions.setMaxElementsForPrinting(n);`
+
+Example:
+[source,java]
+----
+// 6 elements array 
+String[] greatBooks = {"A Game of Thrones", "The Lord of the Rings", "Assassin's Apprentice", 
+                       "Guards! Guards!", "The Lies of Locke Lamora", "Aux Ombres d’Abyme"};
+
+// limit the number of elements to display/print to 4
+Assertions.setMaxElementsForPrinting(4);
+
+// formatted as:
+["A Game of Thrones", "The Lord of the Rings", ... "The Lies of Locke Lamora", "Aux Ombres d’Abyme"]
+----
+
+[[assertj-core-3.17.0-isEmpty-InputStream-assertion]]
+[.release-note-item]#Add `isEmpty` to `InputStream` assertion#
+
+Verifies whether the content of the actual `InputStream` is empty.
+
+Examples:
+[source,java]
+----
+// assertion will pass
+assertThat(new ByteArrayInputStream(new byte[] {})).isEmpty());
+
+// assertions will fail
+assertThat(new ByteArrayInputStream(new byte[] {0xa})).isEmpty(); 
+----
+
+[[assertj-core-3.17.0-isNotEmpty-InputStream-assertion]]
+[.release-note-item]#Add `isNotEmpty` to `InputStream` assertion#
+
+Verifies that the content of the actual `InputStream` is not empty.
+
+Examples:
+[source,java]
+----
+// assertion will pass
+assertThat(new ByteArrayInputStream(new byte[] {0xa})).isNotEmpty());
+
+// assertions will fail
+assertThat(new ByteArrayInputStream(new byte[] {})).isNotEmpty();
+----
+
+[[assertj-core-3.17.0-doesNotContainIgnoringCase-CharSequence-assertion]]
+[.release-note-item]#Add `doesNotContainIgnoringCase`] to `CharSequence` assertions#
+
+Verifies that the actual CharSequence does not contain any of the given values, ignoring case considerations.
+
+Example:
+[source,java]
+----
+// assertions will pass
+assertThat("Frodo").doesNotContainIgnoringCase("pippin")
+                   .doesNotContainIgnoringCase("Merry", "sam");
+
+// assertions will fail
+assertThat("Frodo").doesNotContainIgnoringCase("Fro", "Gimli", "Legolas");
+assertThat("Frodo").doesNotContainIgnoringCase("fro"); 
+----
+
+[[assertj-core-3.17.0-2d-array-assertions]]
+[.release-note-item]#primitive and Object 2D array assertions#
+
+The following assertions are available 2D arrays, here they are for `int[][]`:
+
+*	`isEqualTo​(Object expected)`: Verifies that the actual int[][] is equal to the given one.
+*	`isDeepEqualTo​(int[][] expected)`: Verifies that the actual 2D array is deeply equal to the given one.
+*	`isEmpty()`: Verifies that the actual array is empty, i.e the array has no elements, said otherwise it can have any number of rows but all rows must be empty.
+* `isNullOrEmpty()`: Verifies that the actual array is null or empty, empty means the same as `isEmpty()`.
+*	`isNotEmpty()`: Verifies that the actual array is not empty, i.e. the array has at least one element.
+*	`contains​(int[] value, Index index)`: Verifies that the actual array contains the given int[] at the given index.
+*	`doesNotContain​(int[] value, Index index)`: Verifies that the actual array does not contain the given value at the given index.
+*	`hasDimensions​(int expectedFirstDimension, int expectedSecondDimension)`: Verifies that the actual 2D array has the given dimensions.
+*	`hasSameDimensionsAs​(Object array)`: Verifies that the actual int[][] has the same dimensions as the given array.
+
+The same assertions are available for `long[][]`, `short[][]`, `byte[][]`, `float[][]`, `double[][]`, `boolean[][]` and `Object[][]` (obviously replacing `int` by the array type).
+
+`Object[][]` assertions are generic, they take a parameter type, ex: `isDeepEqualTo​(ELEMENT[][] expected)`.
+
+[[assertj-core-3.17.0-even-odd-assertions]]
+[.release-note-item]#Add `isEven/isOdd` assertions for `byte`, `short`, `int` and `long`#
+
+Verifies whether the given `byte`, `short`, `int` and or `long` is even/odd.
+
+Examples:
+[source,java]
+----
+assertThat(12).isEven();
+assertThat(-46).isEven();
+
+assertThat(3).isOdd();
+assertThat(-17).isOdd();
+----
+
+[[assertj-core-3.17.0-singleElement]]
+[.release-note-item]#Add `singleElement` to iterable assertions#
+
+`singleElement()` and `singleElement​(InstanceOfAssertFactory assertFactory)` verify that the `Iterable` under test contains a single element and allow to perform assertions on that element (this is a shorthand for `hasSize(1).first()`).
+
+You can only chain `Object` assertions after `singleElement()`, to get strongly typed assertions, use `singleElement​(InstanceOfAssertFactory)` and pass the proper `InstanceOfAssertFactory`.
+
+Examples:
+[source,java]
+----
+import static org.assertj.core.api.InstanceOfAssertFactories.STRING;
+import static org.assertj.core.api.Assertions.as; // syntactic sugar
+
+List<String> babySimpsons = list("Maggie");
+
+// assertion succeeds, only Object assertions are available after singleElement()
+assertThat(babySimpsons).singleElement()
+                        .isEqualTo("Maggie"); 
+
+// String assertion succeeds, String assertions as we have passed InstanceOfAssertFactories.STRING
+assertThat(babySimpsons).singleElement(as(STRING))
+                        .startsWith("Mag");
+----
+
+[[assertj-core-3.17.0-succeedsWithin]]
+[.release-note-item]#Add `succeedsWithin` to `Future` and `CompletableFuture` assertions#
+
+`succeedsWithin` waits if necessary for at most the given time for this future to complete and then returns its result for further assertions.
+
+If the future's result is not available for any reason an assertion error is thrown. 
+
+To get assertions for the future result's type use the method taking an additionnal InstanceOfAssertFactory parameter instead.
+
+Examples:
+[source,java]
+----
+ExecutorService executorService = Executors.newSingleThreadExecutor();
+
+Future<String> future = executorService.submit(() -> {
+  Thread.sleep(100);
+  return "ook!";
+});
+
+// assertion succeeds
+assertThat(future).succeedsWithin(200, TimeUnit.MILLISECONDS)
+                  .isEqualTo("ook!");
+
+// same assertion with a Duration to express the time out
+Duration timeout = Duration.ofMillis(200);
+assertThat(future).succeedsWithin(timeout)
+                  .isEqualTo("ook!");
+
+// fails as the future is not done after the given timeout
+assertThat(future).succeedsWithin(50, TimeUnit.MILLISECONDS);
+----
+
+Examples with stronly typed assertions and `CompletableFuture`:
+[source,java]
+----
+import static org.assertj.core.api.InstanceOfAssertFactories.STRING;
+import static org.assertj.core.api.Assertions.as; // syntactic sugar
+
+CompletableFuture<String> future = CompletableFuture.completedFuture("ook!");
+
+Duration timeout = Duration.ofMillis(200);
+
+// strongly typed assertion:
+assertThat(future).succeedsWithin(timeout, as(STRING))
+                  .contains("ok");
+
+// same assertion with the timeout expressed differently:
+assertThat(future).succeedsWithin(200, TimeUnit.MILLISECONDS, as(STRING))
+                  .contains("ok");              
+----
+
+[[assertj-core-3.17.0-filteredOn]]
+[.release-note-item]#Add `filteredOn(Function, expectedValue)` to `Iterable`, `Object[]` and `AtomicReferenceArray` assertions#
+
+Filters the iterable under test keeping only elements for which the result of the function is equal to expectedValue.
+
+It allows to filter elements more safely than by using https://www.javadoc.io/static/org.assertj/assertj-core/3.16.1/org/assertj/core/api/AbstractIterableAssert.html#filteredOn(java.lang.String,java.lang.Object)[`filteredOn(String, Object)`] as it doesn't utilize introspection.
+
+As an example, let's check all employees 800 years old (yes, special employees): 
+Examples:
+[source,java]
+----
+Employee yoda   = new Employee(1L, new Name("Yoda"), 800);
+Employee obiwan = new Employee(2L, new Name("Obiwan"), 800);
+Employee luke   = new Employee(3L, new Name("Luke", "Skywalker"), 26);
+Employee noname = new Employee(4L, null, 50);
+
+List<Employee> employees = newArrayList(yoda, luke, obiwan, noname);
+
+assertThat(employees).filteredOn(Employee::getAge, 800)
+                     .containsOnly(yoda, obiwan);
+
+assertThat(employees).filteredOn(e -> e.getName(), null)
+                     .containsOnly(noname);
+----
 
 [[assertj-core-3-16-1-release-notes]]
 ==== AssertJ Core 3.16.1
