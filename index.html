@@ -5878,7 +5878,7 @@ AssertJ Core would not exist without its contributors, you can find them all <a 
 <p><span class="release-note-category"><span class="icon"><i class="fa fa-user"></i></span> Contributors</span></p>
 </div>
 <div class="paragraph">
-<p>Thanks to all the contributors of this release: Erhard Pointl, Stefano Cordio, Pascal Schumacher, darkliang, Bibibiu, Andrey "Bass" Shcheglov, SuntCrick, Eveneko, rpolton, Ting Sun, Peng Weiyuan, Brummolix, Maciej Wajcht, Hayden Meloche, Cal027, sullis, mgrafl, Rupert Madden-Abbott, Shiva, Ahmad M, Phillip Webb and bjhargrave.</p>
+<p>Thanks to all the contributors of this release: Erhard Pointl, Stefano Cordio, Pascal Schumacher, Junhao Liang, Bibibiu, Andrey "Bass" Shcheglov, SuntCrick, Yubin Hu, rpolton, Ting Sun, Peng Weiyuan, Brummolix, Maciej Wajcht, Hayden Meloche, Cal027, sullis, mgrafl, Rupert Madden-Abbott, Shiva, Ahmad M, Phillip Webb and BJ Hargrave.</p>
 </div>
 <div class="paragraph">
 <p><em>Joel Costigliola</em>: Apologies to Hayden Meloche, when integrating his work the final squashed commit was pushed with me as the author instead of him, sorry Hayden!</p>
@@ -5914,13 +5914,13 @@ AssertJ Core would not exist without its contributors, you can find them all <a 
 <p>Add <a href="#assertj-core-exception-assertions-no-exception"><code>assertThatNoException().isThrownBy(code)</code></a> assertion (and also <code>thenNoException()</code>). (Phillip Webb)</p>
 </li>
 <li>
-<p>Add <a href="#assertj-core-recursive-comparison-isNotEqualTo">isNotEqualTo()</a> to <code>RecursiveComparisonAssert</code>. (darkliang)</p>
+<p>Add <a href="#assertj-core-recursive-comparison-isNotEqualTo">isNotEqualTo()</a> to <code>RecursiveComparisonAssert</code>. (Junhao Liang)</p>
 </li>
 <li>
-<p>Add JUnit 5 <a href="#assertj-core-junit5-softly-extension"><code>SoftlyExtension</code></a> to setup <code>SoftAssertions</code> field and automatically call <code>assertAll()</code> after each test. (Bibibiu)</p>
+<p>Add JUnit 5 <a href="#assertj-core-junit5-softly-extension"><code>SoftlyExtension</code></a> to set up <code>SoftAssertions</code> field and automatically call <code>assertAll()</code> after each test. (Bibibiu)</p>
 </li>
 <li>
-<p>Add <a href="#assertj-core-lazy-error-message">lazy error message overriding</a> to only build the message when the assertion fails. (Eveneko)</p>
+<p>Add <a href="#assertj-core-lazy-error-message">lazy error message overriding</a> to only build the message when the assertion fails. (Yubin Hu)</p>
 </li>
 <li>
 <p>Add <a href="#assertj-core-recursive-comparison-for-iterable"><code>usingRecursiveFieldByFieldElementComparator(RecursiveComparisonConfiguration)</code></a> to get the recursive api full power to all iterable assertions.</p>
@@ -5960,7 +5960,7 @@ AssertJ Core would not exist without its contributors, you can find them all <a 
 <div class="ulist">
 <ul>
 <li>
-<p>Allow to specify <a href="#assertj-core-recursive-comparison-comparators"><code>equals BiPredicate</code></a> instead of <code>Comparator</code> in recursive comparison.</p>
+<p>Allow specifying <a href="#assertj-core-recursive-comparison-comparators"><code>equals BiPredicate</code></a> instead of <code>Comparator</code> in recursive comparison.</p>
 </li>
 <li>
 <p>Display the <a href="#assertj-core-3.17.0-better-huge-group-display">beginning and the end of huge iterables/array/map</a> instead of just the beginning. (SuntCrick)</p>
@@ -5975,13 +5975,13 @@ AssertJ Core would not exist without its contributors, you can find them all <a 
 <p>Make <code>Percentage</code> and <code>FieldLocation</code> final, update <code>equals()</code> and <code>hashCode()</code>. (Ahmad M)</p>
 </li>
 <li>
-<p>Make <code>Offset</code>, <code>MapEntry</code> and <code>Index</code> final, update <code>equals()</code> and <code>hashCode()</code>. (scordio)</p>
+<p>Make <code>Offset</code>, <code>MapEntry</code> and <code>Index</code> final, update <code>equals()</code> and <code>hashCode()</code>. (Stefano Cordio)</p>
 </li>
 <li>
-<p>Javadoc improvements. (scordio, Erhard Pointl)</p>
+<p>Javadoc improvements. (Stefano Cordio, Erhard Pointl)</p>
 </li>
 <li>
-<p>Better handle soft proxies for custom assert classes in OSGi bundles. (bjhargrave)</p>
+<p>Better handle soft proxies for custom assert classes in OSGi bundles. (BJ Hargrave)</p>
 </li>
 <li>
 <p>Best effort to avoid cycles when representing iterables or object arrays.</p>
@@ -5993,31 +5993,31 @@ AssertJ Core would not exist without its contributors, you can find them all <a 
 <p>Internal: Add tests for <code>hasNoPath</code> URL/URI assertions. (Ting Sun)</p>
 </li>
 <li>
-<p>Internal: Bump equalsverifier from 3.2 to 3.4.2.</p>
+<p>Internal: Bump <code>equalsverifier</code> from 3.2 to 3.4.2.</p>
 </li>
 <li>
-<p>Internal: Bump commons-io from 2.6 to 2.7.</p>
+<p>Internal: Bump <code>commons-io</code> from 2.6 to 2.7.</p>
 </li>
 <li>
-<p>Internal: Bump commons-lang3 from 3.10 to 3.11.</p>
+<p>Internal: Bump <code>commons-lang3</code> from 3.10 to 3.11.</p>
 </li>
 <li>
-<p>Internal: Bump <code>bnd.version</code> from 5.0.1 to 5.1.2 and reenable java 15 build (Pascal Schumacher)</p>
+<p>Internal: Bump <code>bnd.version</code> from 5.0.1 to 5.1.2 and re-enable java 15 build. (Pascal Schumacher)</p>
 </li>
 <li>
-<p>Internal: Bump maven-shade-plugin from 3.2.3 to 3.2.4</p>
+<p>Internal: Bump <code>maven-shade-plugin</code> from 3.2.3 to 3.2.4.</p>
 </li>
 <li>
-<p>Internal: Bump byte-buddy.version from 1.10.10 to 1.10.14</p>
+<p>Internal: Bump <code>byte-buddy.version</code> from 1.10.10 to 1.10.14.</p>
 </li>
 <li>
-<p>Internal: Bump mockito.version from 3.3.3 to 3.5.5. (Erhard Pointl)</p>
+<p>Internal: Bump <code>mockito.version</code> from 3.3.3 to 3.5.5 (Erhard Pointl)</p>
 </li>
 <li>
-<p>Internal: Add dependabot. (sullis)</p>
+<p>Internal: Add <code>dependabot</code>. (sullis)</p>
 </li>
 <li>
-<p>Internal: Bump actions/cache from v1 to v2.</p>
+<p>Internal: Bump <code>actions/cache</code> from v1 to v2.</p>
 </li>
 <li>
 <p>Internal: Fix "Remove this 'public' modifier" sonar violations. (Erhard Pointl, Shiva)</p>
@@ -6035,10 +6035,10 @@ AssertJ Core would not exist without its contributors, you can find them all <a 
 <p>Internal: Fix mockito warnings. (Erhard Pointl)</p>
 </li>
 <li>
-<p>Internal: Disable shallow clone during Sonar analysis. (scordio)</p>
+<p>Internal: Disable shallow clone during Sonar analysis. (Stefano Cordio)</p>
 </li>
 <li>
-<p>Internal: Clean up code. (scordio, Erhard Pointl)</p>
+<p>Internal: Clean up code. (Stefano Cordio, Erhard Pointl)</p>
 </li>
 </ul>
 </div>
@@ -6051,7 +6051,7 @@ AssertJ Core would not exist without its contributors, you can find them all <a 
 <p><code>AbstractByteArrayAssert#asString</code> now build a new String with the default or a given charset instead returning the byte array toString.</p>
 </li>
 <li>
-<p>Allow soft assertion failures to be recorded from multiple threads. (Andrey "Bass" Shcheglov) (#1879)</p>
+<p>Allow soft assertion failures to be recorded from multiple threads. (Andrey "Bass" Shcheglov)</p>
 </li>
 <li>
 <p>Fix <code>containsExactly</code> assertion that failed for iterable that can only be read once. (rpolton)</p>
@@ -6102,19 +6102,19 @@ AssertJ Core would not exist without its contributors, you can find them all <a 
 <div class="ulist">
 <ul>
 <li>
-<p><code>hasDays​(int expectedDays)</code>: Verifies that the actual Period has the given days.</p>
+<p><code>hasDays(int expectedDays)</code>: Verifies that the actual Period has the given days.</p>
 </li>
 <li>
-<p><code>hasMonths​(int expectedMonths)</code>: Verifies that the actual Period has the given months.</p>
+<p><code>hasMonths(int expectedMonths)</code>: Verifies that the actual Period has the given months.</p>
 </li>
 <li>
-<p><code>hasYears​(int expectedYears)</code>: Verifies that the actual Period has the given years.</p>
+<p><code>hasYears(int expectedYears)</code>: Verifies that the actual Period has the given years.</p>
 </li>
 <li>
-<p><code>isNegative()</code>: Verifies that the actual Period is negative (i.e. is less than Period.ZERO).</p>
+<p><code>isNegative()</code>: Verifies that the actual Period is negative (i.e. is less than <code>Period.ZERO</code>).</p>
 </li>
 <li>
-<p><code>isPositive()</code>: Verifies that the actual Period is positive (i.e. is greater than Period.ZERO).</p>
+<p><code>isPositive()</code>: Verifies that the actual Period is positive (i.e. is greater than <code>Period.ZERO</code>).</p>
 </li>
 </ul>
 </div>
@@ -6133,11 +6133,11 @@ assertThat(Period.ofDays(5)).hasDays(5)
 assertThat(Period.ofMonths(-5)).isNegative();</code></pre>
 </div>
 </div>
-<div id="assertj-core-3.17.0-" class="paragraph">
+<div id="assertj-core-3.17.0-better-huge-group-display" class="paragraph">
 <p><span class="release-note-item">Display the beginning and the end of huge iterables/array/map</span></p>
 </div>
 <div class="paragraph">
-<p>Before this version only the the first <code>maxElementsForPrinting</code> elements would be displayed, now the <code>maxElementsForPrinting</code> displayed elements are split between first and last elements.</p>
+<p>Before this version only the first <code>maxElementsForPrinting</code> elements would be displayed, now the <code>maxElementsForPrinting</code> displayed elements are split between first and last elements.</p>
 </div>
 <div class="paragraph">
 <p>The number of elements to display can be set with <code>Assertions.setMaxElementsForPrinting(n);</code></p>
@@ -15245,7 +15245,7 @@ You can clone the repository and run its tests !</p>
 <div id="footer">
 <div id="footer-text">
 Version 1.0<br>
-Last updated 2020-08-23 11:33:25 UTC
+Last updated 2020-08-23 11:50:04 UTC
 </div>
 </div>
 <link rel="stylesheet" href="highlight/styles/railscasts.min.css">
