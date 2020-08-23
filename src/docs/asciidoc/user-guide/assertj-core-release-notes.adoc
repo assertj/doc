@@ -27,7 +27,7 @@ Release date : 2020-08-23
 [[assertj-core-3.17.0-contributors]]
 [.release-note-category]#icon:user[] Contributors#
 
-Thanks to all the contributors of this release: Erhard Pointl, Stefano Cordio, Pascal Schumacher, darkliang, Bibibiu, Andrey "Bass" Shcheglov, SuntCrick, Eveneko, rpolton, Ting Sun, Peng Weiyuan, Brummolix, Maciej Wajcht, Hayden Meloche, Cal027, sullis, mgrafl, Rupert Madden-Abbott, Shiva, Ahmad M, Phillip Webb and bjhargrave.
+Thanks to all the contributors of this release: Erhard Pointl, Stefano Cordio, Pascal Schumacher, Junhao Liang, Bibibiu, Andrey "Bass" Shcheglov, SuntCrick, Yubin Hu, rpolton, Ting Sun, Peng Weiyuan, Brummolix, Maciej Wajcht, Hayden Meloche, Cal027, sullis, mgrafl, Rupert Madden-Abbott, Shiva, Ahmad M, Phillip Webb and BJ Hargrave.
 
 _Joel Costigliola_: Apologies to Hayden Meloche, when integrating his work the final squashed commit was pushed with me as the author instead of him, sorry Hayden!
 
@@ -44,9 +44,9 @@ _Joel Costigliola_: Apologies to Hayden Meloche, when integrating his work the f
 * Add link:#assertj-core-3.17.0-Period-assertion[`java.time.Period`] assertions. (Hayden Meloche)
 * Allow link:#assertj-core-assertion-description-consumer[printing or consuming assertions description].
 * Add link:#assertj-core-exception-assertions-no-exception[`assertThatNoException().isThrownBy(code)`] assertion (and also `thenNoException()`). (Phillip Webb)
-* Add link:#assertj-core-recursive-comparison-isNotEqualTo[isNotEqualTo()] to `RecursiveComparisonAssert`. (darkliang)
-* Add JUnit 5 link:#assertj-core-junit5-softly-extension[`SoftlyExtension`] to setup `SoftAssertions` field and automatically call `assertAll()` after each test. (Bibibiu)
-* Add link:#assertj-core-lazy-error-message[lazy error message overriding] to only build the message when the assertion fails. (Eveneko)
+* Add link:#assertj-core-recursive-comparison-isNotEqualTo[isNotEqualTo()] to `RecursiveComparisonAssert`. (Junhao Liang)
+* Add JUnit 5 link:#assertj-core-junit5-softly-extension[`SoftlyExtension`] to set up `SoftAssertions` field and automatically call `assertAll()` after each test. (Bibibiu)
+* Add link:#assertj-core-lazy-error-message[lazy error message overriding] to only build the message when the assertion fails. (Yubin Hu)
 * Add link:#assertj-core-recursive-comparison-for-iterable[`usingRecursiveFieldByFieldElementComparator(RecursiveComparisonConfiguration)`] to get the recursive api full power to all iterable assertions. 
 * Add link:#assertj-core-3.17.0-isEmpty-InputStream-assertion[`isEmpty`] to `InputStream` assertion. (Peng Weiyuan)
 * Add link:#assertj-core-3.17.0-isNotEmpty-InputStream-assertion[`isNotEmpty`] to `InputStream` assertion. (Peng Weiyuan)
@@ -61,39 +61,39 @@ _Joel Costigliola_: Apologies to Hayden Meloche, when integrating his work the f
 [[assertj-core-3.17.0-improvements]]
 [.release-note-category]#icon:arrow-circle-up[] Improvements#
 
-* Allow to specify link:#assertj-core-recursive-comparison-comparators[`equals BiPredicate`] instead of `Comparator` in recursive comparison.
+* Allow specifying link:#assertj-core-recursive-comparison-comparators[`equals BiPredicate`] instead of `Comparator` in recursive comparison.
 * Display the link:#assertj-core-3.17.0-better-huge-group-display[beginning and the end of huge iterables/array/map] instead of just the beginning. (SuntCrick)
 * Handle infinite or singly-traversable iterables for sequences assertions. (rpolton) - see #1938 for details.
 * Explicitly set Javadoc locale to English. (Erhard Pointl)
 * Make `Percentage` and `FieldLocation` final, update `equals()` and `hashCode()`. (Ahmad M)
-* Make `Offset`, `MapEntry` and `Index` final, update `equals()` and `hashCode()`. (scordio)
-* Javadoc improvements. (scordio, Erhard Pointl)
-* Better handle soft proxies for custom assert classes in OSGi bundles. (bjhargrave) 
+* Make `Offset`, `MapEntry` and `Index` final, update `equals()` and `hashCode()`. (Stefano Cordio)
+* Javadoc improvements. (Stefano Cordio, Erhard Pointl)
+* Better handle soft proxies for custom assert classes in OSGi bundles. (BJ Hargrave)
 * Best effort to avoid cycles when representing iterables or object arrays.
 * Internal: Refactor urls test classes. (SuntCrick)
 * Internal: Add tests for `hasNoPath` URL/URI assertions. (Ting Sun)
-* Internal: Bump equalsverifier from 3.2 to 3.4.2.
-* Internal: Bump commons-io from 2.6 to 2.7.
-* Internal: Bump commons-lang3 from 3.10 to 3.11.
-* Internal: Bump `bnd.version` from 5.0.1 to 5.1.2 and reenable java 15 build (Pascal Schumacher)
-* Internal: Bump maven-shade-plugin from 3.2.3 to 3.2.4
-* Internal: Bump byte-buddy.version from 1.10.10 to 1.10.14
-* Internal: Bump mockito.version from 3.3.3 to 3.5.5. (Erhard Pointl)
-* Internal: Add dependabot. (sullis)
-* Internal: Bump actions/cache from v1 to v2.
+* Internal: Bump `equalsverifier` from 3.2 to 3.4.2.
+* Internal: Bump `commons-io` from 2.6 to 2.7.
+* Internal: Bump `commons-lang3` from 3.10 to 3.11.
+* Internal: Bump `bnd.version` from 5.0.1 to 5.1.2 and re-enable java 15 build. (Pascal Schumacher)
+* Internal: Bump `maven-shade-plugin` from 3.2.3 to 3.2.4.
+* Internal: Bump `byte-buddy.version` from 1.10.10 to 1.10.14.
+* Internal: Bump `mockito.version` from 3.3.3 to 3.5.5 (Erhard Pointl)
+* Internal: Add `dependabot`. (sullis)
+* Internal: Bump `actions/cache` from v1 to v2.
 * Internal: Fix "Remove this 'public' modifier" sonar violations. (Erhard Pointl, Shiva)
 * Internal: Make `Longs_assertIsOne_Test#should_succeed_since_actual_is_one` testing assertIsOne. (Erhard Pointl)
 * Internal: Make `IterableAssert_anyMatch_Test` testing `anyMatch` and `IterableAssert_anySatisfy_Test` testing `anySatisfy`. (Erhard Pointl)
 * Internal: Add missing `ObjectArrayAssert_anySatisfy_Test` test. (Erhard Pointl)
 * Internal: Fix mockito warnings. (Erhard Pointl)
-* Internal: Disable shallow clone during Sonar analysis. (scordio)
-* Internal: Clean up code. (scordio, Erhard Pointl)
+* Internal: Disable shallow clone during Sonar analysis. (Stefano Cordio)
+* Internal: Clean up code. (Stefano Cordio, Erhard Pointl)
 
 [[assertj-core-3.17.0-fixed]]
 [.release-note-category]#icon:wrench[] Fixed#
 
 * `AbstractByteArrayAssert#asString` now build a new String with the default or a given charset instead returning the byte array toString.
-* Allow soft assertion failures to be recorded from multiple threads. (Andrey "Bass" Shcheglov) (#1879)
+* Allow soft assertion failures to be recorded from multiple threads. (Andrey "Bass" Shcheglov)
 * Fix `containsExactly` assertion that failed for iterable that can only be read once. (rpolton)
 * Fix references to `main` branch after `master` was renamed to `main` to support Black Lives Matter. (Steven Crockett)
 * Fix Recursive comparison that did not compare enums as they don't have fields, now it compares enums with `equals`.
@@ -113,11 +113,11 @@ _Joel Costigliola_: Apologies to Hayden Meloche, when integrating his work the f
 
 Provides the following assertions for the `Period`:
 
-*	`hasDays​(int expectedDays)`: Verifies that the actual Period has the given days.
-*	`hasMonths​(int expectedMonths)`: Verifies that the actual Period has the given months.
-*	`hasYears​(int expectedYears)`: Verifies that the actual Period has the given years.
-*	`isNegative()`: Verifies that the actual Period is negative (i.e. is less than Period.ZERO). 
-*	`isPositive()`: Verifies that the actual Period is positive (i.e. is greater than Period.ZERO).
+*	`hasDays(int expectedDays)`: Verifies that the actual Period has the given days.
+*	`hasMonths(int expectedMonths)`: Verifies that the actual Period has the given months.
+*	`hasYears(int expectedYears)`: Verifies that the actual Period has the given years.
+*	`isNegative()`: Verifies that the actual Period is negative (i.e. is less than `Period.ZERO`).
+*	`isPositive()`: Verifies that the actual Period is positive (i.e. is greater than `Period.ZERO`).
 
 Examples:
 [source,java]
@@ -132,10 +132,10 @@ assertThat(Period.ofDays(5)).hasDays(5)
 assertThat(Period.ofMonths(-5)).isNegative();
 ----
 
-[[assertj-core-3.17.0-]]
+[[assertj-core-3.17.0-better-huge-group-display]]
 [.release-note-item]#Display the beginning and the end of huge iterables/array/map#
 
-Before this version only the the first `maxElementsForPrinting` elements would be displayed, now the `maxElementsForPrinting` displayed elements are split between first and last elements.
+Before this version only the first `maxElementsForPrinting` elements would be displayed, now the `maxElementsForPrinting` displayed elements are split between first and last elements.
 
 The number of elements to display can be set with `Assertions.setMaxElementsForPrinting(n);`
 
