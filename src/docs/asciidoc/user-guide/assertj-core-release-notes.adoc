@@ -37,6 +37,7 @@ _Joel Costigliola_: Apologies to Hayden Meloche, when integrating his work the f
 * Make the link:#assertj-core-recursive-comparison[recursive comparison] to ignore all overridden equals by default as most users were confused by it, call `usingOverriddenEquals` to revert to the previous behaviour.
 * Improve `AssertionFailedError` by replacing actual and expected by their representation as some default `toString` are not great (arrays for example).
 * Make `Offset`, `MapEntry`, `Percentage`, `FieldLocation` and `Index` final.
+* Add link:#assertj-core-3.17.0-2d-array-assertions[2D array] assertions, which provide new and potentially different methods for existing array assertions having two-dimensional arguments.
 
 [[assertj-core-3.17.0-new-features]]
 [.release-note-category]#icon:plus-circle[] New features#
@@ -51,7 +52,7 @@ _Joel Costigliola_: Apologies to Hayden Meloche, when integrating his work the f
 * Add link:#assertj-core-3.17.0-isEmpty-InputStream-assertion[`isEmpty`] to `InputStream` assertion. (Peng Weiyuan)
 * Add link:#assertj-core-3.17.0-isNotEmpty-InputStream-assertion[`isNotEmpty`] to `InputStream` assertion. (Peng Weiyuan)
 * Add link:#assertj-core-3.17.0-doesNotContainIgnoringCase-CharSequence-assertion[`doesNotContainIgnoringCase`] to `CharSequence` assertions. (Brummolix)
-* Add primitive and `Object` link:#assertj-core-3.17.0-2d-array-assertions[2D array] assertions . (Maciej Wajcht)
+* Add primitive and `Object` link:#assertj-core-3.17.0-2d-array-assertions[2D array] assertions. (Maciej Wajcht)
 * Add link:#assertj-core-3.17.0-even-odd-assertions[`isEven/isOdd`] assertions for `byte`, `short`, `int` and `long`. (Cal027)
 * Soft assertions: add a way to link:#assertj-core-soft-assertions-collect-listener[react to collected assertion error].
 * Add link:#assertj-core-3.17.0-singleElement[`singleElement()`] and `singleElement(InstanceOfAssertFactory)` to iterable assertions (it replaces `hasOnlyOneElementSatisfying`). (mgrafl)
