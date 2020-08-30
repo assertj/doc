@@ -5,6 +5,7 @@ NOTE: AssertJ Core would not exist without its contributors, you can find them a
 
 Latest release notes:
 
+- link:#assertj-core-3-17-1-release-notes[AssertJ Core 3.17.1]
 - link:#assertj-core-3-17-0-release-notes[AssertJ Core 3.17.0]
 - link:#assertj-core-3-16-1-release-notes[AssertJ Core 3.16.1]
 - link:#assertj-core-3-16-0-release-notes[AssertJ Core 3.16.0]
@@ -18,6 +19,37 @@ Latest release notes:
 - link:#assertj-core-3-12-0-release-notes[AssertJ Core 3.12.0]
 
 Older release notes can be found in the old site: https://joel-costigliola.github.io/assertj/assertj-core-news.html, this is important to be aware of breaking changes if you are migrating from an old version.
+
+[[assertj-core-3-17-1-release-notes]]
+==== AssertJ Core 3.17.1
+
+Release date : 2020-08-30
+
+[[assertj-core-3.17.1-contributors]]
+[.release-note-category]#icon:user[] Contributors#
+
+Thanks to all the contributors of this release: Erhard Pointl, Stefano Cordio, Pascal Schumacher, rpolton, Andrey Nudko and Davide Angelocola.
+
+[[assertj-core-3.17.1-breaking-changes]]
+[.release-note-category]#icon:exclamation-triangle[] Breaking changes#
+
+* Change precedence of assumption classes when raising the assumption exception:
+** old order: `org.opentest4j.TestAbortedException`, `org.testng.SkipException` and `org.junit.AssumptionViolatedException`
+** new order: `org.junit.AssumptionViolatedException`, `org.opentest4j.TestAbortedException` and `org.testng.SkipException`
+
+[[assertj-core-3.17.1-improvements]]
+[.release-note-category]#icon:arrow-circle-up[] Improvements#
+
+* Speed up recursive comparison by caching results of `Method` lookup performed by reflection and using conditions instead of catching exceptions. (Andrey Nudko)
+* Make `contains` and `containsOnly` assertions to work for iterables that can be traversed only once. (rpolton)
+* Minor code cleanup. (Davide Angelocola)
+* Internal: Add Java 16 EA build. (Stefano Cordio)
+
+[[assertj-core-3.17.1-fixed]]
+[.release-note-category]#icon:wrench[] Fixed#
+
+* Fix `Object2DArrayAssert#isDeepEqualTo()`. (Stefano Cordio)
+
 
 [[assertj-core-3-17-0-release-notes]]
 ==== AssertJ Core 3.17.0
