@@ -34,8 +34,8 @@ Thanks to all the contributors of this release: Erhard Pointl, Stefano Cordio, P
 [.release-note-category]#icon:exclamation-triangle[] Breaking changes#
 
 * Change precedence of assumption classes when raising the assumption exception:
-** old order: `org.opentest4j.TestAbortedException`, `org.testng.SkipException` and `org.junit.AssumptionViolatedException`
-** new order: `org.junit.AssumptionViolatedException`, `org.opentest4j.TestAbortedException` and `org.testng.SkipException`
+** old order: `org.junit.AssumptionViolatedException`, `org.opentest4j.TestAbortedException` and `org.testng.SkipException`
+** new order: `org.opentest4j.TestAbortedException`, `org.testng.SkipException` and `org.junit.AssumptionViolatedException`
 
 [[assertj-core-3.17.1-improvements]]
 [.release-note-category]#icon:arrow-circle-up[] Improvements#
