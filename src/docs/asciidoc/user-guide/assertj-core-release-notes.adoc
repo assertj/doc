@@ -35,8 +35,8 @@ Thanks to all the contributors of this release: Erhard Pointl, Stefano Cordio an
 [.release-note-category]#icon:exclamation-triangle[] Breaking changes#
 
 * Change precedence of assumption classes when raising the assumption exception:
-** new order: `org.opentest4j.TestAbortedException`, `org.testng.SkipException` and `org.junit.AssumptionViolatedException`
-** new order: `org.testng.SkipException`, `org.junit.AssumptionViolatedException` and `org.opentest4j.TestAbortedException`
+** Old order: `org.opentest4j.TestAbortedException`, `org.testng.SkipException` and `org.junit.AssumptionViolatedException`
+** New order: `org.testng.SkipException`, `org.junit.AssumptionViolatedException` and `org.opentest4j.TestAbortedException`
 
 [[assertj-core-3.17.2-improvements]]
 [.release-note-category]#icon:arrow-circle-up[] Improvements#
@@ -67,8 +67,8 @@ Thanks to all the contributors of this release: Erhard Pointl, Stefano Cordio, P
 [.release-note-category]#icon:exclamation-triangle[] Breaking changes#
 
 * Change precedence of assumption classes when raising the assumption exception:
-** old order: `org.junit.AssumptionViolatedException`, `org.opentest4j.TestAbortedException` and `org.testng.SkipException`
-** new order: `org.opentest4j.TestAbortedException`, `org.testng.SkipException` and `org.junit.AssumptionViolatedException`
+** Old order: `org.junit.AssumptionViolatedException`, `org.opentest4j.TestAbortedException` and `org.testng.SkipException`
+** New order: `org.opentest4j.TestAbortedException`, `org.testng.SkipException` and `org.junit.AssumptionViolatedException`
 
 [[assertj-core-3.17.1-improvements]]
 [.release-note-category]#icon:arrow-circle-up[] Improvements#
