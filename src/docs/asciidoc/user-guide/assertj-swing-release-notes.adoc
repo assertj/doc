@@ -10,7 +10,7 @@ Latest release notes:
 Older release notes can be found in the old site: https://joel-costigliola.github.io/assertj/assertj-swing-news.html, this is important to be aware of breaking changes if you are migrating from an old version.
 
 [[assertj-swing-3-17-0-release-notes]]
-==== AssertJ Core 3.17.0
+==== AssertJ Swign 3.17.0
 
 Release date : 2020-09-13
 
