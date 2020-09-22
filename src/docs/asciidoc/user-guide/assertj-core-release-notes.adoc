@@ -1621,7 +1621,7 @@ Release date : 2019-08-04
 
 This release ships a few improvements:
 
-* Fixes an annoyance in `InstanceOfAssertFactories`, where `URL` and `URI` constants have been renamed to `URL_TYPE` and `URI_TYPE` respectively to avoid a clash with `java.net.URL` and `java.net.URI`. See https://github.com/joel-costigliola/assertj-core/issues/1567 for details.
+* Fixes an annoyance in `InstanceOfAssertFactories`, where `URL` and `URI` constants have been renamed to `URL_TYPE` and `URI_TYPE` respectively to avoid a clash with `java.net.URL` and `java.net.URI`. See https://github.com/assertj/assertj-core/issues/1567 for details.
 * Updates ByteBuddy to version 1.10.0.
 * Fixes some javadoc typos.
 * Enforces banned dependencies with `maven-enforcer-plugin`.
@@ -1631,7 +1631,7 @@ This release ships a few improvements:
 
 Release date : 2019-07-29
 
-This release addresses the 3.13.0 https://github.com/joel-costigliola/assertj-core/issues/1563[issue] by which AssertJ required OpenTest4J to be on the classpath otherwise a `java.lang.NoClassDefFoundError: org/opentest4j/MultipleFailuresError` would be raised. Thanks Pascal Schumacher for the quick fix!
+This release addresses the 3.13.0 https://github.com/assertj/assertj-core/issues/1563[issue] by which AssertJ required OpenTest4J to be on the classpath otherwise a `java.lang.NoClassDefFoundError: org/opentest4j/MultipleFailuresError` would be raised. Thanks Pascal Schumacher for the quick fix!
 
 [source,text,indent=0]
 ----
@@ -2313,7 +2313,7 @@ assertThat(bestBasketBallPlayers).toIterable().contains("Jordan", "Magic", "Lebr
 
 AssertJ uses introspection in various places, one example is extracting properties as in `extracting("name")`. AssertJ is able to get values with getters like `getName()`, with this improvement it now can get property values with bare name method like `name()`.
 
-WARNING: Bare-named property introspection is enabled by default and thus changes AssertJ behavior which can break some existing tests relying on introspection, this is especially true as AssertJ wrongly tries static methods (https://github.com/joel-costigliola/assertj-core/issues/1458 had been created to address that).
+WARNING: Bare-named property introspection is enabled by default and thus changes AssertJ behavior which can break some existing tests relying on introspection, this is especially true as AssertJ wrongly tries static methods (https://github.com/assertj/assertj-core/issues/1458 had been created to address that).
 
 It is possible to avoid this problem by calling `Assertions.setExtractBareNamePropertyMethods(false);` before every impacted tests.
 
