@@ -6,6 +6,7 @@ plugins {
 
 dependencies {
 	testImplementation("org.assertj:assertj-core:" + project.getProperty('assertjCoreVersion'))
+	testImplementation("org.assertj:assertj-joda-time:" + project.getProperty('assertjJodaTimeVersion'))
 	testImplementation("org.assertj:assertj-db:" + project.getProperty('assertjDbVersion'))
 	testImplementation('junit:junit:4.13')
 
@@ -55,6 +56,7 @@ asciidoctor {
 			'idprefix': '',
 			'idseparator': '-',
 			'assertj-core-version': assertjCoreVersion,
+			'assertj-joda-time-version': assertjJodaTimeVersion,
 			'assertj-db-version': assertjDbVersion,
 			'stylesheet': '../../../docs/asciidoc/asciidoctor.css',
 			'docinfo': 'shared'

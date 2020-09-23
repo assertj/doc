@@ -1,5 +1,6 @@
 :javadoc-root:                           https://www.javadoc.io/doc/org.assertj/assertj-core/
 :assertj-guava-javadoc-root:             https://www.javadoc.io/doc/org.assertj/assertj-guava/latest/
+:assertj-joda-time-javadoc-root:         https://www.javadoc.io/doc/org.assertj/assertj-joda-time/latest/
 //
 :assertj-core-repo:                      https://github.com/assertj/assertj-core
 :assertj-examples-repo:                  https://github.com/joel-costigliola/assertj-examples
