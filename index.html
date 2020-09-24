@@ -2459,7 +2459,14 @@ p {
 <li><a href="#assertj-guava-release-notes">3.2. Release Notes</a></li>
 </ul>
 </li>
-<li><a href="#assertj-joda">4. AssertJ Joda</a></li>
+<li><a href="#assertj-joda">4. AssertJ Joda</a>
+<ul class="sectlevel2">
+<li><a href="#assertj-joda-time-quick-start">4.1. Quick start</a></li>
+<li><a href="#assertj-joda-time-assertions-guide">4.2. Assertions Guide</a></li>
+<li><a href="#assertj-joda-time-javadoc">4.3. Javadoc</a></li>
+<li><a href="#assertj-joda-time-release-notes">4.4. Release Notes</a></li>
+</ul>
+</li>
 <li><a href="#assertj-neo4j">5. AssertJ Neo4j</a></li>
 <li><a href="#assertj-db">6. AssertJ DB</a>
 <ul class="sectlevel2">
@@ -2467,7 +2474,7 @@ p {
 <li><a href="#assertj-db-concepts">6.2. Concepts</a></li>
 <li><a href="#assertj-db-features">6.3. Features highlight</a></li>
 <li><a href="#javadoc">6.4. Javadoc</a></li>
-<li><a href="#examples">6.5. Examples</a></li>
+<li><a href="#examples-2">6.5. Examples</a></li>
 <li><a href="#mailing-list">6.6. Mailing list</a></li>
 <li><a href="#code-and-issue-tracker">6.7. Code and issue tracker</a></li>
 <li><a href="#contributing">6.8. Contributing</a></li>
@@ -10045,7 +10052,662 @@ assertThat(value).asInstanceOf(InstanceOfAssertFactories.TABLE)
 <div class="sect1">
 <h2 id="assertj-joda"><a class="anchor" href="#assertj-joda"></a>4. AssertJ Joda</h2>
 <div class="sectionbody">
+<div class="sect2">
+<h3 id="assertj-joda-time-quick-start"><a class="anchor" href="#assertj-joda-time-quick-start"></a>4.1. Quick start</h3>
+<div class="paragraph">
+<p>This guide is for the AssertJ Joda Time module.</p>
+</div>
+<div class="sect3">
+<h4 id="get-assertj-joda-time"><a class="anchor" href="#get-assertj-joda-time"></a>4.1.1. Get assertj-joda-time library</h4>
+<div class="paragraph">
+<p>AssertJ Joda Time artifacts are in the Maven central repository.</p>
+</div>
+<div class="sect4">
+<h5 id="assertj-joda-time-java-versions"><a class="anchor" href="#assertj-joda-time-java-versions"></a>Supported Java versions</h5>
+<div class="paragraph">
+<p>AssertJ Joda Time major versions depend on different Java versions:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>AssertJ Joda Time 2.x requires Java 8 or higher</p>
+</li>
+<li>
+<p>AssertJ Joda Time 1.x requires Java 7 or higher</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="maven-2"><a class="anchor" href="#maven-2"></a>Maven</h5>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="xml" class="language-xml hljs">&lt;dependency&gt;
+  &lt;groupId&gt;org.assertj&lt;/groupId&gt;
+  &lt;artifactId&gt;assertj-joda-time&lt;/artifactId&gt;
+  &lt;!-- use 1.1.0 for Java 7 projects --&gt;
+  &lt;version&gt;2.2.0&lt;/version&gt;
+  &lt;scope&gt;test&lt;/scope&gt;
+&lt;/dependency&gt;</code></pre>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="gradle-2"><a class="anchor" href="#gradle-2"></a>Gradle</h5>
+<div class="paragraph">
+<p>For Gradle users (using the Maven Central Repository)</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="java" class="language-java hljs">testImplementation("org.assertj:assertj-joda-time:2.2.0")</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Or version 1.1.0 for Java 7 projects</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="java" class="language-java hljs">testImplementation("org.assertj:assertj-joda-time:1.1.0")</code></pre>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="other-build-tools-2"><a class="anchor" href="#other-build-tools-2"></a>Other build tools</h5>
+<div class="paragraph">
+<p>Check this page to find the relevant <a href="https://search.maven.org/artifact/org.assertj/assertj-joda-time/2.2.0/bundle">assertj joda-time dependency declaration</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="use-assertions-class-entry-point-2"><a class="anchor" href="#use-assertions-class-entry-point-2"></a>4.1.2. Use Assertions class entry point</h4>
+<div class="paragraph">
+<p>The <code>org.assertj.jodatime.api.Assertions</code> class is the only class you need to start using AssertJ Joda Time.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="java" class="language-java hljs">import static org.assertj.jodatime.api.Assertions.assertThat;</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="examples"><a class="anchor" href="#examples"></a>4.1.3. Examples</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="java" class="language-java hljs">assertThat(dateTime).isBefore(firstDateTime);
+assertThat(dateTime).isAfterOrEqualTo(secondDateTime);
 
+// you can use Strings in comparisons to avoid a conversion (we do that for you)
+assertThat(new DateTime("2000-01-01")).isEqualTo("2000-01-01");
+
+// compare DateTimes ignoring seconds and milliseconds in the comparison
+dateTime1 = new DateTime(2000, 1, 1, 23, 50, 0, 0, UTC);
+dateTime2 = new DateTime(2000, 1, 1, 23, 50, 10, 456, UTC);
+// assertion succeeds
+assertThat(dateTime1).isEqualToIgnoringSeconds(dateTime2);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>For <code>DateTime</code> assertions, comparison is performed in the <code>DateTimeZone</code> of <code>DateTime</code> to test, consequently the following assertion passes:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="java" class="language-java hljs">DateTime utcTime = new DateTime(2013, 6, 10, 0, 0, DateTimeZone.UTC);
+DateTime cestTime = new DateTime(2013, 6, 10, 2, 0, DateTimeZone.forID("Europe/Berlin"));
+
+assertThat(utcTime).as("in UTC time").isEqualTo(cestTime);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You can compare <code>DateTime</code> to another <code>DateTime</code>, or <code>LocalDateTime</code> to <code>LocalDateTime</code>, but not <code>DateTime</code> to <code>LocalDateTime</code>, it doesn&#8217;t make sense as one is timezone dependent and the other is not.</p>
+</div>
+<div class="paragraph">
+<p>Note that you can find more working examples in the [JodaTimeAssertionsExamples.java](<a href="https://github.com/joel-costigliola/assertj-examples/blob/main/assertions-examples/src/test/java/org/assertj/examples/JodaTimeAssertionsExamples.java" class="bare">https://github.com/joel-costigliola/assertj-examples/blob/main/assertions-examples/src/test/java/org/assertj/examples/JodaTimeAssertionsExamples.java</a>) class of the assertj-examples project.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="assertj-joda-time-ide"><a class="anchor" href="#assertj-joda-time-ide"></a>4.1.4. IDE configuration</h4>
+<div class="paragraph">
+<p>You can configure your IDE so that when you start typing <code>as</code> and trigger code completion <code>assertThat</code> will show up in the suggested completions.</p>
+</div>
+<div class="paragraph">
+<p>Eclipse:
+. Go to : Window &gt; Preferences &gt; Java &gt; Editor &gt; Content Assist &gt; Favorites &gt; New Type
+. Enter : <code>org.assertj.jodatime.api.Assertions</code> and click OK
+. Check that you see <code>org.assertj.jodatime.api.Assertions.*</code> in Favorites.</p>
+</div>
+<div class="paragraph">
+<p>Intellij Idea: No special configuration is needed, just start typing <code>asser</code> and then invoke completion (Ctrl-Space) twice.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="assertj-joda-time-assertions-guide"><a class="anchor" href="#assertj-joda-time-assertions-guide"></a>4.2. Assertions Guide</h3>
+<div class="paragraph">
+<p>This section describes the assertions provided by AssertJ Joda Time.</p>
+</div>
+<div class="paragraph">
+<p>In addition to specific type assertions, each type inherits assertions from <a href="http://www.javadoc.io/doc/org.assertj/assertj-core/latest/org/assertj/core/api/AbstractAssert.html"><code>org.assertj.core.api.AbstractAssert</code></a>.</p>
+</div>
+<div class="sect3">
+<h4 id="localdate"><a class="anchor" href="#localdate"></a>4.2.1. LocalDate</h4>
+<table class="tableblock frame-all grid-all fit-content">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Assertion</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://www.javadoc.io/doc/org.assertj/assertj-joda-time/latest/org/assertj/jodatime/api/LocalDateAssert.html#hasYear-int-"><code>hasYear(int expectedYear)</code></a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Verifies that the year of the actual <code>LocalDate</code> is equal to the given year</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://www.javadoc.io/doc/org.assertj/assertj-joda-time/latest/org/assertj/jodatime/api/LocalDateAssert.html#hasMonthOfYear-int-"><code>hasMonthOfYear(int expectedMonthOfYear)</code></a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Verifies that the month of the actual <code>LocalDate</code> is equal to the given month</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://www.javadoc.io/doc/org.assertj/assertj-joda-time/latest/org/assertj/jodatime/api/LocalDateAssert.html#hasDayOfMonth-int-"><code>hasDayOfMonth(int expectedDayOfMonth)</code></a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Verifies that the day of month of the actual <code>LocalDate</code> is equal to the given day of month</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://www.javadoc.io/doc/org.assertj/assertj-joda-time/latest/org/assertj/jodatime/api/LocalDateAssert.html#isAfter-org.joda.time.LocalDate-"><code>isAfter(org.joda.time.LocalDate other)</code></a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Verifies that the actual <code>LocalDate</code> is strictly after the given one</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://www.javadoc.io/doc/org.assertj/assertj-joda-time/latest/org/assertj/jodatime/api/LocalDateAssert.html#isAfter-java.lang.String-"><code>isAfter(String localDateAsString)</code></a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Calls <code>isAfter(DateTime)</code> with a <code>LocalDate</code> built from the given <code>String</code> which must follow ISO8601 format <code>yyyy-MM-dd</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://www.javadoc.io/doc/org.assertj/assertj-joda-time/latest/org/assertj/jodatime/api/LocalDateAssert.html#isAfterOrEqualTo-org.joda.time.LocalDate-"><code>isAfterOrEqualTo(org.joda.time.LocalDate other)</code></a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Verifies that the actual <code>LocalDate</code> is after or equals to the given one</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://www.javadoc.io/doc/org.assertj/assertj-joda-time/latest/org/assertj/jodatime/api/LocalDateAssert.html#isAfterOrEqualTo-java.lang.String-"><code>isAfterOrEqualTo(String localDateAsString)</code></a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Calls <code>isAfterOrEqualTo(DateTime)</code> with a <code>LocalDate</code> built from the given <code>String</code> which must follow ISO8601 format <code>yyyy-MM-dd</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://www.javadoc.io/doc/org.assertj/assertj-joda-time/latest/org/assertj/jodatime/api/LocalDateAssert.html#isBefore-org.joda.time.LocalDate-"><code>isBefore(org.joda.time.LocalDate other)</code></a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Verifies that the actual <code>LocalDate</code> is strictly before the given one</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://www.javadoc.io/doc/org.assertj/assertj-joda-time/latest/org/assertj/jodatime/api/LocalDateAssert.html#isBefore-java.lang.String-"><code>isBefore(String localDateAsString)</code></a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Calls <code>isBefore(DateTime)</code> with a <code>LocalDate</code> built from the given <code>String</code> which must follow ISO8601 format <code>yyyy-MM-dd</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://www.javadoc.io/doc/org.assertj/assertj-joda-time/latest/org/assertj/jodatime/api/LocalDateAssert.html#isBeforeOrEqualTo-org.joda.time.LocalDate-"><code>isBeforeOrEqualTo(org.joda.time.LocalDate other)</code></a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Verifies that the actual <code>LocalDate</code> is before or equals to the given one</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://www.javadoc.io/doc/org.assertj/assertj-joda-time/latest/org/assertj/jodatime/api/LocalDateAssert.html#isBeforeOrEqualTo-java.lang.String-"><code>isBeforeOrEqualTo(String localDateAsString)</code></a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Calls <code>isBeforeOrEqualTo(DateTime)</code> with a <code>LocalDate</code> built from the given <code>String</code> which must follow ISO8601 format <code>yyyy-MM-dd</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://www.javadoc.io/doc/org.assertj/assertj-joda-time/latest/org/assertj/jodatime/api/LocalDateAssert.html#isEqualTo-java.lang.String-"><code>isEqualTo(String localDateAsString)</code></a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Calls <code>AbstractAssert.isEqualTo(Object)</code> passing a <code>LocalDate</code> built from the given <code>String</code> which must follow ISO8601 format <code>yyyy-MM-dd</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://www.javadoc.io/doc/org.assertj/assertj-joda-time/latest/org/assertj/jodatime/api/LocalDateAssert.html#isIn-java.lang.String...-"><code>isIn(String&#8230;&#8203; dateTimesAsString)</code></a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Calls <code>isIn(DateTime&#8230;&#8203;)</code> with DateTimes built from given Strings which must follow ISO8601 format <code>yyyy-MM-dd</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://www.javadoc.io/doc/org.assertj/assertj-joda-time/latest/org/assertj/jodatime/api/LocalDateAssert.html#isNotEqualTo-java.lang.String-"><code>isNotEqualTo(String localDateAsString)</code></a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Calls <code>isNotEqualTo(DateTime)</code> with a <code>LocalDate</code> built from the given <code>String</code> which must follow ISO8601 format <code>yyyy-MM-dd</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://www.javadoc.io/doc/org.assertj/assertj-joda-time/latest/org/assertj/jodatime/api/LocalDateAssert.html#isNotIn-java.lang.String...-"><code>isNotIn(String&#8230;&#8203; localDatesAsString)</code></a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Calls <code>isNotIn(org.joda.DateTime&#8230;&#8203;)</code> with DateTime built from the given strings which must follow ISO8601 format <code>yyyy-MM-dd</code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect3">
+<h4 id="localdatetime"><a class="anchor" href="#localdatetime"></a>4.2.2. LocalDateTime</h4>
+<table class="tableblock frame-all grid-all fit-content">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Assertion</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://www.javadoc.io/doc/org.assertj/assertj-joda-time/latest/org/assertj/jodatime/api/LocalDateTimeAssert.html#hasDayOfMonth-int-"><code>hasDayOfMonth(int expectedDayOfMonth)</code></a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Verifies that the day of month of the actual <code>LocalDateTime</code> is equal to the given day of month</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://www.javadoc.io/doc/org.assertj/assertj-joda-time/latest/org/assertj/jodatime/api/LocalDateTimeAssert.html#hasHourOfDay-int-"><code>hasHourOfDay(int expectedHourOfDay)</code></a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Verifies that the hour of the actual <code>LocalDateTime</code> is equal to the given hour</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://www.javadoc.io/doc/org.assertj/assertj-joda-time/latest/org/assertj/jodatime/api/LocalDateTimeAssert.html#hasMillisOfSecond-int-"><code>hasMillisOfSecond(int expectedMillisOfSecond)</code></a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Verifies that the milliseconds of the actual <code>LocalDateTime</code> is equal to the given milliseconds</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://www.javadoc.io/doc/org.assertj/assertj-joda-time/latest/org/assertj/jodatime/api/LocalDateTimeAssert.html#hasMinuteOfHour-int-"><code>hasMinuteOfHour(int expectedMinuteOfHour)</code></a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Verifies that the minute of the actual <code>LocalDateTime</code> is equal to the given minute</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://www.javadoc.io/doc/org.assertj/assertj-joda-time/latest/org/assertj/jodatime/api/LocalDateTimeAssert.html#hasMonthOfYear-int-"><code>hasMonthOfYear(int expectedMonthOfYear)</code></a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Verifies that the month of the actual <code>LocalDateTime</code> is equal to the given month</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://www.javadoc.io/doc/org.assertj/assertj-joda-time/latest/org/assertj/jodatime/api/LocalDateTimeAssert.html#hasSecondOfMinute-int-"><code>hasSecondOfMinute(int expectedSecondOfMinute)</code></a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Verifies that the seconds of the actual <code>LocalDateTime</code> is equal to the given seconds</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://www.javadoc.io/doc/org.assertj/assertj-joda-time/latest/org/assertj/jodatime/api/LocalDateTimeAssert.html#hasYear-int-"><code>hasYear(int expectedYear)</code></a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Verifies that the year of the actual <code>LocalDateTime</code> is equal to the given year</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://www.javadoc.io/doc/org.assertj/assertj-joda-time/latest/org/assertj/jodatime/api/LocalDateTimeAssert.html#isAfter-org.joda.time.LocalDateTime-"><code>isAfter(org.joda.time.LocalDateTime other)</code></a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Verifies that the actual <code>LocalDateTime</code> is strictly after the given one</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://www.javadoc.io/doc/org.assertj/assertj-joda-time/latest/org/assertj/jodatime/api/LocalDateTimeAssert.html#isAfter-java.lang.String-"><code>isAfter(String localDateTimeAsString)</code></a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Calls <code>isAfter(DateTime)</code> with a <code>LocalDateTime</code> built from the given <code>String</code> which must follow <a href="http://joda-time.sourceforge.net/api-release/org/joda/time/format/ISODateTimeFormat.html#localDateOptionalTimeParser()">ISO DateTime format</a>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://www.javadoc.io/doc/org.assertj/assertj-joda-time/latest/org/assertj/jodatime/api/LocalDateTimeAssert.html#isAfterOrEqualTo-org.joda.time.LocalDateTime-"><code>isAfterOrEqualTo(org.joda.time.LocalDateTime other)</code></a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Verifies that the actual <code>LocalDateTime</code> is after or equals to the given one</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://www.javadoc.io/doc/org.assertj/assertj-joda-time/latest/org/assertj/jodatime/api/LocalDateTimeAssert.html#isAfterOrEqualTo-java.lang.String-"><code>isAfterOrEqualTo(String localDateTimeAsString)</code></a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Calls <code>isAfterOrEqualTo(DateTime)</code> with a <code>LocalDateTime</code> built from the given <code>String</code> which must follow <a href="http://joda-time.sourceforge.net/api-release/org/joda/time/format/ISODateTimeFormat.html#localDateOptionalTimeParser()">ISO DateTime format</a>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://www.javadoc.io/doc/org.assertj/assertj-joda-time/latest/org/assertj/jodatime/api/LocalDateTimeAssert.html#isBefore-org.joda.time.LocalDateTime-"><code>isBefore(org.joda.time.LocalDateTime other)</code></a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Verifies that the actual <code>LocalDateTime</code> is strictly before the given one</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://www.javadoc.io/doc/org.assertj/assertj-joda-time/latest/org/assertj/jodatime/api/LocalDateTimeAssert.html#isBefore-java.lang.String-"><code>isBefore(String localDateTimeAsString)</code></a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Calls <code>isBefore(DateTime)</code> with a <code>LocalDateTime</code> built from the given <code>String</code> which must follow <a href="http://joda-time.sourceforge.net/api-release/org/joda/time/format/ISODateTimeFormat.html#localDateOptionalTimeParser()">ISO DateTime format</a>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://www.javadoc.io/doc/org.assertj/assertj-joda-time/latest/org/assertj/jodatime/api/LocalDateTimeAssert.html#isBeforeOrEqualTo-org.joda.time.LocalDateTime-"><code>isBeforeOrEqualTo(org.joda.time.LocalDateTime other)</code></a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Verifies that the actual <code>LocalDateTime</code> is before or equals to the given one</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://www.javadoc.io/doc/org.assertj/assertj-joda-time/latest/org/assertj/jodatime/api/LocalDateTimeAssert.html#isBeforeOrEqualTo-java.lang.String-"><code>isBeforeOrEqualTo(String localDateTimeAsString)</code></a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Calls <code>isBeforeOrEqualTo(DateTime)</code> with a <code>LocalDateTime</code> built from the given <code>String</code> which must follow <a href="http://joda-time.sourceforge.net/api-release/org/joda/time/format/ISODateTimeFormat.html#localDateOptionalTimeParser()">ISO DateTime format</a>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://www.javadoc.io/doc/org.assertj/assertj-joda-time/latest/org/assertj/jodatime/api/LocalDateTimeAssert.html#isEqualTo-java.lang.String-"><code>isEqualTo(String localDateTimeAsString)</code></a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Calls <code>AbstractAssert.isEqualTo(Object)</code> passing a <code>LocalDateTime</code> built from the given <code>String</code> which must follow <a href="http://joda-time.sourceforge.net/api-release/org/joda/time/format/ISODateTimeFormat.html#localDateOptionalTimeParser()">ISO DateTime format</a>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://www.javadoc.io/doc/org.assertj/assertj-joda-time/latest/org/assertj/jodatime/api/LocalDateTimeAssert.html#isEqualToIgnoringHours-org.joda.time.LocalDateTime-"><code>isEqualToIgnoringHours(org.joda.time.LocalDateTime other)</code></a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Verifies that actual and given <code>LocalDateTime</code> have same year, month and day fields (hour, minute, second and millisecond fields are ignored in comparison)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://www.javadoc.io/doc/org.assertj/assertj-joda-time/latest/org/assertj/jodatime/api/LocalDateTimeAssert.html#isEqualToIgnoringMinutes-org.joda.time.LocalDateTime-"><code>isEqualToIgnoringMinutes(org.joda.time.LocalDateTime other)</code></a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Verifies that actual and given <code>LocalDateTime</code> have same year, month, day and hour fields (minute, second and millisecond fields are ignored in comparison)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://www.javadoc.io/doc/org.assertj/assertj-joda-time/latest/org/assertj/jodatime/api/LocalDateTimeAssert.html#isEqualToIgnoringSeconds-org.joda.time.LocalDateTime-"><code>isEqualToIgnoringSeconds(org.joda.time.LocalDateTime other)</code></a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Verifies that actual and given <code>LocalDateTime</code> have same year, month, day, hour and minute fields (second and millisecond fields are ignored in comparison)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://www.javadoc.io/doc/org.assertj/assertj-joda-time/latest/org/assertj/jodatime/api/LocalDateTimeAssert.html#isEqualToIgnoringMillis-org.joda.time.LocalDateTime-"><code>isEqualToIgnoringMillis(org.joda.time.LocalDateTime other)</code></a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Verifies that actual and given <code>LocalDateTime</code> have same year, month, day, hour, minute and second fields, (millisecond fields are ignored in comparison)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://www.javadoc.io/doc/org.assertj/assertj-joda-time/latest/org/assertj/jodatime/api/LocalDateTimeAssert.html#isIn-java.lang.String...-"><code>isIn(String&#8230;&#8203; localDateTimesAsString)</code></a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Calls <code>isIn(DateTime&#8230;&#8203;)</code> with DateTimes built from given Strings which must follow <a href="http://joda-time.sourceforge.net/api-release/org/joda/time/format/ISODateTimeFormat.html#localDateOptionalTimeParser()">ISO DateTime format</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://www.javadoc.io/doc/org.assertj/assertj-joda-time/latest/org/assertj/jodatime/api/LocalDateTimeAssert.html#isNotEqualTo-java.lang.String-"><code>isNotEqualTo(String localDateTimeAsString)</code></a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Calls <code>isNotEqualTo(DateTime)</code> with a <code>LocalDateTime</code> built from the given <code>String</code> which must follow <a href="http://joda-time.sourceforge.net/api-release/org/joda/time/format/ISODateTimeFormat.html#localDateOptionalTimeParser()">ISO DateTime format</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://www.javadoc.io/doc/org.assertj/assertj-joda-time/latest/org/assertj/jodatime/api/LocalDateTimeAssert.html#isNotIn-java.lang.String...-"><code>isNotIn(String&#8230;&#8203; dateTimesAsString)</code></a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Calls <code>isNotIn(org.joda.DateTime&#8230;&#8203;)</code> with DateTime built from the given strings which must follow <a href="http://joda-time.sourceforge.net/api-release/org/joda/time/format/ISODateTimeFormat.html#localDateOptionalTimeParser()">ISO DateTime format</a></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect3">
+<h4 id="datetime"><a class="anchor" href="#datetime"></a>4.2.3. DateTime</h4>
+<table class="tableblock frame-all grid-all fit-content">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Assertion</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://www.javadoc.io/doc/org.assertj/assertj-joda-time/latest/org/assertj/jodatime/api/DateTimeAssert.html#hasDayOfMonth-int-"><code>hasDayOfMonth(int expectedDayOfMonth)</code></a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Verifies that the day of month of the actual <code>DateTime</code> is equal to the given day of month</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://www.javadoc.io/doc/org.assertj/assertj-joda-time/latest/org/assertj/jodatime/api/DateTimeAssert.html#hasHourOfDay-int-"><code>hasHourOfDay(int expectedHourOfDay)</code></a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Verifies that the hour of the actual <code>DateTime</code> is equal to the given hour</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://www.javadoc.io/doc/org.assertj/assertj-joda-time/latest/org/assertj/jodatime/api/DateTimeAssert.html#hasMillisOfSecond-int-"><code>hasMillisOfSecond(int expectedMillisOfSecond)</code></a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Verifies that the milliseconds of the actual <code>DateTime</code> is equal to the given milliseconds</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://www.javadoc.io/doc/org.assertj/assertj-joda-time/latest/org/assertj/jodatime/api/DateTimeAssert.html#hasMinuteOfHour-int-"><code>hasMinuteOfHour(int expectedMinuteOfHour)</code></a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Verifies that the minute of the actual <code>DateTime</code> is equal to the given minute</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://www.javadoc.io/doc/org.assertj/assertj-joda-time/latest/org/assertj/jodatime/api/DateTimeAssert.html#hasMonthOfYear-int-"><code>hasMonthOfYear(int expectedMonthOfYear)</code></a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Verifies that the month of the actual <code>DateTime</code> is equal to the given month</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://www.javadoc.io/doc/org.assertj/assertj-joda-time/latest/org/assertj/jodatime/api/DateTimeAssert.html#hasSecondOfMinute-int-"><code>hasSecondOfMinute(int expectedSecondOfMinute)</code></a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Verifies that the seconds of the actual <code>DateTime</code> is equal to the given seconds</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://www.javadoc.io/doc/org.assertj/assertj-joda-time/latest/org/assertj/jodatime/api/DateTimeAssert.html#hasYear-int-"><code>hasYear(int expectedYear)</code></a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Verifies that the year of the actual <code>DateTime</code> is equal to the given year</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://www.javadoc.io/doc/org.assertj/assertj-joda-time/latest/org/assertj/jodatime/api/DateTimeAssert.html#isAfter-org.joda.time.DateTime-"><code>isAfter(org.joda.time.DateTime other)</code></a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Verifies that the actual <code>DateTime</code> is strictly after the given one</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://www.javadoc.io/doc/org.assertj/assertj-joda-time/latest/org/assertj/jodatime/api/DateTimeAssert.html#isAfter-java.lang.String-"><code>isAfter(String dateTimeAsString)</code></a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Calls <code>isAfter(DateTime)</code> with a <code>DateTime</code> built from the given <code>String</code> which must follow <a href="http://joda-time.sourceforge.net/api-release/org/joda/time/format/ISODateTimeFormat.html#dateTimeParser()">ISO DateTime format</a>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://www.javadoc.io/doc/org.assertj/assertj-joda-time/latest/org/assertj/jodatime/api/DateTimeAssert.html#isAfterOrEqualTo-org.joda.time.DateTime-"><code>isAfterOrEqualTo(org.joda.time.DateTime other)</code></a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Verifies that the actual <code>DateTime</code> is after or equals to the given one</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://www.javadoc.io/doc/org.assertj/assertj-joda-time/latest/org/assertj/jodatime/api/DateTimeAssert.html#isAfterOrEqualTo-java.lang.String-"><code>isAfterOrEqualTo(String dateTimeAsString)</code></a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Calls <code>isAfterOrEqualTo(DateTime)</code> with a <code>DateTime</code> built from the given <code>String</code> which must follow <a href="http://joda-time.sourceforge.net/api-release/org/joda/time/format/ISODateTimeFormat.html#dateTimeParser()">ISO DateTime format</a>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://www.javadoc.io/doc/org.assertj/assertj-joda-time/latest/org/assertj/jodatime/api/DateTimeAssert.html#isBefore-org.joda.time.DateTime-"><code>isBefore(org.joda.time.DateTime other)</code></a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Verifies that the actual <code>DateTime</code> is strictly before the given one</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://www.javadoc.io/doc/org.assertj/assertj-joda-time/latest/org/assertj/jodatime/api/DateTimeAssert.html#isBefore-java.lang.String-"><code>isBefore(String dateTimeAsString)</code></a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Calls <code>isBefore(DateTime)</code> with a <code>DateTime</code> built from the given <code>String</code> which must follow <a href="http://joda-time.sourceforge.net/api-release/org/joda/time/format/ISODateTimeFormat.html#dateTimeParser()">ISO DateTime format</a>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://www.javadoc.io/doc/org.assertj/assertj-joda-time/latest/org/assertj/jodatime/api/DateTimeAssert.html#isBeforeOrEqualTo-org.joda.time.DateTime-"><code>isBeforeOrEqualTo(org.joda.time.DateTime other)</code></a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Verifies that the actual <code>DateTime</code> is before or equals to the given one</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://www.javadoc.io/doc/org.assertj/assertj-joda-time/latest/org/assertj/jodatime/api/DateTimeAssert.html#isBeforeOrEqualTo-java.lang.String-"><code>isBeforeOrEqualTo(String dateTimeAsString)</code></a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Calls <code>isBeforeOrEqualTo(DateTime)</code> with a <code>DateTime</code> built from the given <code>String</code> which must follow <a href="http://joda-time.sourceforge.net/api-release/org/joda/time/format/ISODateTimeFormat.html#dateTimeParser()">ISO DateTime format</a>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://www.javadoc.io/doc/org.assertj/assertj-joda-time/latest/org/assertj/jodatime/api/DateTimeAssert.html#isEqualTo-org.joda.time.DateTime-"><code>isEqualTo(org.joda.time.DateTime expected)</code></a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Verifies that the actual <code>DateTime</code> is equal to the given one in actual&#8217;s DateTimeZone</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://www.javadoc.io/doc/org.assertj/assertj-joda-time/latest/org/assertj/jodatime/api/DateTimeAssert.html#isEqualTo-java.lang.String-"><code>isEqualTo(String dateTimeAsString)</code></a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Calls <code>isEqualTo(DateTime)</code> with a <code>DateTime</code> built from the given <code>String</code> which must follow <a href="http://joda-time.sourceforge.net/api-release/org/joda/time/format/ISODateTimeFormat.html#dateTimeParser()">ISO DateTime format</a>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://www.javadoc.io/doc/org.assertj/assertj-joda-time/latest/org/assertj/jodatime/api/DateTimeAssert.html#isEqualToIgnoringHours-org.joda.time.DateTime-"><code>isEqualToIgnoringHours(org.joda.time.DateTime other)</code></a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Verifies that actual and given <code>DateTime</code> have same year, month and day fields (hour, minute, second and millisecond fields are ignored in comparison)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://www.javadoc.io/doc/org.assertj/assertj-joda-time/latest/org/assertj/jodatime/api/DateTimeAssert.html#isEqualToIgnoringMinutes-org.joda.time.DateTime-"><code>isEqualToIgnoringMinutes(org.joda.time.DateTime other)</code></a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Verifies that actual and given <code>DateTime</code> have same year, month, day and hour fields (minute, second and millisecond fields are ignored in comparison)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://www.javadoc.io/doc/org.assertj/assertj-joda-time/latest/org/assertj/jodatime/api/DateTimeAssert.html#isEqualToIgnoringSeconds-org.joda.time.DateTime-"><code>isEqualToIgnoringSeconds(org.joda.time.DateTime other)</code></a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Verifies that actual and given <code>DateTime</code> have same year, month, day, hour and minute fields (second and millisecond fields are ignored in comparison)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://www.javadoc.io/doc/org.assertj/assertj-joda-time/latest/org/assertj/jodatime/api/DateTimeAssert.html#isEqualToIgnoringMillis-org.joda.time.DateTime-"><code>isEqualToIgnoringMillis(org.joda.time.DateTime other)</code></a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Verifies that actual and given <code>DateTime</code> have same year, month, day, hour, minute and second fields, (millisecond fields are ignored in comparison)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://www.javadoc.io/doc/org.assertj/assertj-joda-time/latest/org/assertj/jodatime/api/DateTimeAssert.html#isIn-org.joda.time.DateTime...-"><code>isIn(org.joda.time.DateTime&#8230;&#8203; expected)</code></a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Verifies that the actual <code>DateTime</code> is equal to one of the given <code>DateTime</code> in the actual&#8217;s DateTimeZone</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://www.javadoc.io/doc/org.assertj/assertj-joda-time/latest/org/assertj/jodatime/api/DateTimeAssert.html#isIn-java.lang.String...-"><code>isIn(String&#8230;&#8203; dateTimesAsString)</code></a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Calls <code>isIn(DateTime&#8230;&#8203;)</code> with DateTimes built from given Strings which must follow <a href="http://joda-time.sourceforge.net/api-release/org/joda/time/format/ISODateTimeFormat.html#dateTimeParser()">ISO DateTime format</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://www.javadoc.io/doc/org.assertj/assertj-joda-time/latest/org/assertj/jodatime/api/DateTimeAssert.html#isNotEqualTo-org.joda.time.DateTime-"><code>isNotEqualTo(org.joda.time.DateTime expected)</code></a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Verifies that the actual value is not equal to the given one in actual&#8217;s DateTimeZone</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://www.javadoc.io/doc/org.assertj/assertj-joda-time/latest/org/assertj/jodatime/api/DateTimeAssert.html#isNotEqualTo-java.lang.String-"><code>isNotEqualTo(String dateTimeAsString)</code></a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Calls <code>isNotEqualTo(DateTime)</code> with a <code>DateTime</code> built from the given <code>String</code> which must follow <a href="http://joda-time.sourceforge.net/api-release/org/joda/time/format/ISODateTimeFormat.html#dateTimeParser()">ISO DateTime format</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://www.javadoc.io/doc/org.assertj/assertj-joda-time/latest/org/assertj/jodatime/api/DateTimeAssert.html#isNotIn-org.joda.time.DateTime...-"><code>isNotIn(org.joda.time.DateTime&#8230;&#8203; expected)</code></a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Verifies that the actual <code>DateTime</code> is equal to one of the given <code>DateTime</code> in the actual&#8217;s DateTimeZone</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://www.javadoc.io/doc/org.assertj/assertj-joda-time/latest/org/assertj/jodatime/api/DateTimeAssert.html#isNotIn-java.lang.String...-"><code>isNotIn(String&#8230;&#8203; dateTimesAsString)</code></a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Calls <code>isNotIn(org.joda.DateTime&#8230;&#8203;)</code> with DateTime built from the given strings which must follow <a href="http://joda-time.sourceforge.net/api-release/org/joda/time/format/ISODateTimeFormat.html#dateTimeParser()">ISO DateTime format</a></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="assertj-joda-time-javadoc"><a class="anchor" href="#assertj-joda-time-javadoc"></a>4.3. Javadoc</h3>
+<div class="paragraph">
+<p><a href="https://www.javadoc.io/doc/org.assertj/assertj-joda-time/" class="bare">https://www.javadoc.io/doc/org.assertj/assertj-joda-time/</a> is the latest version of the javadoc.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="assertj-joda-time-release-notes"><a class="anchor" href="#assertj-joda-time-release-notes"></a>4.4. Release Notes</h3>
+<div class="paragraph">
+<p>Latest release notes:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="#assertj-joda-time-2-2-0-release-notes">AssertJ Joda Time 2.2.0</a></p>
+</li>
+<li>
+<p><a href="#assertj-joda-time-2-1-0-release-notes">AssertJ Joda Time 2.1.0</a></p>
+</li>
+<li>
+<p><a href="#assertj-joda-time-2-0-0-release-notes">AssertJ Joda Time 2.0.0</a></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The javadoc for this release can be found here: <a href="https://www.javadoc.io/doc/org.assertj/assertj-joda-time/2.2.0/index.html" class="bare">https://www.javadoc.io/doc/org.assertj/assertj-joda-time/2.2.0/index.html</a></p>
+</div>
+<div class="sect3">
+<h4 id="assertj-joda-time-2-2-0-release-notes"><a class="anchor" href="#assertj-joda-time-2-2-0-release-notes"></a>4.4.1. AssertJ Joda Time 2.2.0</h4>
+<div class="paragraph">
+<p>Release date: 2018-06-15</p>
+</div>
+<div id="assertj-joda-time-2.2.0-contributors" class="paragraph">
+<p><span class="release-note-category"><span class="icon"><i class="fa fa-user"></i></span> Contributors</span></p>
+</div>
+<div class="paragraph">
+<p>Thanks to Eugene Strepetov for his contribution.</p>
+</div>
+<div id="assertj-joda-time-2.2.0-new-features" class="paragraph">
+<p><span class="release-note-category"><span class="icon"><i class="fa fa-plus-circle"></i></span> New features</span></p>
+</div>
+<div class="paragraph">
+<p>Add <code>LocalDate</code> assertions providing the following ones (Eugene Strepetov):</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>hasYear</code>: Verifies that the year of the actual LocalDate is equal to the given year.</p>
+</li>
+<li>
+<p><code>hasMonthOfYear</code>: Verifies that the month of the actual LocalDate is equal to the given month</p>
+</li>
+<li>
+<p><code>hasDayOfMonth</code>: Verifies that the day of month of the actual LocalDate is equal to the given day</p>
+</li>
+<li>
+<p><code>isBefore</code>: Verifies that the actual LocalDate is strictly before the given one.</p>
+</li>
+<li>
+<p><code>isBeforeOrEqualTo</code>: Verifies that the actual LocalDate is before or equals to the given one.</p>
+</li>
+<li>
+<p><code>isEqualTo</code>: Same assertion as <code>AbstractAssert.isEqualTo(Object&#8230;&#8203;)</code> but to be used with <code>LocalDate</code> String representation.</p>
+</li>
+<li>
+<p><code>isAfter</code>: Verifies that the actual LocalDate is strictly after the given one.</p>
+</li>
+<li>
+<p><code>isAfterOrEqualTo</code>: Verifies that the actual LocalDate is after or equals to the given one.</p>
+</li>
+<li>
+<p><code>isIn</code>: Same assertion as <code>AbstractAssert.isIn(Object&#8230;&#8203;)</code> but to be used with <code>LocalDate</code> String representation.</p>
+</li>
+<li>
+<p><code>isNotIn</code>: Same assertion as <code>AbstractAssert.isNotIn(Object&#8230;&#8203;)</code> but to be used with <code>LocalDate</code> String representation.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The assertions taking <code>String</code> parameter(s) can be used with <code>LocalDate</code> String representation: <code>yyyy-MM-dd</code>.</p>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="java" class="language-java hljs">LocalDate localDate = new LocalDate(2000, 1, 1);
+
+assertThat(localDate).hasYear(2000)
+                     .hasMonthOfYear(1)
+                     .hasDayOfMonth(1)
+                     .isBefore(new LocalDate(2000, 1, 2))
+                     .isBefore("2000-01-02")
+                     .isBeforeOrEqualTo(new LocalDate(2000, 1, 1))
+                     .isBeforeOrEqualTo("2000-01-01")
+                     .isBeforeOrEqualTo(new LocalDate(2000, 1, 2))
+                     .isBeforeOrEqualTo("2000-01-02")
+                     .isEqualTo(new LocalDate(2000, 1, 1))
+                     .isEqualTo("2000-01-01")
+                     .isAfterOrEqualTo(new LocalDate(2000, 1, 1))
+                     .isAfterOrEqualTo("2000-01-01")
+                     .isAfterOrEqualTo(new LocalDate(1999, 12, 31))
+                     .isAfterOrEqualTo("1999-12-31")
+                     .isAfter(new LocalDate(1999, 12, 31))
+                     .isAfter("1999-12-31")
+                     .isNotEqualTo("2000-01-15")
+                     .isNotEqualTo(new LocalDate(2000, 1, 15))
+                     .isIn(new LocalDate(1999, 12, 31), new LocalDate(2000, 1, 1))
+                     .isIn("1999-12-31", "2000-01-01")
+                     .isNotIn(new LocalDate(1999, 12, 31), new LocalDate(2000, 1, 2))
+                     .isNotIn("1999-12-31", "2000-01-02");</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="assertj-joda-time-2-1-0-release-notes"><a class="anchor" href="#assertj-joda-time-2-1-0-release-notes"></a>4.4.2. AssertJ Joda Time 2.1.0</h4>
+<div class="paragraph">
+<p>Release date: 2018-05-27</p>
+</div>
+<div id="assertj-joda-time-2.1.0-contributors" class="paragraph">
+<p><span class="release-note-category"><span class="icon"><i class="fa fa-user"></i></span> Contributors</span></p>
+</div>
+<div class="paragraph">
+<p>Thanks to John Killmer for his contribution.</p>
+</div>
+<div id="assertj-joda-time-2.1.0-new-features" class="paragraph">
+<p><span class="release-note-category"><span class="icon"><i class="fa fa-plus-circle"></i></span> New features</span></p>
+</div>
+<div class="paragraph">
+<p>Add <code>LocalDateTime</code> assertions providing the following ones (John Killmer):</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>hasYear</code>: Verifies that the year of the actual LocalDateTime is equal to the given year.</p>
+</li>
+<li>
+<p><code>hasMonthOfYear</code>: Verifies that the month of the actual LocalDateTime is equal to the given month</p>
+</li>
+<li>
+<p><code>hasDayOfMonth</code>: Verifies that the day of month of the actual LocalDateTime is equal to the given day of month</p>
+</li>
+<li>
+<p><code>hasHourOfDay</code>: Verifies that the hour of the actual DateTime is equal to the given hour</p>
+</li>
+<li>
+<p><code>hasMinuteOfHour</code>: Verifies that the minute of the actual LocalDateTime is equal to the given minute</p>
+</li>
+<li>
+<p><code>hasSecondOfMinute</code>: Verifies that the seconds of the actual LocalDateTime is equal to the given seconds</p>
+</li>
+<li>
+<p><code>hasMillisOfSecond</code>: Verifies that the milliseconds of the actual LocalDateTime is equal to the given milliseconds</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="java" class="language-java hljs">DateTime dateTime = new DateTime(1999, 12, 31, 23, 59, 59, 999, DateTimeZone.UTC);
+
+assertThat(dateTime).hasYear(1999)
+                    .hasMonthOfYear(12)
+                    .hasDayOfMonth(31)
+                    .hasHourOfDay(23)
+                    .hasMinuteOfHour(59)
+                    .hasSecondOfMinute(59)
+                    .hasMillisOfSecond(999);</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="assertj-joda-time-2-0-0-release-notes"><a class="anchor" href="#assertj-joda-time-2-0-0-release-notes"></a>4.4.3. AssertJ Joda Time 2.0.0</h4>
+<div class="paragraph">
+<p>Release date: 2016-04-10</p>
+</div>
+<div id="assertj-joda-time-2.0.0-contributors" class="paragraph">
+<p><span class="release-note-category"><span class="icon"><i class="fa fa-user"></i></span> Contributors</span></p>
+</div>
+<div class="paragraph">
+<p>Thanks to Pascal Schumacher and David Simmons for their contributions.</p>
+</div>
+<div id="assertj-joda-time-2-0-0-breaking-changes" class="paragraph">
+<p><span class="release-note-category"><span class="icon"><i class="fa fa-exclamation-triangle"></i></span> Breaking changes</span></p>
+</div>
+<div class="paragraph">
+<p>AssertJ Joda Time 2.0.0 requires Java 8 as it relies on AssertJ Core 3.x, use 1.1.0 version if you are still using Java 7.</p>
+</div>
+<div id="assertj-joda-time-2-0-0-improvements" class="paragraph">
+<p><span class="release-note-category"><span class="icon"><i class="fa fa-arrow-circle-up"></i></span> Improvements</span></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>DateTime assertion : better handling of null in assertions. (David Simmons)</p>
+</li>
+<li>
+<p>To be OS agnostic, replace <code>\n</code> with <code>%n</code> in error messages. (Pascal Schumacher)</p>
+</li>
+<li>
+<p>Better spacing in Javadoc code examples. (Pascal Schumacher)</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -10143,7 +10805,7 @@ It requires Java 8 or later and can be used with either JUnit or TestNG.</p>
 <div class="sect3">
 <h4 id="assertj-db-quickstart-dependency"><a class="anchor" href="#assertj-db-quickstart-dependency"></a>6.1.1. Add the assertj-db dependency to your project</h4>
 <div class="sect4">
-<h5 id="maven-2"><a class="anchor" href="#maven-2"></a>Maven</h5>
+<h5 id="maven-3"><a class="anchor" href="#maven-3"></a>Maven</h5>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code data-lang="xml" class="language-xml hljs">&lt;dependency&gt;
@@ -10156,7 +10818,7 @@ It requires Java 8 or later and can be used with either JUnit or TestNG.</p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="gradle-2"><a class="anchor" href="#gradle-2"></a>Gradle</h5>
+<h5 id="gradle-3"><a class="anchor" href="#gradle-3"></a>Gradle</h5>
 <div class="paragraph">
 <p>For Gradle users (using the Maven Central Repository)</p>
 </div>
@@ -15076,7 +15738,7 @@ assertThat(changes).change().column().valueAtStartPoint()
 </div>
 </div>
 <div class="sect2">
-<h3 id="examples"><a class="anchor" href="#examples"></a>6.5. Examples</h3>
+<h3 id="examples-2"><a class="anchor" href="#examples-2"></a>6.5. Examples</h3>
 <div class="paragraph">
 <p>Some implementations examples are visible at the <a href="https://github.com/joel-costigliola/assertj-examples/tree/main/assertions-examples/src/test/java/org/assertj/examples/db">assertj-db-examples tests</a>.
 They show what is possible with AssertJ DB Assertions with running code.
@@ -15452,7 +16114,7 @@ AssertJ Swing would not exist without its contributors, you can find them all <a
 <div id="footer">
 <div id="footer-text">
 Version 1.0<br>
-Last updated 2020-09-22 21:57:20 UTC
+Last updated 2020-09-24 11:29:56 UTC
 </div>
 </div>
 <link rel="stylesheet" href="highlight/styles/railscasts.min.css">
