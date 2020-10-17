@@ -3,6 +3,7 @@
 
 Latest release notes:
 
+- link:#assertj-db-2-0-0-release-notes[AssertJ DB 2.0.2]
 - link:#assertj-db-2-0-0-release-notes[AssertJ DB 2.0.1]
 - link:#assertj-db-2-0-0-release-notes[AssertJ DB 2.0.0]
 - link:#assertj-db-1-3-0-release-notes[AssertJ DB 1.3.0]
@@ -11,6 +12,28 @@ Latest release notes:
 - link:#assertj-db-1-1-0-release-notes[AssertJ DB 1.1.0]
 - link:#assertj-db-1-0-1-release-notes[AssertJ DB 1.0.1]
 - link:#assertj-db-1-0-0-release-notes[AssertJ DB 1.0.0]
+
+[[assertj-db-2-0-2-release-notes]]
+==== AssertJ DB 2.0.2
+
+Release date : 2020-10-17
+
+[[assertj-db-2-0-2-contributors]]
+[.release-note-category]#icon:user[] Contributors#
+
+Thanks to @soezen for his contribution.
+
+[[assertj-db-2.0.2-fixed]]
+[.release-note-category]#icon:wrench[] Fixed#
+
+- https://github.com/assertj/assertj-db/issues/107[issue #107]: Fix SoftAssertions on changes
+
+[[assertj-db-2.0.2-chore]]
+[.release-note-category]#icon:cog[] Chore#
+
+- Upgrade to AssertJ Core 3.17.2
+- Upgrade to AssertJ Parent POM 2.2.8
+- Upgrade to ByteBuddy 1.10.17
 
 [[assertj-db-2-0-1-release-notes]]
 ==== AssertJ DB 2.0.1
