@@ -127,6 +127,154 @@ assertThat("Solo").is(allOf(not(jedi), not(sith)));
 
 
 [[assertj-core-custom-assertions]]
-==== Custom Assertions (TODO)
+==== Custom Assertions
 
-TODO
+Creating assertions specific to your own classes is interesting because these assertions will reflect the domain model. It's a way to use Domain Driven Design ubiquitous language in your tests.
+
+Writing your own assertions is simple : create a class inheriting from `AbstractAssert` and add your custom assertions methods.
+
+TIP: Add a static method assertThat to provide an handy entry point to your new assertion class.
+
+Sections:
+
+* link:#assertj-core-custom-assertions-creation[Creating your own assertion class]
+* Providing an entry point for all your custom assertions
+* Providing an entry point for all your custom assertions and AssertJ ones ?
+* Enabling soft assertions on your custom assertions
+
+[[assertj-core-custom-assertions-creation]]
+===== Creating your own assertion class
+
+Let's see how to do that with an example!
+
+The example is taken from https://github.com/assertj/assertj-examples/[assertj-examples] and more specifically https://github.com/assertj/assertj-examples/blob/main/assertions-examples/src/test/java/org/assertj/examples/custom/TolkienCharacterAssert.java[TolkienCharacterAssert.java].
+
+We want to have assertion for the `TolkienCharacter` domain model class shown below:
+[source,java]
+----
+// getter/setter omitted for brevity
+public class TolkienCharacter {
+  private String name;
+  private Race race; // Race is an enum
+  private int age;
+}
+----
+
+Let's name our assertion class `TolkienCharacterAssert`, we make it inherit from `AbstractAssert` and specify two generic parameters: the first is the class itself (needed for assertion chaining) and the second is the class we want to make assertions on: TolkienCharacter.
+
+Inheriting from `AbstractAssert` will give you all the basic assertions : `isEqualTo`, `isNull`, `satisfies`, ...
+
+[source,java]
+----
+public class TolkienCharacterAssert extends AbstractAssert<TolkienCharacterAssert, TolkienCharacter> { <1>
+
+  public TolkienCharacterAssert(TolkienCharacter actual) { <2>
+    super(actual, TolkienCharacterAssert.class);
+  }
+
+  public static TolkienCharacterAssert assertThat(TolkienCharacter actual) { <3>
+    return new TolkienCharacterAssert(actual);
+  }
+
+  public TolkienCharacterAssert hasName(String name) { <4>
+    // check that actual TolkienCharacter we want to make assertions on is not null.
+    isNotNull();
+    // check assertion logic
+    if (!Objects.equals(actual.getName(), name)) {
+      failWithMessage("Expected character's name to be <%s> but was <%s>", name, actual.getName());
+    }
+    // return this to allow chaining other assertion methods
+    return this;
+  }
+
+  public TolkienCharacterAssert hasAge(int age) { <4>
+    // check that actual TolkienCharacter we want to make assertions on is not null.
+    isNotNull();
+    // check assertion logic
+    if (actual.getAge() != age) {
+      failWithMessage("Expected character's age to be <%s> but was <%s>", age, actual.getAge());
+    }
+    // return this to allow chaining other assertion methods
+    return this;
+  }
+}
+----
+<1> Inherits from AbstractAssert
+<2> Constructor to build your assertion class with the object under test
+<3> An entry point to your specific assertion class to use with static import
+<4> assertions specific to `TolkienCharacter`
+
+[[assertj-core-custom-assertions-usage]]
+===== Using our custom assertion class
+
+To use our custom assertion class, simply call the `assertThat` factory method with the object to test:
+[source,java]
+----
+// use assertThat from TolkienCharacterAssert to check TolkienCharacter 
+TolkienCharacterAssert.assertThat(frodo).hasName("Frodo");
+
+// code is more elegant when TolkienCharacterAssert.assertThat is imported statically :
+assertThat(frodo).hasName("Frodo");
+----
+
+Well, that was not too difficult, but having to add a static import for each `assertThat` method of you custom assertion classes is not very handy, it would be better to have a unique assertion entry point. This is what we are going to do in the next section.
+
+[[assertj-core-custom-assertions-entry-point]]
+===== Providing an entry point for all custom assertions
+
+Now that you have a bunch of custom assertions classes, you want to access them easily. Just create a `CustomAssertions` class providing static `assertThat` methods for each of your assertions classes. 
+
+Example:
+[source,java]
+----
+public class MyProjectAssertions {
+
+  // give access to TolkienCharacter assertion 
+  public static TolkienCharacterAssert assertThat(TolkienCharacter actual) {
+    return new TolkienCharacterAssert(actual);
+  }
+
+  // give access to TolkienCharacter Race assertion 
+  public static RaceAssert assertThat(Race actual) {
+    return new RaceAssert(actual);
+  }
+}
+----
+
+Usage:
+[source,java]
+----
+import static my.project.MyProjectAssertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
+...
+
+@Test
+public void successful_custom_assertion_example() {
+  // assertThat(TolkienCharacter) comes from my.project.MyProjectAssertions.assertThat
+  assertThat(frodo).hasName("Frodo");
+
+  // assertThat(String) comes from org.assertj.core.api.Assertions.assertThat
+  assertThat("frodo").contains("do");
+}
+----
+
+WARNING: You could also make your custom Assertions entry point class inherit AssertJ's `Assertions`, that will work fine if and only if you have one entry point class for your custom assertions classes!
+
+The problem with several entry point classes inheriting from AssertJ Assertions, then when you use them Java won't be able to resolve which `assertThat(String)` method to use. The following code illustrates the issue:
+
+[source,java]
+----
+// both MyAssertions and MyOtherAssertions inherit from org.assertj.core.api.Assertions
+import static my.project.MyAssertions.assertThat;
+import static my.project.MyOtherAssertions.assertThat;
+...
+
+@Test
+public void ambiguous_assertThat_resolution() {
+  // ERROR : assertThat(String) is ambiguous!
+  // assertThat(String) is available from MyAssertions AND MyOtherAssertions 
+  // (it is defined in Assertions the class both MyAssertions and MyOtherAssertions inherits from)
+  assertThat("frodo").contains("do");
+}
+----
+
