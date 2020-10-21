@@ -2447,7 +2447,7 @@ p {
 <li><a href="#contributing-to-this-guide">2.3. Contributing to this guide</a></li>
 <li><a href="#assertj-core-quick-start">2.4. AssertJ Core quick start</a></li>
 <li><a href="#assertj-core-assertions-guide">2.5. Core assertions guide</a></li>
-<li><a href="#assertj-core-extensions">2.6. Extending assertions (TODO)</a></li>
+<li><a href="#assertj-core-extensions">2.6. Extending assertions</a></li>
 <li><a href="#assertj-migration">2.7. Migrating assertions</a></li>
 <li><a href="#assertj-samples">2.8. AssertJ Sample Projects</a></li>
 <li><a href="#assertj-core-release-notes">2.9. Release Notes</a></li>
@@ -5535,20 +5535,387 @@ public void when_all_assumptions_are_met_the_test_is_run_normally() {
 </div>
 </div>
 <div class="sect2">
-<h3 id="assertj-core-extensions"><a class="anchor" href="#assertj-core-extensions"></a>2.6. Extending assertions (TODO)</h3>
+<h3 id="assertj-core-extensions"><a class="anchor" href="#assertj-core-extensions"></a>2.6. Extending assertions</h3>
 <div class="paragraph">
-<p>TODO</p>
+<p>AssertJ can be extends by Condition or writing your own assertions class.</p>
 </div>
 <div class="sect3">
-<h4 id="assertj-core-conditions"><a class="anchor" href="#assertj-core-conditions"></a>2.6.1. Conditions (TODO)</h4>
+<h4 id="assertj-core-conditions"><a class="anchor" href="#assertj-core-conditions"></a>2.6.1. Conditions</h4>
 <div class="paragraph">
-<p>TODO</p>
+<p>Assertions can be extended by using conditions, to create a condition you just have to implement <a href="https://www.javadoc.io/doc/org.assertj/assertj-core/latest/org/assertj/core/api/Condition.html"><code>org.assertj.assertions.core.Condition</code></a> and its unique method matches.</p>
+</div>
+<div class="paragraph">
+<p>Once your Condition is created, you can use it with methods : <code>is(myCondition)</code> or <code>has(myCondition)</code>, both verifying that the condition is met (hint: pick the one that makes your code more readable).</p>
+</div>
+<div class="paragraph">
+<p>Example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="java" class="language-java hljs">// jedi is a Condition
+assertThat("Yoda").is(jedi);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Conditions can be combined with :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>not(Condition)</code>: given condition must not be met</p>
+</li>
+<li>
+<p><code>allOf(Condition&#8230;&#8203;)</code>: all given conditions must be met</p>
+</li>
+<li>
+<p><code>anyOf(Condition&#8230;&#8203;)</code>: one of the given conditions must be met</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>You can verify that a Condition is met on elements of a collection, with the following methods:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>are(condition)</code>/<code>have(condition)</code>: all elements must meet the given condition</p>
+</li>
+<li>
+<p><code>areAtLeast(n, condition)</code>/<code>haveAtLeast(n, condition)</code>: at least n elements must meet the given condition</p>
+</li>
+<li>
+<p><code>areAtMost(n, condition)</code>/<code>haveAtMost(n, condition)</code>: no more than n elements must meet the given condition</p>
+</li>
+<li>
+<p><code>areExactly(n, condition)</code>/<code>haveExactly(n, condition)</code>: exactly n elements must meet the given condition</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Moreover all Condition related methods have their negation counterpart, <code>is</code>/<code>isNot</code>, <code>have</code>/<code>doesNotHave</code>, <code>are</code>/<code>areNot</code>, &#8230;&#8203;</p>
+</div>
+<div class="paragraph">
+<p>The examples below are from <a href="https://github.com/assertj/assertj-examples/">assertj-examples</a> and more specifically <a href="https://github.com/assertj/assertj-examples/blob/main/assertions-examples/src/test/java/org/assertj/examples/condition/UsingConditionExamples.java">UsingConditionExamples.java</a>.</p>
+</div>
+<div class="sect4">
+<h5 id="assertj-core-condition-creation"><a class="anchor" href="#assertj-core-condition-creation"></a>Creating a Condition</h5>
+<div class="paragraph">
+<p>Let&#8217;s define two similar conditions: <code>jedi</code> and <code>jediPower</code> with the same implementation to show that code readability is better when using <code>jedi</code> with <code>is</code> and jediPower with <code>has</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="java" class="language-java hljs">import static org.assertj.core.util.Sets.newLinkedHashSet;
+
+static Set&lt;String&gt; JEDIS = newLinkedHashSet("Luke", "Yoda", "Obiwan");
+
+// implementation with Java 8 lambda
+Condition&lt;String&gt; jediPower = new Condition&lt;&gt;(JEDIS::contains, "jedi power");
+
+// implementation with Java 7
+Condition&lt;String&gt; jedi = new Condition&lt;String&gt;("jedi") {
+  @Override
+  public boolean matches(String value) {
+    return JEDIS.contains(value);
+  }
+};</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The String parameter is describing the condition, this is used in error messages.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="assertj-core-condition-usage"><a class="anchor" href="#assertj-core-condition-usage"></a>Using Conditions</h5>
+<div class="paragraph">
+<p>Usage with single instances:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="java" class="language-java hljs">assertThat("Yoda").is(jedi);
+assertThat("Vader").isNot(jedi);
+
+assertThat("Yoda").has(jediPower);
+assertThat("Solo").doesNotHave(jediPower);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The Condition description is used in error messages, ex:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="java" class="language-java hljs">assertThat("Vader").is(jedi);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>will fail with the following error message:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="text" class="language-text hljs">"expecting:&lt;'Vader'&gt; to be:&lt;jedi&gt;"</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Usage with collections:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="java" class="language-java hljs">assertThat(list("Luke", "Yoda")).are(jedi);
+assertThat(list("Leia", "Solo")).areNot(jedi);
+
+assertThat(list("Luke", "Yoda")).have(jediPower);
+assertThat(list("Leia", "Solo")).doNotHave(jediPower);
+
+assertThat(list("Luke", "Yoda", "Leia")).areAtLeast(2, jedi);
+assertThat(list("Luke", "Yoda", "Leia")).haveAtLeast(2, jediPower);
+
+assertThat(list("Luke", "Yoda", "Leia")).areAtMost(2, jedi);
+assertThat(list("Luke", "Yoda", "Leia")).haveAtMost(2, jediPower);
+
+assertThat(list("Luke", "Yoda", "Leia")).areExactly(2, jedi);
+assertThat(list("Luke", "Yoda", "Leia")).haveExactly(2, jediPower);</code></pre>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="assertj-core-combining-condition"><a class="anchor" href="#assertj-core-combining-condition"></a>Combining Conditions</h5>
+<div class="paragraph">
+<p>Conditions can be combined with <code>allOf(Condition&#8230;&#8203;)</code> (logical and) or <code>anyOf(Condition&#8230;&#8203;)</code> (logical or), <code>not</code> can be used to invert one.</p>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s define a sith condition:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="java" class="language-java hljs">List&lt;String&gt; SITHS = list("Sidious", "Vader", "Plagueis");
+Condition&lt;String&gt; sith = new Condition&lt;&gt;(SITHS::contains, "sith");</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>We can write these assertions:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="java" class="language-java hljs">assertThat("Vader").is(anyOf(jedi, sith));
+assertThat("Solo").is(allOf(not(jedi), not(sith)));</code></pre>
+</div>
+</div>
 </div>
 </div>
 <div class="sect3">
-<h4 id="assertj-core-custom-assertions"><a class="anchor" href="#assertj-core-custom-assertions"></a>2.6.2. Custom Assertions (TODO)</h4>
+<h4 id="assertj-core-custom-assertions"><a class="anchor" href="#assertj-core-custom-assertions"></a>2.6.2. Custom Assertions</h4>
 <div class="paragraph">
-<p>TODO</p>
+<p>Creating assertions specific to your own classes is interesting because these assertions will reflect the domain model. It&#8217;s a way to use Domain Driven Design ubiquitous language in your tests.</p>
+</div>
+<div class="paragraph">
+<p>Writing your own assertions is simple : create a class inheriting from <code>AbstractAssert</code> and add your custom assertions methods.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+Add a static method assertThat to provide an handy entry point to your new assertion class.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Sections:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="#assertj-core-custom-assertions-creation">Creating your own assertion class</a></p>
+</li>
+<li>
+<p>Providing an entry point for all your custom assertions</p>
+</li>
+<li>
+<p>Providing an entry point for all your custom assertions and AssertJ ones ?</p>
+</li>
+<li>
+<p>Enabling soft assertions on your custom assertions</p>
+</li>
+</ul>
+</div>
+<div class="sect4">
+<h5 id="assertj-core-custom-assertions-creation"><a class="anchor" href="#assertj-core-custom-assertions-creation"></a>Creating your own assertion class</h5>
+<div class="paragraph">
+<p>Let&#8217;s see how to do that with an example!</p>
+</div>
+<div class="paragraph">
+<p>The example is taken from <a href="https://github.com/assertj/assertj-examples/">assertj-examples</a> and more specifically <a href="https://github.com/assertj/assertj-examples/blob/main/assertions-examples/src/test/java/org/assertj/examples/custom/TolkienCharacterAssert.java">TolkienCharacterAssert.java</a>.</p>
+</div>
+<div class="paragraph">
+<p>We want to have assertion for the <code>TolkienCharacter</code> domain model class shown below:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="java" class="language-java hljs">// getter/setter omitted for brevity
+public class TolkienCharacter {
+  private String name;
+  private Race race; // Race is an enum
+  private int age;
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s name our assertion class <code>TolkienCharacterAssert</code>, we make it inherit from <code>AbstractAssert</code> and specify two generic parameters: the first is the class itself (needed for assertion chaining) and the second is the class we want to make assertions on: TolkienCharacter.</p>
+</div>
+<div class="paragraph">
+<p>Inheriting from <code>AbstractAssert</code> will give you all the basic assertions : <code>isEqualTo</code>, <code>isNull</code>, <code>satisfies</code>, &#8230;&#8203;</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="java" class="language-java hljs">public class TolkienCharacterAssert extends AbstractAssert&lt;TolkienCharacterAssert, TolkienCharacter&gt; { <i class="conum" data-value="1"></i><b>(1)</b>
+
+  public TolkienCharacterAssert(TolkienCharacter actual) { <i class="conum" data-value="2"></i><b>(2)</b>
+    super(actual, TolkienCharacterAssert.class);
+  }
+
+  public static TolkienCharacterAssert assertThat(TolkienCharacter actual) { <i class="conum" data-value="3"></i><b>(3)</b>
+    return new TolkienCharacterAssert(actual);
+  }
+
+  public TolkienCharacterAssert hasName(String name) { <i class="conum" data-value="4"></i><b>(4)</b>
+    // check that actual TolkienCharacter we want to make assertions on is not null.
+    isNotNull();
+    // check assertion logic
+    if (!Objects.equals(actual.getName(), name)) {
+      failWithMessage("Expected character's name to be &lt;%s&gt; but was &lt;%s&gt;", name, actual.getName());
+    }
+    // return this to allow chaining other assertion methods
+    return this;
+  }
+
+  public TolkienCharacterAssert hasAge(int age) { <i class="conum" data-value="4"></i><b>(4)</b>
+    // check that actual TolkienCharacter we want to make assertions on is not null.
+    isNotNull();
+    // check assertion logic
+    if (actual.getAge() != age) {
+      failWithMessage("Expected character's age to be &lt;%s&gt; but was &lt;%s&gt;", age, actual.getAge());
+    }
+    // return this to allow chaining other assertion methods
+    return this;
+  }
+}</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Inherits from AbstractAssert</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Constructor to build your assertion class with the object under test</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>An entry point to your specific assertion class to use with static import</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>assertions specific to <code>TolkienCharacter</code></td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect4">
+<h5 id="assertj-core-custom-assertions-usage"><a class="anchor" href="#assertj-core-custom-assertions-usage"></a>Using our custom assertion class</h5>
+<div class="paragraph">
+<p>To use our custom assertion class, simply call the <code>assertThat</code> factory method with the object to test:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="java" class="language-java hljs">// use assertThat from TolkienCharacterAssert to check TolkienCharacter
+TolkienCharacterAssert.assertThat(frodo).hasName("Frodo");
+
+// code is more elegant when TolkienCharacterAssert.assertThat is imported statically :
+assertThat(frodo).hasName("Frodo");</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Well, that was not too difficult, but having to add a static import for each <code>assertThat</code> method of you custom assertion classes is not very handy, it would be better to have a unique assertion entry point. This is what we are going to do in the next section.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="assertj-core-custom-assertions-entry-point"><a class="anchor" href="#assertj-core-custom-assertions-entry-point"></a>Providing an entry point for all custom assertions</h5>
+<div class="paragraph">
+<p>Now that you have a bunch of custom assertions classes, you want to access them easily. Just create a <code>CustomAssertions</code> class providing static <code>assertThat</code> methods for each of your assertions classes.</p>
+</div>
+<div class="paragraph">
+<p>Example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="java" class="language-java hljs">public class MyProjectAssertions {
+
+  // give access to TolkienCharacter assertion
+  public static TolkienCharacterAssert assertThat(TolkienCharacter actual) {
+    return new TolkienCharacterAssert(actual);
+  }
+
+  // give access to TolkienCharacter Race assertion
+  public static RaceAssert assertThat(Race actual) {
+    return new RaceAssert(actual);
+  }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Usage:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="java" class="language-java hljs">import static my.project.MyProjectAssertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
+...
+
+@Test
+public void successful_custom_assertion_example() {
+  // assertThat(TolkienCharacter) comes from my.project.MyProjectAssertions.assertThat
+  assertThat(frodo).hasName("Frodo");
+
+  // assertThat(String) comes from org.assertj.core.api.Assertions.assertThat
+  assertThat("frodo").contains("do");
+}</code></pre>
+</div>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+You could also make your custom Assertions entry point class inherit AssertJ&#8217;s <code>Assertions</code>, that will work fine if and only if you have one entry point class for your custom assertions classes!
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The problem with several entry point classes inheriting from AssertJ Assertions, then when you use them Java won&#8217;t be able to resolve which <code>assertThat(String)</code> method to use. The following code illustrates the issue:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="java" class="language-java hljs">// both MyAssertions and MyOtherAssertions inherit from org.assertj.core.api.Assertions
+import static my.project.MyAssertions.assertThat;
+import static my.project.MyOtherAssertions.assertThat;
+...
+
+@Test
+public void ambiguous_assertThat_resolution() {
+  // ERROR : assertThat(String) is ambiguous!
+  // assertThat(String) is available from MyAssertions AND MyOtherAssertions
+  // (it is defined in Assertions the class both MyAssertions and MyOtherAssertions inherits from)
+  assertThat("frodo").contains("do");
+}</code></pre>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -16190,7 +16557,7 @@ AssertJ Swing would not exist without its contributors, you can find them all <a
 <div id="footer">
 <div id="footer-text">
 Version 1.0<br>
-Last updated 2020-10-17 15:51:03 UTC
+Last updated 2020-10-21 10:15:44 UTC
 </div>
 </div>
 <link rel="stylesheet" href="highlight/styles/railscasts.min.css">
