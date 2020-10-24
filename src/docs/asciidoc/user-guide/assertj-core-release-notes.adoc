@@ -5,6 +5,7 @@ NOTE: AssertJ Core would not exist without its contributors, you can find them a
 
 Latest release notes:
 
+- link:#assertj-core-3-18-0-release-notes[AssertJ Core 3.18.0]
 - link:#assertj-core-3-17-2-release-notes[AssertJ Core 3.17.2]
 - link:#assertj-core-3-17-1-release-notes[AssertJ Core 3.17.1]
 - link:#assertj-core-3-17-0-release-notes[AssertJ Core 3.17.0]
@@ -20,6 +21,184 @@ Latest release notes:
 - link:#assertj-core-3-12-0-release-notes[AssertJ Core 3.12.0]
 
 Older release notes can be found in the old site: https://joel-costigliola.github.io/assertj/assertj-core-news.html, this is important to be aware of breaking changes if you are migrating from an old version.
+
+[[assertj-core-3-18-0-release-notes]]
+==== AssertJ Core 3.18.0
+
+Release date : 2020-10-25
+
+[[assertj-core-3.18.0-contributors]]
+[.release-note-category]#icon:user[] Contributors#
+
+Thanks to all the contributors of this release: Erhard Pointl, Stefano Cordio, Pascal Schumacher, Fr Jeremy Krieg, BJ Hargrave, Matteo Mirk and Valeriy Vyrva.
+
+Shout out to Fr Jeremy Krieg for adding soft assertions field injection capability in JUnit 5 `SoftAssertionsExtension`!
+
+[[assertj-core-3.18.0-breaking-changes]]
+[.release-note-category]#icon:exclamation-triangle[] Breaking changes#
+
+* Breaking change: disable bare name getter by default, to get the previous behaviour back, call `Assertions.setExtractBareNamePropertyMethods​(true);`
+* Exclude `net.bytebuddy.experimental` property from shading scope: ensures that setting this property enables ByteBuddy experimental features also inside AssertJ. Before this change, ByteBuddy experimental features in AssertJ could only be enabled setting the `org.assertj.core.internal.bytebuddy.experimental` property.
+
+[[assertj-core-3.18.0-new-features]]
+[.release-note-category]#icon:plus-circle[] New features#
+
+* Add link:#assertj-core-junit5-soft-assertions-field-injection[field injection] capability to `SoftAssertionsExtension`. (Fr Jeremy Krieg)
+* Add link:#assertj-core-3.18.0-hasPackage[`hasPackage`] to `Class` assertions. (Matteo Mirk)
+* Add link:#assertj-core-3.18.0-hasValueSatisfying[`hasValueSatisfying`] to `AtomicReference` assertions. (Valeriy Vyrva)
+* Add link:#assertj-core-3.18.0-hasValueMatching[`hasValueMatching`] to `AtomicReference` assertions. (Valeriy Vyrva)
+* Add link:#assertj-core-3.18.0-isCloseTo-Duration[`isCloseTo`] to `Duration` assertions.
+* Add link:#assertj-core-3.18.0-failsWithin[`failsWithin`] to `Future` and `CompletableFuture` assertions.
+
+[[assertj-core-3.18.0-improvements]]
+[.release-note-category]#icon:arrow-circle-up[] Improvements#
+
+* Add `AssertionError` factory methods to `AbstractAssert`. (Fr Jeremy Krieg)
+* Improve describe error readability of `ElementsShouldSatisfy`. (Drummond Dawson)
+* Improve link:#assertj-core-3.18.0-isTrue-isFalse-error-message[`isTrue`/`isFalse` assertions error messages].
+* Use two spaces indentation in "should be close to" error messages.
+* Internal: Add CodeQL analysis. (Stefano Cordio)
+* Internal: Clean up some pom dependencies now that Bnd 5.2.0 is being used (BJ Hargrave)
+* Internal: Add assumptions it tests. (Stefano Cordio)
+* Internal: Reduce visibility of FieldUtils as no method is publicly accessible. (Stefano Cordio)
+* Internal: Remove unnecessary semicolons. (Erhard Pointl)
+* Internal: Enforce surefire encoding. (Stefano Cordio)
+* Internal: Bump jackson-databind from 2.11.2 to 2.11.3.
+* Internal: Bump org.eclipse.osgi from 3.15.300 to 3.16.0.
+* Internal: Bump equalsverifier from 3.4.2 to 3.5.
+* Internal: Bump byte-buddy from 1.10.14 to 1.10.17.
+* Internal: Bump assertj-parent-pom from 2.2.7 to 2.2.8.
+* Internal: Bump mockito from 3.5.10 to 3.5.15.
+* Internal: Bump guava from 29.0-jre to 30.0-jre.
+* Internal: Bump jacoco-maven-plugin from 0.8.5 to 0.8.6. (Stefano Cordio)
+* Internal: Bump bnd from 5.1.2 to 5.2.0.
+
+[[assertj-core-3.18.0-fixed]]
+[.release-note-category]#icon:wrench[] Fixed#
+
+* Honor toString if overridden in Iterable that are not collections.
+
+[[assertj-core-3.18.0-deprecated]]
+[.release-note-category]#icon:ban[] Deprecated#
+
+* Deprecate `isXmlEqualTo` in favor of https://www.xmlunit.org/[XML Unit].
+* Deprecate `SoftlyExtension` in favor of `SoftAssertionsExtension` that now supports field injection.
+
+[[assertj-core-3.18.0-hasPackage]]
+[.release-note-item]#Add `hasPackage` to `Class` assertions#
+
+Verifies that the actual `Class` under test has the given package name.
+
+Example:
+[source,java]
+----
+package one.two;
+
+class MyClass {}
+
+assertThat(MyClass.class).hasPackage("one.two")
+                         .hasPackage(Package.getPackage("one.two"));
+----
+
+[[assertj-core-3.18.0-isCloseTo-Duration]]
+[.release-note-item]#Add `isCloseTo` to `java.time.Duration` assertions#
+
+Verifies that the actual Duration is close to the given one within the given allowed difference (assertion succeeds if difference = allowed difference).
+
+This is equivalent of: `abs(actual - expected) ≤ allowed difference`.
+
+For readability, `Assertions.withMarginOf(Duration)` can be used to express the allowed difference.
+
+Examples:
+[source,java]
+----
+Duration twoMinutes = Duration.ofMinutes(2);
+
+assertThat(twoMinutes).isCloseTo(Duration.ofMinutes(3), Duration.ofMinutes(5));
+assertThat(twoMinutes).isCloseTo(Duration.ofMinutes(-3), Duration.ofMinutes(10));
+assertThat(twoMinutes).isCloseTo(Duration.ofMinutes(3), Duration.ofMinutes(1));
+
+// assertions using withMarginOf syntactic sugar
+assertThat(twoMinutes).isCloseTo(Duration.ofMinutes(3), withMarginOf(Duration.ofMinutes(5)));
+assertThat(twoMinutes).isCloseTo(Duration.ofMinutes(3), withMarginOf(Duration.ofMinutes(1)));
+----
+
+[[assertj-core-3.18.0-failsWithin]]
+[.release-note-item]#Add `failsWithin` to `Future` and `CompletableFuture` assertionss#
+
+Checks that the Future/CompletableFuture does not complete within the given time and returns the exception that caused the failure for further (exception) assertions, the exception can be any of `InterruptedException`, `ExecutionException`, `TimeoutException` or `CancellationException` as per `Future.get(long, TimeUnit)` behaviour.
+
+**WARNING**
+
+`failsWithin` does not fully integrate with soft assertions, if the future completes the test will fail immediately (the error is not collected as a soft assertion error), if the assertion succeeds the chained assertions are executed and any errors will be collected as a soft assertion errors.
+The rationale is that if we collect `failsWithin` error as a soft assertion error, the chained assertions would be executed but that does not make sense since there is no exception to check as the future has completed.
+
+Examples:
+[source,java]
+----
+ExecutorService executorService = Executors.newSingleThreadExecutor();
+
+Future<String> future = executorService.submit(() -> {
+  Thread.sleep(100);
+  return "ook!";
+});
+
+// assertion succeeds as the future is not completed after 50ms
+assertThat(future).failsWithin(Duration.ofMillis(10))
+                  .withThrowableOfType(TimeoutException.class);
+
+// alternative assertion syntax, the time out is expressed with a TimeUnit value
+assertThat(future).failsWithin(10, TimeUnit.MILLISECONDS);
+
+
+// fails as the future is completed within 200ms
+assertThat(future).failsWithin(Duration.ofMillis(200));
+----
+
+[[assertj-core-3.18.0-isTrue-isFalse-error-message]]
+[.release-note-item]#Improve `isTrue`/`isFalse` assertions error messages#
+
+Before:
+[source,text]
+----
+Expecting:
+ <false>
+to be equal to:
+ <true>
+but was not.
+----
+
+After:
+[source,text]
+----
+Expecting value to be true but was false
+----
+
+[[assertj-core-3.18.0-hasValueMatching]]
+[.release-note-item]#Add `hasValueSatisfying` to `AtomicReference` assertions#
+
+Verifies that the atomic under test has a value satisfying the given predicate. 
+
+Examples:
+[source,java]
+----
+assertThat(new AtomicReference("foo")).hasValueMatching(result -> result != null);
+
+// you can pass a description for the predicate that will be used in the error message
+assertThat(new AtomicReference("foo")).hasValueMatching(result -> result != null, "expected not null");
+----
+
+[[assertj-core-3.18.0-hasValueSatisfying]]
+[.release-note-item]#Add `hasValueSatisfying` to `AtomicReference` assertions#
+
+Verifies that the atomic under test has a value satisfying the given requirements. 
+
+Example:
+[source,java]
+----
+assertThat(new AtomicReference("foo")).hasValueSatisfying(result -> assertThat(result).isNotBlank());
+----
+
 
 [[assertj-core-3-17-2-release-notes]]
 ==== AssertJ Core 3.17.2

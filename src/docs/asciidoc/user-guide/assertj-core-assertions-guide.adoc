@@ -948,11 +948,11 @@ Since 3.12.0 AssertJ Core provides a new fluent recursive comparison API for `Ob
 * link:#assertj-core-recursive-comparison-ignoring-all-expected-null-fields[Ignoring all expected null fields]
 * link:#assertj-core-recursive-comparison-ignoring-all-actual-empty-optional-fields[Ignoring all actual empty optional fields].
 
+===== Basic usage
+
 The recursive comparison mode starts after calling `usingRecursiveComparison()`.
 
-Since 3.17.0 it does not use anymore `equals` methods of classes that have overriden it, so no need to force recursive comparison on these classes (link:#assertj-core-recursive-comparison-ignoring-equals[see this section]). To get the pre 3.17.0 behavior, use `usingOverriddenEquals()`.
-
-Here's a simple example to give an idea of what it can do:
+Here's a simple example:
 
 [source,java,indent=0]
 ----
@@ -991,6 +991,28 @@ Here's a simple example to give an idea of what it can do:
 ----
 
 The comparison is *not symmetrical* since it is *limited to actual's fields*, the algorithm gather actual's fields and then compare them to the corresponding expected's fields. It is then possible for the expected object to have more fields than actual which can be handy when comparing a base type to a subtype with additional fields.
+
+===== How field values are resolved
+
+The recursive comparison uses introspection to find out the fields to compare and their values.
+
+It first looks for the object under test fields (skipping any ignored ones as specified in the configuration), then it looks for the same fields in the expected object to compare to.
+
+The next step is resolving the field values using first a getter method (if any) or reading the field value. The getter methods for a field `x` are `getX()` or `isX()` for boolean fields.
+If you enable bare properties resolution, a method `x()` is also used considered as a valid getter.
+
+Bare name property is enabled by calling `Assertions.setExtractBareNamePropertyMethods​(true);` (it is disabled by default since 3.18.0).
+
+Lastly if the object under test is a map, the recursive comparison tries to resolve the field value by looking it up in the map with `map.get(fieldName)`.
+
+
+===== Breaking changes
+
+Since 3.18.0 bare name getter resoluation are disabled by default, to get the previous behaviour back, call `Assertions.setExtractBareNamePropertyMethods​(true);`
+
+Since 3.17.0 it does not use anymore `equals` methods of classes that have overriden it, so no need to force recursive comparison on these classes (link:#assertj-core-recursive-comparison-ignoring-equals[see this section]). To get the pre 3.17.0 behavior, use `usingOverriddenEquals()`.
+
+
 
 [[assertj-core-recursive-comparison-isNotEqualTo]]
 ===== isNotEqualTo
@@ -1138,7 +1160,7 @@ assertThat(sherlock).usingRecursiveComparison()
 [[assertj-core-recursive-comparison-ignoring-equals]]
 ===== Ignoring overridden equals
 
-By default the recursive comparison uses overridden `equals` methods to compare fields, it is possible to change that behavior and force a recursive comparison by calling:
+Before 3.17.0 the recursive comparison used overridden `equals` methods to compare fields by default, it is possible to change that behavior and force a recursive comparison by calling:
 
 * `ignoringOverriddenEqualsForTypes(Class...)` Any fields of these classes are compared recursively
 * `ignoringOverriddenEqualsForFields(String...)` Any given fields are compared recursively
@@ -1394,9 +1416,7 @@ Since soft assertions don't fail at the first error, you need to tell AssertJ wh
 
 * Calling `assertAll()` (basic approach)
 * Using a link:#assertj-core-junit4-soft-assertions[JUnit 4 rule] that takes care of calling `assertAll()` after each tests
-* Using one of the provided link:#assertj-core-junit5-soft-assertions[JUnit 5 extensions]:
-** link:#assertj-core-junit5-soft-assertions-extension[`SoftAssertionsExtension`] which injects a `SoftAssertions` or a `BDDSoftAssertions` parameter and calls `assertAll()` after each tests
-** link:#assertj-core-junit5-softly-extension[`SoftlyExtension`] which initializes the `SoftAssertions` field and calls `assertAll()` after each tests
+* Using the provided link:#assertj-core-junit5-soft-assertions[JUnit 5 extension] which injects a `SoftAssertions` or a `BDDSoftAssertions` parameter and calls `assertAll()` after each tests
 * Using a link:#assertj-core-closeable-soft-assertions[`AutoCloseableSoftAssertions`]
 * Using link:#assertj-core-assertSoftly-assertions[`assertSoftly` static method] 
 
@@ -1476,60 +1496,31 @@ include::{testDir}/example/core/JUnit4BDDSoftAssertionsExample.java[tags=junit4-
 ----
 
 [[assertj-core-junit5-soft-assertions]]
-===== JUnit 5 Soft assertions extensions
+===== JUnit 5 soft assertions extension
 
-AssertJ provides two JUnit 5 extensions: `SoftAssertionsExtension` and `SoftlyExtension`
+`SoftAssertionsExtension` is a JUnit 5 extension that:
 
-* both call `assertAll()` at the end of each tests
-* `SoftAssertionsExtension` injects a `SoftAssertions` or `BDDSoftAssertions` parameter in each test methods
-* `SoftlyExtension` initializes a `SoftAssertions` field for each test execution
+* takes care of calling `assertAll()` at the end of each tests
+* supports link:#assertj-core-junit5-soft-assertions-field-injection[initializing `SoftAssertionsProvider` field] annotated with `@InjectSoftAssertions`
+* supports link:#assertj-core-junit5-soft-assertions-field-parameter[injecting a `SoftAssertionsProvider` parameter] in each test methods
 
-Moreover in 3.16.0 `SoftAssertionsExtension` is now able to inject any custom soft assertions as long as it implements `SoftAssertionsProvider`. +
-See the end of link:#assertj-core-junit5-parameter-soft-assertions-custom-injection[combining soft assertions entry points] section for an example.
+`SoftAssertionsProvider` is the interface that any concrete soft assertions class must implement, AssertJ provides two of them: `SoftAssertions` and `BDDSoftAssertions`, but custom implementations are also supported as long as they have a default constructor. See the end of link:#assertj-core-soft-assertions-combining[combining soft assertions entry points] section for an example.
 
-IMPORTANT: `JUnitJupiterSoftAssertions` and `JUnitJupiterBDDSoftAssertions` are now deprecated in favor of `SoftAssertionsExtension`.
+IMPORTANT: `JUnitJupiterSoftAssertions`, `JUnitJupiterBDDSoftAssertions` and `SoftlyExtension` are now deprecated in favor of `SoftAssertionsExtension`.
 
-[[assertj-core-junit5-soft-assertions-extension]]
-====== `SoftAssertionsExtension` 
+[[assertj-core-junit5-soft-assertions-field-injection]]
+====== SoftAssertionsProvider field injection 
 
-Extension for JUnit Jupiter that provides support for injecting a concrete implementation of `SoftAssertionsProvider` into test methods. +
-Two examples that come packaged with AssertJ are `SoftAssertions` and `BDDSoftAssertions`, but custom implementations are also supported as long as they have a default constructor.
+`SoftAssertionsExtension` supports injecting any instance of `SoftAssertionsProvider` into a class test field annotated with `@InjectSoftAssertions`. +
+The injection occurs before each test method execution, after each test `assertAll()` is invoked to verify that no soft assertions failed.
 
-The term "test method" refers to any method annotated with `@Test`, `@RepeatedTest`, `@ParameterizedTest`, `@TestFactory` or `@TestTemplate`.
-Notably, the extension is compatible with link:https://junit.org/junit5/docs/current/user-guide/#writing-tests-parameterized-tests[parameterized tests], the parameterized arguments must come first and the soft assertions argument last.
- 
-The scope of the `SoftAssertionsProvider` instance managed by this extension begins when a parameter of type `SoftAssertionsProvider` is resolved for a test method. +
-It ends after the test method has been executed, this is when `assertAll()` will be invoked on the instance to verify that no soft assertions failed. 
+A nested test class can provide a `SoftAssertionsProvider` field when it extends this extension or can inherit the parent's one.
 
-Contrary to `SoftlyExtensions`, `SoftAssertionsExtension` can be used with `TestInstance.Lifecycle.PER_CLASS`.
+This extension throws an `ExtensionConfigurationException` if:
 
-Example:
-[source,java,indent=0]
-----
-include::{testDir}/example/core/JUnit5SoftAssertionsExample.java[tags=junit5-soft-assertions]
-----
-
-[[assertj-core-junit5-softly-extension]]
-====== `SoftlyExtensions` 
-
-`SoftlyExtensions` is a JUnit Jupiter extension that injects an instance of `SoftAssertions` into a class test `SoftAssertions` field. The injection occurs before each test method execution, after each test `assertAll()` is invoked to evaluate all test assertions.
-
-A nested test class can provide a `SoftAssertions` field when it extends this extension or can inherit the parent's `SoftAssertions` field
-
-This extension throws an `IllegalStateException` if:
-
-* the test class lifecycle is `TestInstance.Lifecycle.PER_CLASS` (see limitations below)
-* multiple `SoftAssertions` fields are found
-* no `SoftAssertions` field is found
-
-Detecting multiple `SoftAssertions` fields is a best effort at the time of this writing, some cases are not detected. 
-
-Limitations:
-
-* Cannot be used with test context that have `PER_CLASS` life cycle as the same `SoftAssertions` would be reused between tests.
-* May exhibit unpredictable behaviour in concurrent test execution
-
-If you hit such limitations, consider using `SoftAssertionsExtension` instead. 
+* the field is static or final or cannot be accessed
+* the field type is not a concrete implementation of `SoftAssertionsProvider` (or subclass)
+* the field type has no default constructor
 
 Example:
 [source,java,indent=0]
@@ -1543,15 +1534,14 @@ import org.junit.jupiter.api.extension.ExtendWith;
 @ExtendWith(SoftlyExtension.class)
 public class JUnit5SoftlyExtensionAssertionsExamples {
 
-  // initialized by the SoftlyExtension extension
-  private SoftAssertions soft;
+  @InjectSoftAssertions
+  private SoftAssertions softly;
 
   @Test
   public void chained_soft_assertions_example() {
     String name = "Michael Jordan - Bulls";
-    soft.assertThat(name)
-        .startsWith("Mi")
-        .contains("Bulls");
+    softly.assertThat(name).startsWith("Mi")
+                           .contains("Bulls");
     // no need to call softly.assertAll(), this is done by the extension
   }
 
@@ -1562,13 +1552,35 @@ public class JUnit5SoftlyExtensionAssertionsExamples {
     @Test
     public void football_assertions_example() {
       String kylian = "Kylian Mbappé";
-      soft.assertThat(kylian)
-          .startsWith("Ky")
-          .contains("bap");
+      softly.assertThat(kylian).startsWith("Ky")
+                               .contains("bap");
       // no need to call softly.assertAll(), this is done by the extension
     }
   }
 }
+----
+
+[[assertj-core-junit5-soft-assertions-parameter-injection]]
+====== SoftAssertionsProvider parameter injection 
+
+`SoftAssertionsExtension` supports injecting any `SoftAssertionsProvider` as a parameter in each test methods.
+
+The term "test method" refers to any method annotated with `@Test`, `@RepeatedTest`, `@ParameterizedTest`, `@TestFactory` or `@TestTemplate`.
+Notably, the extension is compatible with link:https://junit.org/junit5/docs/current/user-guide/#writing-tests-parameterized-tests[parameterized tests], the parameterized arguments must come first and the soft assertions argument last.
+ 
+The scope of the `SoftAssertionsProvider` instance managed by this extension begins when a parameter of type `SoftAssertionsProvider` is resolved for a test method. +
+It ends after the test method has been executed, this is when `assertAll()` will be invoked on the instance to verify that no soft assertions failed.
+
+This extension throws an `ExtensionConfigurationException` if:
+
+* the resolved SoftAssertionsProvider is abstract and cannot be instantiated
+* the resolved SoftAssertionsProvider has no default constructor and cannot be instantiated
+
+
+Example:
+[source,java,indent=0]
+----
+include::{testDir}/example/core/JUnit5SoftAssertionsExample.java[tags=junit5-soft-assertions]
 ----
 
 
