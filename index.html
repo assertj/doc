@@ -2674,7 +2674,7 @@ AssertJ Core 2.x is in maintenance mode, it will only receive bugfixes.
   &lt;groupId&gt;org.assertj&lt;/groupId&gt;
   &lt;artifactId&gt;assertj-core&lt;/artifactId&gt;
   &lt;!-- use 2.9.1 for Java 7 projects --&gt;
-  &lt;version&gt;3.17.2&lt;/version&gt;
+  &lt;version&gt;3.18.0&lt;/version&gt;
   &lt;scope&gt;test&lt;/scope&gt;
 &lt;/dependency&gt;</code></pre>
 </div>
@@ -2687,7 +2687,7 @@ AssertJ Core 2.x is in maintenance mode, it will only receive bugfixes.
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code data-lang="java" class="language-java hljs">testImplementation("org.assertj:assertj-core:3.17.2")</code></pre>
+<pre class="highlightjs highlight"><code data-lang="java" class="language-java hljs">testImplementation("org.assertj:assertj-core:3.18.0")</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2702,7 +2702,7 @@ AssertJ Core 2.x is in maintenance mode, it will only receive bugfixes.
 <div class="sect4">
 <h5 id="other-build-tools"><a class="anchor" href="#other-build-tools"></a>Other build tools</h5>
 <div class="paragraph">
-<p>Check this page to find the relevant <a href="https://search.maven.org/artifact/org.assertj/assertj-core/3.17.2/bundle">assertj core dependency declaration</a>.</p>
+<p>Check this page to find the relevant <a href="https://search.maven.org/artifact/org.assertj/assertj-core/3.18.0/bundle">assertj core dependency declaration</a>.</p>
 </div>
 </div>
 </div>
@@ -3932,7 +3932,7 @@ assertThat("foo").withRepresentation(customRepresentation)
 <p>This section describes all the available assertions for <code>CharSequence</code> (including <code>String</code>, <code>StringBuilder</code>, <code>StringBuffer</code>, &#8230;&#8203;):</p>
 </div>
 <div class="paragraph">
-<p>The javadoc for <code>CharSequence</code> assertions is available <a href="https://www.javadoc.io/static/org.assertj/assertj-core/3.17.2/org/assertj/core/api/AbstractCharSequenceAssert.html#method.summary">here</a>.</p>
+<p>The javadoc for <code>CharSequence</code> assertions is available <a href="https://www.javadoc.io/static/org.assertj/assertj-core/3.18.0/org/assertj/core/api/AbstractCharSequenceAssert.html#method.summary">here</a>.</p>
 </div>
 </div>
 <div class="sect3">
@@ -4164,7 +4164,7 @@ thenCode(() -&gt; System.out.println("OK")).doesNotThrowAnyException();</code></
 </ul>
 </div>
 <div class="paragraph">
-<p>The javadoc for throwable assertions is available <a href="https://www.javadoc.io/static/org.assertj/assertj-core/3.17.2/org/assertj/core/api/AbstractThrowableAssert.html#method.summary">here</a>.</p>
+<p>The javadoc for throwable assertions is available <a href="https://www.javadoc.io/static/org.assertj/assertj-core/3.18.0/org/assertj/core/api/AbstractThrowableAssert.html#method.summary">here</a>.</p>
 </div>
 <div class="sect5">
 <h6 id="assertj-core-throwable-assertions-hasMessage"><a class="anchor" href="#assertj-core-throwable-assertions-hasMessage"></a>Checking the throwable message</h6>
@@ -4327,14 +4327,13 @@ try {
 </li>
 </ul>
 </div>
+<div class="sect4">
+<h5 id="basic-usage"><a class="anchor" href="#basic-usage"></a>Basic usage</h5>
 <div class="paragraph">
 <p>The recursive comparison mode starts after calling <code>usingRecursiveComparison()</code>.</p>
 </div>
 <div class="paragraph">
-<p>Since 3.17.0 it does not use anymore <code>equals</code> methods of classes that have overriden it, so no need to force recursive comparison on these classes (<a href="#assertj-core-recursive-comparison-ignoring-equals">see this section</a>). To get the pre 3.17.0 behavior, use <code>usingOverriddenEquals()</code>.</p>
-</div>
-<div class="paragraph">
-<p>Here&#8217;s a simple example to give an idea of what it can do:</p>
+<p>Here&#8217;s a simple example:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -4374,6 +4373,35 @@ assertThat(sherlock).isEqualTo(sherlock2);</code></pre>
 </div>
 <div class="paragraph">
 <p>The comparison is <strong>not symmetrical</strong> since it is <strong>limited to actual&#8217;s fields</strong>, the algorithm gather actual&#8217;s fields and then compare them to the corresponding expected&#8217;s fields. It is then possible for the expected object to have more fields than actual which can be handy when comparing a base type to a subtype with additional fields.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="how-field-values-are-resolved"><a class="anchor" href="#how-field-values-are-resolved"></a>How field values are resolved</h5>
+<div class="paragraph">
+<p>The recursive comparison uses introspection to find out the fields to compare and their values.</p>
+</div>
+<div class="paragraph">
+<p>It first looks for the object under test fields (skipping any ignored ones as specified in the configuration), then it looks for the same fields in the expected object to compare to.</p>
+</div>
+<div class="paragraph">
+<p>The next step is resolving the field values using first a getter method (if any) or reading the field value. The getter methods for a field <code>x</code> are <code>getX()</code> or <code>isX()</code> for boolean fields.
+If you enable bare properties resolution, a method <code>x()</code> is also used considered as a valid getter.</p>
+</div>
+<div class="paragraph">
+<p>Bare name property is enabled by calling <code>Assertions.setExtractBareNamePropertyMethods​(true);</code> (it is disabled by default since 3.18.0).</p>
+</div>
+<div class="paragraph">
+<p>Lastly if the object under test is a map, the recursive comparison tries to resolve the field value by looking it up in the map with <code>map.get(fieldName)</code>.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="breaking-changes"><a class="anchor" href="#breaking-changes"></a>Breaking changes</h5>
+<div class="paragraph">
+<p>Since 3.18.0 bare name getter resoluation are disabled by default, to get the previous behaviour back, call <code>Assertions.setExtractBareNamePropertyMethods​(true);</code></p>
+</div>
+<div class="paragraph">
+<p>Since 3.17.0 it does not use anymore <code>equals</code> methods of classes that have overriden it, so no need to force recursive comparison on these classes (<a href="#assertj-core-recursive-comparison-ignoring-equals">see this section</a>). To get the pre 3.17.0 behavior, use <code>usingOverriddenEquals()</code>.</p>
+</div>
 </div>
 <div class="sect4">
 <h5 id="assertj-core-recursive-comparison-isNotEqualTo"><a class="anchor" href="#assertj-core-recursive-comparison-isNotEqualTo"></a>isNotEqualTo</h5>
@@ -4537,7 +4565,7 @@ assertThat(sherlock).usingRecursiveComparison()
 <div class="sect4">
 <h5 id="assertj-core-recursive-comparison-ignoring-equals"><a class="anchor" href="#assertj-core-recursive-comparison-ignoring-equals"></a>Ignoring overridden equals</h5>
 <div class="paragraph">
-<p>By default the recursive comparison uses overridden <code>equals</code> methods to compare fields, it is possible to change that behavior and force a recursive comparison by calling:</p>
+<p>Before 3.17.0 the recursive comparison used overridden <code>equals</code> methods to compare fields by default, it is possible to change that behavior and force a recursive comparison by calling:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -4853,17 +4881,7 @@ This is especially useful for long tests like end to end tests as we can fix all
 <p>Using a <a href="#assertj-core-junit4-soft-assertions">JUnit 4 rule</a> that takes care of calling <code>assertAll()</code> after each tests</p>
 </li>
 <li>
-<p>Using one of the provided <a href="#assertj-core-junit5-soft-assertions">JUnit 5 extensions</a>:</p>
-<div class="ulist">
-<ul>
-<li>
-<p><a href="#assertj-core-junit5-soft-assertions-extension"><code>SoftAssertionsExtension</code></a> which injects a <code>SoftAssertions</code> or a <code>BDDSoftAssertions</code> parameter and calls <code>assertAll()</code> after each tests</p>
-</li>
-<li>
-<p><a href="#assertj-core-junit5-softly-extension"><code>SoftlyExtension</code></a> which initializes the <code>SoftAssertions</code> field and calls <code>assertAll()</code> after each tests</p>
-</li>
-</ul>
-</div>
+<p>Using the provided <a href="#assertj-core-junit5-soft-assertions">JUnit 5 extension</a> which injects a <code>SoftAssertions</code> or a <code>BDDSoftAssertions</code> parameter and calls <code>assertAll()</code> after each tests</p>
 </li>
 <li>
 <p>Using a <a href="#assertj-core-closeable-soft-assertions"><code>AutoCloseableSoftAssertions</code></a></p>
@@ -5024,26 +5042,25 @@ void junit4_bdd_soft_assertions_example() {
 </div>
 </div>
 <div class="sect4">
-<h5 id="assertj-core-junit5-soft-assertions"><a class="anchor" href="#assertj-core-junit5-soft-assertions"></a>JUnit 5 Soft assertions extensions</h5>
+<h5 id="assertj-core-junit5-soft-assertions"><a class="anchor" href="#assertj-core-junit5-soft-assertions"></a>JUnit 5 soft assertions extension</h5>
 <div class="paragraph">
-<p>AssertJ provides two JUnit 5 extensions: <code>SoftAssertionsExtension</code> and <code>SoftlyExtension</code></p>
+<p><code>SoftAssertionsExtension</code> is a JUnit 5 extension that:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>both call <code>assertAll()</code> at the end of each tests</p>
+<p>takes care of calling <code>assertAll()</code> at the end of each tests</p>
 </li>
 <li>
-<p><code>SoftAssertionsExtension</code> injects a <code>SoftAssertions</code> or <code>BDDSoftAssertions</code> parameter in each test methods</p>
+<p>supports <a href="#assertj-core-junit5-soft-assertions-field-injection">initializing <code>SoftAssertionsProvider</code> field</a> annotated with <code>@InjectSoftAssertions</code></p>
 </li>
 <li>
-<p><code>SoftlyExtension</code> initializes a <code>SoftAssertions</code> field for each test execution</p>
+<p>supports <a href="#assertj-core-junit5-soft-assertions-field-parameter">injecting a <code>SoftAssertionsProvider</code> parameter</a> in each test methods</p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
-<p>Moreover in 3.16.0 <code>SoftAssertionsExtension</code> is now able to inject any custom soft assertions as long as it implements <code>SoftAssertionsProvider</code>.<br>
-See the end of <a href="#assertj-core-junit5-parameter-soft-assertions-custom-injection">combining soft assertions entry points</a> section for an example.</p>
+<p><code>SoftAssertionsProvider</code> is the interface that any concrete soft assertions class must implement, AssertJ provides two of them: <code>SoftAssertions</code> and <code>BDDSoftAssertions</code>, but custom implementations are also supported as long as they have a default constructor. See the end of <a href="#assertj-core-soft-assertions-combining">combining soft assertions entry points</a> section for an example.</p>
 </div>
 <div class="admonitionblock important">
 <table>
@@ -5052,16 +5069,81 @@ See the end of <a href="#assertj-core-junit5-parameter-soft-assertions-custom-in
 <i class="fa icon-important" title="Important"></i>
 </td>
 <td class="content">
-<code>JUnitJupiterSoftAssertions</code> and <code>JUnitJupiterBDDSoftAssertions</code> are now deprecated in favor of <code>SoftAssertionsExtension</code>.
+<code>JUnitJupiterSoftAssertions</code>, <code>JUnitJupiterBDDSoftAssertions</code> and <code>SoftlyExtension</code> are now deprecated in favor of <code>SoftAssertionsExtension</code>.
 </td>
 </tr>
 </table>
 </div>
 <div class="sect5">
-<h6 id="assertj-core-junit5-soft-assertions-extension"><a class="anchor" href="#assertj-core-junit5-soft-assertions-extension"></a><code>SoftAssertionsExtension</code></h6>
+<h6 id="assertj-core-junit5-soft-assertions-field-injection"><a class="anchor" href="#assertj-core-junit5-soft-assertions-field-injection"></a>SoftAssertionsProvider field injection</h6>
 <div class="paragraph">
-<p>Extension for JUnit Jupiter that provides support for injecting a concrete implementation of <code>SoftAssertionsProvider</code> into test methods.<br>
-Two examples that come packaged with AssertJ are <code>SoftAssertions</code> and <code>BDDSoftAssertions</code>, but custom implementations are also supported as long as they have a default constructor.</p>
+<p><code>SoftAssertionsExtension</code> supports injecting any instance of <code>SoftAssertionsProvider</code> into a class test field annotated with <code>@InjectSoftAssertions</code>.<br>
+The injection occurs before each test method execution, after each test <code>assertAll()</code> is invoked to verify that no soft assertions failed.</p>
+</div>
+<div class="paragraph">
+<p>A nested test class can provide a <code>SoftAssertionsProvider</code> field when it extends this extension or can inherit the parent&#8217;s one.</p>
+</div>
+<div class="paragraph">
+<p>This extension throws an <code>ExtensionConfigurationException</code> if:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>the field is static or final or cannot be accessed</p>
+</li>
+<li>
+<p>the field type is not a concrete implementation of <code>SoftAssertionsProvider</code> (or subclass)</p>
+</li>
+<li>
+<p>the field type has no default constructor</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="java" class="language-java hljs">import org.assertj.core.api.SoftAssertions;
+import org.assertj.core.api.junit.jupiter.SoftlyExtension;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+
+@ExtendWith(SoftlyExtension.class)
+public class JUnit5SoftlyExtensionAssertionsExamples {
+
+  @InjectSoftAssertions
+  private SoftAssertions softly;
+
+  @Test
+  public void chained_soft_assertions_example() {
+    String name = "Michael Jordan - Bulls";
+    softly.assertThat(name).startsWith("Mi")
+                           .contains("Bulls");
+    // no need to call softly.assertAll(), this is done by the extension
+  }
+
+  // nested classes test work too
+  @Nested
+  class NestedExample {
+
+    @Test
+    public void football_assertions_example() {
+      String kylian = "Kylian Mbappé";
+      softly.assertThat(kylian).startsWith("Ky")
+                               .contains("bap");
+      // no need to call softly.assertAll(), this is done by the extension
+    }
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect5">
+<h6 id="assertj-core-junit5-soft-assertions-parameter-injection"><a class="anchor" href="#assertj-core-junit5-soft-assertions-parameter-injection"></a>SoftAssertionsProvider parameter injection</h6>
+<div class="paragraph">
+<p><code>SoftAssertionsExtension</code> supports injecting any <code>SoftAssertionsProvider</code> as a parameter in each test methods.</p>
 </div>
 <div class="paragraph">
 <p>The term "test method" refers to any method annotated with <code>@Test</code>, <code>@RepeatedTest</code>, <code>@ParameterizedTest</code>, <code>@TestFactory</code> or <code>@TestTemplate</code>.
@@ -5072,7 +5154,17 @@ Notably, the extension is compatible with <a href="https://junit.org/junit5/docs
 It ends after the test method has been executed, this is when <code>assertAll()</code> will be invoked on the instance to verify that no soft assertions failed.</p>
 </div>
 <div class="paragraph">
-<p>Contrary to <code>SoftlyExtensions</code>, <code>SoftAssertionsExtension</code> can be used with <code>TestInstance.Lifecycle.PER_CLASS</code>.</p>
+<p>This extension throws an <code>ExtensionConfigurationException</code> if:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>the resolved SoftAssertionsProvider is abstract and cannot be instantiated</p>
+</li>
+<li>
+<p>the resolved SoftAssertionsProvider has no default constructor and cannot be instantiated</p>
+</li>
+</ul>
 </div>
 <div class="paragraph">
 <p>Example:</p>
@@ -5115,92 +5207,6 @@ public class JUnit5SoftAssertionsExample {
     softly.assertThat(b).isLessThan(sum);
   }
 
-}</code></pre>
-</div>
-</div>
-</div>
-<div class="sect5">
-<h6 id="assertj-core-junit5-softly-extension"><a class="anchor" href="#assertj-core-junit5-softly-extension"></a><code>SoftlyExtensions</code></h6>
-<div class="paragraph">
-<p><code>SoftlyExtensions</code> is a JUnit Jupiter extension that injects an instance of <code>SoftAssertions</code> into a class test <code>SoftAssertions</code> field. The injection occurs before each test method execution, after each test <code>assertAll()</code> is invoked to evaluate all test assertions.</p>
-</div>
-<div class="paragraph">
-<p>A nested test class can provide a <code>SoftAssertions</code> field when it extends this extension or can inherit the parent&#8217;s <code>SoftAssertions</code> field</p>
-</div>
-<div class="paragraph">
-<p>This extension throws an <code>IllegalStateException</code> if:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>the test class lifecycle is <code>TestInstance.Lifecycle.PER_CLASS</code> (see limitations below)</p>
-</li>
-<li>
-<p>multiple <code>SoftAssertions</code> fields are found</p>
-</li>
-<li>
-<p>no <code>SoftAssertions</code> field is found</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>Detecting multiple <code>SoftAssertions</code> fields is a best effort at the time of this writing, some cases are not detected.</p>
-</div>
-<div class="paragraph">
-<p>Limitations:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Cannot be used with test context that have <code>PER_CLASS</code> life cycle as the same <code>SoftAssertions</code> would be reused between tests.</p>
-</li>
-<li>
-<p>May exhibit unpredictable behaviour in concurrent test execution</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>If you hit such limitations, consider using <code>SoftAssertionsExtension</code> instead.</p>
-</div>
-<div class="paragraph">
-<p>Example:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code data-lang="java" class="language-java hljs">import org.assertj.core.api.SoftAssertions;
-import org.assertj.core.api.junit.jupiter.SoftlyExtension;
-import org.junit.jupiter.api.Nested;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-
-@ExtendWith(SoftlyExtension.class)
-public class JUnit5SoftlyExtensionAssertionsExamples {
-
-  // initialized by the SoftlyExtension extension
-  private SoftAssertions soft;
-
-  @Test
-  public void chained_soft_assertions_example() {
-    String name = "Michael Jordan - Bulls";
-    soft.assertThat(name)
-        .startsWith("Mi")
-        .contains("Bulls");
-    // no need to call softly.assertAll(), this is done by the extension
-  }
-
-  // nested classes test work too
-  @Nested
-  class NestedExample {
-
-    @Test
-    public void football_assertions_example() {
-      String kylian = "Kylian Mbappé";
-      soft.assertThat(kylian)
-          .startsWith("Ky")
-          .contains("bap");
-      // no need to call softly.assertAll(), this is done by the extension
-    }
-  }
 }</code></pre>
 </div>
 </div>
@@ -6210,6 +6216,9 @@ AssertJ Core would not exist without its contributors, you can find them all <a 
 <div class="ulist">
 <ul>
 <li>
+<p><a href="#assertj-core-3-18-0-release-notes">AssertJ Core 3.18.0</a></p>
+</li>
+<li>
 <p><a href="#assertj-core-3-17-2-release-notes">AssertJ Core 3.17.2</a></p>
 </li>
 <li>
@@ -6254,7 +6263,285 @@ AssertJ Core would not exist without its contributors, you can find them all <a 
 <p>Older release notes can be found in the old site: <a href="https://joel-costigliola.github.io/assertj/assertj-core-news.html" class="bare">https://joel-costigliola.github.io/assertj/assertj-core-news.html</a>, this is important to be aware of breaking changes if you are migrating from an old version.</p>
 </div>
 <div class="sect3">
-<h4 id="assertj-core-3-17-2-release-notes"><a class="anchor" href="#assertj-core-3-17-2-release-notes"></a>2.9.1. AssertJ Core 3.17.2</h4>
+<h4 id="assertj-core-3-18-0-release-notes"><a class="anchor" href="#assertj-core-3-18-0-release-notes"></a>2.9.1. AssertJ Core 3.18.0</h4>
+<div class="paragraph">
+<p>Release date : 2020-11-xx</p>
+</div>
+<div id="assertj-core-3.18.0-contributors" class="paragraph">
+<p><span class="release-note-category"><span class="icon"><i class="fa fa-user"></i></span> Contributors</span></p>
+</div>
+<div class="paragraph">
+<p>Thanks to all the contributors of this release: Erhard Pointl, Stefano Cordio, Pascal Schumacher, Fr Jeremy Krieg, BJ Hargrave, Matteo Mirk and Valeriy Vyrva.</p>
+</div>
+<div class="paragraph">
+<p>Shout out to Fr Jeremy Krieg for adding soft assertions field injection capability in JUnit 5 <code>SoftAssertionsExtension</code>!</p>
+</div>
+<div id="assertj-core-3.18.0-breaking-changes" class="paragraph">
+<p><span class="release-note-category"><span class="icon"><i class="fa fa-exclamation-triangle"></i></span> Breaking changes</span></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Breaking change: disable bare name getter by default, to get the previous behaviour back, call <code>Assertions.setExtractBareNamePropertyMethods​(true);</code></p>
+</li>
+<li>
+<p>Exclude <code>net.bytebuddy.experimental</code> property from shading scope: ensures that setting this property enables ByteBuddy experimental features also inside AssertJ. Before this change, ByteBuddy experimental features in AssertJ could only be enabled setting the <code>org.assertj.core.internal.bytebuddy.experimental</code> property.</p>
+</li>
+</ul>
+</div>
+<div id="assertj-core-3.18.0-new-features" class="paragraph">
+<p><span class="release-note-category"><span class="icon"><i class="fa fa-plus-circle"></i></span> New features</span></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Add <a href="#assertj-core-junit5-soft-assertions-field-injection">field injection</a> capability to <code>SoftAssertionsExtension</code>. (Fr Jeremy Krieg)</p>
+</li>
+<li>
+<p>Add <a href="#assertj-core-3.18.0-hasPackage"><code>hasPackage</code></a> to <code>Class</code> assertions. (Matteo Mirk)</p>
+</li>
+<li>
+<p>Add <a href="#assertj-core-3.18.0-hasValueSatisfying"><code>hasValueSatisfying</code></a> to <code>AtomicReference</code> assertions. (Valeriy Vyrva)</p>
+</li>
+<li>
+<p>Add <a href="#assertj-core-3.18.0-hasValueMatching"><code>hasValueMatching</code></a> to <code>AtomicReference</code> assertions. (Valeriy Vyrva)</p>
+</li>
+<li>
+<p>Add <a href="#assertj-core-3.18.0-isCloseTo-Duration"><code>isCloseTo</code></a> to <code>Duration</code> assertions.</p>
+</li>
+<li>
+<p>Add <a href="#assertj-core-3.18.0-failsWithin"><code>failsWithin</code></a> to <code>Future</code> and <code>CompletableFuture</code> assertions.</p>
+</li>
+</ul>
+</div>
+<div id="assertj-core-3.18.0-improvements" class="paragraph">
+<p><span class="release-note-category"><span class="icon"><i class="fa fa-arrow-circle-up"></i></span> Improvements</span></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Add <code>AssertionError</code> factory methods to <code>AbstractAssert</code>. (Fr Jeremy Krieg)</p>
+</li>
+<li>
+<p>Improve describe error readability of <code>ElementsShouldSatisfy</code>. (Drummond Dawson)</p>
+</li>
+<li>
+<p>Improve <a href="#assertj-core-3.18.0-isTrue-isFalse-error-message"><code>isTrue</code>/<code>isFalse</code> assertions error messages</a>.</p>
+</li>
+<li>
+<p>Use two spaces indentation in "should be close to" error messages.</p>
+</li>
+<li>
+<p>Internal: Add CodeQL analysis. (Stefano Cordio)</p>
+</li>
+<li>
+<p>Internal: Clean up some pom dependencies now that Bnd 5.2.0 is being used (BJ Hargrave)</p>
+</li>
+<li>
+<p>Internal: Add assumptions it tests. (Stefano Cordio)</p>
+</li>
+<li>
+<p>Internal: Reduce visibility of FieldUtils as no method is publicly accessible. (Stefano Cordio)</p>
+</li>
+<li>
+<p>Internal: Remove unnecessary semicolons. (Erhard Pointl)</p>
+</li>
+<li>
+<p>Internal: Enforce surefire encoding. (Stefano Cordio)</p>
+</li>
+<li>
+<p>Internal: Bump jackson-databind from 2.11.2 to 2.11.3.</p>
+</li>
+<li>
+<p>Internal: Bump org.eclipse.osgi from 3.15.300 to 3.16.0.</p>
+</li>
+<li>
+<p>Internal: Bump equalsverifier from 3.4.2 to 3.5.</p>
+</li>
+<li>
+<p>Internal: Bump byte-buddy from 1.10.14 to 1.10.17.</p>
+</li>
+<li>
+<p>Internal: Bump assertj-parent-pom from 2.2.7 to 2.2.8.</p>
+</li>
+<li>
+<p>Internal: Bump mockito from 3.5.10 to 3.5.15.</p>
+</li>
+<li>
+<p>Internal: Bump guava from 29.0-jre to 30.0-jre.</p>
+</li>
+<li>
+<p>Internal: Bump jacoco-maven-plugin from 0.8.5 to 0.8.6. (Stefano Cordio)</p>
+</li>
+<li>
+<p>Internal: Bump bnd from 5.1.2 to 5.2.0.</p>
+</li>
+</ul>
+</div>
+<div id="assertj-core-3.18.0-fixed" class="paragraph">
+<p><span class="release-note-category"><span class="icon"><i class="fa fa-wrench"></i></span> Fixed</span></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Honor toString if overridden in Iterable that are not collections.</p>
+</li>
+</ul>
+</div>
+<div id="assertj-core-3.18.0-deprecated" class="paragraph">
+<p><span class="release-note-category"><span class="icon"><i class="fa fa-ban"></i></span> Deprecated</span></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Deprecate <code>isXmlEqualTo</code> in favor of <a href="https://www.xmlunit.org/">XML Unit</a>.</p>
+</li>
+<li>
+<p>Deprecate <code>SoftlyExtension</code> in favor of <code>SoftAssertionsExtension</code> that now supports field injection.</p>
+</li>
+</ul>
+</div>
+<div id="assertj-core-3.18.0-hasPackage" class="paragraph">
+<p><span class="release-note-item">Add <code>hasPackage</code> to <code>Class</code> assertions</span></p>
+</div>
+<div class="paragraph">
+<p>Verifies that the actual <code>Class</code> under test has the given package name.</p>
+</div>
+<div class="paragraph">
+<p>Example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="java" class="language-java hljs">package one.two;
+
+class MyClass {}
+
+assertThat(MyClass.class).hasPackage("one.two")
+                         .hasPackage(Package.getPackage("one.two"));</code></pre>
+</div>
+</div>
+<div id="assertj-core-3.18.0-isCloseTo-Duration" class="paragraph">
+<p><span class="release-note-item">Add <code>isCloseTo</code> to <code>java.time.Duration</code> assertions</span></p>
+</div>
+<div class="paragraph">
+<p>Verifies that the actual Duration is close to the given one within the given allowed difference (assertion succeeds if difference = allowed difference).</p>
+</div>
+<div class="paragraph">
+<p>This is equivalent of: <code>abs(actual - expected) ≤ allowed difference</code>.</p>
+</div>
+<div class="paragraph">
+<p>For readability, <code>Assertions.withMarginOf(Duration)</code> can be used to express the allowed difference.</p>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="java" class="language-java hljs">Duration twoMinutes = Duration.ofMinutes(2);
+
+assertThat(twoMinutes).isCloseTo(Duration.ofMinutes(3), Duration.ofMinutes(5));
+assertThat(twoMinutes).isCloseTo(Duration.ofMinutes(-3), Duration.ofMinutes(10));
+assertThat(twoMinutes).isCloseTo(Duration.ofMinutes(3), Duration.ofMinutes(1));
+
+// assertions using withMarginOf syntactic sugar
+assertThat(twoMinutes).isCloseTo(Duration.ofMinutes(3), withMarginOf(Duration.ofMinutes(5)));
+assertThat(twoMinutes).isCloseTo(Duration.ofMinutes(3), withMarginOf(Duration.ofMinutes(1)));</code></pre>
+</div>
+</div>
+<div id="assertj-core-3.18.0-failsWithin" class="paragraph">
+<p><span class="release-note-item">Add <code>failsWithin</code> to <code>Future</code> and <code>CompletableFuture</code> assertionss</span></p>
+</div>
+<div class="paragraph">
+<p>Checks that the Future/CompletableFuture does not complete within the given time and returns the exception that caused the failure for further (exception) assertions, the exception can be any of <code>InterruptedException</code>, <code>ExecutionException</code>, <code>TimeoutException</code> or <code>CancellationException</code> as per <code>Future.get(long, TimeUnit)</code> behaviour.</p>
+</div>
+<div class="paragraph">
+<p><strong>WARNING</strong></p>
+</div>
+<div class="paragraph">
+<p><code>failsWithin</code> does not fully integrate with soft assertions, if the future completes the test will fail immediately (the error is not collected as a soft assertion error), if the assertion succeeds the chained assertions are executed and any errors will be collected as a soft assertion errors.
+The rationale is that if we collect <code>failsWithin</code> error as a soft assertion error, the chained assertions would be executed but that does not make sense since there is no exception to check as the future has completed.</p>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="java" class="language-java hljs">ExecutorService executorService = Executors.newSingleThreadExecutor();
+
+Future&lt;String&gt; future = executorService.submit(() -&gt; {
+  Thread.sleep(100);
+  return "ook!";
+});
+
+// assertion succeeds as the future is not completed after 50ms
+assertThat(future).failsWithin(Duration.ofMillis(10))
+                  .withThrowableOfType(TimeoutException.class);
+
+// alternative assertion syntax, the time out is expressed with a TimeUnit value
+assertThat(future).failsWithin(10, TimeUnit.MILLISECONDS);
+
+
+// fails as the future is completed within 200ms
+assertThat(future).failsWithin(Duration.ofMillis(200));</code></pre>
+</div>
+</div>
+<div id="assertj-core-3.18.0-isTrue-isFalse-error-message" class="paragraph">
+<p><span class="release-note-item">Improve <code>isTrue</code>/<code>isFalse</code> assertions error messages</span></p>
+</div>
+<div class="paragraph">
+<p>Before:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="text" class="language-text hljs">Expecting:
+ &lt;false&gt;
+to be equal to:
+ &lt;true&gt;
+but was not.</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>After:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="text" class="language-text hljs">Expecting value to be true but was false</code></pre>
+</div>
+</div>
+<div id="assertj-core-3.18.0-hasValueMatching" class="paragraph">
+<p><span class="release-note-item">Add <code>hasValueSatisfying</code> to <code>AtomicReference</code> assertions</span></p>
+</div>
+<div class="paragraph">
+<p>Verifies that the atomic under test has a value satisfying the given predicate.</p>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="java" class="language-java hljs">assertThat(new AtomicReference("foo")).hasValueMatching(result -&gt; result != null);
+
+// you can pass a description for the predicate that will be used in the error message
+assertThat(new AtomicReference("foo")).hasValueMatching(result -&gt; result != null, "expected not null");</code></pre>
+</div>
+</div>
+<div id="assertj-core-3.18.0-hasValueSatisfying" class="paragraph">
+<p><span class="release-note-item">Add <code>hasValueSatisfying</code> to <code>AtomicReference</code> assertions</span></p>
+</div>
+<div class="paragraph">
+<p>Verifies that the atomic under test has a value satisfying the given requirements.</p>
+</div>
+<div class="paragraph">
+<p>Example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="java" class="language-java hljs">assertThat(new AtomicReference("foo")).hasValueSatisfying(result -&gt; assertThat(result).isNotBlank());</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="assertj-core-3-17-2-release-notes"><a class="anchor" href="#assertj-core-3-17-2-release-notes"></a>2.9.2. AssertJ Core 3.17.2</h4>
 <div class="paragraph">
 <p>Release date : 2020-09-06</p>
 </div>
@@ -6318,7 +6605,7 @@ AssertJ Core would not exist without its contributors, you can find them all <a 
 </div>
 </div>
 <div class="sect3">
-<h4 id="assertj-core-3-17-1-release-notes"><a class="anchor" href="#assertj-core-3-17-1-release-notes"></a>2.9.2. AssertJ Core 3.17.1</h4>
+<h4 id="assertj-core-3-17-1-release-notes"><a class="anchor" href="#assertj-core-3-17-1-release-notes"></a>2.9.3. AssertJ Core 3.17.1</h4>
 <div class="paragraph">
 <p>Release date : 2020-08-30</p>
 </div>
@@ -6379,7 +6666,7 @@ AssertJ Core would not exist without its contributors, you can find them all <a 
 </div>
 </div>
 <div class="sect3">
-<h4 id="assertj-core-3-17-0-release-notes"><a class="anchor" href="#assertj-core-3-17-0-release-notes"></a>2.9.3. AssertJ Core 3.17.0</h4>
+<h4 id="assertj-core-3-17-0-release-notes"><a class="anchor" href="#assertj-core-3-17-0-release-notes"></a>2.9.4. AssertJ Core 3.17.0</h4>
 <div class="paragraph">
 <p>Release date : 2020-08-23</p>
 </div>
@@ -6904,7 +7191,7 @@ assertThat(employees).filteredOn(e -&gt; e.getName(), null)
 </div>
 </div>
 <div class="sect3">
-<h4 id="assertj-core-3-16-1-release-notes"><a class="anchor" href="#assertj-core-3-16-1-release-notes"></a>2.9.4. AssertJ Core 3.16.1</h4>
+<h4 id="assertj-core-3-16-1-release-notes"><a class="anchor" href="#assertj-core-3-16-1-release-notes"></a>2.9.5. AssertJ Core 3.16.1</h4>
 <div class="paragraph">
 <p>Release date : 2020-05-09</p>
 </div>
@@ -6929,7 +7216,7 @@ assertThat(employees).filteredOn(e -&gt; e.getName(), null)
 </div>
 </div>
 <div class="sect3">
-<h4 id="assertj-core-3-16-0-release-notes"><a class="anchor" href="#assertj-core-3-16-0-release-notes"></a>2.9.5. AssertJ Core 3.16.0</h4>
+<h4 id="assertj-core-3-16-0-release-notes"><a class="anchor" href="#assertj-core-3-16-0-release-notes"></a>2.9.6. AssertJ Core 3.16.0</h4>
 <div class="paragraph">
 <p>Release date : 2020-05-05</p>
 </div>
@@ -7435,7 +7722,7 @@ and others were not expected:
 </div>
 </div>
 <div class="sect3">
-<h4 id="assertj-core-3-15-0-release-notes"><a class="anchor" href="#assertj-core-3-15-0-release-notes"></a>2.9.6. AssertJ Core 3.15.0</h4>
+<h4 id="assertj-core-3-15-0-release-notes"><a class="anchor" href="#assertj-core-3-15-0-release-notes"></a>2.9.7. AssertJ Core 3.15.0</h4>
 <div class="paragraph">
 <p>Release date : 2020-01-28</p>
 </div>
@@ -7945,7 +8232,7 @@ assertThat(doctor).usingRecursiveComparison()
 </div>
 </div>
 <div class="sect3">
-<h4 id="assertj-core-3-14-0-release-notes"><a class="anchor" href="#assertj-core-3-14-0-release-notes"></a>2.9.7. AssertJ Core 3.14.0</h4>
+<h4 id="assertj-core-3-14-0-release-notes"><a class="anchor" href="#assertj-core-3-14-0-release-notes"></a>2.9.8. AssertJ Core 3.14.0</h4>
 <div class="paragraph">
 <p>Release date : 2019-10-27</p>
 </div>
@@ -8679,7 +8966,7 @@ public void matching_example() {
 </div>
 </div>
 <div class="sect3">
-<h4 id="assertj-core-3-13-2-release-notes"><a class="anchor" href="#assertj-core-3-13-2-release-notes"></a>2.9.8. AssertJ Core 3.13.2</h4>
+<h4 id="assertj-core-3-13-2-release-notes"><a class="anchor" href="#assertj-core-3-13-2-release-notes"></a>2.9.9. AssertJ Core 3.13.2</h4>
 <div class="paragraph">
 <p>Release date : 2019-08-04</p>
 </div>
@@ -8704,7 +8991,7 @@ public void matching_example() {
 </div>
 </div>
 <div class="sect3">
-<h4 id="assertj-core-3-13-1-release-notes"><a class="anchor" href="#assertj-core-3-13-1-release-notes"></a>2.9.9. AssertJ Core 3.13.1</h4>
+<h4 id="assertj-core-3-13-1-release-notes"><a class="anchor" href="#assertj-core-3-13-1-release-notes"></a>2.9.10. AssertJ Core 3.13.1</h4>
 <div class="paragraph">
 <p>Release date : 2019-07-29</p>
 </div>
@@ -8738,7 +9025,7 @@ public void matching_example() {
 </div>
 </div>
 <div class="sect3">
-<h4 id="assertj-core-3-13-0-release-notes"><a class="anchor" href="#assertj-core-3-13-0-release-notes"></a>2.9.10. AssertJ Core 3.13.0</h4>
+<h4 id="assertj-core-3-13-0-release-notes"><a class="anchor" href="#assertj-core-3-13-0-release-notes"></a>2.9.11. AssertJ Core 3.13.0</h4>
 <div class="paragraph">
 <p>Release date : 2019-07-28</p>
 </div>
@@ -9492,7 +9779,7 @@ assertThat(yoda).extracting(Jedi::getName) // ObjectAssert&lt;String&gt;
 </div>
 </div>
 <div class="sect3">
-<h4 id="assertj-core-3-12-2-release-notes"><a class="anchor" href="#assertj-core-3-12-2-release-notes"></a>2.9.11. AssertJ Core 3.12.2</h4>
+<h4 id="assertj-core-3-12-2-release-notes"><a class="anchor" href="#assertj-core-3-12-2-release-notes"></a>2.9.12. AssertJ Core 3.12.2</h4>
 <div class="paragraph">
 <p>The main issue fixed was to ignore static methods when finding property accessors (contributed by Andy Wilkinson) which could break some tests since bare name method introspection was introduced in 3.12.0.</p>
 </div>
@@ -9501,13 +9788,13 @@ assertThat(yoda).extracting(Jedi::getName) // ObjectAssert&lt;String&gt;
 </div>
 </div>
 <div class="sect3">
-<h4 id="assertj-core-3-12-1-release-notes"><a class="anchor" href="#assertj-core-3-12-1-release-notes"></a>2.9.12. AssertJ Core 3.12.1</h4>
+<h4 id="assertj-core-3-12-1-release-notes"><a class="anchor" href="#assertj-core-3-12-1-release-notes"></a>2.9.13. AssertJ Core 3.12.1</h4>
 <div class="paragraph">
 <p>Fix a regression that included a bad module-info.class (thanks Jaro Kuruc) and other minor improvements.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="assertj-core-3-12-0-release-notes"><a class="anchor" href="#assertj-core-3-12-0-release-notes"></a>2.9.13. AssertJ Core 3.12.0</h4>
+<h4 id="assertj-core-3-12-0-release-notes"><a class="anchor" href="#assertj-core-3-12-0-release-notes"></a>2.9.14. AssertJ Core 3.12.0</h4>
 <div class="paragraph">
 <p>Release date : 2019-02-14</p>
 </div>
@@ -16557,7 +16844,7 @@ AssertJ Swing would not exist without its contributors, you can find them all <a
 <div id="footer">
 <div id="footer-text">
 Version 1.0<br>
-Last updated 2020-10-24 22:00:08 UTC
+Last updated 2020-10-25 21:26:53 UTC
 </div>
 </div>
 <link rel="stylesheet" href="highlight/styles/railscasts.min.css">
