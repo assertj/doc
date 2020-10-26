@@ -6285,7 +6285,7 @@ AssertJ Core would not exist without its contributors, you can find them all <a 
 <p>Breaking change: disable bare name getter by default, to get the previous behaviour back, call <code>Assertions.setExtractBareNamePropertyMethods​(true);</code></p>
 </li>
 <li>
-<p>Exclude <code>net.bytebuddy.experimental</code> property from shading scope: ensures that setting this property enables ByteBuddy experimental features also inside AssertJ. Before this change, ByteBuddy experimental features in AssertJ could only be enabled setting the <code>org.assertj.core.internal.bytebuddy.experimental</code> property.</p>
+<p>Exclude <code>net.bytebuddy.experimental</code> property from shading scope: ensures that the property controls ByteBuddy experimental features also inside AssertJ, usually needed when using JDK early access builds. Before this change, ByteBuddy experimental features in AssertJ could only be controlled by <code>org.assertj.core.internal.bytebuddy.experimental</code>.</p>
 </li>
 </ul>
 </div>
@@ -16844,7 +16844,7 @@ AssertJ Swing would not exist without its contributors, you can find them all <a
 <div id="footer">
 <div id="footer-text">
 Version 1.0<br>
-Last updated 2020-10-25 21:32:27 UTC
+Last updated 2020-10-26 06:22:15 UTC
 </div>
 </div>
 <link rel="stylesheet" href="highlight/styles/railscasts.min.css">
