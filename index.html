@@ -6399,7 +6399,60 @@ AssertJ Core would not exist without its contributors, you can find them all <a 
 <li>
 <p>Deprecate <code>SoftlyExtension</code> in favor of <code>SoftAssertionsExtension</code> that now supports field injection.</p>
 </li>
+<li>
+<p>Deprecate <code>hasFailed()</code> <code>CompletableFuture</code> assertion:</p>
+</li>
 </ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="java" class="language-java hljs">// deprecated
+assertThat(future).hasFailed();
+// instead calls
+assertThat(future).isCompletedExceptionally()
+                  .isNotCancelled();</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Deprecate <code>hasFailedWithThrowableThat()</code> <code>CompletableFuture</code> assertion in favor <code>failsWithin</code>:</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="java" class="language-java hljs">// deprecated
+CompletableFuture future = new CompletableFuture();
+future.completeExceptionally(new RuntimeException("boom!"));
+
+assertThat(future).hasFailedWithThrowableThat().isInstanceOf(RuntimeException.class);
+                                               .hasMessage("boom!");
+// instead calls
+assertThat(future).failsWithin(1, TimeUnit.SECONDS)
+                  .withThrowableOfType(RuntimeException.class)
+                  .withMessage("boom!");</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Please note that the semantics of a failure in <code>failsWithin</code> differs from <code>hasFailedWithThrowableThat</code>, <code>failsWithin</code> tries to get the future after the given duration and return the exception that led to its failure while <code>hasFailedWithThrowableThat</code> checks the future is completed exceptionnaly and was not cancelled.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Deprecate <code>hasNotFailed()</code> <code>CompletableFuture</code> assertion:</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="java" class="language-java hljs">CompletableFuture future = new CompletableFuture();
+future.cancel(true);
+// deprecated
+assertThat(future).hasNotFailed();
+// instead calls
+assertThat(future).matches (f -&gt; f.isNotCompletedExceptionally() || f.isCancelled());</code></pre>
+</div>
 </div>
 <div id="assertj-core-3.18.0-hasPackage" class="paragraph">
 <p><span class="release-note-item">Add <code>hasPackage</code> to <code>Class</code> assertions</span></p>
@@ -16844,7 +16897,7 @@ AssertJ Swing would not exist without its contributors, you can find them all <a
 <div id="footer">
 <div id="footer-text">
 Version 1.0<br>
-Last updated 2020-10-26 06:22:15 UTC
+Last updated 2020-10-28 03:51:33 UTC
 </div>
 </div>
 <link rel="stylesheet" href="highlight/styles/railscasts.min.css">
