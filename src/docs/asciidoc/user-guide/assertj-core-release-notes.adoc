@@ -83,6 +83,46 @@ Shout out to Fr Jeremy Krieg for adding soft assertions field injection capabili
 
 * Deprecate `isXmlEqualTo` in favor of https://www.xmlunit.org/[XML Unit].
 * Deprecate `SoftlyExtension` in favor of `SoftAssertionsExtension` that now supports field injection.
+* Deprecate `hasFailed()` `CompletableFuture` assertion:
+
+[source,java]
+----
+// deprecated
+assertThat(future).hasFailed();
+// instead calls
+assertThat(future).isCompletedExceptionally()
+                  .isNotCancelled();
+----
+
+* Deprecate `hasFailedWithThrowableThat()` `CompletableFuture` assertion in favor `failsWithin`:
+
+[source,java]
+----
+// deprecated
+CompletableFuture future = new CompletableFuture();
+future.completeExceptionally(new RuntimeException("boom!"));
+
+assertThat(future).hasFailedWithThrowableThat().isInstanceOf(RuntimeException.class);
+                                               .hasMessage("boom!"); 
+// instead calls
+assertThat(future).failsWithin(1, TimeUnit.SECONDS)
+                  .withThrowableOfType(RuntimeException.class)
+                  .withMessage("boom!");
+----
+Please note that the semantics of a failure in `failsWithin` differs from `hasFailedWithThrowableThat`, `failsWithin` tries to get the future after the given duration and return the exception that led to its failure while `hasFailedWithThrowableThat` checks the future is completed exceptionnaly and was not cancelled.
+
+* Deprecate `hasNotFailed()` `CompletableFuture` assertion:
+
+[source,java]
+----
+CompletableFuture future = new CompletableFuture();
+future.cancel(true);
+// deprecated
+assertThat(future).hasNotFailed();
+// instead calls
+assertThat(future).matches (f -> f.isNotCompletedExceptionally() || f.isCancelled());
+----
+
 
 [[assertj-core-3.18.0-hasPackage]]
 [.release-note-item]#Add `hasPackage` to `Class` assertions#
