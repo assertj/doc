@@ -1516,23 +1516,25 @@ The injection occurs before each test method execution, after each test `assertA
 
 A nested test class can provide a `SoftAssertionsProvider` field when it extends this extension or can inherit the parent's one.
 
+You can have multiple soft assertion providers injected into a single test class. Assertions made on any of them will be collected in a single error collector and reported all together, in the same order that they failed.
+
 This extension throws an `ExtensionConfigurationException` if:
 
-* the field is static or final or cannot be accessed
-* the field type is not a concrete implementation of `SoftAssertionsProvider` (or subclass)
-* the field type has no default constructor
+* the field is static or final or cannot be accessed;
+* the field type is not a concrete implementation of `SoftAssertionsProvider` (or subclass); or
+* the field type has no default constructor.
 
 Example:
 [source,java,indent=0]
 ----
 import org.assertj.core.api.SoftAssertions;
-import org.assertj.core.api.junit.jupiter.SoftlyExtension;
+import org.assertj.core.api.junit.jupiter.SoftAssertionsExtension;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
-@ExtendWith(SoftlyExtension.class)
-public class JUnit5SoftlyExtensionAssertionsExamples {
+@ExtendWith(SoftAssertionsExtension.class)
+public class JUnit5SoftAssertionsExtensionAssertionsExamples {
 
   @InjectSoftAssertions
   private SoftAssertions softly;
@@ -1563,7 +1565,7 @@ public class JUnit5SoftlyExtensionAssertionsExamples {
 [[assertj-core-junit5-soft-assertions-parameter-injection]]
 ====== SoftAssertionsProvider parameter injection 
 
-`SoftAssertionsExtension` supports injecting any `SoftAssertionsProvider` as a parameter in each test methods.
+`SoftAssertionsExtension` supports injecting any `SoftAssertionsProvider` implementation as a parameter in any test method.
 
 The term "test method" refers to any method annotated with `@Test`, `@RepeatedTest`, `@ParameterizedTest`, `@TestFactory` or `@TestTemplate`.
 Notably, the extension is compatible with link:https://junit.org/junit5/docs/current/user-guide/#writing-tests-parameterized-tests[parameterized tests], the parameterized arguments must come first and the soft assertions argument last.
@@ -1571,10 +1573,12 @@ Notably, the extension is compatible with link:https://junit.org/junit5/docs/cur
 The scope of the `SoftAssertionsProvider` instance managed by this extension begins when a parameter of type `SoftAssertionsProvider` is resolved for a test method. +
 It ends after the test method has been executed, this is when `assertAll()` will be invoked on the instance to verify that no soft assertions failed.
 
-This extension throws an `ExtensionConfigurationException` if:
+Parameter injection and field injection can be mixed. Assertions made on the field- and parameter-injected soft assertion providers will all be collected and reported together when the extension calls `assertAll()`.
 
-* the resolved SoftAssertionsProvider is abstract and cannot be instantiated
-* the resolved SoftAssertionsProvider has no default constructor and cannot be instantiated
+This extension throws a `ParameterResolutionException` if the resolved `SoftAssertionsProvider` :
+
+* is abstract; or
+* has no default constructor.
 
 
 Example:
