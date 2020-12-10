@@ -70,7 +70,7 @@ Shout out to Fr Jeremy Krieg for adding soft assertions field injection capabili
 [[assertj-core-3.18.0-breaking-changes]]
 [.release-note-category]#icon:exclamation-triangle[] Breaking changes#
 
-* Breaking change: disable bare name getter by default, to get the previous behaviour back, call `Assertions.setExtractBareNamePropertyMethods​(true);`
+* Breaking change: disable bare name getter by default, to get the previous behaviour back, call `Assertions.setExtractBareNamePropertyMethods(true);`
 * Exclude `net.bytebuddy.experimental` property from shading scope: ensures that the property controls ByteBuddy experimental features also inside AssertJ, usually needed when using JDK early access builds. Before this change, ByteBuddy experimental features in AssertJ could only be controlled by `org.assertj.core.internal.bytebuddy.experimental`.
 
 [[assertj-core-3.18.0-new-features]]
