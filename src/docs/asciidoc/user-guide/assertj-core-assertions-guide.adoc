@@ -641,7 +641,7 @@ This section describes the assertions common to all types.
 [[assertj-core-object-assertions]]
 ==== Object assertions (TODO)
 
-TODO
+TODO(see also https://joel-costigliola.github.io/assertj/assertj-core-features-highlight.html#describe-assertion[the old document])
 
 [[assertj-string-object-assertions]]
 ==== String/CharSequence assertions
@@ -654,7 +654,7 @@ The javadoc for `CharSequence` assertions is available https://www.javadoc.io/st
 [[assertj-core-iterable-assertions]]
 ==== Iterable/Collection/array assertions (WIP)
 
-TODO
+TODO(see also https://joel-costigliola.github.io/assertj/assertj-core-features-highlight.html#extracted-properties-assertion[the old document])
 
 [[assertj-core-array-assertions]]
 ===== byte[] specific assertions
