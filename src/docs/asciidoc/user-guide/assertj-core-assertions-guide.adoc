@@ -651,10 +651,101 @@ This section describes all the available assertions for `CharSequence` (includin
 The javadoc for `CharSequence` assertions is available https://www.javadoc.io/static/org.assertj/assertj-core/{assertj-core-version}/org/assertj/core/api/AbstractCharSequenceAssert.html#method.summary[here].
 
 
-[[assertj-core-iterable-assertions]]
-==== Iterable/Collection/array assertions (WIP)
+[[assertj-core-group-assertions]]
+==== Iterable and array assertions (WIP)
 
-TODO
+The javadoc summarizing the available assertions are listed below:
+
+* iterables: {assertj-core-javadoc-root}org/assertj/core/api/AbstractIterableAssert.html#method.summary
+* arrays: {assertj-core-javadoc-root}org/assertj/core/api/AbstractObjectArrayAssert.html#method.summary
+
+The next sections focus on some features worth knowing to get the best of AssertJ. 
+
+[[assertj-core-group-features-highlights]]
+===== Filtering elements
+
+Filtering can be done on arrays or iterables, a filter criteria can be expressed by:
+
+* a Java 8 Predicate
+* a link:#assertj-core-conditions[Condition] 
+* some operation on a property/field of array/iterable elements
+
+Let's see both options in some examples taken from {assertj-examples-repo}/tree/main/assertions-examples/src/test/java/org/assertj/examples/FilterExamples.java#L47[FilterExamples] from the {assertj-examples-repo}[assertions-examples] project.
+
+====== Filtering with a Predicate
+
+You specify the filter condition using simple predicate, best expressed with a lambda.
+
+Example:
+
+[source,java,indent=0]
+----
+assertThat(fellowshipOfTheRing).filteredOn( character -> character.getName().contains("o") )
+                               .containsOnly(aragorn, frodo, legolas, boromir);
+----
+
+====== Filtering on a property or a field
+
+First you specify the property/field name to filter on and then its expected value. The filter first tries to get the value from a property, then from a field. Reading private fields is supported by default, but can be disabled globally by calling Assertions.setAllowExtractingPrivateFields(false).
+
+Filters support reading nested properties/fields. Note that if an intermediate value is null the whole nested property/field is considered to be null. Thus reading "address.street.name" will return null if "address.street" is null.
+
+Filters support these basic operations : `not`, `in`, `notIn`
+
+[source,java,indent=0]
+----
+import static org.assertj.core.api.Assertions.in;
+import static org.assertj.core.api.Assertions.not;
+import static org.assertj.core.api.Assertions.notIn;
+...
+
+// filters use introspection to get property/field values
+assertThat(fellowshipOfTheRing).filteredOn("race", HOBBIT)
+                               .containsOnly(sam, frodo, pippin, merry);
+
+// nested properties are supported
+assertThat(fellowshipOfTheRing).filteredOn("race.name", "Man")
+                               .containsOnly(aragorn, boromir);
+
+// you can apply different comparison
+assertThat(fellowshipOfTheRing).filteredOn("race", notIn(HOBBIT, MAN))
+                               .containsOnly(gandalf, gimli, legolas);
+
+assertThat(fellowshipOfTheRing).filteredOn("race", in(MAIA, MAN))
+                               .containsOnly(gandalf, boromir, aragorn);
+
+assertThat(fellowshipOfTheRing).filteredOn("race", not(HOBBIT))
+                               .containsOnly(gandalf, boromir, aragorn, gimli, legolas);
+
+// you can chain multiple filter criteria
+assertThat(fellowshipOfTheRing).filteredOn("race", MAN)
+                               .filteredOn("name", not("Boromir"))
+                               .containsOnly(aragorn);
+----
+
+====== Filtering with a Condition
+
+Filter the iterable/array under test keeping only elements matching the given `Condition`.
+
+Two methods are available : being(Condition) and having(Condition). They do the same job - pick the one that makes your code more readable!
+
+[source,java,indent=0]
+----
+import org.assertj.core.api.Condition;
+
+Condition<Player> mvpStats= new Condition<Player>(player -> {
+    return player.pointsPerGame() > 20 && (player.assistsPerGame() >= 8 || player.reboundsPerGame() >= 8);
+  }, "mvp");
+
+List<Player> players;
+players.add(rose); // Derrick Rose : 25 ppg - 8 assists - 5 rebounds
+players.add(lebron); // Lebron James : 27 ppg - 6 assists - 9 rebounds
+players.add(noah); // Joachim Noah : 8 ppg - 5 assists - 11 rebounds
+
+// noah does not have more than 20 ppg
+assertThat(players).filteredOn(mvpStats)
+                   .containsOnly(rose, lebron);
+----
 
 [[assertj-core-array-assertions]]
 ===== byte[] specific assertions
