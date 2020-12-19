@@ -664,13 +664,15 @@ The next sections focus on some features worth knowing to get the best of Assert
 [[assertj-core-group-features-highlights]]
 ===== Filtering elements
 
-Filtering can be done on arrays or iterables, a filter criteria can be expressed by:
+Filtering is handy to target assertions on some specific elements, the filter criteria can be expressed by:
 
-* a Java 8 Predicate
-* a link:#assertj-core-conditions[Condition] 
-* some operation on a property/field of array/iterable elements
+* a link:#filtering-with-a-predicate[java Predicate]
+* an link:#filtering-on-a-property-or-a-field[element property/field having a specific value (or not) or in a set of values (or not)]
+* an link:#filtering-on-null-value[element property/field having a null value]
+* an element link:#filtering-elements-matchin-given-assertions[matching some assertions]
+* an element mactching a link:#filtering-with-a-condition[Condition] 
 
-Let's see both options in some examples taken from {assertj-examples-repo}/tree/main/assertions-examples/src/test/java/org/assertj/examples/FilterExamples.java#L47[FilterExamples] from the {assertj-examples-repo}[assertions-examples] project.
+Let's explore these options in some examples taken from {assertj-examples-repo}/tree/main/assertions-examples/src/test/java/org/assertj/examples/FilterExamples.java#L47[FilterExamples] from the {assertj-examples-repo}[assertions-examples] project.
 
 ====== Filtering with a Predicate
 
@@ -686,9 +688,9 @@ assertThat(fellowshipOfTheRing).filteredOn( character -> character.getName().con
 
 ====== Filtering on a property or a field
 
-First you specify the property/field name to filter on and then its expected value. The filter first tries to get the value from a property, then from a field. Reading private fields is supported by default, but can be disabled globally by calling Assertions.setAllowExtractingPrivateFields(false).
+First you specify the property/field name to filter on and then its expected value. The filter first tries to get the value from a property, then from a field. Reading private fields is supported by default, but can be disabled globally by calling `Assertions.setAllowExtractingPrivateFields(false)`.
 
-Filters support reading nested properties/fields. Note that if an intermediate value is null the whole nested property/field is considered to be null. Thus reading "address.street.name" will return null if "address.street" is null.
+Filter supports nested properties/fields. Note that if an intermediate value is null the whole nested property/field is considered to be null, for example reading `"address.street.name"` will return null if `"address.street"` is null.
 
 Filters support these basic operations : `not`, `in`, `notIn`
 
@@ -723,9 +725,56 @@ assertThat(fellowshipOfTheRing).filteredOn("race", MAN)
                                .containsOnly(aragorn);
 ----
 
+====== Filtering on a function return value
+
+This is a more flexible way of getting the value to filter on but note that there is no support for operators like `not`, `in` and `notIn`.
+
+[source,java,indent=0]
+----
+assertThat(fellowshipOfTheRing).filteredOn(TolkienCharacter::getRace, HOBBIT)
+                               .containsOnly(sam, frodo, pippin, merry);
+----
+
+====== Filtering on null value
+
+Filters the elements whose specified property/field is null. 
+
+Filter supports nested properties/fields. Note that if an intermediate value is null the whole nested property/field is considered to be null, for example reading `"address.street.name"` will return null if `"address.street"` is null.
+
+[source,java,indent=0]
+----
+TolkienCharacter pippin = new TolkienCharacter("Pippin", 28, HOBBIT);
+TolkienCharacter frodo = new TolkienCharacter("Frodo", 33, HOBBIT);
+TolkienCharacter merry = new TolkienCharacter("Merry", 36, HOBBIT);
+TolkienCharacter mysteriousHobbit = new TolkienCharacter(null, 38, HOBBIT);
+
+List<TolkienCharacter> hobbits = list(frodo, mysteriousHobbit, merry, pippin);
+
+assertThat(hobbits).filteredOnNull("age"))
+                   .singleElement()
+                   .isEqualTo(mysteriousHobbit);
+----
+
+====== Filtering elements matchin given assertions
+
+Filters the iterable under test keeping only elements matching the given assertions specified with a `Consumer`. 
+
+Example: check hobbits whose age < 34 
+[source,java,indent=0]
+----
+TolkienCharacter pippin = new TolkienCharacter("Pippin", 28, HOBBIT);
+TolkienCharacter frodo = new TolkienCharacter("Frodo", 33, HOBBIT);
+TolkienCharacter merry = new TolkienCharacter("Merry", 36, HOBBIT);
+TolkienCharacter sam = new TolkienCharacter("Sam", 38, HOBBIT);
+
+List<TolkienCharacter> hobbits = list(frodo, sam, merry, pippin);
+
+assertThat(hobbits).filteredOnAssertions(hobbit -> assertThat(hobbit.age).isLessThan(34))
+                   .containsOnly(frodo, pippin);
+----
 ====== Filtering with a Condition
 
-Filter the iterable/array under test keeping only elements matching the given `Condition`.
+Filter the iterable/array under test keeping only elements matching the given link:#assertj-core-conditions[`Condition`].
 
 Two methods are available : being(Condition) and having(Condition). They do the same job - pick the one that makes your code more readable!
 
