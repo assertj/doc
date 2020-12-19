@@ -3956,18 +3956,24 @@ assertThat("foo").withRepresentation(customRepresentation)
 <div class="sect4">
 <h5 id="assertj-core-group-features-highlights"><a class="anchor" href="#assertj-core-group-features-highlights"></a>Filtering elements</h5>
 <div class="paragraph">
-<p>Filtering can be done on arrays or iterables, a filter criteria can be expressed by:</p>
+<p>Filtering is handy to target assertions on some specific elements, the filter criteria can be expressed by:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>a Java 8 Predicate</p>
+<p>a <a href="#filtering-with-a-predicate">java Predicate</a></p>
 </li>
 <li>
-<p>a <a href="#assertj-core-conditions">Condition</a></p>
+<p>an <a href="#filtering-on-a-property-or-a-field">element property/field having a specific value (or not) or in a set of values (or not)</a></p>
 </li>
 <li>
-<p>some operation on a property/field of array/iterable elements</p>
+<p>an <a href="#filtering-on-null-value">element property/field having a null value</a></p>
+</li>
+<li>
+<p>an element <a href="#filtering-elements-matchin-given-assertions">matching some assertions</a></p>
+</li>
+<li>
+<p>an element mactching a <a href="#filtering-with-a-condition">Condition</a></p>
 </li>
 </ul>
 </div>
@@ -3992,10 +3998,10 @@ assertThat("foo").withRepresentation(customRepresentation)
 <div class="sect5">
 <h6 id="filtering-on-a-property-or-a-field"><a class="anchor" href="#filtering-on-a-property-or-a-field"></a>Filtering on a property or a field</h6>
 <div class="paragraph">
-<p>First you specify the property/field name to filter on and then its expected value. The filter first tries to get the value from a property, then from a field. Reading private fields is supported by default, but can be disabled globally by calling Assertions.setAllowExtractingPrivateFields(false).</p>
+<p>First you specify the property/field name to filter on and then its expected value. The filter first tries to get the value from a property, then from a field. Reading private fields is supported by default, but can be disabled globally by calling <code>Assertions.setAllowExtractingPrivateFields(false)</code>.</p>
 </div>
 <div class="paragraph">
-<p>Filters support reading nested properties/fields. Note that if an intermediate value is null the whole nested property/field is considered to be null. Thus reading "address.street.name" will return null if "address.street" is null.</p>
+<p>Filter supports nested properties/fields. Note that if an intermediate value is null the whole nested property/field is considered to be null, for example reading <code>"address.street.name"</code> will return null if <code>"address.street"</code> is null.</p>
 </div>
 <div class="paragraph">
 <p>Filters support these basic operations : <code>not</code>, <code>in</code>, <code>notIn</code></p>
@@ -4033,9 +4039,66 @@ assertThat(fellowshipOfTheRing).filteredOn("race", MAN)
 </div>
 </div>
 <div class="sect5">
+<h6 id="filtering-on-a-function-return-value"><a class="anchor" href="#filtering-on-a-function-return-value"></a>Filtering on a function return value</h6>
+<div class="paragraph">
+<p>This is a more flexible way of getting the value to filter on but note that there is no support for operators like <code>not</code>, <code>in</code> and <code>notIn</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="java" class="language-java hljs">assertThat(fellowshipOfTheRing).filteredOn(TolkienCharacter::getRace, HOBBIT)
+                               .containsOnly(sam, frodo, pippin, merry);</code></pre>
+</div>
+</div>
+</div>
+<div class="sect5">
+<h6 id="filtering-on-null-value"><a class="anchor" href="#filtering-on-null-value"></a>Filtering on null value</h6>
+<div class="paragraph">
+<p>Filters the elements whose specified property/field is null.</p>
+</div>
+<div class="paragraph">
+<p>Filter supports nested properties/fields. Note that if an intermediate value is null the whole nested property/field is considered to be null, for example reading <code>"address.street.name"</code> will return null if <code>"address.street"</code> is null.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="java" class="language-java hljs">TolkienCharacter pippin = new TolkienCharacter("Pippin", 28, HOBBIT);
+TolkienCharacter frodo = new TolkienCharacter("Frodo", 33, HOBBIT);
+TolkienCharacter merry = new TolkienCharacter("Merry", 36, HOBBIT);
+TolkienCharacter mysteriousHobbit = new TolkienCharacter(null, 38, HOBBIT);
+
+List&lt;TolkienCharacter&gt; hobbits = list(frodo, mysteriousHobbit, merry, pippin);
+
+assertThat(hobbits).filteredOnNull("age"))
+                   .singleElement()
+                   .isEqualTo(mysteriousHobbit);</code></pre>
+</div>
+</div>
+</div>
+<div class="sect5">
+<h6 id="filtering-elements-matchin-given-assertions"><a class="anchor" href="#filtering-elements-matchin-given-assertions"></a>Filtering elements matchin given assertions</h6>
+<div class="paragraph">
+<p>Filters the iterable under test keeping only elements matching the given assertions specified with a <code>Consumer</code>.</p>
+</div>
+<div class="paragraph">
+<p>Example: check hobbits whose age &lt; 34</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="java" class="language-java hljs">TolkienCharacter pippin = new TolkienCharacter("Pippin", 28, HOBBIT);
+TolkienCharacter frodo = new TolkienCharacter("Frodo", 33, HOBBIT);
+TolkienCharacter merry = new TolkienCharacter("Merry", 36, HOBBIT);
+TolkienCharacter sam = new TolkienCharacter("Sam", 38, HOBBIT);
+
+List&lt;TolkienCharacter&gt; hobbits = list(frodo, sam, merry, pippin);
+
+assertThat(hobbits).filteredOnAssertions(hobbit -&gt; assertThat(hobbit.age).isLessThan(34))
+                   .containsOnly(frodo, pippin);</code></pre>
+</div>
+</div>
+</div>
+<div class="sect5">
 <h6 id="filtering-with-a-condition"><a class="anchor" href="#filtering-with-a-condition"></a>Filtering with a Condition</h6>
 <div class="paragraph">
-<p>Filter the iterable/array under test keeping only elements matching the given <code>Condition</code>.</p>
+<p>Filter the iterable/array under test keeping only elements matching the given <a href="#assertj-core-conditions"><code>Condition</code></a>.</p>
 </div>
 <div class="paragraph">
 <p>Two methods are available : being(Condition) and having(Condition). They do the same job - pick the one that makes your code more readable!</p>
@@ -17086,7 +17149,7 @@ AssertJ Swing would not exist without its contributors, you can find them all <a
 <div id="footer">
 <div id="footer-text">
 Version 1.0<br>
-Last updated 2020-12-18 10:47:56 UTC
+Last updated 2020-12-19 02:14:46 UTC
 </div>
 </div>
 <link rel="stylesheet" href="highlight/styles/railscasts.min.css">
