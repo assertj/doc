@@ -3951,10 +3951,20 @@ assertThat("foo").withRepresentation(customRepresentation)
 </ul>
 </div>
 <div class="paragraph">
-<p>The next sections focus on some features worth knowing to get the best of AssertJ.</p>
+<p>The next sections focus on some features worth knowing to get the best of AssertJ, notably:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="#assertj-core-group-filtering">filtering elements before asserting</a></p>
+</li>
+<li>
+<p><a href="#assertj-core-group-extracting">extracting/mapping elements before asserting</a></p>
+</li>
+</ul>
 </div>
 <div class="sect4">
-<h5 id="assertj-core-group-features-highlights"><a class="anchor" href="#assertj-core-group-features-highlights"></a>Filtering elements</h5>
+<h5 id="assertj-core-group-filtering"><a class="anchor" href="#assertj-core-group-filtering"></a>Filtering elements</h5>
 <div class="paragraph">
 <p>Filtering is handy to target assertions on some specific elements, the filter criteria can be expressed by:</p>
 </div>
@@ -4124,9 +4134,168 @@ assertThat(players).filteredOn(mvpStats)
 </div>
 </div>
 <div class="sect4">
-<h5 id="assertj-core-array-assertions"><a class="anchor" href="#assertj-core-array-assertions"></a>byte[] specific assertions</h5>
+<h5 id="assertj-core-group-extracting"><a class="anchor" href="#assertj-core-group-extracting"></a>Extracting elements values</h5>
+<div class="sect5">
+<h6 id="what-problem-extracting-solves"><a class="anchor" href="#what-problem-extracting-solves"></a>What problem extracting solves</h6>
 <div class="paragraph">
-<p>This section covers assertions to byte array.</p>
+<p>Let&#8217;s say you have called some service and got a list (or an array) of <code>TolkienCharacter</code>, to check the results you have to build the expected TolkienCharacters, that can be a lot of work!</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="java" class="language-java hljs">List&lt;TolkienCharacter&gt; fellowshipOfTheRing = tolkienDao.findHeroes();  // frodo, sam, aragorn ...
+
+// requires creation of frodo and aragorn, the expected TolkienCharacters
+assertThat(fellowshipOfTheRing).contains(frodo, aragorn);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Instead, it is usually enough to check some fields or properties on the elements, for that you have to extract the fields/properties before performing your assertions, something like:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="java" class="language-java hljs">// extract the names ...
+List&lt;String&gt; names = fellowshipOfTheRing.stream().map(TolkienCharacter::getName).collect(toList());
+// ... and finally assert something
+assertThat(names).contains("Boromir", "Gandalf", "Frodo", "Legolas");</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This is too much work (even with the stream API), instead AssertJ can help extracting values from the elements under tests, there are several ways of doing so:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Extracting a <a href="#extracting-single-value-per-element">single value</a> per element</p>
+</li>
+<li>
+<p>Extracting a <a href="#extracting-multiple-values">multiple values</a> per element</p>
+</li>
+<li>
+<p>Extracting and <a href="#group-flat-extracting">flattening multiple values</a> per element</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect5">
+<h6 id="extracting-single-value-per-element"><a class="anchor" href="#extracting-single-value-per-element"></a>Extracting single value per element</h6>
+<div class="paragraph">
+<p>Specify the field/property to extract (or pass a <code>Function</code>) from each elements and perform assertions on the extracted values.</p>
+</div>
+<div class="paragraph">
+<p>Extracting by name can access private fields/properties which is handy to check internals not exposed with public methods (lambda won&#8217;t work here), it also supports nested field/property like <code>"race.name"</code>.</p>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="java" class="language-java hljs">// "name" needs to be either a property or a field of the TolkienCharacter class
+assertThat(fellowshipOfTheRing).extracting("name")
+                               .contains("Boromir", "Gandalf", "Frodo", "Legolas")
+                               .doesNotContain("Sauron", "Elrond");
+
+// specifying nested field/property is supported
+assertThat(fellowshipOfTheRing).extracting("race.name")
+                               .contains("Man", "Maia", "Hobbit", "Elf");
+
+// same thing with a lambda which is type safe and refactoring friendly:
+assertThat(fellowshipOfTheRing).extracting(TolkienCharacter::getName)
+                               .contains("Boromir", "Gandalf", "Frodo", "Legolas");
+
+// same thing map an alias of extracting:
+assertThat(fellowshipOfTheRing).map(TolkienCharacter::getName)
+                               .contains("Boromir", "Gandalf", "Frodo", "Legolas");</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Note that extracting one property can be made strongly typed by giving the property type as the second argument.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="java" class="language-java hljs">// to have type safe extracting, use the second parameter to pass the expected property type:
+assertThat(fellowshipOfTheRing).extracting("name", String.class)
+                               .contains("Boromir", "Gandalf", "Frodo", "Legolas")
+                               .doesNotContain("Sauron", "Elrond");</code></pre>
+</div>
+</div>
+</div>
+<div class="sect5">
+<h6 id="extracting-multiple-values"><a class="anchor" href="#extracting-multiple-values"></a>Extracting multiple values</h6>
+<div class="paragraph">
+<p>You can extract several values from the elements under test and check them using <a href="https://www.javadoc.io/doc/org.assertj/assertj-core/latest/org/assertj/core/api/Assertions.html#tuple(java.lang.Object&#46;&#46;&#46;)">tuples</a>.</p>
+</div>
+<div class="paragraph">
+<p>As an example, let&#8217;s check the name, age and race&#8217;s name of each TolkienCharacter element:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="java" class="language-java hljs">// when checking several properties/fields you have to use tuples:
+import static org.assertj.core.api.Assertions.tuple;
+
+// extracting name, age and and race.name nested property
+assertThat(fellowshipOfTheRing).extracting("name", "age", "race.name")
+                               .contains(tuple("Boromir", 37, "Man"),
+                                         tuple("Sam", 38, "Hobbit"),
+                                         tuple("Legolas", 1000, "Elf"));
+
+// same assertion with functions for type safety:
+assertThat(fellowshipOfTheRing).extracting(TolkienCharacter::getName,
+                                            tolkienCharacter -&gt; tolkienCharacter.age,
+                                            tolkienCharacter -&gt; tolkienCharacter.getRace().getName())
+                                .contains(tuple("Boromir", 37, "Man"),
+                                          tuple("Sam", 38, "Hobbit"),
+                                          tuple("Legolas", 1000, "Elf"));</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The extracted name, age and race&#8217;s name values of the current element are grouped in a tuple, thus you need to use tuples for specifying the expected values.</p>
+</div>
+<div class="paragraph">
+<p>More examples are available in <a href="https://github.com/assertj/assertj-examples/blob/main/assertions-examples/src/test/java/org/assertj/examples/IterableAssertionsExamples.java#L210">IterableAssertionsExamples.java</a> of the <a href="https://github.com/assertj/assertj-examples">assertj-examples</a> project.</p>
+</div>
+</div>
+<div class="sect5">
+<h6 id="group-flat-extracting"><a class="anchor" href="#group-flat-extracting"></a>Extracting and flattening multiple values per element</h6>
+<div class="paragraph">
+<p>Flat extracting is hard to explain but easy to understand with an example, so let&#8217;s see how it works (in functional programming it is juts a flatMap).</p>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s assume we have a <code>Player</code> class with a <code>teamMates</code> property returning a <code>List&lt;Player&gt;</code> and we want to assert that it returns the expected players:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="java" class="language-java hljs">Player jordan = ... // initialized with Pippen and Kukoc team mates
+Player magic = ... // initialized with Jabbar and Worthy team mates
+List&lt;Player&gt; reallyGoodPlayers = list(jordan, magic);
+
+// check all team mates by specifying the teamMates property (Player has a getTeamMates() method):
+assertThat(reallyGoodPlayers).flatExtracting("teamMates")
+                             .contains(pippen, kukoc, jabbar, worthy);
+
+// alternatively, you can use a Function for type safety:
+assertThat(reallyGoodPlayers).flatExtracting(BasketBallPlayer::getTeamMates)
+                             .contains(pippen, kukoc, jabbar, worthy);
+
+// if you use extracting instead of flatExtracting the result would be a list of list of players so the assertion becomes:
+assertThat(reallyGoodPlayers).extracting("teamMates")
+                             .contains(list(pippen, kukoc), list(jabbar, worthy));</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Flat extracting can be used to group multiple values if you don&#8217;t want to use <code>extracting</code> and tuples:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="java" class="language-java hljs">// extract a list of values, flatten them and use contains assertion
+assertThat(fellowshipOfTheRing).flatExtracting("name", "race.name")
+                               .contains("Frodo", "Hobbit", "Legolas", "Elf");
+
+// same assertions with Functions:
+assertThat(fellowshipOfTheRing).flatExtracting(TolkienCharacter::getName,
+                                               tc -&gt; tc.getRace().getName())
+                               .contains("Frodo", "Hobbit", "Legolas", "Elf");</code></pre>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -10407,6 +10576,10 @@ Bare-named property introspection is enabled by default and thus changes AssertJ
 </tr>
 </tbody>
 </table>
+<div class="paragraph">
+<p><a href="https://www.javadoc.io/static/org.assertj/assertj-guava/3.4.0/org/assertj/guava/api/MultimapAssert.html#containsValues(V&#8230;&#8203;" class="bare">https://www.javadoc.io/static/org.assertj/assertj-guava/3.4.0/org/assertj/guava/api/MultimapAssert.html#containsValues(V&#8230;&#8203;</a>)
+<a href="https://www.javadoc.io/doc/org.assertj/assertj-guava/latest/org/assertj/guava/api/MultimapAssert.html#containsValues(V%E2%80%A6" class="bare">https://www.javadoc.io/doc/org.assertj/assertj-guava/latest/org/assertj/guava/api/MultimapAssert.html#containsValues(V%E2%80%A6</a>)</p>
+</div>
 </div>
 <div class="sect3">
 <h4 id="multiset"><a class="anchor" href="#multiset"></a>3.1.3. Multiset</h4>
@@ -17149,7 +17322,7 @@ AssertJ Swing would not exist without its contributors, you can find them all <a
 <div id="footer">
 <div id="footer-text">
 Version 1.0<br>
-Last updated 2020-12-19 02:19:27 UTC
+Last updated 2020-12-20 09:59:31 UTC
 </div>
 </div>
 <link rel="stylesheet" href="highlight/styles/railscasts.min.css">
