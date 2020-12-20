@@ -659,9 +659,12 @@ The javadoc summarizing the available assertions are listed below:
 * iterables: {assertj-core-javadoc-root}org/assertj/core/api/AbstractIterableAssert.html#method.summary
 * arrays: {assertj-core-javadoc-root}org/assertj/core/api/AbstractObjectArrayAssert.html#method.summary
 
-The next sections focus on some features worth knowing to get the best of AssertJ. 
+The next sections focus on some features worth knowing to get the best of AssertJ, notably:
 
-[[assertj-core-group-features-highlights]]
+* link:#assertj-core-group-filtering[filtering elements before asserting]
+* link:#assertj-core-group-extracting[extracting/mapping elements before asserting]
+
+[[assertj-core-group-filtering]]
 ===== Filtering elements
 
 Filtering is handy to target assertions on some specific elements, the filter criteria can be expressed by:
@@ -796,10 +799,142 @@ assertThat(players).filteredOn(mvpStats)
                    .containsOnly(rose, lebron);
 ----
 
-[[assertj-core-array-assertions]]
-===== byte[] specific assertions
+[[assertj-core-group-extracting]]
+===== Extracting elements values
 
-This section covers assertions to byte array.
+====== What problem extracting solves
+
+Let's say you have called some service and got a list (or an array) of `TolkienCharacter`, to check the results you have to build the expected TolkienCharacters, that can be a lot of work!
+
+[source,java,indent=0]
+----
+List<TolkienCharacter> fellowshipOfTheRing = tolkienDao.findHeroes();  // frodo, sam, aragorn ...
+
+// requires creation of frodo and aragorn, the expected TolkienCharacters
+assertThat(fellowshipOfTheRing).contains(frodo, aragorn);
+----
+
+Instead, it is usually enough to check some fields or properties on the elements, for that you have to extract the fields/properties before performing your assertions, something like:
+
+[source,java,indent=0]
+----
+// extract the names ...
+List<String> names = fellowshipOfTheRing.stream().map(TolkienCharacter::getName).collect(toList());
+// ... and finally assert something
+assertThat(names).contains("Boromir", "Gandalf", "Frodo", "Legolas");
+----
+
+This is too much work (even with the stream API), instead AssertJ can help extracting values from the elements under tests, there are several ways of doing so:
+
+* Extracting a link:#extracting-single-value-per-element[single value] per element
+* Extracting a link:#extracting-multiple-values[multiple values] per element
+* Extracting and link:#group-flat-extracting[flattening multiple values] per element
+
+====== Extracting single value per element
+
+Specify the field/property to extract (or pass a `Function`) from each elements and perform assertions on the extracted values.
+
+Extracting by name can access private fields/properties which is handy to check internals not exposed with public methods (lambda won't work here), it also supports nested field/property like `"race.name"`.
+
+Examples:
+[source,java,indent=0]
+----
+// "name" needs to be either a property or a field of the TolkienCharacter class
+assertThat(fellowshipOfTheRing).extracting("name")
+                               .contains("Boromir", "Gandalf", "Frodo", "Legolas")
+                               .doesNotContain("Sauron", "Elrond");
+
+// specifying nested field/property is supported
+assertThat(fellowshipOfTheRing).extracting("race.name")
+                               .contains("Man", "Maia", "Hobbit", "Elf");
+
+// same thing with a lambda which is type safe and refactoring friendly:
+assertThat(fellowshipOfTheRing).extracting(TolkienCharacter::getName)
+                               .contains("Boromir", "Gandalf", "Frodo", "Legolas");
+
+// same thing map an alias of extracting:
+assertThat(fellowshipOfTheRing).map(TolkienCharacter::getName)
+                               .contains("Boromir", "Gandalf", "Frodo", "Legolas");
+----
+
+Note that extracting one property can be made strongly typed by giving the property type as the second argument.
+
+[source,java,indent=0]
+----
+// to have type safe extracting, use the second parameter to pass the expected property type:
+assertThat(fellowshipOfTheRing).extracting("name", String.class)
+                               .contains("Boromir", "Gandalf", "Frodo", "Legolas")
+                               .doesNotContain("Sauron", "Elrond");
+----
+
+====== Extracting multiple values
+
+You can extract several values from the elements under test and check them using {assertj-core-javadoc-root}org/assertj/core/api/Assertions.html#tuple(java.lang.Object&#46;&#46;&#46;)[tuples]. 
+
+As an example, let's check the name, age and race's name of each TolkienCharacter element:
+
+[source,java,indent=0]
+----
+// when checking several properties/fields you have to use tuples:
+import static org.assertj.core.api.Assertions.tuple;
+
+// extracting name, age and and race.name nested property
+assertThat(fellowshipOfTheRing).extracting("name", "age", "race.name")
+                               .contains(tuple("Boromir", 37, "Man"),
+                                         tuple("Sam", 38, "Hobbit"),
+                                         tuple("Legolas", 1000, "Elf"));
+
+// same assertion with functions for type safety:
+assertThat(fellowshipOfTheRing).extracting(TolkienCharacter::getName,
+                                            tolkienCharacter -> tolkienCharacter.age,
+                                            tolkienCharacter -> tolkienCharacter.getRace().getName())
+                                .contains(tuple("Boromir", 37, "Man"),
+                                          tuple("Sam", 38, "Hobbit"),
+                                          tuple("Legolas", 1000, "Elf"));
+----
+
+The extracted name, age and race's name values of the current element are grouped in a tuple, thus you need to use tuples for specifying the expected values.
+
+More examples are available in link:{assertj-examples-base-package}IterableAssertionsExamples.java#L210[IterableAssertionsExamples.java] of the link:{assertj-examples-repo}[assertj-examples] project.
+
+[[group-flat-extracting]]
+====== Extracting and flattening multiple values per element
+
+Flat extracting is hard to explain but easy to understand with an example, so let's see how it works (in functional programming it is juts a flatMap).
+
+Let's assume we have a `Player` class with a `teamMates` property returning a `List<Player>` and we want to assert that it returns the expected players:
+[source,java,indent=0]
+----
+Player jordan = ... // initialized with Pippen and Kukoc team mates
+Player magic = ... // initialized with Jabbar and Worthy team mates
+List<Player> reallyGoodPlayers = list(jordan, magic);
+
+// check all team mates by specifying the teamMates property (Player has a getTeamMates() method):
+assertThat(reallyGoodPlayers).flatExtracting("teamMates")
+                             .contains(pippen, kukoc, jabbar, worthy);
+
+// alternatively, you can use a Function for type safety:
+assertThat(reallyGoodPlayers).flatExtracting(BasketBallPlayer::getTeamMates)
+                             .contains(pippen, kukoc, jabbar, worthy);
+
+// if you use extracting instead of flatExtracting the result would be a list of list of players so the assertion becomes:
+assertThat(reallyGoodPlayers).extracting("teamMates")
+                             .contains(list(pippen, kukoc), list(jabbar, worthy));
+----
+
+Flat extracting can be used to group multiple values if you don't want to use `extracting` and tuples:
+
+[source,java,indent=0]
+----
+// extract a list of values, flatten them and use contains assertion
+assertThat(fellowshipOfTheRing).flatExtracting("name", "race.name")
+                               .contains("Frodo", "Hobbit", "Legolas", "Elf");
+
+// same assertions with Functions:
+assertThat(fellowshipOfTheRing).flatExtracting(TolkienCharacter::getName,
+                                               tc -> tc.getRace().getName())
+                               .contains("Frodo", "Hobbit", "Legolas", "Elf");
+----
 
 [[assertj-core-exception-assertions]]
 ==== Exception assertions

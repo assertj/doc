@@ -4,6 +4,7 @@
 //
 :assertj-core-repo:                      https://github.com/assertj/assertj-core
 :assertj-examples-repo:                  https://github.com/assertj/assertj-examples
+:assertj-examples-base-package:          https://github.com/assertj/assertj-examples/blob/main/assertions-examples/src/test/java/org/assertj/examples/
 :assertj-guava-repo:                     https://github.com/assertj/assertj-guava
 :assertj-swing-repo:                     https://github.com/assertj/assertj-swing
 :release-branch:                         main
