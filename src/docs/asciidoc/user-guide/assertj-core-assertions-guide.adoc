@@ -673,7 +673,7 @@ Filtering is handy to target assertions on some specific elements, the filter cr
 * an link:#filtering-on-a-property-or-a-field[element property/field having a specific value (or not) or in a set of values (or not)]
 * an link:#filtering-on-null-value[element property/field having a null value]
 * an element link:#filtering-elements-matchin-given-assertions[matching some assertions]
-* an element mactching a link:#filtering-with-a-condition[Condition] 
+* an element matching a link:#filtering-with-a-condition[Condition] 
 
 Let's explore these options in some examples taken from {assertj-examples-repo}/tree/main/assertions-examples/src/test/java/org/assertj/examples/FilterExamples.java#L47[FilterExamples] from the {assertj-examples-repo}[assertions-examples] project.
 
@@ -804,7 +804,7 @@ assertThat(players).filteredOn(mvpStats)
 
 ====== What problem extracting solves
 
-Let's say you have called some service and got a list (or an array) of `TolkienCharacter`, to check the results you have to build the expected TolkienCharacters, that can be a lot of work!
+Let's say you have called some service and got a list (or an array) of `TolkienCharacter`, to check the results you have to build the expected TolkienCharacters, that can be quite tedious!
 
 [source,java,indent=0]
 ----
@@ -917,10 +917,16 @@ assertThat(reallyGoodPlayers).flatExtracting("teamMates")
 assertThat(reallyGoodPlayers).flatExtracting(BasketBallPlayer::getTeamMates)
                              .contains(pippen, kukoc, jabbar, worthy);
 
+// flatMap is an alias of flatExtracting:
+assertThat(reallyGoodPlayers).flatMap(BasketBallPlayer::getTeamMates)
+                             .contains(pippen, kukoc, jabbar, worthy);
+
 // if you use extracting instead of flatExtracting the result would be a list of list of players so the assertion becomes:
 assertThat(reallyGoodPlayers).extracting("teamMates")
                              .contains(list(pippen, kukoc), list(jabbar, worthy));
 ----
+
+TIP: You can use `flatMap` in place of `flatExtracting` (except for the variant taking a String)
 
 Flat extracting can be used to group multiple values if you don't want to use `extracting` and tuples:
 
