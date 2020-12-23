@@ -661,8 +661,81 @@ The javadoc summarizing the available assertions are listed below:
 
 The next sections focus on some features worth knowing to get the best of AssertJ, notably:
 
+* different way to link:#assertj-core-group-contains[check what the iterable/array contains] to check it
+* link:#assertj-core-group-navigation[navigating to a given element] to check it
 * link:#assertj-core-group-filtering[filtering elements before asserting]
 * link:#assertj-core-group-extracting[extracting/mapping elements before asserting]
+* link:#assertj-core-group-satisfy[verify some assertions on elements (any, all, none)]
+
+// usingElementComparator?
+
+[[assertj-core-group-navigation]]
+===== Navigating to a given element
+
+The idea is to navigate to a given element in order to check it, you can navigate to the link:#assertj-core-group-navigation-fle[first, last or any element by index] or if you expect only one element use link:#assertj-core-group-navigation-singleElement[`singleElement`].
+
+NOTE: this is only available for iterables at the moment.
+
+[[assertj-core-group-navigation-fle]]
+====== First / last / element(index)
+
+Use `first`, `last` and `element(index)` to navigate to the corresponding element, after navigating you can only use object assertions unless you have specified an Assert class or preferrably an `InstanceOfAssertFactory` as shown in the following examples.
+
+Examples:
+[source,java,indent=0]
+----
+// only object assertions available after navigation
+Iterable<TolkienCharacter> hobbits = list(frodo, sam, pippin);
+assertThat(hobbits).first().isEqualTo(frodo);
+assertThat(hobbits).element(1).isEqualTo(sam);
+assertThat(hobbits).last().isEqualTo(pippin);
+
+// strongly typed String assertions after navigation
+Iterable<String> hobbitsName = list("frodo", "sam", "pippin");
+// STRING is an InstanceOfAssertFactory from org.assertj.core.api.InstanceOfAssertFactories.STRING
+// as() is just synthetic sugar for readability
+assertThat(hobbitsName).first(as(STRING))
+                       .startsWith("fro")
+                       .endsWith("do");
+assertThat(hobbitsName).element(1, as(STRING))
+                       .startsWith("sa")
+                       .endsWith("am");
+assertThat(hobbitsName).last(as(STRING))
+                       .startsWith("pip")
+                       .endsWith("pin");
+
+// alternative for strongly typed assertions 
+assertThat(hobbitsName, StringAssert.class).first()
+                                           .startsWith("fro")
+                                           .endsWith("do");
+----
+
+[[assertj-core-group-navigation-singleElement]]
+====== Single element
+
+`singleElement` checks that the iterable has only one element and navigates to it, after navigating you can only use object assertions unless you have specified an Assert class or preferrably an `InstanceOfAssertFactory` as shown in the following examples.
+
+Examples:
+[source,java,indent=0]
+----
+Iterable<String> babySimpsons = list("Maggie");
+
+// only object assertions available
+assertThat(babySimpsons).singleElement()
+                        .isEqualTo("Maggie");
+
+// to get specific typed assertions, pass the corresponding InstanceOfAssertFactory from 
+// org.assertj.core.api.InstanceOfAssertFactories.STRING), as() is just synthetic sugar for readability
+assertThat(babySimpsons).singleElement(as(STRING))
+                        .endsWith("gie");
+
+// alternative for strongly typed assertions             
+assertThat(babySimpsons, StringAssert.class).singleElement()
+                                            .startsWith("Mag");
+----
+
+
+
 
 [[assertj-core-group-filtering]]
 ===== Filtering elements
