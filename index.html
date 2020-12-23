@@ -3956,12 +3956,103 @@ assertThat("foo").withRepresentation(customRepresentation)
 <div class="ulist">
 <ul>
 <li>
+<p>different way to <a href="#assertj-core-group-contains">check what the iterable/array contains</a> to check it</p>
+</li>
+<li>
+<p><a href="#assertj-core-group-navigation">navigating to a given element</a> to check it</p>
+</li>
+<li>
 <p><a href="#assertj-core-group-filtering">filtering elements before asserting</a></p>
 </li>
 <li>
 <p><a href="#assertj-core-group-extracting">extracting/mapping elements before asserting</a></p>
 </li>
+<li>
+<p><a href="#assertj-core-group-satisfy">verify some assertions on elements (any, all, none)</a></p>
+</li>
 </ul>
+</div>
+<div class="sect4">
+<h5 id="assertj-core-group-navigation"><a class="anchor" href="#assertj-core-group-navigation"></a>Navigating to a given element</h5>
+<div class="paragraph">
+<p>The idea is to navigate to a given element in order to check it, you can navigate to the <a href="#assertj-core-group-navigation-fle">first, last or any element by index</a> or if you expect only one element use <a href="#assertj-core-group-navigation-singleElement"><code>singleElement</code></a>.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+this is only available for iterables at the moment.
+</td>
+</tr>
+</table>
+</div>
+<div class="sect5">
+<h6 id="assertj-core-group-navigation-fle"><a class="anchor" href="#assertj-core-group-navigation-fle"></a>First / last / element(index)</h6>
+<div class="paragraph">
+<p>Use <code>first</code>, <code>last</code> and <code>element(index)</code> to navigate to the corresponding element, after navigating you can only use object assertions unless you have specified an Assert class or preferrably an <code>InstanceOfAssertFactory</code> as shown in the following examples.</p>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="java" class="language-java hljs">// only object assertions available after navigation
+Iterable&lt;TolkienCharacter&gt; hobbits = list(frodo, sam, pippin);
+assertThat(hobbits).first().isEqualTo(frodo);
+assertThat(hobbits).element(1).isEqualTo(sam);
+assertThat(hobbits).last().isEqualTo(pippin);
+
+// strongly typed String assertions after navigation
+Iterable&lt;String&gt; hobbitsName = list("frodo", "sam", "pippin");
+// STRING is an InstanceOfAssertFactory from org.assertj.core.api.InstanceOfAssertFactories.STRING
+// as() is just synthetic sugar for readability
+assertThat(hobbitsName).first(as(STRING))
+                       .startsWith("fro")
+                       .endsWith("do");
+assertThat(hobbitsName).element(1, as(STRING))
+                       .startsWith("sa")
+                       .endsWith("am");
+assertThat(hobbitsName).last(as(STRING))
+                       .startsWith("pip")
+                       .endsWith("pin");
+
+// alternative for strongly typed assertions
+assertThat(hobbitsName, StringAssert.class).first()
+                                           .startsWith("fro")
+                                           .endsWith("do");</code></pre>
+</div>
+</div>
+</div>
+<div class="sect5">
+<h6 id="assertj-core-group-navigation-singleElement"><a class="anchor" href="#assertj-core-group-navigation-singleElement"></a>Single element</h6>
+<div class="paragraph">
+<p><code>singleElement</code> checks that the iterable has only one element and navigates to it, after navigating you can only use object assertions unless you have specified an Assert class or preferrably an <code>InstanceOfAssertFactory</code> as shown in the following examples.</p>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="java" class="language-java hljs">Iterable&lt;String&gt; babySimpsons = list("Maggie");
+
+// only object assertions available
+assertThat(babySimpsons).singleElement()
+                        .isEqualTo("Maggie");
+
+// to get specific typed assertions, pass the corresponding InstanceOfAssertFactory from
+// org.assertj.core.api.InstanceOfAssertFactories.STRING), as() is just synthetic sugar for readability
+assertThat(babySimpsons).singleElement(as(STRING))
+                        .endsWith("gie");
+
+// alternative for strongly typed assertions
+assertThat(babySimpsons, StringAssert.class).singleElement()
+                                            .startsWith("Mag");</code></pre>
+</div>
+</div>
+</div>
 </div>
 <div class="sect4">
 <h5 id="assertj-core-group-filtering"><a class="anchor" href="#assertj-core-group-filtering"></a>Filtering elements</h5>
@@ -17338,7 +17429,7 @@ AssertJ Swing would not exist without its contributors, you can find them all <a
 <div id="footer">
 <div id="footer-text">
 Version 1.0<br>
-Last updated 2020-12-22 10:03:49 UTC
+Last updated 2020-12-23 04:21:55 UTC
 </div>
 </div>
 <link rel="stylesheet" href="highlight/styles/railscasts.min.css">
