@@ -661,13 +661,51 @@ The javadoc summarizing the available assertions are listed below:
 
 The next sections focus on some features worth knowing to get the best of AssertJ, notably:
 
-* different way to link:#assertj-core-group-contains[check what the iterable/array contains] to check it
-* link:#assertj-core-group-navigation[navigating to a given element] to check it
-* link:#assertj-core-group-filtering[filtering elements before asserting]
-* link:#assertj-core-group-extracting[extracting/mapping elements before asserting]
-* link:#assertj-core-group-satisfy[verify some assertions on elements (any, all, none)]
+* Different ways of link:#assertj-core-group-contains[checking the iterable/array content]
+* link:#assertj-core-group-satisfy[Verify assertions on some elements (any, all, none)]
+* link:#assertj-core-group-navigation[Navigating to a given element] to check it
+* link:#assertj-core-group-filtering[Filtering elements before asserting]
+* link:#assertj-core-group-extracting[Extracting/mapping elements before asserting]
 
 // usingElementComparator?
+
+[[assertj-core-group-contains]]
+===== Different ways of checking the iterable/array content
+
+There are different flavors of `contains` assertion, here's a table to help choose the most relevant one:
+
+[%autowidth]
+|===
+|Assertion |Description
+
+|{assertj-core-javadoc-root}org/assertj/core/api/AbstractIterableAssert.html#contains(ELEMENT&#46;&#46;&#46;)[`contains`]
+|Verifies that the actual iterable/array contains the given values in any order
+
+|{assertj-core-javadoc-root}org/assertj/core/api/AbstractIterableAssert.html#containsOnly(ELEMENT&#46;&#46;&#46;)[`containsOnly​`]
+|Verifies that the actual group contains only the given values and nothing else in any order and ignoring duplicates (i.e. once a value is found, its duplicates are also considered found)
+
+|{assertj-core-javadoc-root}org/assertj/core/api/AbstractIterableAssert.html#containsExactly(ELEMENT&#46;&#46;&#46;)[`containsExactly​`]
+|Verifies that the actual iterable/array contains exactly the given values and nothing else **in order**
+
+|{assertj-core-javadoc-root}org/assertj/core/api/AbstractIterableAssert.html#containsExactlyInAnyOrder(ELEMENT&#46;&#46;&#46;)[`containsExactlyInAnyOrder​`]
+|Verifies that the actual iterable/array contains exactly the given values and nothing else **in any order**
+
+|{assertj-core-javadoc-root}org/assertj/core/api/AbstractIterableAssert.html#containsSequence(ELEMENT&#46;&#46;&#46;)[`containsSequence​`]
+|Verifies that the actual group contains the given sequence in the correct order and **without extra values between the sequence values**
+
+|{assertj-core-javadoc-root}org/assertj/core/api/AbstractIterableAssert.html#containsSubsequence(ELEMENT&#46;&#46;&#46;)[`containsSubsequence​`]
+|Verifies that the actual group contains the given subsequence in the correct order **possibly with other values between them**
+
+|{assertj-core-javadoc-root}org/assertj/core/api/AbstractIterableAssert.html#containsOnlyOnce(ELEMENT&#46;&#46;&#46;)[`containsOnlyOnce`]
+|Verifies that the actual iterable/array contains the given values only once
+
+|{assertj-core-javadoc-root}org/assertj/core/api/AbstractIterableAssert.html#containsAnyOf(ELEMENT&#46;&#46;&#46;)[`containsAnyOf​`]
+|Verifies that the actual iterable/array contains at least one of the given values (like an `or` operator on the given values)
+
+|===
+
+TIP: the assertions above have a variant accepting an iterable/array argument, ex: `containsExactly(E...)` and `containsExactlyElementsOf​(Iterable)`
+
 
 [[assertj-core-group-navigation]]
 ===== Navigating to a given element
