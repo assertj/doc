@@ -661,16 +661,16 @@ The javadoc summarizing the available assertions are listed below:
 
 The next sections focus on some features worth knowing to get the best of AssertJ, notably:
 
-* Different ways of link:#assertj-core-group-contains[checking the iterable/array content]
-* link:#assertj-core-group-satisfy[Verify assertions on some elements (any, all, none)]
-* link:#assertj-core-group-navigation[Navigating to a given element] to check it
-* link:#assertj-core-group-filtering[Filtering elements before asserting]
-* link:#assertj-core-group-extracting[Extracting/mapping elements before asserting]
+* Different ways of link:#assertj-core-group-contains[checking iterables/arrays content]
+* link:#assertj-core-group-satisfy[Running assertions on some elements (any, all, none)]
+* link:#assertj-core-group-navigation[Navigating] to a given element to check it
+* link:#assertj-core-group-filtering[Filtering]  elements before asserting]
+* link:#assertj-core-group-extracting[Extracting/mapping] elements before asserting
 
 // usingElementComparator?
 
 [[assertj-core-group-contains]]
-===== Different ways of checking the iterable/array content
+===== Checking iterables/arrays content
 
 There are different flavors of `contains` assertion, here's a table to help choose the most relevant one:
 
@@ -706,6 +706,53 @@ There are different flavors of `contains` assertion, here's a table to help choo
 
 TIP: the assertions above have a variant accepting an iterable/array argument, ex: `containsExactly(E...)` and `containsExactlyElementsOf​(Iterable)`
 
+[[assertj-core-group-satisfy]]
+===== Verify assertions on some elements
+
+====== Satisfy
+
+You can assert that all or any elements verify the given assertions with `allSatisfy` and `anySatisfy`, conversely `noneSatisfy` lets you assert that no elements verify the given assertions.
+
+The given assertions are expressed with a `Consumer` (typically with a lambda).
+
+Examples:
+[source,java,indent=0]
+----
+List<TolkienCharacter> hobbits = list(frodo, sam, pippin);
+
+// all elements must satisfy the given assertions
+assertThat(hobbits).allSatisfy(character -> {
+  assertThat(character.getRace()).isEqualTo(HOBBIT);
+  assertThat(character.getName()).isNotEqualTo("Sauron");
+});
+
+// at least one element must satisfy the given assertions
+assertThat(hobbits).anySatisfy(character -> {
+  assertThat(character.getRace()).isEqualTo(HOBBIT);
+  assertThat(character.getName()).isEqualTo("Sam");
+});
+
+// no element must satisfy the given assertions
+assertThat(hobbits).noneSatisfy(character -> assertThat(character.getRace()).isEqualTo(ELF));
+----
+
+NOTE: if `allSatisfy` fails, all the elements and their failing the assertions are reported.
+
+====== Match
+
+You can assert that all or any elements match the given `Predicate` with `allMatch` and `anyMatch`, conversely `noneMatch` lets you assert that no elements verify the given predicate.
+
+Examples:
+[source,java,indent=0]
+----
+List<TolkienCharacter> hobbits = list(frodo, sam, pippin);
+
+assertThat(hobbits).allMatch(character -> character.getRace() == HOBBIT, "hobbits")
+                   .anyMatch(character -> character.getName().contains("pp"))
+                   .noneMatch(character -> character.getRace() == ORC);
+----
+
+TIP: You can pass a predicate description to make the error message more explicit if the assertion fails.
 
 [[assertj-core-group-navigation]]
 ===== Navigating to a given element
