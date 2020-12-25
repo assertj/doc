@@ -652,7 +652,7 @@ The javadoc for `CharSequence` assertions is available https://www.javadoc.io/st
 
 
 [[assertj-core-group-assertions]]
-==== Iterable and array assertions (WIP)
+==== Iterable and array assertions
 
 The javadoc summarizing the available assertions are listed below:
 
@@ -666,8 +666,7 @@ The next sections focus on some features worth knowing to get the best of Assert
 * link:#assertj-core-group-navigation[Navigating] to a given element to check it
 * link:#assertj-core-group-filtering[Filtering]  elements before asserting]
 * link:#assertj-core-group-extracting[Extracting/mapping] elements before asserting
-
-// usingElementComparator?
+* link:#assertj-core-group-comparator[Comparing elements] with a specific comparator
 
 [[assertj-core-group-contains]]
 ===== Checking iterables/arrays content
@@ -818,9 +817,6 @@ assertThat(babySimpsons).singleElement(as(STRING))
 assertThat(babySimpsons, StringAssert.class).singleElement()
                                             .startsWith("Mag");
 ----
-
-
-
 
 [[assertj-core-group-filtering]]
 ===== Filtering elements
@@ -1098,6 +1094,25 @@ assertThat(fellowshipOfTheRing).flatExtracting("name", "race.name")
 assertThat(fellowshipOfTheRing).flatExtracting(TolkienCharacter::getName,
                                                tc -> tc.getRace().getName())
                                .contains("Frodo", "Hobbit", "Legolas", "Elf");
+----
+
+[[assertj-core-group-comparator]]
+===== Comparing elements with a specific comparator
+
+`usingElementComparator` allows you to change the way elements are compared (instead of using the elements `equals` method).
+
+Examples:
+[source,java,indent=0]
+----
+List<TolkienCharacter> fellowshipOfTheRing = list(frodo, sam, merry, pippin, gandald, legolas, boromir, aragorn, gimli);
+
+// the fellowshipOfTheRing includes Gandalf but not Sauron ...
+assertThat(fellowshipOfTheRing).contains(gandalf)
+                               .doesNotContain(sauron);
+
+// ... but if we compare only races, Sauron is in fellowshipOfTheRing since he's a Maia like Gandalf
+assertThat(fellowshipOfTheRing).usingElementComparator((t1, t2) -> t1.getRace().compareTo(t2.getRace()))
+                               .contains(sauron);
 ----
 
 [[assertj-core-exception-assertions]]
