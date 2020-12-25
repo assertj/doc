@@ -3956,21 +3956,85 @@ assertThat("foo").withRepresentation(customRepresentation)
 <div class="ulist">
 <ul>
 <li>
-<p>different way to <a href="#assertj-core-group-contains">check what the iterable/array contains</a> to check it</p>
+<p>Different ways of <a href="#assertj-core-group-contains">checking the iterable/array content</a></p>
 </li>
 <li>
-<p><a href="#assertj-core-group-navigation">navigating to a given element</a> to check it</p>
+<p><a href="#assertj-core-group-satisfy">Verify assertions on some elements (any, all, none)</a></p>
 </li>
 <li>
-<p><a href="#assertj-core-group-filtering">filtering elements before asserting</a></p>
+<p><a href="#assertj-core-group-navigation">Navigating to a given element</a> to check it</p>
 </li>
 <li>
-<p><a href="#assertj-core-group-extracting">extracting/mapping elements before asserting</a></p>
+<p><a href="#assertj-core-group-filtering">Filtering elements before asserting</a></p>
 </li>
 <li>
-<p><a href="#assertj-core-group-satisfy">verify some assertions on elements (any, all, none)</a></p>
+<p><a href="#assertj-core-group-extracting">Extracting/mapping elements before asserting</a></p>
 </li>
 </ul>
+</div>
+<div class="sect4">
+<h5 id="assertj-core-group-contains"><a class="anchor" href="#assertj-core-group-contains"></a>Different ways of checking the iterable/array content</h5>
+<div class="paragraph">
+<p>There are different flavors of <code>contains</code> assertion, here&#8217;s a table to help choose the most relevant one:</p>
+</div>
+<table class="tableblock frame-all grid-all fit-content">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Assertion</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://www.javadoc.io/doc/org.assertj/assertj-core/latest/org/assertj/core/api/AbstractIterableAssert.html#contains(ELEMENT&#46;&#46;&#46;)"><code>contains</code></a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Verifies that the actual iterable/array contains the given values in any order</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://www.javadoc.io/doc/org.assertj/assertj-core/latest/org/assertj/core/api/AbstractIterableAssert.html#containsOnly(ELEMENT&#46;&#46;&#46;)"><code>containsOnly​</code></a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Verifies that the actual group contains only the given values and nothing else in any order and ignoring duplicates (i.e. once a value is found, its duplicates are also considered found)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://www.javadoc.io/doc/org.assertj/assertj-core/latest/org/assertj/core/api/AbstractIterableAssert.html#containsExactly(ELEMENT&#46;&#46;&#46;)"><code>containsExactly​</code></a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Verifies that the actual iterable/array contains exactly the given values and nothing else <strong>in order</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://www.javadoc.io/doc/org.assertj/assertj-core/latest/org/assertj/core/api/AbstractIterableAssert.html#containsExactlyInAnyOrder(ELEMENT&#46;&#46;&#46;)"><code>containsExactlyInAnyOrder​</code></a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Verifies that the actual iterable/array contains exactly the given values and nothing else <strong>in any order</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://www.javadoc.io/doc/org.assertj/assertj-core/latest/org/assertj/core/api/AbstractIterableAssert.html#containsSequence(ELEMENT&#46;&#46;&#46;)"><code>containsSequence​</code></a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Verifies that the actual group contains the given sequence in the correct order and <strong>without extra values between the sequence values</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://www.javadoc.io/doc/org.assertj/assertj-core/latest/org/assertj/core/api/AbstractIterableAssert.html#containsSubsequence(ELEMENT&#46;&#46;&#46;)"><code>containsSubsequence​</code></a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Verifies that the actual group contains the given subsequence in the correct order <strong>possibly with other values between them</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://www.javadoc.io/doc/org.assertj/assertj-core/latest/org/assertj/core/api/AbstractIterableAssert.html#containsOnlyOnce(ELEMENT&#46;&#46;&#46;)"><code>containsOnlyOnce</code></a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Verifies that the actual iterable/array contains the given values only once</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://www.javadoc.io/doc/org.assertj/assertj-core/latest/org/assertj/core/api/AbstractIterableAssert.html#containsAnyOf(ELEMENT&#46;&#46;&#46;)"><code>containsAnyOf​</code></a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Verifies that the actual iterable/array contains at least one of the given values (like an <code>or</code> operator on the given values)</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+the assertions above have a variant accepting an iterable/array argument, ex: <code>containsExactly(E&#8230;&#8203;)</code> and <code>containsExactlyElementsOf​(Iterable)</code>
+</td>
+</tr>
+</table>
+</div>
 </div>
 <div class="sect4">
 <h5 id="assertj-core-group-navigation"><a class="anchor" href="#assertj-core-group-navigation"></a>Navigating to a given element</h5>
@@ -17429,7 +17493,7 @@ AssertJ Swing would not exist without its contributors, you can find them all <a
 <div id="footer">
 <div id="footer-text">
 Version 1.0<br>
-Last updated 2020-12-23 04:21:55 UTC
+Last updated 2020-12-25 10:52:51 UTC
 </div>
 </div>
 <link rel="stylesheet" href="highlight/styles/railscasts.min.css">
