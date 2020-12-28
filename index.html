@@ -3937,8 +3937,10 @@ assertThat("foo").withRepresentation(customRepresentation)
 </div>
 <div class="sect3">
 <h4 id="assertj-core-group-assertions"><a class="anchor" href="#assertj-core-group-assertions"></a>2.5.11. Iterable and array assertions</h4>
+<div class="sect4">
+<h5 id="assertj-core-group-assertions-reference"><a class="anchor" href="#assertj-core-group-assertions-reference"></a>Reference</h5>
 <div class="paragraph">
-<p>The javadoc summarizing the available assertions are listed below:</p>
+<p>All the available assertions are described in:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -3974,6 +3976,7 @@ assertThat("foo").withRepresentation(customRepresentation)
 <p><a href="#assertj-core-group-comparator">Comparing elements</a> with a specific comparator</p>
 </li>
 </ul>
+</div>
 </div>
 <div class="sect4">
 <h5 id="assertj-core-group-contains"><a class="anchor" href="#assertj-core-group-contains"></a>Checking iterables/arrays content</h5>
@@ -4577,31 +4580,30 @@ assertThat(fellowshipOfTheRing).usingElementComparator((t1, t2) -&gt; t1.getRace
 <div class="paragraph">
 <p>This chapter answers the question: how to assert that an exception has been thrown and check that it is the expected one?</p>
 </div>
+<div class="sect4">
+<h5 id="assertj-core-exception-assertions-reference"><a class="anchor" href="#assertj-core-exception-assertions-reference"></a>Reference</h5>
 <div class="paragraph">
-<p>If you use java 8 or later versions, check the <a href="#assertj-core-exception-assertions-java-8">Java 8 section</a> which heavily uses lambdas.
-If you use java 7, check the <a href="#assertj-core-exception-assertions-java-7">Java 7 section</a>.</p>
-</div>
-<div class="paragraph">
-<p>All the available assertions are described in the <a href="#assertj-core-exception-assertions-reference">throwable assertions reference section</a>.</p>
+<p>All the available assertions are described in the <a href="#https://www.javadoc.io/doc/org.assertj/assertj-core/latest/org/assertj/core/api/AbstractThrowableAssert.html#method.summary">AbstractThrowableAssert javadoc</a>.</p>
 </div>
 <div class="paragraph">
 <p>In this chapter the term <code>exception</code> is used interchangeably with <code>throwable</code>.</p>
 </div>
-<div class="sect4">
-<h5 id="assertj-core-exception-assertions-java-8"><a class="anchor" href="#assertj-core-exception-assertions-java-8"></a>With Java 8 (AssertJ 3.x)</h5>
 <div class="paragraph">
-<p>Testing assertions in Java 8 is elegant, thanks to lambdas! AssertJ provides different style options:</p>
+<p>The next sections focus on some features worth knowing to get the best of AssertJ, notably:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p><a href="#assertj-core-exception-assertions-bdd-style"><code>catchThrowable(ThrowingCallable)</code></a></p>
+<p><a href="#assertj-core-throwable-assertions-message">Checking the exception message</a></p>
 </li>
 <li>
-<p><a href="#assertj-core-exception-assertions-bdd-strongly-typed-style"><code>catchThrowableOfType(ThrowingCallable)</code></a></p>
+<p><a href="#assertj-core-throwable-cause-and-root-cause-assertions">Checking the exception cause and root cause</a></p>
 </li>
 <li>
-<p><a href="#assertj-core-exception-assertions-assertThatThrownBy"><code>assertThatThrownBy(ThrowingCallable)</code></a></p>
+<p><a href="#assertj-core-exception-assertions-bdd-style">BDD assertion style with <code>catchThrowable</code> and <code>catchThrowableOfType</code></a></p>
+</li>
+<li>
+<p><a href="#assertj-core-exception-assertions-assertThatThrownBy"><code>assertThatThrownBy(code)</code></a></p>
 </li>
 <li>
 <p><a href="#assertj-core-exception-assertions-assertThatExceptionOfType"><code>assertThatExceptionOfType(exception class)</code></a></p>
@@ -4612,35 +4614,204 @@ If you use java 7, check the <a href="#assertj-core-exception-assertions-java-7"
 </ul>
 </div>
 <div class="paragraph">
-<p>where <code>ThrowingCallable</code> is a functional interface which can be expressed as a lambda.</p>
+<p>If you use java 7, check the <a href="#assertj-core-exception-assertions-java-7">Java 7 section</a>.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="assertj-core-throwable-assertions-message"><a class="anchor" href="#assertj-core-throwable-assertions-message"></a>Checking exception message</h5>
+<div class="paragraph">
+<p>There are various ways for checking the exception message content, you can check the exact message, what it contains, its start, its end, if it matches a regex.</p>
+</div>
+<div class="paragraph">
+<p>Most of the assertions expecting a <code>String</code> can use the <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html?is-external=true#format-java.lang.String-java.lang.Object&#8230;&#8203;-">String.format</a> syntax.</p>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="java" class="language-java hljs">Throwable throwable = new IllegalArgumentException("wrong amount 123");
+
+assertThat(throwableWithMessage).hasMessage("wrong amount 123")
+                                .hasMessage("%s amount %d", "wrong", 123)
+                                // check start
+                                .hasMessageStartingWith("wrong")
+                                .hasMessageStartingWith("%s a", "wrong")
+                                // check content
+                                .hasMessageContaining("wrong amount")
+                                .hasMessageContaining("wrong %s", "amount")
+                                .hasMessageContainingAll("wrong", "amount")
+                                // check end
+                                .hasMessageEndingWith("123")
+                                .hasMessageEndingWith("amount %s", "123")
+                                // check with regex
+                                .hasMessageMatching("wrong amount .*")
+                                // check does not contain
+                                .hasMessageNotContaining("right")
+                                .hasMessageNotContainingAny("right", "price")</code></pre>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="assertj-core-throwable-cause-and-root-cause-assertions"><a class="anchor" href="#assertj-core-throwable-cause-and-root-cause-assertions"></a>Checking the cause and root cause</h5>
+<div class="paragraph">
+<p>There are two approaches to check the the cause and root cause, either directly or navigate to it with <code>getCause()</code> and <code>getRootCause()</code> and check it.</p>
 </div>
 <div class="sect5">
-<h6 id="assertj-core-exception-assertions-bdd-style"><a class="anchor" href="#assertj-core-exception-assertions-bdd-style"></a>BDD style</h6>
+<h6 id="checking-the-cause"><a class="anchor" href="#checking-the-cause"></a>Checking the cause</h6>
 <div class="paragraph">
-<p>BDD aficionados can separate <em>WHEN</em> and <em>THEN</em> steps by using <code>catchThrowable(ThrowingCallable)</code> to capture the <code>Throwable</code> and then perform assertions.</p>
+<p>You can check the cause directly if you know it but that&#8217;s not always possible, in that case you can basically only check its type.
+This is pretty limited in term of assertions, a better approach is to navigate to the cause with <code>getCause()</code> and take advantage of all existing exception assertions.</p>
+</div>
+<div class="paragraph">
+<p>Direct cause assertion are limited &#8230;&#8203;</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="java" class="language-java hljs">NullPointerException cause = new NullPointerException("boom!");
+Throwable throwable = new Throwable(cause);
+
+assertThat(throwable).hasCause(cause)
+                     // hasCauseInstanceOf will match inheritance.
+                     .hasCauseInstanceOf(NullPointerException.class)
+                     .hasCauseInstanceOf(RuntimeException.class)
+                     // hasCauseExactlyInstanceOf will match only exact same type
+                     .hasCauseExactlyInstanceOf(NullPointerException.class);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>... but navigating to the cause allows to take advantage of all exception assertions:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="java" class="language-java hljs">// navigate before checking
+assertThat(throwable).getCause()
+                     .hasMessage("boom!")
+                     .hasMessage("%s!", "boom")
+                     .hasMessageStartingWith("bo")
+                     .hasMessageEndingWith("!")
+                     .hasMessageContaining("boo")
+                     .hasMessageContainingAll("bo", "oom", "!")
+                     .hasMessageMatching("b...!")
+                     .hasMessageNotContaining("bam")
+                     .hasMessageNotContainingAny("bam", "bim")
+                     // isInstanceOf will match inheritance.
+                     .isInstanceOf(NullPointerException.class)
+                     .isInstanceOf(RuntimeException.class)
+                     // isExactlyInstanceOf will match only exact same type
+                     .isExactlyInstanceOf(NullPointerException.class);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>An alternative is using <code>assertThatExceptionOfType</code> combined with <code>havingCause</code> as shown in the following example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="java" class="language-java hljs">assertThatExceptionOfType(RuntimeException.class)
+         .isThrownBy(() -&gt; { throw new RuntimeException(new IllegalArgumentException("boom!")); })
+         .havingCause()
+         .withMessage("boom!");</code></pre>
+</div>
+</div>
+</div>
+<div class="sect5">
+<h6 id="checking-the-root-cause"><a class="anchor" href="#checking-the-root-cause"></a>Checking the root cause</h6>
+<div class="paragraph">
+<p>You can check the root cause directly with <code>hasRootCause</code>, <code>hasRootCauseMessage</code> and <code>hasRootCauseInstanceOf​</code> if you have access to it but that&#8217;s not always possible, this is a bit limited
+in term of assertions, a better way is to navigate to the root cause with <code>getRootCause()</code> and take advantage of all existing exception assertions.</p>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="java" class="language-java hljs">NullPointerException rootCause = new NullPointerException("null!");
+Throwable throwable = new Throwable(new IllegalStateException(rootCause));
+
+// direct root cause check
+assertThat(throwable).hasRootCause(rootCause)
+                     .hasRootCauseMessage("null!")
+                     .hasRootCauseMessage("%s!", "null")
+                     // hasRootCauseInstanceOf will match inheritance
+                     .hasRootCauseInstanceOf(NullPointerException.class)
+                     .hasRootCauseInstanceOf(RuntimeException.class)
+                     // hasRootCauseExactlyInstanceOf will match only exact same type
+                     .hasRootCauseExactlyInstanceOf(NullPointerException.class);
+
+// navigate to root cause and check
+assertThat(throwable).getRootCause()
+                     .hasMessage("null!")
+                     .hasMessage("%s!", "null")
+                     .hasMessageStartingWith("nu")
+                     .hasMessageEndingWith("!")
+                     .hasMessageContaining("ul")
+                     .hasMessageContainingAll("nu", "ull", "l!")
+                     .hasMessageMatching("n...!")
+                     .hasMessageNotContaining("NULL")
+                     .hasMessageNotContainingAny("Null", "NULL")
+                     // isInstanceOf will match inheritance.
+                     .isInstanceOf(NullPointerException.class)
+                     .isInstanceOf(RuntimeException.class)
+                     // isExactlyInstanceOf will match only exact same type
+                     .isExactlyInstanceOf(NullPointerException.class);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>An alternative is using <code>assertThatExceptionOfType</code> combined with <code>havingRootCause</code> as shown in the following example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="java" class="language-java hljs">assertThatExceptionOfType(RuntimeException.class)
+         .isThrownBy(() -&gt; { throw new RuntimeException(new IllegalArgumentException(new NullPointerException("root error"))); })
+         .havingRootCause()
+         .withMessage("root error");</code></pre>
+</div>
+</div>
+</div>
+<div class="sect5">
+<h6 id="no-cause"><a class="anchor" href="#no-cause"></a>No cause</h6>
+<div class="paragraph">
+<p>You can verify that a Throwable does not have a cause with <code>hasNoCause()</code>.</p>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="assertj-core-exception-assertions-bdd-style"><a class="anchor" href="#assertj-core-exception-assertions-bdd-style"></a>BDD style</h5>
+<div class="paragraph">
+<p>BDD aficionados can separate <em>WHEN</em> and <em>THEN</em> steps by using <code>catchThrowable(ThrowingCallable)</code> to capture the <code>Throwable</code> and then perform assertions (<code>ThrowingCallable</code> is a functional interface which can be expressed as a lambda).</p>
 </div>
 <div class="paragraph">
 <p>Example:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code data-lang="java" class="language-java hljs">@Test
-public void bdd_exception_assertion_example() {
-   // GIVEN
-   String[] names = { "Pier ", "Pol", "Jak" };
-   // WHEN
-   Throwable thrown = catchThrowable(() -&gt; System.out.println(names[9]));
-   // THEN
-   assertThat(thrown).isInstanceOf(ArrayIndexOutOfBoundsException.class)
-                     .hasMessageContaining("9");
-}</code></pre>
+<pre class="highlightjs highlight"><code data-lang="java" class="language-java hljs">// GIVEN
+String[] names = { "Pier ", "Pol", "Jak" };
+// WHEN
+Throwable thrown = catchThrowable(() -&gt; System.out.println(names[9]));
+// THEN
+then(thrown).isInstanceOf(ArrayIndexOutOfBoundsException.class)
+            .hasMessageContaining("9");
+
+// assertThat is also available but is less "BDD style"
+assertThat(thrown).isInstanceOf(ArrayIndexOutOfBoundsException.class)
+                  .hasMessageContaining("9");</code></pre>
 </div>
 </div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<code>catchThrowable</code> returns null if no exception is thrown but there is a better way to <a href="#assertj-core-exception-assertions-no-exception">check that no exception is thrown</a>.
+</td>
+</tr>
+</table>
 </div>
-<div class="sect5">
-<h6 id="assertj-core-exception-assertions-bdd-strongly-typed-style"><a class="anchor" href="#assertj-core-exception-assertions-bdd-strongly-typed-style"></a>BDD style on specific Throwable type</h6>
 <div class="paragraph">
-<p>This is a variation of <code>catchThrowable</code> where the caught exception type is specified, allowing to check the custom exception fields/properties.</p>
+<p><code>catchThrowableOfType</code> is a variation of <code>catchThrowable</code> where the caught exception type is verified and returned allowing to check the custom exception fields/properties.</p>
 </div>
 <div class="paragraph">
 <p>Example:</p>
@@ -4665,53 +4836,62 @@ public void bdd_exception_assertion_example() {
  assertThat(textException.line).isEqualTo(1);
  assertThat(textException.column).isEqualTo(5);
 
- // succeeds as catchThrowableOfType returns null when the code does not thrown any exceptions
- assertThat(catchThrowableOfType(() -&gt; {}, Exception.class)).isNull();
-
  // fails as TextException is not a RuntimeException
  catchThrowableOfType(() -&gt; { throw new TextException("boom!", 1, 5); }, RuntimeException.class);</code></pre>
 </div>
 </div>
 </div>
-<div class="sect5">
-<h6 id="assertj-core-exception-assertions-assertThatThrownBy"><a class="anchor" href="#assertj-core-exception-assertions-assertThatThrownBy"></a>Exception testing with assertThatThrownBy</h6>
+<div class="sect4">
+<h5 id="assertj-core-exception-assertions-assertThatThrownBy"><a class="anchor" href="#assertj-core-exception-assertions-assertThatThrownBy"></a>assertThatThrownBy</h5>
 <div class="paragraph">
-<p>Starts with <code>assertThatThrownBy(ThrowingCallable)</code> to capture and then assert on the thrown <code>Throwable</code>.</p>
-</div>
-<div class="paragraph">
-<p>Note that if the provided <code>ThrowingCallable</code> does not raise an exception, an assertion error is immediately thrown.</p>
+<p><code>assertThatThrownBy(ThrowingCallable)</code> is an alternative to <code>catchThrowable</code>, use it if you find more readable.</p>
 </div>
 <div class="paragraph">
 <p>Example:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code data-lang="java" class="language-java hljs">@Test
-public void exception_assertion_example() {
-   assertThatThrownBy(() -&gt; { throw new Exception("boom!"); }).isInstanceOf(Exception.class)
-                                                              .hasMessageContaining("boom");
-}</code></pre>
+<pre class="highlightjs highlight"><code data-lang="java" class="language-java hljs">assertThatThrownBy(() -&gt; { throw new Exception("boom!"); }).isInstanceOf(Exception.class)
+                                                           .hasMessageContaining("boom");</code></pre>
 </div>
 </div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+If the provided <code>ThrowingCallable</code> does not raise an exception, an assertion error is immediately thrown.
+</td>
+</tr>
+</table>
 </div>
-<div class="sect5">
-<h6 id="assertj-core-exception-assertions-assertThatExceptionOfType"><a class="anchor" href="#assertj-core-exception-assertions-assertThatExceptionOfType"></a>Exception testing with assertThatExceptionOfType</h6>
+</div>
+<div class="sect4">
+<h5 id="assertj-core-exception-assertions-assertThatExceptionOfType"><a class="anchor" href="#assertj-core-exception-assertions-assertThatExceptionOfType"></a>assertThatExceptionOfType</h5>
 <div class="paragraph">
 <p><code>assertThatExceptionOfType</code> is an alternative syntax that some people find more natural.</p>
 </div>
-<div class="paragraph">
-<p>Note that if the code under test <code>ThrowingCallable</code> does not raise an exception, an assertion error is immediately thrown.</p>
-</div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code data-lang="java" class="language-java hljs">@Test
-public void exception_assertion_example() {
-   assertThatExceptionOfType(IOException.class).isThrownBy(() -&gt; { throw new IOException("boom!"); })
-                                               .withMessage("%s!", "boom")
-                                               .withMessageContaining("boom")
-                                               .withNoCause();
-}</code></pre>
+<pre class="highlightjs highlight"><code data-lang="java" class="language-java hljs">assertThatExceptionOfType(IOException.class).isThrownBy(() -&gt; { throw new IOException("boom!"); })
+                                            .withMessage("%s!", "boom")
+                                            .withMessageContaining("boom")
+                                            .withNoCause();</code></pre>
 </div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+If the provided <code>ThrowingCallable</code> does not raise an exception, an assertion error is immediately thrown.
+</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
 <p>This latter syntax has been enriched for common exceptions:</p>
@@ -4733,22 +4913,19 @@ public void exception_assertion_example() {
 </ul>
 </div>
 <div class="paragraph">
-<p>The previous test can be rewritten as:</p>
+<p>The previous example can be rewritten as:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code data-lang="java" class="language-java hljs">@Test
-public void exception_assertion_example() {
-   assertThatIOException().isThrownBy(() -&gt; { throw new IOException("boom!"); })
-                          .withMessage("%s!", "boom")
-                          .withMessageContaining("boom")
-                          .withNoCause();
-}</code></pre>
+<pre class="highlightjs highlight"><code data-lang="java" class="language-java hljs">assertThatIOException().isThrownBy(() -&gt; { throw new IOException("boom!"); })
+                       .withMessage("%s!", "boom")
+                       .withMessageContaining("boom")
+                       .withNoCause();</code></pre>
 </div>
 </div>
 </div>
-<div class="sect5">
-<h6 id="assertj-core-exception-assertions-no-exception"><a class="anchor" href="#assertj-core-exception-assertions-no-exception"></a>Testing that no exception is thrown</h6>
+<div class="sect4">
+<h5 id="assertj-core-exception-assertions-no-exception"><a class="anchor" href="#assertj-core-exception-assertions-no-exception"></a>Testing that no exception is thrown</h5>
 <div class="paragraph">
 <p>You can test that a piece of code does not throw any exception with:</p>
 </div>
@@ -4772,104 +4949,6 @@ thenCode(() -&gt; System.out.println("OK")).doesNotThrowAnyException();</code></
 </div>
 </div>
 </div>
-</div>
-<div class="sect4">
-<h5 id="assertj-core-exception-assertions-reference"><a class="anchor" href="#assertj-core-exception-assertions-reference"></a>Throwable reference assertions reference</h5>
-<div class="paragraph">
-<p>This section describes all the available assertions for throwables:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><a href="#assertj-core-throwable-assertions-hasMessage">Checking the throwable message</a></p>
-</li>
-<li>
-<p><a href="#assertj-core-throwable-cause-and-root-cause-assertions">Checking the throwable&#8217;s cause and root cause</a></p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>The javadoc for throwable assertions is available <a href="https://www.javadoc.io/static/org.assertj/assertj-core/3.18.1/org/assertj/core/api/AbstractThrowableAssert.html#method.summary">here</a>.</p>
-</div>
-<div class="sect5">
-<h6 id="assertj-core-throwable-assertions-hasMessage"><a class="anchor" href="#assertj-core-throwable-assertions-hasMessage"></a>Checking the throwable message</h6>
-<div class="paragraph">
-<p>There are two ways to check the exception message: <code>hasMessage(String message)</code> and <code>hasMessage(String message, Object&#8230;&#8203; parameters)</code>, the latter allows you to build the expected message as <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html?is-external=true#format-java.lang.String-java.lang.Object&#8230;&#8203;-">String.format</a>.</p>
-</div>
-<div class="paragraph">
-<p>Examples:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code data-lang="java" class="language-java hljs">Throwable invalidArgException = new IllegalArgumentException("foo is not a valid input");
-Throwable throwable = new Throwable(invalidArgException);
-
-// This assertion succeeds:
-assertThat(throwable).hasMessage("foo is not a valid input");
-assertThat(throwable).hasMessage("%s is not a valid input", "foo");
-
-// These assertions fail:
-assertThat(throwable).hasMessage("bar is not a valid input");
-assertThat(throwable).hasMessage("%s is not a valid input", "bar");</code></pre>
-</div>
-</div>
-</div>
-<div class="sect5">
-<h6 id="assertj-core-throwable-cause-and-root-cause-assertions"><a class="anchor" href="#assertj-core-throwable-cause-and-root-cause-assertions"></a>Checking cause and root cause</h6>
-<div class="paragraph">
-<p>It is possible to assert on the cause and/or root cause properties of an exception by using <code>getCause()</code> and <code>getRootCause()</code>.<br>
-These methods change the object under test from the current throwable to its cause or root cause.</p>
-</div>
-<div class="paragraph">
-<p>Examples:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code data-lang="java" class="language-java hljs">NullPointerException rootCause = new NullPointerException("root cause message");
-IllegalArgumentException cause = new IllegalArgumentException("cause message", rootCause);
-Throwable throwable = new Throwable("top level", cause);
-
-// These assertions succeed:
-assertThat(throwable).hasMessage("top level")
-                     .getCause()
-                     // all further chaining is against throwable's cause
-                     .hasMessage("cause message");
-
-assertThat(throwable).hasMessage("top level")
-                     .getRootCause()
-                     // all further chaining is against throwable's root cause
-                     .hasMessage("root cause message");
-
-// This assertion fails:
-assertThat(throwable).hasMessage("top level")
-                     .getCause()
-                     .hasMessage("some other message");</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>The same is also possible using <code>assertThatExceptionOfType</code> as in the following example checking that the throwable is a <code>RuntimeException</code> with "boom!" for its cause message.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code data-lang="java" class="language-java hljs">assertThatExceptionOfType(RuntimeException.class)
-         .isThrownBy(() -&gt; { throw new RuntimeException(new IllegalArgumentException("boom!")); })
-         .havingCause()
-         .withMessage("boom!");</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Similar example with <code>havingRootCause</code>:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code data-lang="java" class="language-java hljs">assertThatExceptionOfType(RuntimeException.class)
-         .isThrownBy(() -&gt; { throw new RuntimeException(new IllegalArgumentException(new NullPointerException("root error"))); })
-         .havingRootCause()
-         .withMessage("root error");</code></pre>
-</div>
-</div>
-</div>
-</div>
 <div class="sect4">
 <h5 id="assertj-core-exception-assertions-java-7"><a class="anchor" href="#assertj-core-exception-assertions-java-7"></a>With Java 7 (AssertJ 2.x)</h5>
 <div class="paragraph">
@@ -4884,7 +4963,7 @@ assertThat(throwable).hasMessage("top level")
 <p>Call fail method immediately after, so that the test fails if the exception is not thrown.</p>
 </li>
 <li>
-<p>Make assertions on the caught exception.</p>
+<p>Assert the caught exception.</p>
 </li>
 </ol>
 </div>
@@ -17595,7 +17674,7 @@ AssertJ Swing would not exist without its contributors, you can find them all <a
 <div id="footer">
 <div id="footer-text">
 Version 1.0<br>
-Last updated 2020-12-25 23:06:49 UTC
+Last updated 2020-12-28 00:42:03 UTC
 </div>
 </div>
 <link rel="stylesheet" href="highlight/styles/railscasts.min.css">
