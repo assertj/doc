@@ -654,7 +654,10 @@ The javadoc for `CharSequence` assertions is available https://www.javadoc.io/st
 [[assertj-core-group-assertions]]
 ==== Iterable and array assertions
 
-The javadoc summarizing the available assertions are listed below:
+[[assertj-core-group-assertions-reference]]
+===== Reference
+
+All the available assertions are described in:
 
 * iterables: {assertj-core-javadoc-root}org/assertj/core/api/AbstractIterableAssert.html#method.summary
 * arrays: {assertj-core-javadoc-root}org/assertj/core/api/AbstractObjectArrayAssert.html#method.summary
@@ -1120,50 +1123,188 @@ assertThat(fellowshipOfTheRing).usingElementComparator((t1, t2) -> t1.getRace().
 
 This chapter answers the question: how to assert that an exception has been thrown and check that it is the expected one?
 
-If you use java 8 or later versions, check the link:#assertj-core-exception-assertions-java-8[Java 8 section] which heavily uses lambdas.
-If you use java 7, check the link:#assertj-core-exception-assertions-java-7[Java 7 section].
+[[assertj-core-exception-assertions-reference]]
+===== Reference
 
-All the available assertions are described in the link:#assertj-core-exception-assertions-reference[throwable assertions reference section].
+All the available assertions are described in the link:#{assertj-core-javadoc-root}org/assertj/core/api/AbstractThrowableAssert.html#method.summary[AbstractThrowableAssert javadoc].
 
 In this chapter the term `exception` is used interchangeably with `throwable`.
 
-[[assertj-core-exception-assertions-java-8]]
-===== With Java 8 (AssertJ 3.x)
+The next sections focus on some features worth knowing to get the best of AssertJ, notably:
 
-Testing assertions in Java 8 is elegant, thanks to lambdas! AssertJ provides different style options:
-
-- link:#assertj-core-exception-assertions-bdd-style[`catchThrowable(ThrowingCallable)`]
-- link:#assertj-core-exception-assertions-bdd-strongly-typed-style[`catchThrowableOfType(ThrowingCallable)`]
-- link:#assertj-core-exception-assertions-assertThatThrownBy[`assertThatThrownBy(ThrowingCallable)`]
+- link:#assertj-core-throwable-assertions-message[Checking the exception message]
+- link:#assertj-core-throwable-cause-and-root-cause-assertions[Checking the exception cause and root cause]
+- link:#assertj-core-exception-assertions-bdd-style[BDD assertion style with `catchThrowable` and `catchThrowableOfType`]
+- link:#assertj-core-exception-assertions-assertThatThrownBy[`assertThatThrownBy(code)`]
 - link:#assertj-core-exception-assertions-assertThatExceptionOfType[`assertThatExceptionOfType(exception class)`]
 - link:#assertj-core-exception-assertions-no-exception[Testing that no exception is thrown]
 
-where `ThrowingCallable` is a functional interface which can be expressed as a lambda.
+
+If you use java 7, check the link:#assertj-core-exception-assertions-java-7[Java 7 section].
+
+[[assertj-core-throwable-assertions-message]]
+===== Checking exception message
+
+There are various ways for checking the exception message content, you can check the exact message, what it contains, its start, its end, if it matches a regex.
+
+Most of the assertions expecting a `String` can use the https://docs.oracle.com/javase/8/docs/api/java/lang/String.html?is-external=true#format-java.lang.String-java.lang.Object...-[String.format] syntax.
+
+Examples:
+[source,java]
+----
+Throwable throwable = new IllegalArgumentException("wrong amount 123");
+
+assertThat(throwableWithMessage).hasMessage("wrong amount 123")
+                                .hasMessage("%s amount %d", "wrong", 123)
+                                // check start
+                                .hasMessageStartingWith("wrong")
+                                .hasMessageStartingWith("%s a", "wrong")
+                                // check content
+                                .hasMessageContaining("wrong amount")
+                                .hasMessageContaining("wrong %s", "amount")
+                                .hasMessageContainingAll("wrong", "amount")
+                                // check end
+                                .hasMessageEndingWith("123")
+                                .hasMessageEndingWith("amount %s", "123")
+                                // check with regex
+                                .hasMessageMatching("wrong amount .*")
+                                // check does not contain
+                                .hasMessageNotContaining("right")
+                                .hasMessageNotContainingAny("right", "price")
+----
+
+[[assertj-core-throwable-cause-and-root-cause-assertions]]
+===== Checking the cause and root cause
+
+There are two approaches to check the the cause and root cause, either directly or navigate to it with `getCause()` and `getRootCause()` and check it.
+
+====== Checking the cause
+
+You can check the cause directly if you know it but that's not always possible, in that case you can basically only check its type.
+This is pretty limited in term of assertions, a better approach is to navigate to the cause with `getCause()` and take advantage of all existing exception assertions.
+
+Direct cause assertion are limited ...
+[source,java]
+----
+NullPointerException cause = new NullPointerException("boom!");
+Throwable throwable = new Throwable(cause);
+
+assertThat(throwable).hasCause(cause)
+                     // hasCauseInstanceOf will match inheritance.
+                     .hasCauseInstanceOf(NullPointerException.class)
+                     .hasCauseInstanceOf(RuntimeException.class)
+                     // hasCauseExactlyInstanceOf will match only exact same type
+                     .hasCauseExactlyInstanceOf(NullPointerException.class);
+----
+
+\... but navigating to the cause allows to take advantage of all exception assertions:
+[source,java]
+----
+// navigate before checking
+assertThat(throwable).getCause()
+                     .hasMessage("boom!")
+                     .hasMessage("%s!", "boom")
+                     .hasMessageStartingWith("bo")
+                     .hasMessageEndingWith("!")
+                     .hasMessageContaining("boo")
+                     .hasMessageContainingAll("bo", "oom", "!")
+                     .hasMessageMatching("b...!")
+                     .hasMessageNotContaining("bam")
+                     .hasMessageNotContainingAny("bam", "bim")
+                     // isInstanceOf will match inheritance.
+                     .isInstanceOf(NullPointerException.class)
+                     .isInstanceOf(RuntimeException.class)
+                     // isExactlyInstanceOf will match only exact same type
+                     .isExactlyInstanceOf(NullPointerException.class);
+----
+
+An alternative is using `assertThatExceptionOfType` combined with `havingCause` as shown in the following example:
+[source,java]
+----
+assertThatExceptionOfType(RuntimeException.class)
+         .isThrownBy(() -> { throw new RuntimeException(new IllegalArgumentException("boom!")); })
+         .havingCause()
+         .withMessage("boom!");
+----
+
+
+====== Checking the root cause
+
+You can check the root cause directly with `hasRootCause`, `hasRootCauseMessage` and `hasRootCauseInstanceOf​` if you have access to it but that's not always possible, this is a bit limited 
+in term of assertions, a better way is to navigate to the root cause with `getRootCause()` and take advantage of all existing exception assertions.
+
+Examples:
+[source,java]
+----
+NullPointerException rootCause = new NullPointerException("null!");
+Throwable throwable = new Throwable(new IllegalStateException(rootCause));
+
+// direct root cause check
+assertThat(throwable).hasRootCause(rootCause)
+                     .hasRootCauseMessage("null!")
+                     .hasRootCauseMessage("%s!", "null")
+                     // hasRootCauseInstanceOf will match inheritance
+                     .hasRootCauseInstanceOf(NullPointerException.class)
+                     .hasRootCauseInstanceOf(RuntimeException.class)
+                     // hasRootCauseExactlyInstanceOf will match only exact same type
+                     .hasRootCauseExactlyInstanceOf(NullPointerException.class);
+
+// navigate to root cause and check
+assertThat(throwable).getRootCause()
+                     .hasMessage("null!")
+                     .hasMessage("%s!", "null")
+                     .hasMessageStartingWith("nu")
+                     .hasMessageEndingWith("!")
+                     .hasMessageContaining("ul")
+                     .hasMessageContainingAll("nu", "ull", "l!")
+                     .hasMessageMatching("n...!")
+                     .hasMessageNotContaining("NULL")
+                     .hasMessageNotContainingAny("Null", "NULL")
+                     // isInstanceOf will match inheritance.
+                     .isInstanceOf(NullPointerException.class)
+                     .isInstanceOf(RuntimeException.class)
+                     // isExactlyInstanceOf will match only exact same type
+                     .isExactlyInstanceOf(NullPointerException.class);
+----
+
+
+An alternative is using `assertThatExceptionOfType` combined with `havingRootCause` as shown in the following example:
+[source,java]
+----
+assertThatExceptionOfType(RuntimeException.class)
+         .isThrownBy(() -> { throw new RuntimeException(new IllegalArgumentException(new NullPointerException("root error"))); })
+         .havingRootCause()
+         .withMessage("root error");
+----
+
+====== No cause
+
+You can verify that a Throwable does not have a cause with `hasNoCause()`.
 
 [[assertj-core-exception-assertions-bdd-style]]
-====== BDD style
+===== BDD style
 
-BDD aficionados can separate _WHEN_ and _THEN_ steps by using `catchThrowable(ThrowingCallable)` to capture the `Throwable` and then perform assertions.
+BDD aficionados can separate _WHEN_ and _THEN_ steps by using `catchThrowable(ThrowingCallable)` to capture the `Throwable` and then perform assertions (`ThrowingCallable` is a functional interface which can be expressed as a lambda).
 
 Example:
 [source,java]
 ----
-@Test
-public void bdd_exception_assertion_example() {
-   // GIVEN
-   String[] names = { "Pier ", "Pol", "Jak" };
-   // WHEN
-   Throwable thrown = catchThrowable(() -> System.out.println(names[9]));
-   // THEN
-   assertThat(thrown).isInstanceOf(ArrayIndexOutOfBoundsException.class)
-                     .hasMessageContaining("9");
-}
+// GIVEN
+String[] names = { "Pier ", "Pol", "Jak" };
+// WHEN
+Throwable thrown = catchThrowable(() -> System.out.println(names[9]));
+// THEN
+then(thrown).isInstanceOf(ArrayIndexOutOfBoundsException.class)
+            .hasMessageContaining("9");
+
+// assertThat is also available but is less "BDD style"
+assertThat(thrown).isInstanceOf(ArrayIndexOutOfBoundsException.class)
+                  .hasMessageContaining("9");
 ----
 
-[[assertj-core-exception-assertions-bdd-strongly-typed-style]]
-====== BDD style on specific Throwable type
+TIP: `catchThrowable` returns null if no exception is thrown but there is a better way to link:#assertj-core-exception-assertions-no-exception[check that no exception is thrown].
 
-This is a variation of `catchThrowable` where the caught exception type is specified, allowing to check the custom exception fields/properties.
+`catchThrowableOfType` is a variation of `catchThrowable` where the caught exception type is verified and returned allowing to check the custom exception fields/properties.
 
 Example:
 [source,java]
@@ -1186,47 +1327,37 @@ class TextException extends Exception {
  assertThat(textException.line).isEqualTo(1);
  assertThat(textException.column).isEqualTo(5);
 
- // succeeds as catchThrowableOfType returns null when the code does not thrown any exceptions
- assertThat(catchThrowableOfType(() -> {}, Exception.class)).isNull();
-
  // fails as TextException is not a RuntimeException
  catchThrowableOfType(() -> { throw new TextException("boom!", 1, 5); }, RuntimeException.class);
 ----
 
 [[assertj-core-exception-assertions-assertThatThrownBy]]
-====== Exception testing with assertThatThrownBy
+===== assertThatThrownBy
 
-Starts with `assertThatThrownBy(ThrowingCallable)` to capture and then assert on the thrown `Throwable`.
-
-Note that if the provided `ThrowingCallable` does not raise an exception, an assertion error is immediately thrown.
+`assertThatThrownBy(ThrowingCallable)` is an alternative to `catchThrowable`, use it if you find more readable.
 
 Example:
 [source,java]
 ----
-@Test
-public void exception_assertion_example() {
-   assertThatThrownBy(() -> { throw new Exception("boom!"); }).isInstanceOf(Exception.class)
-                                                              .hasMessageContaining("boom");
-}
+assertThatThrownBy(() -> { throw new Exception("boom!"); }).isInstanceOf(Exception.class)
+                                                           .hasMessageContaining("boom");
 ----
+
+NOTE: If the provided `ThrowingCallable` does not raise an exception, an assertion error is immediately thrown.
 
 [[assertj-core-exception-assertions-assertThatExceptionOfType]]
-====== Exception testing with assertThatExceptionOfType
+===== assertThatExceptionOfType
 
 `assertThatExceptionOfType` is an alternative syntax that some people find more natural.
-
-Note that if the code under test `ThrowingCallable` does not raise an exception, an assertion error is immediately thrown.
-
 [source,java]
 ----
-@Test
-public void exception_assertion_example() {
-   assertThatExceptionOfType(IOException.class).isThrownBy(() -> { throw new IOException("boom!"); })
-                                               .withMessage("%s!", "boom")
-                                               .withMessageContaining("boom")
-                                               .withNoCause();
-}
+assertThatExceptionOfType(IOException.class).isThrownBy(() -> { throw new IOException("boom!"); })
+                                            .withMessage("%s!", "boom")
+                                            .withMessageContaining("boom")
+                                            .withNoCause();
 ----
+
+NOTE: If the provided `ThrowingCallable` does not raise an exception, an assertion error is immediately thrown.
 
 This latter syntax has been enriched for common exceptions:
 
@@ -1235,20 +1366,17 @@ This latter syntax has been enriched for common exceptions:
 * `assertThatIllegalStateException`
 * `assertThatIOException`
 
-The previous test can be rewritten as:
+The previous example can be rewritten as:
 [source,java]
 ----
-@Test
-public void exception_assertion_example() {
-   assertThatIOException().isThrownBy(() -> { throw new IOException("boom!"); })
-                          .withMessage("%s!", "boom")
-                          .withMessageContaining("boom")
-                          .withNoCause();
-}
+assertThatIOException().isThrownBy(() -> { throw new IOException("boom!"); })
+                       .withMessage("%s!", "boom")
+                       .withMessageContaining("boom")
+                       .withNoCause();
 ----
 
 [[assertj-core-exception-assertions-no-exception]]
-====== Testing that no exception is thrown
+===== Testing that no exception is thrown
 
 You can test that a piece of code does not throw any exception with:
 [source,java]
@@ -1267,86 +1395,6 @@ assertThatCode(() -> System.out.println("OK")).doesNotThrowAnyException();
 thenCode(() -> System.out.println("OK")).doesNotThrowAnyException();
 ----
 
-[[assertj-core-exception-assertions-reference]]
-===== Throwable reference assertions reference
-
-This section describes all the available assertions for throwables:
-
-- link:#assertj-core-throwable-assertions-hasMessage[Checking the throwable message]
-- link:#assertj-core-throwable-cause-and-root-cause-assertions[Checking the throwable's cause and root cause]
-
-The javadoc for throwable assertions is available https://www.javadoc.io/static/org.assertj/assertj-core/{assertj-core-version}/org/assertj/core/api/AbstractThrowableAssert.html#method.summary[here].
-
-[[assertj-core-throwable-assertions-hasMessage]]
-====== Checking the throwable message
-
-There are two ways to check the exception message: `hasMessage(String message)` and `hasMessage(String message, Object... parameters)`, the latter allows you to build the expected message as https://docs.oracle.com/javase/8/docs/api/java/lang/String.html?is-external=true#format-java.lang.String-java.lang.Object...-[String.format].
-
-Examples:
-[source,java]
-----
-Throwable invalidArgException = new IllegalArgumentException("foo is not a valid input");
-Throwable throwable = new Throwable(invalidArgException);
-
-// This assertion succeeds:
-assertThat(throwable).hasMessage("foo is not a valid input");
-assertThat(throwable).hasMessage("%s is not a valid input", "foo");
-
-// These assertions fail:
-assertThat(throwable).hasMessage("bar is not a valid input");
-assertThat(throwable).hasMessage("%s is not a valid input", "bar");
-----
-
-[[assertj-core-throwable-cause-and-root-cause-assertions]]
-====== Checking cause and root cause
-
-It is possible to assert on the cause and/or root cause properties of an exception by using `getCause()` and `getRootCause()`. +
-These methods change the object under test from the current throwable to its cause or root cause.
-
-Examples:
-[source,java]
-----
-NullPointerException rootCause = new NullPointerException("root cause message");
-IllegalArgumentException cause = new IllegalArgumentException("cause message", rootCause);
-Throwable throwable = new Throwable("top level", cause);
-
-// These assertions succeed:
-assertThat(throwable).hasMessage("top level")
-                     .getCause() 
-                     // all further chaining is against throwable's cause
-                     .hasMessage("cause message");
-
-assertThat(throwable).hasMessage("top level")
-                     .getRootCause()
-                     // all further chaining is against throwable's root cause
-                     .hasMessage("root cause message");
-
-// This assertion fails:
-assertThat(throwable).hasMessage("top level")
-                     .getCause()
-                     .hasMessage("some other message");
-----
-
-The same is also possible using `assertThatExceptionOfType` as in the following example checking that the throwable is a `RuntimeException` with "boom!" for its cause message.
-
-[source,java]
-----
-assertThatExceptionOfType(RuntimeException.class)
-         .isThrownBy(() -> { throw new RuntimeException(new IllegalArgumentException("boom!")); })
-         .havingCause()
-         .withMessage("boom!");
-----
-
-Similar example with `havingRootCause`:
-
-[source,java]
-----
-assertThatExceptionOfType(RuntimeException.class)
-         .isThrownBy(() -> { throw new RuntimeException(new IllegalArgumentException(new NullPointerException("root error"))); })
-         .havingRootCause()
-         .withMessage("root error");
-----
-
 [[assertj-core-exception-assertions-java-7]]
 ===== With Java 7 (AssertJ 2.x)
 
@@ -1354,7 +1402,7 @@ Asserting on exceptions is not as nice compared to the Java 8 way, this is how y
 
 . Put the code that should throw the exception in a try-catch.
 . Call fail method immediately after, so that the test fails if the exception is not thrown.
-. Make assertions on the caught exception.
+. Assert the caught exception.
 
 Note that `fail` method can be statically imported from `Assertions` class.
 
