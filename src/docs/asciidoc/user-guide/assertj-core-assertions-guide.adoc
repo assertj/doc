@@ -1126,7 +1126,7 @@ This chapter answers the question: how to assert that an exception has been thro
 [[assertj-core-exception-assertions-reference]]
 ===== Reference
 
-All the available assertions are described in the link:#{assertj-core-javadoc-root}org/assertj/core/api/AbstractThrowableAssert.html#method.summary[AbstractThrowableAssert javadoc].
+All the available assertions are described in the link:{assertj-core-javadoc-root}org/assertj/core/api/AbstractThrowableAssert.html#method.summary[AbstractThrowableAssert javadoc].
 
 In this chapter the term `exception` is used interchangeably with `throwable`.
 
