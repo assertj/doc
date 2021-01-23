@@ -5,6 +5,7 @@ NOTE: AssertJ Core would not exist without its contributors, you can find them a
 
 Latest release notes:
 
+- link:#assertj-core-3-19-0-release-notes[AssertJ Core 3.19.0]
 - link:#assertj-core-3-18-1-release-notes[AssertJ Core 3.18.1]
 - link:#assertj-core-3-18-0-release-notes[AssertJ Core 3.18.0]
 - link:#assertj-core-3-17-2-release-notes[AssertJ Core 3.17.2]
@@ -22,6 +23,391 @@ Latest release notes:
 - link:#assertj-core-3-12-0-release-notes[AssertJ Core 3.12.0]
 
 Older release notes can be found in the old site: https://joel-costigliola.github.io/assertj/assertj-core-news.html, this is important to be aware of breaking changes if you are migrating from an old version.
+
+[[assertj-core-3-19-0-release-notes]]
+==== AssertJ Core 3.19.0
+
+Release date : 2021-01-24
+
+[[assertj-core-3.19.0-contributors]]
+[.release-note-category]#icon:user[] Contributors#
+
+Thanks to all the contributors of this release: Erhard Pointl, Stefano Cordio, Pascal Schumacher, Arsen Ibragimov, Kim S. Ly, Victor Wang, Omar Morales, Reto Weiss, Michael Florian Grafl, Sergei Tachenov, mayralgr, Eveneko, Julieta, Michael Keppler, Alex Dukhno, Himadri Mandal and Jin Kwon.
+
+[[assertj-core-3.19.0-breaking-changes]]
+[.release-note-category]#icon:exclamation-triangle[] Breaking changes#
+
+Replacement of `FieldLocation` by `String` breaking changes:
+
+* Remove deprecated `RecursiveComparisonConfiguration.registerComparatorForField(Comparator<?> comparator, FieldLocation fieldLocation)` in favor of `registerComparatorForFields(Comparator<?> comparator, String... fieldLocations)`
+* `getIgnoredCollectionOrderInFields()`, `getIgnoredFields()` and `getIgnoredOverriddenEqualsForFields()` now return a collection of `String` instead of `FieldLocation`
+* `comparatorByFields()` now returns `Stream<Entry<String, Comparator<?>>>` instead of `Stream<Entry<FieldLocation, Comparator<?>>>`
+
+Ignore static and synthetic fields when introspecting fields as they are not relevant in for instance assertions, this change impacts:
+
+* hasFieldOrProperty
+* hasFieldOrPropertyWihtValue
+* extracting field by name
+
+Probably not an impactful breaking change: abstract classes constructor are now protected instead of public.
+
+[[assertj-core-3.19.0-new-features]]
+[.release-note-category]#icon:plus-circle[] New features#
+
+* Add link:#assertj-core-3.19.0-isEqualToNormalizingUnicode[isEqualToNormalizingUnicode] CharSequence assertion. (Julieta)
+* Add link:#assertj-core-3.19.0-satisfiesExactly[satisfiesExactly] iterable/array assertion. (Michael Florian Grafl)
+* Add link:#assertj-core-3.19.0-satisfiesExactlyInAnyOrder[satisfiesExactlyInAnyOrder] iterable/array assertion. 
+* Add link:#assertj-core-3.19.0-date-assertion-Instant-support[Instant variants] to Date assertions. (Arsen Ibragimov)
+* Add float/double link:#assertj-core-3.19.0-real-numbers-finite-infinite-assertions[finite or infinite] assertions. (Jin Kwon)
+* Add link:#assertj-core-3.19.0-doesNotHaveSameHashCodeAs[`doesNotHaveSameHashCodeAs`] assertion. (Kim S. Ly)
+* Add link:#assertj-core-3.19.0-doesNotHaveToString[`doesNotHaveToString`] assertion. (Kim S. Ly)
+* Add overloaded link:#assertj-core-3.19.0-boxed-arrays-contains-assertions[`contains` assertions with boxed arrays] to primitive array assertions. (Stefano Cordio,  mayralgr, Omar Morales)
+* Add link:#assertj-core-3.19.0-hasOnlyFields[`hasOnlyFields`] assertion. (Victor Wang)
+* Allow to pass a link:#assertj-core-3.19.0-lazy-description[lazy description] only evaluated if the assertion fails.
+* Add link:#assertj-core-3.19.0-isEmptyFile-isNotEmptyFile[isEmptyFile/isNotEmptyFile] to `Path` assertions. (Omar Morales)
+
+[[assertj-core-3.19.0-improvements]]
+[.release-note-category]#icon:arrow-circle-up[] Improvements#
+
+* Change `isEqualTo` error message to follow pattern:
+
+[source,text]
+----
+Expected: "abc"
+But was : "bcd"
+----
+
+* Remove `<>` from error messages when displaying values as it was deemed noisy. (Erhard Pointl, Omar Morales, Himadri Mandal)
+* Better identation consistency in error messages.
+* Include the first 3 stacktrace elements in throwable representation (configurable). (Eveneko)
+* Change abstract class constructor to protected.
+* Use normalized `actual` and `expected` in String assertion errors that compare normalized values. (Etienne Miret)
+* Refactor common representation code into `UnambiguousRepresentation`. (Etienne Miret)
+* Use `org.junit.ComparisonFailure` when available. (Etienne Miret)
+* Improve describe error readability of `ElementsShouldSatisfy`. (Drummond Dawson)
+* Recursive comparison: show the index of the array/list element compared in the reported differences.
+* Recursive comparison documentation: make it clear that `ignoringFields` and `ignoringFieldsMatchingRegexes` operate on field names.
+* Ignore getters with void return type during property introspection. (Reto Weiss)
+* Return generic return type for `AbstractSoftAssertions.fail` for convenience and to be consistent with `Assertions.fail`
+* Recalculate description for nested Conditions like `Not` and `Join` as some `Condition` description when the `Condition` is evaluated. (Stefan Bischof)
+* Javadoc Date assertions improvements.
+* Explain reference to `newLinkedHashMap` in Javadoc.
+* Internal: Only instantiate assertion error from AssertionErrorCreator. (Alex Dukhno)
+* Internal: Use parent pom 2.2.10 that bumps the licence year to 2021. (Erhard Pointl)
+* Internal: Use java11 in codeql workflow. (Erhard Pointl)
+* Internal: Fix a bunch of sonar violations. (Erhard Pointl)
+* Internal: Reduce test flakyness. (Erhard Pointl)
+* Internal: Enforce surefire encoding. (Stefano Cordio)
+* Internal: Bump junit version from 4.13 to 4.13.1 (Erhard Pointl)
+* Internal: Bump highlight version to 10.4.0
+* Internal: Bump mockito version from 3.6.0 to 3.6.28 (Erhard Pointl)
+* Internal: Bump jackson-databind from 2.11.3 to 2.12.1
+* Internal: Bump guava from 30.0-jre to 30.1-jre
+* Internal: Bump org.eclipse.osgi from 3.16.0 to 3.16.100
+* Internal: Bump byte-buddy version from 1.10.18 to 1.10.19
+* Internal: Bump mockito version from 3.6.28 to 3.7.7
+* Internal: Bump equalsverifier from 3.5 to 3.5.2 
+
+
+[[assertj-core-3.19.0-fixed]]
+[.release-note-category]#icon:wrench[] Fixed#
+
+* Fix long overflow in AbstractTemporalAssert. (Sergei Tachenov)
+* Make `Collection` extending `AtomicInteger` to be representated as a collection instead of an `AtomicInteger`.
+* Fix Javadoc typo. (Michael Keppler)
+
+[[assertj-core-3.19.0-deprecated]]
+[.release-note-category]#icon:ban[] Deprecated#
+
+* Deprecate `isXmlEqualToContentOf` in favor of https://www.xmlunit.org/[XML Unit].
+
+[[assertj-core-3.19.0-isEqualToNormalizingUnicode]]
+[.release-note-item]#Add `isEqualToNormalizingUnicode` CharSequence assertion#
+
+Verifies that the actual CharSequence is equal to the given one after they have been normalized according to the link:https://docs.oracle.com/javase/8/docs/api/java/text/Normalizer.Form.html?is-external=true#NFC[Normalizer.Form.NFC] form, which is a canonical decomposition followed by canonical composition. 
+
+
+Examples:
+[source,java]
+----
+// assertions succeed:
+
+// Ä = \u00C4 - Ä = \u0041\u0308
+assertThat("Ä").isEqualToNormalizingUnicode("Ä");
+assertThat("\u00C4").isEqualToNormalizingUnicode("\u0041\u0308");
+
+// assertions fail:
+assertThat("ñ").isEqualToNormalizingUnicode("n");
+assertThat("Ä").isEqualToNormalizingUnicode("b");
+----
+
+[[assertj-core-3.19.0-satisfiesExactly]]
+[.release-note-item]#Add `satisfiesExactly` iterable/array assertion#
+
+Verifies that each element satisfies the requirements corresponding to its index, so the first element must satisfy the first requirements, the second element the second requirements etc...
+
+Each requirements are expressed as a `Consumer`, there must be as many requirements as there are iterable elements.
+
+
+Examples:
+[source,java]
+----
+Iterable<TolkienCharater> characters = list(frodo, aragorn, legolas);
+
+// assertions succeed
+assertThat(characters).satisfiesExactly(character -> assertThat(character.getRace()).isEqualTo("Hobbit"),
+                                        character -> assertThat(character.isMortal()).isTrue(),
+                                        character -> assertThat(character.getName()).isEqualTo("Legolas"));
+
+// you can specify more that one assertion per requirements
+assertThat(characters).satisfiesExactly(character -> {
+                                           assertThat(character.getRace()).isEqualTo("Hobbit");
+                                           assertThat(character.getName()).isEqualTo("Frodo");
+                                        },
+                                        character -> {
+                                           assertThat(character.isMortal()).isTrue();
+                                           assertThat(character.getName()).isEqualTo("Aragorn");
+                                        },
+                                        character -> {
+                                           assertThat(character.getRace()).isEqualTo("Elf");
+                                           assertThat(character.getName()).isEqualTo("Legolas");
+                                        });
+
+// assertion fails as aragorn does not meet the second requirements
+assertThat(characters).satisfiesExactly(character -> assertThat(character.getRace()).isEqualTo("Hobbit"),
+                                        character -> assertThat(character.isMortal()).isFalse(),
+                                        character -> assertThat(character.getName()).isEqualTo("Legolas"));
+----
+
+[[assertj-core-3.19.0-satisfiesExactlyInAnyOrder]]
+[.release-note-item]#Add `satisfiesExactlyInAnyOrder` iterable/array assertion#
+
+Verifies that at least one combination of iterable elements exists that satisfies the consumers in order (there must be as many consumers as iterable elements and once a consumer is matched it cannot be reused to match other elements). 
+
+This is a variation of link:#assertj-core-3.19.0-satisfiesExactly[`satisfiesExactly`] where order does not matter. 
+
+Examples:
+[source,java]
+----
+List<String> starWarsCharacterNames = list("Luke", "Leia", "Yoda");
+
+// these assertions succeed:
+assertThat(starWarsCharacterNames).satisfiesExactlyInAnyOrder(name -> assertThat(name).contains("Y"), // matches "Yoda"
+                                                              name -> assertThat(name).contains("L"), // matches "Luke" and "Leia"
+                                                              name -> {
+                                                                assertThat(name).hasSize(4);
+                                                                assertThat(name).doesNotContain("a"); // matches "Luke" but not "Leia"
+                                                              })
+                                  // satisfiesExactly would have succeeded for this assertion
+                                  .satisfiesExactlyInAnyOrder(name -> assertThat(name).contains("Lu"),
+                                                              name -> assertThat(name).contains("Le"),
+                                                              name -> assertThat(name).contains("Yo"))
+                                  // satisfiesExactly would have failed for this assertion
+                                  .satisfiesExactlyInAnyOrder(name -> assertThat(name).contains("Yo"),
+                                                              name -> assertThat(name).contains("Lu"),
+                                                              name -> assertThat(name).contains("Le"))
+                                  // satisfiesExactly would have failed for this assertion
+                                  .satisfiesExactlyInAnyOrder(name -> assertThat(name).contains("Le"),
+                                                              name -> assertThat(name).contains("Yo"),
+                                                              name -> assertThat(name).contains("Lu"));
+
+// this assertion fails as 3 consumer/requirements are expected
+assertThat(starWarsCharacterNames).satisfiesExactlyInAnyOrder(name -> assertThat(name).contains("Y"),
+                                                              name -> assertThat(name).contains("L"));
+
+// this assertion fails as no element contains "Han" (first consumer/requirements can't be met)
+assertThat(starWarsCharacterNames).satisfiesExactlyInAnyOrder(name -> assertThat(name).contains("Han"),
+                                                              name -> assertThat(name).contains("L"),
+                                                              name -> assertThat(name).contains("Y"));
+
+// this assertion fails as "Yoda" element can't satisfy any consumers/requirements (even though all consumers/requirements are met)
+assertThat(starWarsCharacterNames).satisfiesExactlyInAnyOrder(name -> assertThat(name).contains("L"),
+                                                              name -> assertThat(name).contains("L"),
+                                                              name -> assertThat(name).contains("L"));
+
+// this assertion fails as no combination of elements can satisfy the consumers in order
+// the problem is if the last consumer is matched by Leia then no other consumer can match Luke (and vice versa)
+assertThat(starWarsCharacterNames).satisfiesExactlyInAnyOrder(name -> assertThat(name).contains("Y"),
+                                                              name -> assertThat(name).contains("o"),
+                                                              name -> assertThat(name).contains("L"));
+----
+
+[[assertj-core-3.19.0-date-assertion-Instant-support]]
+[.release-note-item]#Add `Instant` variants to `Date` assertions#
+
+`Date` assertions now understand `Instant` parameters.
+
+Examples:
+[source,java]
+----
+final Date dateTimeWithMs = parseDatetimeWithMs("2001-02-03T04:05:06.700");
+
+assertThat(dateTimeWithMs).isEqualTo(dateTimeWithMs.toInstant())
+                          .isBefore(Instant.parse("2002-01-01T00:00:00.00Z"))
+                          .isAfter(Instant.parse("2000-01-01T00:00:00.00Z"))
+                          .isBetween(Instant.parse("2000-01-01T00:00:00.00Z"),
+                                     Instant.parse("2002-01-01T00:00:00.00Z"))
+                          .isCloseTo(dateTimeWithMs.toInstant().minusMillis(10), 20)
+                          .isEqualToIgnoringHours(dateTimeWithMs.toInstant().plus(1, ChronoUnit.HOURS))
+                          .isEqualToIgnoringMinutes(dateTimeWithMs.toInstant().plus(1, ChronoUnit.MINUTES))
+                          .isEqualToIgnoringSeconds(dateTimeWithMs.toInstant().plus(1, ChronoUnit.SECONDS))
+                          .isEqualToIgnoringMillis(dateTimeWithMs.toInstant().plus(1, ChronoUnit.MILLIS))
+                          .isIn(dateTimeWithMs.toInstant(), dateTimeWithMs.toInstant().plusMillis(10))
+                          .isInSameDayAs(dateTimeWithMs.toInstant().plus(1, ChronoUnit.MINUTES))
+                          .isInSameMonthAs(Instant.parse("2001-02-01T00:00:00.00Z"))
+                          .isInSameYearAs(Instant.parse("2001-01-01T00:00:00.00Z"))
+                          .isNotIn(dateTimeWithMs.toInstant().minusMillis(10), dateTimeWithMs.toInstant().plusMillis(10));
+----
+
+[[assertj-core-3.19.0-real-numbers-finite-infinite-assertions]]
+[.release-note-item]#Add float/double finite or infinite assertions#
+
+Examples:
+[source,java]
+----
+assertThat(1.0f).isFinite();
+assertThat(Float.NEGATIVE_INFINITY).isInfinite();
+
+assertThat(1.0).isFinite();
+assertThat(Double.POSITIVE_INFINITY).isInfinite();
+----
+
+[[assertj-core-3.19.0-doesNotHaveSameHashCodeAs]]
+[.release-note-item]#Add `doesNotHaveSameHashCodeAs` assertion#
+
+Verifies that the actual object does not have the same hashCode as the given object. 
+
+Examples:
+[source,java]
+----
+// assertions succeed
+assertThat(42L).doesNotHaveToString(2501L);
+assertThat("The Force").doesNotHaveToString(null);
+
+// assertions fail
+assertThat(42L).doesNotHaveToString(42L);
+assertThat("The Force").doesNotHaveToString("The Force");
+assertThat(new Jedi("Yoda", "Blue")).doesNotHaveToString(new Jedi("Yoda", "Blue")); 
+----
+
+[[assertj-core-3.19.0-doesNotHaveToString]]
+[.release-note-item]#Add `doesNotHaveToString` assertion#
+
+Verifies that the actual object does not have the same toString as the given object. 
+
+Examples:
+[source,java]
+----
+CartoonCharacter homer = new CartoonCharacter("Homer");
+
+// Instead of writing ...
+assertThat(homer.toString()).isNotEqualTo("Marge");
+// ... you can simply write:
+assertThat(homer).doesNotHaveToString("Marge");
+----
+
+[[assertj-core-3.19.0-boxed-arrays-contains-assertions]]
+[.release-note-item]#Add overloaded contains assertions with boxed arrays for primitive array assertions#
+
+Primitive array assertions (like `long[]` assertions) support variants with boxed arrays (e.g. `Long[]`) for `contains` assertions. 
+
+Examples:
+[source,java]
+----
+assertThat(new boolean[] { true, false, true }).containsExactly(new Boolean[] {true, false, true });
+assertThat(new short[] { 1,  2,  3 }).containsExactly(new Short[] { 1,  2,  3 });
+assertThat(new int[] { 1,  2,  3 }).containsExactly(new Integer[] { 1,  2,  3 });
+assertThat(new long[] { 1L, 2L, 3L }).contains(new Long[] { 1L, 2L });
+assertThat(new float[] { 1.0f, 2.0f, 3.0f }).containsExactly(new Float[] { 1.0f, 2.0f, 3.0f });
+assertThat(new double[] { 1.0, 2.0, 3.0 }).containsExactly(new Double[] { 1.0, 1.98, 3.01 }, withPrecision(0.05));
+assertThat(new char[] { 'a', 'b', 'c' }).contains(new Character[] { 'a', 'b' });
+----
+
+[[assertj-core-3.19.0-hasOnlyFields]]
+[.release-note-item]#Add hasOnlyFields assertion#
+
+Verifies that the actual object has only the specified fields and nothing else.
+
+The assertion only checks declared fields (inherited fields are not checked) that are not static or synthetic. 
+
+Examples:
+[source,java]
+----
+public class TolkienCharacter {
+
+  private String name;
+  public int age;
+
+  public String getName() {
+    return this.name;
+  }
+}
+
+TolkienCharacter frodo = new TolkienCharacter("Frodo", 33);
+
+// assertion succeeds:
+assertThat(frodo).hasOnlyFields("name", "age");
+
+// assertions fail:
+assertThat(frodo).hasOnlyFields("name");
+assertThat(frodo).hasOnlyFields("not_exists");
+----
+
+[[assertj-core-3.19.0-lazy-description]]
+[.release-note-item]#Allow to pass a lazy description only evaluated when the assertion fails#
+
+Lazily specifies the description of the assertion that is going to be called, the given description is **not** evaluated if the assertion succeeds. This is useful if descriptions are expansive to build. 
+
+Examples:
+[source,java]
+----
+// we all know Mr Frodo is 33 years old
+frodo.setAge(33);
+
+// the lazy test description is not evaluated as the assertion succeeds
+assertThat(frodo.getAge()).as(() -> "check Frodo's age").isEqualTo(33);
+
+// the lazy test description is evaluated as the assertion fails
+assertThat(frodo.getAge()).as(() -> "check Frodo's age").isEqualTo(50);
+----
+
+The error message of the failing assertion is:
+[source,text]
+----
+[check Frodo's age] 
+expected: 33
+but was : 50
+----
+
+[[assertj-core-3.19.0-isEmptyFile-isNotEmptyFile]]
+[.release-note-item]#Add isEmptyFile and isNotEmptyFile to Path assertions#
+
+Verify that the actual Path is respectively an empty or non empty regular file.
+
+Note that the actual Path must exist and be a regular file.
+
+Examples given the files below:
+[source,text]
+----
+/root/sub-dir-1/file-1.ext (no content)
+/root/sub-dir-1/file-2.ext (content)
+----
+
+Here are some assertions examples:
+[source,java]
+----
+Path noContentPath = Paths.get("/root/sub-dir-1/file-1.ext");
+Path contentPath = Paths.get("/root/sub-dir-1/file-2.ext");
+
+// The following assertions succeed:
+assertThat(noContentPath).isEmptyFile();
+assertThat(contentPath).isEmptyFile();
+
+// The following assertions fail:
+assertThat(contentPath).isEmptyFile();
+assertThat(noContentPath).isEmptyFile();
+----
+
 
 [[assertj-core-3-18-1-release-notes]]
 ==== AssertJ Core 3.18.1
@@ -44,9 +430,9 @@ Thanks to all the contributors of this release: Erhard Pointl, Stefano Cordio an
 * Make `isElementOfCustomAssert` protected to ease integration with 3rd party libraries like XML Unit.
 * Add javadoc for methods that needs to be implemented in `AbstractIterableAssert` subclasses.
 * Internal: Adjust `hasPackage` tests style. (Stefano Cordio)
-* Internal: Bump junit-jupiter.version from 5.6.2 to 5.6.3. (Erhard Pointl)
+* Internal: Bump junit-jupiter version from 5.6.2 to 5.6.3. (Erhard Pointl)
 * Internal: Bump mockito from 3.5.15 to 3.6.0. (Erhard Pointl)
-* Internal: Bump byte-buddy.version from 1.10.17 to 1.10.18.
+* Internal: Bump byte-buddy version from 1.10.17 to 1.10.18.
 
 [[assertj-core-3.18.1-fixed]]
 [.release-note-category]#icon:wrench[] Fixed#
@@ -297,7 +683,7 @@ Thanks to all the contributors of this release: Erhard Pointl, Stefano Cordio an
 * Internal: Add OSGi integration tests. (BJ Hargrave)
 * Internal: Fix maven-shade-plugin warning about overlapping MANIFEST.MF. (Stefano Cordio)
 * Internal: Exclude net.bytebuddy.experimental from shading scope. (Stefano Cordio)
-* Internal: Bump mockito.version from 3.5.5 to 3.5.10. (Erhard Pointl, Stefano Cordio)
+* Internal: Bump mockito version from 3.5.5 to 3.5.10. (Erhard Pointl, Stefano Cordio)
 
 [[assertj-core-3.17.2-fixed]]
 [.release-note-category]#icon:wrench[] Fixed#
@@ -393,10 +779,10 @@ _Joel Costigliola_: Apologies to Hayden Meloche, when integrating his work the f
 * Internal: Bump `equalsverifier` from 3.2 to 3.4.2.
 * Internal: Bump `commons-io` from 2.6 to 2.7.
 * Internal: Bump `commons-lang3` from 3.10 to 3.11.
-* Internal: Bump `bnd.version` from 5.0.1 to 5.1.2 and re-enable java 15 build. (Pascal Schumacher)
+* Internal: Bump `bnd version` from 5.0.1 to 5.1.2 and re-enable java 15 build. (Pascal Schumacher)
 * Internal: Bump `maven-shade-plugin` from 3.2.3 to 3.2.4.
-* Internal: Bump `byte-buddy.version` from 1.10.10 to 1.10.14.
-* Internal: Bump `mockito.version` from 3.3.3 to 3.5.5 (Erhard Pointl)
+* Internal: Bump `byte-buddy version` from 1.10.10 to 1.10.14.
+* Internal: Bump `mockito version` from 3.3.3 to 3.5.5 (Erhard Pointl)
 * Internal: Add `dependabot`. (sullis)
 * Internal: Bump `actions/cache` from v1 to v2.
 * Internal: Fix "Remove this 'public' modifier" sonar violations. (Erhard Pointl, Shiva)
