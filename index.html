@@ -6987,14 +6987,15 @@ AssertJ Core would not exist without its contributors, you can find them all <a 
 <p><span class="release-note-category"><span class="icon"><i class="fa fa-user"></i></span> Contributors</span></p>
 </div>
 <div class="paragraph">
-<p>Thanks to all the contributors of this release: Erhard Pointl, Stefano Cordio, Pascal Schumacher, Arsen Ibragimov, Kim S. Ly, Victor Wang, Omar Morales, Reto Weiss, Michael Florian Grafl, Sergei Tachenov, mayralgr, Eveneko, Julieta, Michael Keppler, Alex Dukhno, Himadri Mandal and Jin Kwon.</p>
+<p>Thanks to all the contributors of this release: Erhard Pointl, Stefano Cordio, Pascal Schumacher, Arsen Ibragimov, Kim S. Ly, Victor Wang, Omar Morales, Reto Weiss, Michael Florian Grafl, Sergei Tachenov, Mayra Lucero Garcia Ramírez, Eveneko, Julieta Navarro, Michael Keppler, Alex Dukhno, Himadri Mandal and Jin Kwon.</p>
 </div>
 <div id="assertj-core-3.19.0-breaking-changes" class="paragraph">
 <p><span class="release-note-category"><span class="icon"><i class="fa fa-exclamation-triangle"></i></span> Breaking changes</span></p>
 </div>
-<div class="paragraph">
+<div class="ulist">
+<ul>
+<li>
 <p>Replacement of <code>FieldLocation</code> by <code>String</code> breaking changes:</p>
-</div>
 <div class="ulist">
 <ul>
 <li>
@@ -7008,24 +7009,28 @@ AssertJ Core would not exist without its contributors, you can find them all <a 
 </li>
 </ul>
 </div>
-<div class="paragraph">
-<p>Ignore static and synthetic fields when introspecting fields as they are not relevant in for instance assertions, this change impacts:</p>
-</div>
+</li>
+<li>
+<p>Ignore static and synthetic fields when introspecting fields as they are not relevant in for instance assertions.
+This change impacts:</p>
 <div class="ulist">
 <ul>
 <li>
-<p>hasFieldOrProperty</p>
+<p><code>hasFieldOrProperty</code></p>
 </li>
 <li>
-<p>hasFieldOrPropertyWihtValue</p>
+<p><code>hasFieldOrPropertyWithValue</code></p>
 </li>
 <li>
 <p>extracting field by name</p>
 </li>
 </ul>
 </div>
-<div class="paragraph">
-<p>Probably not an impactful breaking change: abstract classes constructor are now protected instead of public.</p>
+</li>
+<li>
+<p>Probably not an impactful breaking change: abstract classes' constructors are now <code>protected</code> instead of <code>public</code>.</p>
+</li>
+</ul>
 </div>
 <div id="assertj-core-3.19.0-new-features" class="paragraph">
 <p><span class="release-note-category"><span class="icon"><i class="fa fa-plus-circle"></i></span> New features</span></p>
@@ -7033,13 +7038,13 @@ AssertJ Core would not exist without its contributors, you can find them all <a 
 <div class="ulist">
 <ul>
 <li>
-<p>Add <a href="#assertj-core-3.19.0-isEqualToNormalizingUnicode">isEqualToNormalizingUnicode</a> CharSequence assertion. (Julieta)</p>
+<p>Add <a href="#assertj-core-3.19.0-isEqualToNormalizingUnicode"><code>isEqualToNormalizingUnicode</code></a> CharSequence assertion. (Julieta Navarro)</p>
 </li>
 <li>
-<p>Add <a href="#assertj-core-3.19.0-satisfiesExactly">satisfiesExactly</a> iterable/array assertion. (Michael Florian Grafl)</p>
+<p>Add <a href="#assertj-core-3.19.0-satisfiesExactly"><code>satisfiesExactly</code></a> iterable/array assertion. (Michael Florian Grafl)</p>
 </li>
 <li>
-<p>Add <a href="#assertj-core-3.19.0-satisfiesExactlyInAnyOrder">satisfiesExactlyInAnyOrder</a> iterable/array assertion.</p>
+<p>Add <a href="#assertj-core-3.19.0-satisfiesExactlyInAnyOrder"><code>satisfiesExactlyInAnyOrder</code></a> iterable/array assertion.</p>
 </li>
 <li>
 <p>Add <a href="#assertj-core-3.19.0-date-assertion-Instant-support">Instant variants</a> to Date assertions. (Arsen Ibragimov)</p>
@@ -7054,7 +7059,7 @@ AssertJ Core would not exist without its contributors, you can find them all <a 
 <p>Add <a href="#assertj-core-3.19.0-doesNotHaveToString"><code>doesNotHaveToString</code></a> assertion. (Kim S. Ly)</p>
 </li>
 <li>
-<p>Add overloaded <a href="#assertj-core-3.19.0-boxed-arrays-contains-assertions"><code>contains</code> assertions with boxed arrays</a> to primitive array assertions. (Stefano Cordio,  mayralgr, Omar Morales)</p>
+<p>Add overloaded <a href="#assertj-core-3.19.0-boxed-arrays-contains-assertions"><code>contains</code> assertions with boxed arrays</a> to primitive array assertions. (Stefano Cordio, Mayra Lucero Garcia Ramírez, Omar Morales)</p>
 </li>
 <li>
 <p>Add <a href="#assertj-core-3.19.0-hasOnlyFields"><code>hasOnlyFields</code></a> assertion. (Victor Wang)</p>
@@ -7063,7 +7068,7 @@ AssertJ Core would not exist without its contributors, you can find them all <a 
 <p>Allow to pass a <a href="#assertj-core-3.19.0-lazy-description">lazy description</a> only evaluated if the assertion fails.</p>
 </li>
 <li>
-<p>Add <a href="#assertj-core-3.19.0-isEmptyFile-isNotEmptyFile">isEmptyFile/isNotEmptyFile</a> to <code>Path</code> assertions. (Omar Morales)</p>
+<p>Add <a href="#assertj-core-3.19.0-isEmptyFile-isNotEmptyFile"><code>isEmptyFile</code>/<code>isNotEmptyFile</code></a> to <code>Path</code> assertions. (Omar Morales)</p>
 </li>
 </ul>
 </div>
@@ -7089,7 +7094,7 @@ But was : "bcd"</code></pre>
 <p>Remove <code>&lt;&gt;</code> from error messages when displaying values as it was deemed noisy. (Erhard Pointl, Omar Morales, Himadri Mandal)</p>
 </li>
 <li>
-<p>Better identation consistency in error messages.</p>
+<p>Better indentation consistency in error messages.</p>
 </li>
 <li>
 <p>Include the first 3 stacktrace elements in throwable representation (configurable). (Eveneko)</p>
@@ -7143,7 +7148,7 @@ But was : "bcd"</code></pre>
 <p>Internal: Fix a bunch of sonar violations. (Erhard Pointl)</p>
 </li>
 <li>
-<p>Internal: Reduce test flakyness. (Erhard Pointl)</p>
+<p>Internal: Reduce test fragility. (Erhard Pointl)</p>
 </li>
 <li>
 <p>Internal: Enforce surefire encoding. (Stefano Cordio)</p>
@@ -7186,7 +7191,7 @@ But was : "bcd"</code></pre>
 <p>Fix long overflow in AbstractTemporalAssert. (Sergei Tachenov)</p>
 </li>
 <li>
-<p>Make <code>Collection</code> extending <code>AtomicInteger</code> to be representated as a collection instead of an <code>AtomicInteger</code>.</p>
+<p>Make <code>Collection</code> extending <code>AtomicInteger</code> to be represented as a collection instead of an <code>AtomicInteger</code>.</p>
 </li>
 <li>
 <p>Fix Javadoc typo. (Michael Keppler)</p>
@@ -7232,7 +7237,7 @@ assertThat("Ä").isEqualToNormalizingUnicode("b");</code></pre>
 <p>Verifies that each element satisfies the requirements corresponding to its index, so the first element must satisfy the first requirements, the second element the second requirements etc&#8230;&#8203;</p>
 </div>
 <div class="paragraph">
-<p>Each requirements are expressed as a <code>Consumer</code>, there must be as many requirements as there are iterable elements.</p>
+<p>Each requirement is expressed as a <code>Consumer</code>, and there must be as many requirements as there are iterable elements.</p>
 </div>
 <div class="paragraph">
 <p>Examples:</p>
@@ -18228,7 +18233,7 @@ AssertJ Swing would not exist without its contributors, you can find them all <a
 <div id="footer">
 <div id="footer-text">
 Version 1.0<br>
-Last updated 2021-01-24 08:26:45 UTC
+Last updated 2021-01-24 09:20:58 UTC
 </div>
 </div>
 <link rel="stylesheet" href="highlight/styles/railscasts.min.css">
