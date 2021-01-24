@@ -32,39 +32,40 @@ Release date : 2021-01-24
 [[assertj-core-3.19.0-contributors]]
 [.release-note-category]#icon:user[] Contributors#
 
-Thanks to all the contributors of this release: Erhard Pointl, Stefano Cordio, Pascal Schumacher, Arsen Ibragimov, Kim S. Ly, Victor Wang, Omar Morales, Reto Weiss, Michael Florian Grafl, Sergei Tachenov, mayralgr, Eveneko, Julieta, Michael Keppler, Alex Dukhno, Himadri Mandal and Jin Kwon.
+Thanks to all the contributors of this release: Erhard Pointl, Stefano Cordio, Pascal Schumacher, Arsen Ibragimov, Kim S. Ly, Victor Wang, Omar Morales, Reto Weiss, Michael Florian Grafl, Sergei Tachenov, Mayra Lucero Garcia Ramírez, Eveneko, Julieta Navarro, Michael Keppler, Alex Dukhno, Himadri Mandal and Jin Kwon.
 
 [[assertj-core-3.19.0-breaking-changes]]
 [.release-note-category]#icon:exclamation-triangle[] Breaking changes#
 
-Replacement of `FieldLocation` by `String` breaking changes:
+* Replacement of `FieldLocation` by `String` breaking changes:
 
-* Remove deprecated `RecursiveComparisonConfiguration.registerComparatorForField(Comparator<?> comparator, FieldLocation fieldLocation)` in favor of `registerComparatorForFields(Comparator<?> comparator, String... fieldLocations)`
-* `getIgnoredCollectionOrderInFields()`, `getIgnoredFields()` and `getIgnoredOverriddenEqualsForFields()` now return a collection of `String` instead of `FieldLocation`
-* `comparatorByFields()` now returns `Stream<Entry<String, Comparator<?>>>` instead of `Stream<Entry<FieldLocation, Comparator<?>>>`
+** Remove deprecated `RecursiveComparisonConfiguration.registerComparatorForField(Comparator<?> comparator, FieldLocation fieldLocation)` in favor of `registerComparatorForFields(Comparator<?> comparator, String... fieldLocations)`
+** `getIgnoredCollectionOrderInFields()`, `getIgnoredFields()` and `getIgnoredOverriddenEqualsForFields()` now return a collection of `String` instead of `FieldLocation`
+** `comparatorByFields()` now returns `Stream<Entry<String, Comparator<?>>>` instead of `Stream<Entry<FieldLocation, Comparator<?>>>`
 
-Ignore static and synthetic fields when introspecting fields as they are not relevant in for instance assertions, this change impacts:
+* Ignore static and synthetic fields when introspecting fields as they are not relevant in for instance assertions.
+This change impacts:
 
-* hasFieldOrProperty
-* hasFieldOrPropertyWihtValue
-* extracting field by name
+** `hasFieldOrProperty`
+** `hasFieldOrPropertyWithValue`
+** extracting field by name
 
-Probably not an impactful breaking change: abstract classes constructor are now protected instead of public.
+* Probably not an impactful breaking change: abstract classes' constructors are now `protected` instead of `public`.
 
 [[assertj-core-3.19.0-new-features]]
 [.release-note-category]#icon:plus-circle[] New features#
 
-* Add link:#assertj-core-3.19.0-isEqualToNormalizingUnicode[isEqualToNormalizingUnicode] CharSequence assertion. (Julieta)
-* Add link:#assertj-core-3.19.0-satisfiesExactly[satisfiesExactly] iterable/array assertion. (Michael Florian Grafl)
-* Add link:#assertj-core-3.19.0-satisfiesExactlyInAnyOrder[satisfiesExactlyInAnyOrder] iterable/array assertion. 
+* Add link:#assertj-core-3.19.0-isEqualToNormalizingUnicode[`isEqualToNormalizingUnicode`] CharSequence assertion. (Julieta Navarro)
+* Add link:#assertj-core-3.19.0-satisfiesExactly[`satisfiesExactly`] iterable/array assertion. (Michael Florian Grafl)
+* Add link:#assertj-core-3.19.0-satisfiesExactlyInAnyOrder[`satisfiesExactlyInAnyOrder`] iterable/array assertion.
 * Add link:#assertj-core-3.19.0-date-assertion-Instant-support[Instant variants] to Date assertions. (Arsen Ibragimov)
 * Add float/double link:#assertj-core-3.19.0-real-numbers-finite-infinite-assertions[finite or infinite] assertions. (Jin Kwon)
 * Add link:#assertj-core-3.19.0-doesNotHaveSameHashCodeAs[`doesNotHaveSameHashCodeAs`] assertion. (Kim S. Ly)
 * Add link:#assertj-core-3.19.0-doesNotHaveToString[`doesNotHaveToString`] assertion. (Kim S. Ly)
-* Add overloaded link:#assertj-core-3.19.0-boxed-arrays-contains-assertions[`contains` assertions with boxed arrays] to primitive array assertions. (Stefano Cordio,  mayralgr, Omar Morales)
+* Add overloaded link:#assertj-core-3.19.0-boxed-arrays-contains-assertions[`contains` assertions with boxed arrays] to primitive array assertions. (Stefano Cordio, Mayra Lucero Garcia Ramírez, Omar Morales)
 * Add link:#assertj-core-3.19.0-hasOnlyFields[`hasOnlyFields`] assertion. (Victor Wang)
 * Allow to pass a link:#assertj-core-3.19.0-lazy-description[lazy description] only evaluated if the assertion fails.
-* Add link:#assertj-core-3.19.0-isEmptyFile-isNotEmptyFile[isEmptyFile/isNotEmptyFile] to `Path` assertions. (Omar Morales)
+* Add link:#assertj-core-3.19.0-isEmptyFile-isNotEmptyFile[`isEmptyFile`/`isNotEmptyFile`] to `Path` assertions. (Omar Morales)
 
 [[assertj-core-3.19.0-improvements]]
 [.release-note-category]#icon:arrow-circle-up[] Improvements#
@@ -78,7 +79,7 @@ But was : "bcd"
 ----
 
 * Remove `<>` from error messages when displaying values as it was deemed noisy. (Erhard Pointl, Omar Morales, Himadri Mandal)
-* Better identation consistency in error messages.
+* Better indentation consistency in error messages.
 * Include the first 3 stacktrace elements in throwable representation (configurable). (Eveneko)
 * Change abstract class constructor to protected.
 * Use normalized `actual` and `expected` in String assertion errors that compare normalized values. (Etienne Miret)
@@ -96,7 +97,7 @@ But was : "bcd"
 * Internal: Use parent pom 2.2.10 that bumps the licence year to 2021. (Erhard Pointl)
 * Internal: Use java11 in codeql workflow. (Erhard Pointl)
 * Internal: Fix a bunch of sonar violations. (Erhard Pointl)
-* Internal: Reduce test flakyness. (Erhard Pointl)
+* Internal: Reduce test fragility. (Erhard Pointl)
 * Internal: Enforce surefire encoding. (Stefano Cordio)
 * Internal: Bump junit version from 4.13 to 4.13.1 (Erhard Pointl)
 * Internal: Bump highlight version to 10.4.0
@@ -108,12 +109,11 @@ But was : "bcd"
 * Internal: Bump mockito version from 3.6.28 to 3.7.7
 * Internal: Bump equalsverifier from 3.5 to 3.5.2 
 
-
 [[assertj-core-3.19.0-fixed]]
 [.release-note-category]#icon:wrench[] Fixed#
 
 * Fix long overflow in AbstractTemporalAssert. (Sergei Tachenov)
-* Make `Collection` extending `AtomicInteger` to be representated as a collection instead of an `AtomicInteger`.
+* Make `Collection` extending `AtomicInteger` to be represented as a collection instead of an `AtomicInteger`.
 * Fix Javadoc typo. (Michael Keppler)
 
 [[assertj-core-3.19.0-deprecated]]
@@ -125,7 +125,6 @@ But was : "bcd"
 [.release-note-item]#Add `isEqualToNormalizingUnicode` CharSequence assertion#
 
 Verifies that the actual CharSequence is equal to the given one after they have been normalized according to the link:https://docs.oracle.com/javase/8/docs/api/java/text/Normalizer.Form.html?is-external=true#NFC[Normalizer.Form.NFC] form, which is a canonical decomposition followed by canonical composition. 
-
 
 Examples:
 [source,java]
@@ -146,7 +145,7 @@ assertThat("Ä").isEqualToNormalizingUnicode("b");
 
 Verifies that each element satisfies the requirements corresponding to its index, so the first element must satisfy the first requirements, the second element the second requirements etc...
 
-Each requirements are expressed as a `Consumer`, there must be as many requirements as there are iterable elements.
+Each requirement is expressed as a `Consumer`, and there must be as many requirements as there are iterable elements.
 
 
 Examples:
