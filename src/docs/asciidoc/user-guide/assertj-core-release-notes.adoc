@@ -74,8 +74,8 @@ This change impacts:
 
 [source,text]
 ----
-Expected: "abc"
-But was : "bcd"
+expected: "abc"
+but was : "bcd"
 ----
 
 * Remove `<>` from error messages when displaying values as it was deemed noisy. (Erhard Pointl, Omar Morales, Himadri Mandal)
