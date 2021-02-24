@@ -7385,13 +7385,13 @@ assertThat(Double.POSITIVE_INFINITY).isInfinite();</code></pre>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code data-lang="java" class="language-java hljs">// assertions succeed
-assertThat(42L).doesNotHaveToString(2501L);
-assertThat("The Force").doesNotHaveToString(null);
+assertThat(42L).doesNotHaveSameHashCodeAs(2501L);
+assertThat("The Force").doesNotHaveSameHashCodeAs("Awakens");
 
 // assertions fail
-assertThat(42L).doesNotHaveToString(42L);
-assertThat("The Force").doesNotHaveToString("The Force");
-assertThat(new Jedi("Yoda", "Blue")).doesNotHaveToString(new Jedi("Yoda", "Blue"));</code></pre>
+assertThat(42L).doesNotHaveSameHashCodeAs(42L);
+assertThat("The Force").doesNotHaveSameHashCodeAs("The Force");
+assertThat(new Jedi("Yoda", "Blue")).doesNotHaveSameHashCodeAs(new Jedi("Yoda", "Blue"));</code></pre>
 </div>
 </div>
 <div id="assertj-core-3.19.0-doesNotHaveToString" class="paragraph">
@@ -18233,7 +18233,7 @@ AssertJ Swing would not exist without its contributors, you can find them all <a
 <div id="footer">
 <div id="footer-text">
 Version 1.0<br>
-Last updated 2021-02-24 21:56:13 UTC
+Last updated 2021-02-24 22:31:36 UTC
 </div>
 </div>
 <link rel="stylesheet" href="highlight/styles/railscasts.min.css">
