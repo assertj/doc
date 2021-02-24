@@ -400,11 +400,11 @@ Path contentPath = Paths.get("/root/sub-dir-1/file-2.ext");
 
 // The following assertions succeed:
 assertThat(noContentPath).isEmptyFile();
-assertThat(contentPath).isEmptyFile();
+assertThat(contentPath).isNotEmptyFile();
 
 // The following assertions fail:
 assertThat(contentPath).isEmptyFile();
-assertThat(noContentPath).isEmptyFile();
+assertThat(noContentPath).isNotEmptyFile();
 ----
 
 
