@@ -395,18 +395,17 @@ Examples given the files below:
 Here are some assertions examples:
 [source,java]
 ----
-Path noContentPath = Paths.get("/root/sub-dir-1/file-1.ext");
-Path contentPath = Paths.get("/root/sub-dir-1/file-2.ext");
+Path withoutContent = Paths.get("/root/sub-dir-1/file-1.ext");
+Path withContent = Paths.get("/root/sub-dir-1/file-2.ext");
 
 // The following assertions succeed:
-assertThat(noContentPath).isEmptyFile();
-assertThat(contentPath).isEmptyFile();
+assertThat(withoutContent).isEmptyFile();
+assertThat(withContent).isNotEmptyFile();
 
 // The following assertions fail:
-assertThat(contentPath).isEmptyFile();
-assertThat(noContentPath).isEmptyFile();
+assertThat(withoutContent).isNotEmptyFile();
+assertThat(withContent).isEmptyFile();
 ----
-
 
 [[assertj-core-3-18-1-release-notes]]
 ==== AssertJ Core 3.18.1
