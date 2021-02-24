@@ -280,13 +280,13 @@ Examples:
 [source,java]
 ----
 // assertions succeed
-assertThat(42L).doesNotHaveToString(2501L);
-assertThat("The Force").doesNotHaveToString(null);
+assertThat(42L).doesNotHaveSameHashCodeAs(2501L);
+assertThat("The Force").doesNotHaveSameHashCodeAs("Awakens");
 
 // assertions fail
-assertThat(42L).doesNotHaveToString(42L);
-assertThat("The Force").doesNotHaveToString("The Force");
-assertThat(new Jedi("Yoda", "Blue")).doesNotHaveToString(new Jedi("Yoda", "Blue")); 
+assertThat(42L).doesNotHaveSameHashCodeAs(42L);
+assertThat("The Force").doesNotHaveSameHashCodeAs("The Force");
+assertThat(new Jedi("Yoda", "Blue")).doesNotHaveSameHashCodeAs(new Jedi("Yoda", "Blue"));
 ----
 
 [[assertj-core-3.19.0-doesNotHaveToString]]
