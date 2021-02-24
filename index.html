@@ -7521,16 +7521,16 @@ but was : 50</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code data-lang="java" class="language-java hljs">Path noContentPath = Paths.get("/root/sub-dir-1/file-1.ext");
-Path contentPath = Paths.get("/root/sub-dir-1/file-2.ext");
+<pre class="highlightjs highlight"><code data-lang="java" class="language-java hljs">Path withoutContent = Paths.get("/root/sub-dir-1/file-1.ext");
+Path withContent = Paths.get("/root/sub-dir-1/file-2.ext");
 
 // The following assertions succeed:
-assertThat(noContentPath).isEmptyFile();
-assertThat(contentPath).isEmptyFile();
+assertThat(withoutContent).isEmptyFile();
+assertThat(withContent).isNotEmptyFile();
 
 // The following assertions fail:
-assertThat(contentPath).isEmptyFile();
-assertThat(noContentPath).isEmptyFile();</code></pre>
+assertThat(withoutContent).isNotEmptyFile();
+assertThat(withContent).isEmptyFile();</code></pre>
 </div>
 </div>
 </div>
@@ -18233,7 +18233,7 @@ AssertJ Swing would not exist without its contributors, you can find them all <a
 <div id="footer">
 <div id="footer-text">
 Version 1.0<br>
-Last updated 2021-02-22 17:45:34 UTC
+Last updated 2021-02-24 21:56:13 UTC
 </div>
 </div>
 <link rel="stylesheet" href="highlight/styles/railscasts.min.css">
