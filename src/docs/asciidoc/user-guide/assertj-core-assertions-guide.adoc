@@ -1581,7 +1581,7 @@ sherlockDto.bestFriend = new PersonDTO("Watson", 1.70);
 // assertion fails as Person and PersonDTO are not compatible even though they have the same data
 assertThat(sherlock).usingRecursiveComparison()
                     .withStrictTypeChecking()
-                    .isEqualTo(noName);
+                    .isEqualTo(sherlockDto);
 
 // Let's define a subclass of Person
 
