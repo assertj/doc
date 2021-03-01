@@ -5173,7 +5173,7 @@ sherlockDto.bestFriend = new PersonDTO("Watson", 1.70);
 // assertion fails as Person and PersonDTO are not compatible even though they have the same data
 assertThat(sherlock).usingRecursiveComparison()
                     .withStrictTypeChecking()
-                    .isEqualTo(noName);
+                    .isEqualTo(sherlockDto);
 
 // Let's define a subclass of Person
 
@@ -18233,7 +18233,7 @@ AssertJ Swing would not exist without its contributors, you can find them all <a
 <div id="footer">
 <div id="footer-text">
 Version 1.0<br>
-Last updated 2021-02-24 22:31:36 UTC
+Last updated 2021-03-01 20:35:56 UTC
 </div>
 </div>
 <link rel="stylesheet" href="highlight/styles/railscasts.min.css">
