@@ -275,3 +275,10 @@ In addition to `Iterable` {assertj-core-javadoc-root}org/assertj/core/api/Abstra
 |{assertj-guava-javadoc-root}org/assertj/guava/api/TableAssert.html#isEmpty()[`isEmpty`]
 |Verifies that the actual `Table` is empty.
 |===
+
+[[assertj-guava-javadoc]]
+=== Javadoc
+
+The latest javadoc for AssertJ Guava API is here: https://www.javadoc.io/doc/org.assertj/assertj-guava/latest/org/assertj/guava/api/package-summary.html
+
+

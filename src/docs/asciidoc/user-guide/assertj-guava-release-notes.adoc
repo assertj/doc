@@ -10,8 +10,6 @@ Latest release notes:
 - link:#assertj-guava-3-3-0-release-notes[AssertJ Guava 3.3.0]
 - older release notes are in the http://joel-costigliola.github.io/assertj/assertj-guava.html#latest-release[old site].
 
-The javadoc for this release can be found here: https://www.javadoc.io/doc/org.assertj/assertj-guava/3.4.0/index.html
-
 [[assertj-guava-3-4-0-release-notes]]
 ==== AssertJ Guava 3.4.0
 
