@@ -2455,8 +2455,9 @@ p {
 </li>
 <li><a href="#assertj-guava">3. AssertJ Guava</a>
 <ul class="sectlevel2">
-<li><a href="#assertj-guava-assertions-guide">3.1. Assertions Guide</a></li>
-<li><a href="#assertj-guava-release-notes">3.2. Release Notes</a></li>
+<li><a href="#assertj-guava-quick-start">3.1. Quick start</a></li>
+<li><a href="#assertj-guava-assertions-guide">3.2. Assertions Guide</a></li>
+<li><a href="#assertj-guava-release-notes">3.3. Release Notes</a></li>
 </ul>
 </li>
 <li><a href="#assertj-joda">4. AssertJ Joda</a>
@@ -2474,7 +2475,7 @@ p {
 <li><a href="#assertj-db-concepts">6.2. Concepts</a></li>
 <li><a href="#assertj-db-features">6.3. Features highlight</a></li>
 <li><a href="#javadoc">6.4. Javadoc</a></li>
-<li><a href="#examples-2">6.5. Examples</a></li>
+<li><a href="#examples-3">6.5. Examples</a></li>
 <li><a href="#mailing-list">6.6. Mailing list</a></li>
 <li><a href="#code-and-issue-tracker">6.7. Code and issue tracker</a></li>
 <li><a href="#contributing">6.8. Contributing</a></li>
@@ -2614,18 +2615,6 @@ assertThat(fellowshipOfTheRing).filteredOn(character -&gt; character.getName().c
 <div class="paragraph">
 <p>This guide is for the AssertJ core module.</p>
 </div>
-<div class="admonitionblock important">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-important" title="Important"></i>
-</td>
-<td class="content">
-AssertJ Core 2.x is in maintenance mode, it will only receive bugfixes.
-</td>
-</tr>
-</table>
-</div>
 <div class="sect3">
 <h4 id="get-assertj-core"><a class="anchor" href="#get-assertj-core"></a>2.4.1. Get assertj-core library</h4>
 <div class="paragraph">
@@ -2647,7 +2636,19 @@ AssertJ Core 2.x is in maintenance mode, it will only receive bugfixes.
 </ul>
 </div>
 <div class="paragraph">
-<p>Note that AssertJ Core 3.x includes all AssertJ Core 2.x features and adds Java 8 specific ones (like exception assertions with lambdas).</p>
+<p>AssertJ Core 3.x includes all AssertJ Core 2.x features and adds Java 8 specific ones (like exception assertions with lambdas).</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+AssertJ Core 2.x is in maintenance mode, it will only receive bugfixes.
+</td>
+</tr>
+</table>
 </div>
 </div>
 <div class="sect4">
@@ -11406,12 +11407,157 @@ Bare-named property introspection is enabled by default and thus changes AssertJ
 <h2 id="assertj-guava"><a class="anchor" href="#assertj-guava"></a>3. AssertJ Guava</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="assertj-guava-assertions-guide"><a class="anchor" href="#assertj-guava-assertions-guide"></a>3.1. Assertions Guide</h3>
+<h3 id="assertj-guava-quick-start"><a class="anchor" href="#assertj-guava-quick-start"></a>3.1. Quick start</h3>
+<div class="paragraph">
+<p>This guide is for the AssertJ Guava module.</p>
+</div>
+<div class="sect3">
+<h4 id="get-assertj-guava"><a class="anchor" href="#get-assertj-guava"></a>3.1.1. Get assertj-guava library</h4>
+<div class="paragraph">
+<p>AssertJ Guava artifacts are in Maven central repository.</p>
+</div>
+<div class="sect4">
+<h5 id="assertj-guava-java-versions"><a class="anchor" href="#assertj-guava-java-versions"></a>Supported Java versions</h5>
+<div class="paragraph">
+<p>AssertJ Guava major versions depend on different Java versions:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>AssertJ Guava 3.x requires Java 8 or higher</p>
+</li>
+<li>
+<p>AssertJ Guava 2.x requires Java 7 or higher</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="maven-2"><a class="anchor" href="#maven-2"></a>Maven</h5>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="xml" class="language-xml hljs">&lt;dependency&gt;
+  &lt;groupId&gt;org.assertj&lt;/groupId&gt;
+  &lt;artifactId&gt;assertj-guava&lt;/artifactId&gt;
+  &lt;!-- use 2.0.1 for Java 7 projects --&gt;
+  &lt;version&gt;3.4.0&lt;/version&gt;
+  &lt;scope&gt;test&lt;/scope&gt;
+&lt;/dependency&gt;</code></pre>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="gradle-2"><a class="anchor" href="#gradle-2"></a>Gradle</h5>
+<div class="paragraph">
+<p>For Gradle users (using the Maven Central Repository)</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="java" class="language-java hljs">testImplementation("org.assertj:assertj-guava:3.4.0")</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Or version 2.0.1 for Java 7 projects</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="java" class="language-java hljs">testImplementation("org.assertj:assertj-guava:2.0.1")</code></pre>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="other-build-tools-2"><a class="anchor" href="#other-build-tools-2"></a>Other build tools</h5>
+<div class="paragraph">
+<p>Check this page to find the relevant <a href="https://search.maven.org/artifact/org.assertj/assertj-guava/3.4.0/bundle">assertj guava dependency declaration</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="use-assertions-class-entry-point-2"><a class="anchor" href="#use-assertions-class-entry-point-2"></a>3.1.2. Use Assertions class entry point</h4>
+<div class="paragraph">
+<p>The <code>org.assertj.guava.api.Assertions</code> class is the only class you need to start using AssertJ Guava.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="java" class="language-java hljs">import static org.assertj.guava.api.Assertions.assertThat;</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="examples"><a class="anchor" href="#examples"></a>3.1.3. Examples</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="java" class="language-java hljs">import static org.assertj.guava.api.Assertions.assertThat;
+import static org.assertj.guava.api.Assertions.entry;
+
+// Multimap assertions
+Multimap&lt;String, String&gt; actual = ArrayListMultimap.create();
+actual.putAll("Lakers", newArrayList("Kobe Bryant", "Magic Johnson", "Kareem Abdul Jabbar"));
+actual.putAll("Spurs", newArrayList("Tony Parker", "Tim Duncan", "Manu Ginobili"));
+
+assertThat(actual).containsKeys("Lakers", "Spurs");
+assertThat(actual).contains(entry("Lakers", "Kobe Bryant"), entry("Spurs", "Tim Duncan"));
+
+// Multiset assertions
+Multiset&lt;String&gt; actual = HashMultiset.create();
+actual.add("shoes", 2);
+
+assertThat(actual).contains(2, "shoes");
+assertThat(actual).containsAtLeast(1, "shoes");
+assertThat(actual).containsAtMost(3, "shoes");
+
+// Range assertions
+Range&lt;Integer&gt; range = Range.closed(10, 12);
+
+assertThat(range).isNotEmpty()
+                 .contains(10, 11, 12)
+                 .hasClosedLowerBound()
+                 .hasLowerEndpointEqualTo(10)
+                 .hasUpperEndpointEqualTo(12);
+
+// Table assertions
+Table&lt;Integer, String, String&gt; bestMovies = HashBasedTable.create();
+
+bestMovies.put(1970, "Palme d'Or", "M.A.S.H");
+bestMovies.put(1994, "Palme d'Or", "Pulp Fiction");
+bestMovies.put(2008, "Palme d'Or", "Entre les murs");
+bestMovies.put(2000, "Best picture Oscar", "American Beauty");
+bestMovies.put(2011, "Goldener Bär", "A Separation");
+
+assertThat(bestMovies).hasRowCount(5).hasColumnCount(3).hasSize(5)
+                      .containsValues("American Beauty", "A Separation", "Pulp Fiction")
+                      .containsCell(1994, "Palme d'Or", "Pulp Fiction")
+                      .containsColumns("Palme d'Or", "Best picture Oscar", "Goldener Bär")
+                      .containsRows(1970, 1994, 2000, 2008, 2011);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Note that you can find more working examples in the assertj-examples project: <a href="https://github.com/assertj/assertj-examples/tree/main/assertions-examples/src/test/java/org/assertj/examples/guava" class="bare">https://github.com/assertj/assertj-examples/tree/main/assertions-examples/src/test/java/org/assertj/examples/guava</a>.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="assertj-guava-ide"><a class="anchor" href="#assertj-guava-ide"></a>3.1.4. IDE configuration</h4>
+<div class="paragraph">
+<p>You can configure your IDE so that when you start typing <code>as</code> and trigger code completion <code>assertThat</code> will show up in the suggested completions.</p>
+</div>
+<div class="paragraph">
+<p>Eclipse:
+. Go to : Window &gt; Preferences &gt; Java &gt; Editor &gt; Content Assist &gt; Favorites &gt; New Type
+. Enter : <code>org.assertj.guava.api.Assertions</code> and click OK
+. Check that you see <code>org.assertj.guava.api.Assertions.*</code> in Favorites.</p>
+</div>
+<div class="paragraph">
+<p>Intellij Idea: No special configuration is needed, just start typing <code>asser</code> and then invoke completion (Ctrl-Space) twice.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="assertj-guava-assertions-guide"><a class="anchor" href="#assertj-guava-assertions-guide"></a>3.2. Assertions Guide</h3>
 <div class="paragraph">
 <p>This section describes the assertions provided by AssertJ Guava.</p>
 </div>
 <div class="sect3">
-<h4 id="bytesource"><a class="anchor" href="#bytesource"></a>3.1.1. ByteSource</h4>
+<h4 id="bytesource"><a class="anchor" href="#bytesource"></a>3.2.1. ByteSource</h4>
 <table class="tableblock frame-all grid-all fit-content">
 <colgroup>
 <col>
@@ -11440,7 +11586,7 @@ Bare-named property introspection is enabled by default and thus changes AssertJ
 </table>
 </div>
 <div class="sect3">
-<h4 id="multimap"><a class="anchor" href="#multimap"></a>3.1.2. Multimap</h4>
+<h4 id="multimap"><a class="anchor" href="#multimap"></a>3.2.2. Multimap</h4>
 <table class="tableblock frame-all grid-all fit-content">
 <colgroup>
 <col>
@@ -11493,7 +11639,7 @@ Bare-named property introspection is enabled by default and thus changes AssertJ
 </div>
 </div>
 <div class="sect3">
-<h4 id="multiset"><a class="anchor" href="#multiset"></a>3.1.3. Multiset</h4>
+<h4 id="multiset"><a class="anchor" href="#multiset"></a>3.2.3. Multiset</h4>
 <div class="paragraph">
 <p>In addition to <code>Iterable</code> <a href="https://www.javadoc.io/doc/org.assertj/assertj-core/latest/org/assertj/core/api/AbstractIterableAssert.html#method.summary">assertions</a>, the following are also available.</p>
 </div>
@@ -11525,7 +11671,7 @@ Bare-named property introspection is enabled by default and thus changes AssertJ
 </table>
 </div>
 <div class="sect3">
-<h4 id="optional"><a class="anchor" href="#optional"></a>3.1.4. Optional</h4>
+<h4 id="optional"><a class="anchor" href="#optional"></a>3.2.4. Optional</h4>
 <table class="tableblock frame-all grid-all fit-content">
 <colgroup>
 <col>
@@ -11562,7 +11708,7 @@ Bare-named property introspection is enabled by default and thus changes AssertJ
 </table>
 </div>
 <div class="sect3">
-<h4 id="range"><a class="anchor" href="#range"></a>3.1.5. Range</h4>
+<h4 id="range"><a class="anchor" href="#range"></a>3.2.5. Range</h4>
 <table class="tableblock frame-all grid-all fit-content">
 <colgroup>
 <col>
@@ -11619,7 +11765,7 @@ Bare-named property introspection is enabled by default and thus changes AssertJ
 </table>
 </div>
 <div class="sect3">
-<h4 id="rangemap"><a class="anchor" href="#rangemap"></a>3.1.6. RangeMap</h4>
+<h4 id="rangemap"><a class="anchor" href="#rangemap"></a>3.2.6. RangeMap</h4>
 <table class="tableblock frame-all grid-all fit-content">
 <colgroup>
 <col>
@@ -11656,7 +11802,7 @@ Bare-named property introspection is enabled by default and thus changes AssertJ
 </table>
 </div>
 <div class="sect3">
-<h4 id="rangeset"><a class="anchor" href="#rangeset"></a>3.1.7. RangeSet</h4>
+<h4 id="rangeset"><a class="anchor" href="#rangeset"></a>3.2.7. RangeSet</h4>
 <table class="tableblock frame-all grid-all fit-content">
 <colgroup>
 <col>
@@ -11785,7 +11931,7 @@ Bare-named property introspection is enabled by default and thus changes AssertJ
 </table>
 </div>
 <div class="sect3">
-<h4 id="table"><a class="anchor" href="#table"></a>3.1.8. Table</h4>
+<h4 id="table"><a class="anchor" href="#table"></a>3.2.8. Table</h4>
 <table class="tableblock frame-all grid-all fit-content">
 <colgroup>
 <col>
@@ -11835,7 +11981,7 @@ Bare-named property introspection is enabled by default and thus changes AssertJ
 </div>
 </div>
 <div class="sect2">
-<h3 id="assertj-guava-release-notes"><a class="anchor" href="#assertj-guava-release-notes"></a>3.2. Release Notes</h3>
+<h3 id="assertj-guava-release-notes"><a class="anchor" href="#assertj-guava-release-notes"></a>3.3. Release Notes</h3>
 <div class="admonitionblock note">
 <table>
 <tr>
@@ -11869,7 +12015,7 @@ The new release notes though will be published here.
 <p>The javadoc for this release can be found here: <a href="https://www.javadoc.io/doc/org.assertj/assertj-guava/3.4.0/index.html" class="bare">https://www.javadoc.io/doc/org.assertj/assertj-guava/3.4.0/index.html</a></p>
 </div>
 <div class="sect3">
-<h4 id="assertj-guava-3-4-0-release-notes"><a class="anchor" href="#assertj-guava-3-4-0-release-notes"></a>3.2.1. AssertJ Guava 3.4.0</h4>
+<h4 id="assertj-guava-3-4-0-release-notes"><a class="anchor" href="#assertj-guava-3-4-0-release-notes"></a>3.3.1. AssertJ Guava 3.4.0</h4>
 <div class="paragraph">
 <p>Release date : 2020-04-24</p>
 </div>
@@ -11994,7 +12140,7 @@ The new release notes though will be published here.
 </div>
 </div>
 <div class="sect3">
-<h4 id="assertj-guava-3-3-0-release-notes"><a class="anchor" href="#assertj-guava-3-3-0-release-notes"></a>3.2.2. AssertJ Guava 3.3.0</h4>
+<h4 id="assertj-guava-3-3-0-release-notes"><a class="anchor" href="#assertj-guava-3-3-0-release-notes"></a>3.3.2. AssertJ Guava 3.3.0</h4>
 <div class="paragraph">
 <p>Release date : 2019-11-09</p>
 </div>
@@ -12122,7 +12268,7 @@ assertThat(value).asInstanceOf(InstanceOfAssertFactories.TABLE)
 </div>
 </div>
 <div class="sect4">
-<h5 id="maven-2"><a class="anchor" href="#maven-2"></a>Maven</h5>
+<h5 id="maven-3"><a class="anchor" href="#maven-3"></a>Maven</h5>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code data-lang="xml" class="language-xml hljs">&lt;dependency&gt;
@@ -12136,7 +12282,7 @@ assertThat(value).asInstanceOf(InstanceOfAssertFactories.TABLE)
 </div>
 </div>
 <div class="sect4">
-<h5 id="gradle-2"><a class="anchor" href="#gradle-2"></a>Gradle</h5>
+<h5 id="gradle-3"><a class="anchor" href="#gradle-3"></a>Gradle</h5>
 <div class="paragraph">
 <p>For Gradle users (using the Maven Central Repository)</p>
 </div>
@@ -12155,14 +12301,14 @@ assertThat(value).asInstanceOf(InstanceOfAssertFactories.TABLE)
 </div>
 </div>
 <div class="sect4">
-<h5 id="other-build-tools-2"><a class="anchor" href="#other-build-tools-2"></a>Other build tools</h5>
+<h5 id="other-build-tools-3"><a class="anchor" href="#other-build-tools-3"></a>Other build tools</h5>
 <div class="paragraph">
 <p>Check this page to find the relevant <a href="https://search.maven.org/artifact/org.assertj/assertj-joda-time/2.2.0/bundle">assertj joda-time dependency declaration</a>.</p>
 </div>
 </div>
 </div>
 <div class="sect3">
-<h4 id="use-assertions-class-entry-point-2"><a class="anchor" href="#use-assertions-class-entry-point-2"></a>4.1.2. Use Assertions class entry point</h4>
+<h4 id="use-assertions-class-entry-point-3"><a class="anchor" href="#use-assertions-class-entry-point-3"></a>4.1.2. Use Assertions class entry point</h4>
 <div class="paragraph">
 <p>The <code>org.assertj.jodatime.api.Assertions</code> class is the only class you need to start using AssertJ Joda Time.</p>
 </div>
@@ -12173,7 +12319,7 @@ assertThat(value).asInstanceOf(InstanceOfAssertFactories.TABLE)
 </div>
 </div>
 <div class="sect3">
-<h4 id="examples"><a class="anchor" href="#examples"></a>4.1.3. Examples</h4>
+<h4 id="examples-2"><a class="anchor" href="#examples-2"></a>4.1.3. Examples</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code data-lang="java" class="language-java hljs">assertThat(dateTime).isBefore(firstDateTime);
@@ -12204,7 +12350,7 @@ assertThat(utcTime).as("in UTC time").isEqualTo(cestTime);</code></pre>
 <p>You can compare <code>DateTime</code> to another <code>DateTime</code>, or <code>LocalDateTime</code> to <code>LocalDateTime</code>, but not <code>DateTime</code> to <code>LocalDateTime</code>, it doesn&#8217;t make sense as one is timezone dependent and the other is not.</p>
 </div>
 <div class="paragraph">
-<p>Note that you can find more working examples in the [JodaTimeAssertionsExamples.java](<a href="https://github.com/joel-costigliola/assertj-examples/blob/main/assertions-examples/src/test/java/org/assertj/examples/JodaTimeAssertionsExamples.java" class="bare">https://github.com/joel-costigliola/assertj-examples/blob/main/assertions-examples/src/test/java/org/assertj/examples/JodaTimeAssertionsExamples.java</a>) class of the assertj-examples project.</p>
+<p>Note that you can find more working examples in the <a href="https://github.com/assertj/assertj-examples/blob/main/assertions-examples/src/test/java/org/assertj/examples/JodaTimeAssertionsExamples.java">JodaTimeAssertionsExamples.java</a> class of the assertj-examples project.</p>
 </div>
 </div>
 <div class="sect3">
@@ -12848,7 +12994,7 @@ It requires Java 8 or later and can be used with either JUnit or TestNG.</p>
 <div class="sect3">
 <h4 id="assertj-db-quickstart-dependency"><a class="anchor" href="#assertj-db-quickstart-dependency"></a>6.1.1. Add the assertj-db dependency to your project</h4>
 <div class="sect4">
-<h5 id="maven-3"><a class="anchor" href="#maven-3"></a>Maven</h5>
+<h5 id="maven-4"><a class="anchor" href="#maven-4"></a>Maven</h5>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code data-lang="xml" class="language-xml hljs">&lt;dependency&gt;
@@ -12861,7 +13007,7 @@ It requires Java 8 or later and can be used with either JUnit or TestNG.</p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="gradle-3"><a class="anchor" href="#gradle-3"></a>Gradle</h5>
+<h5 id="gradle-4"><a class="anchor" href="#gradle-4"></a>Gradle</h5>
 <div class="paragraph">
 <p>For Gradle users (using the Maven Central Repository)</p>
 </div>
@@ -17781,7 +17927,7 @@ assertThat(changes).change().column().valueAtStartPoint()
 </div>
 </div>
 <div class="sect2">
-<h3 id="examples-2"><a class="anchor" href="#examples-2"></a>6.5. Examples</h3>
+<h3 id="examples-3"><a class="anchor" href="#examples-3"></a>6.5. Examples</h3>
 <div class="paragraph">
 <p>Some implementations examples are visible at the <a href="https://github.com/assertj/assertj-examples/tree/main/assertions-examples/src/test/java/org/assertj/examples/db">assertj-db-examples tests</a>.
 They show what is possible with AssertJ DB Assertions with running code.
@@ -18233,7 +18379,7 @@ AssertJ Swing would not exist without its contributors, you can find them all <a
 <div id="footer">
 <div id="footer-text">
 Version 1.0<br>
-Last updated 2021-03-01 20:35:56 UTC
+Last updated 2021-03-10 06:00:51 UTC
 </div>
 </div>
 <link rel="stylesheet" href="highlight/styles/railscasts.min.css">
