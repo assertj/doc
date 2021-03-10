@@ -3,8 +3,6 @@
 
 This guide is for the AssertJ core module.
 
-IMPORTANT: AssertJ Core 2.x is in maintenance mode, it will only receive bugfixes.
-
 [[get-assertj-core]]
 ==== Get assertj-core library
 
@@ -18,7 +16,9 @@ AssertJ Core major versions depend on different Java versions:
 * AssertJ Core 3.x requires Java 8 or higher
 * AssertJ Core 2.x requires Java 7 or higher
 
-Note that AssertJ Core 3.x includes all AssertJ Core 2.x features and adds Java 8 specific ones (like exception assertions with lambdas).
+AssertJ Core 3.x includes all AssertJ Core 2.x features and adds Java 8 specific ones (like exception assertions with lambdas).
+
+IMPORTANT: AssertJ Core 2.x is in maintenance mode, it will only receive bugfixes.
 
 [[assertj-core-android]]
 ===== Android support
