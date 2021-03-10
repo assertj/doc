@@ -6,16 +6,17 @@
     {
       "label": "build documentation",
       "type": "shell",
-      "command": "./gradlew asciidoctor",
+      "command": "./gradlew clean asciidoctor",
       "options": {
         "env": {
-          "JAVA_HOME":"/home/joel/prog/java/current"
+          "JAVA_HOME": "/home/joel/prog/java/current"
         }
       },
       "group": {
         "kind": "build",
         "isDefault": true
-      }
+      },
+      "problemMatcher": []
     }
   ]
 }
