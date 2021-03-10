@@ -87,7 +87,7 @@ assertThat(utcTime).as("in UTC time").isEqualTo(cestTime);
 
 You can compare `DateTime` to another `DateTime`, or `LocalDateTime` to `LocalDateTime`, but not `DateTime` to `LocalDateTime`, it doesn't make sense as one is timezone dependent and the other is not.
 
-Note that you can find more working examples in the [JodaTimeAssertionsExamples.java](https://github.com/joel-costigliola/assertj-examples/blob/main/assertions-examples/src/test/java/org/assertj/examples/JodaTimeAssertionsExamples.java) class of the assertj-examples project.
+Note that you can find more working examples in the https://github.com/assertj/assertj-examples/blob/main/assertions-examples/src/test/java/org/assertj/examples/JodaTimeAssertionsExamples.java[JodaTimeAssertionsExamples.java] class of the assertj-examples project.
 
 [[assertj-joda-time-ide]]
 ==== IDE configuration
