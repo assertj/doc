@@ -7032,6 +7032,9 @@ This change impacts:</p>
 <li>
 <p>Probably not an impactful breaking change: abstract classes' constructors are now <code>protected</code> instead of <code>public</code>.</p>
 </li>
+<li>
+<p>Return generic return type for <code>AbstractSoftAssertions.fail</code> for convenience and to be consistent with <code>Assertions.fail</code>. This is a binary incompatible change but still source compatible.</p>
+</li>
 </ul>
 </div>
 <div id="assertj-core-3.19.0-new-features" class="paragraph">
@@ -7124,9 +7127,6 @@ but was : "bcd"</code></pre>
 </li>
 <li>
 <p>Ignore getters with void return type during property introspection. (Reto Weiss)</p>
-</li>
-<li>
-<p>Return generic return type for <code>AbstractSoftAssertions.fail</code> for convenience and to be consistent with <code>Assertions.fail</code></p>
 </li>
 <li>
 <p>Recalculate description for nested Conditions like <code>Not</code> and <code>Join</code> as some <code>Condition</code> description when the <code>Condition</code> is evaluated. (Stefan Bischof)</p>
@@ -18383,7 +18383,7 @@ AssertJ Swing would not exist without its contributors, you can find them all <a
 <div id="footer">
 <div id="footer-text">
 Version 1.0<br>
-Last updated 2021-04-10 08:35:35 UTC
+Last updated 2021-04-27 18:00:12 UTC
 </div>
 </div>
 <link rel="stylesheet" href="highlight/styles/railscasts.min.css">
