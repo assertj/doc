@@ -51,6 +51,7 @@ This change impacts:
 ** extracting field by name
 
 * Probably not an impactful breaking change: abstract classes' constructors are now `protected` instead of `public`.
+* Return generic return type for `AbstractSoftAssertions.fail` for convenience and to be consistent with `Assertions.fail`. This is a binary incompatible but still source compatible change.
 
 [[assertj-core-3.19.0-new-features]]
 [.release-note-category]#icon:plus-circle[] New features#
@@ -89,7 +90,6 @@ but was : "bcd"
 * Recursive comparison: show the index of the array/list element compared in the reported differences.
 * Recursive comparison documentation: make it clear that `ignoringFields` and `ignoringFieldsMatchingRegexes` operate on field names.
 * Ignore getters with void return type during property introspection. (Reto Weiss)
-* Return generic return type for `AbstractSoftAssertions.fail` for convenience and to be consistent with `Assertions.fail`
 * Recalculate description for nested Conditions like `Not` and `Join` as some `Condition` description when the `Condition` is evaluated. (Stefan Bischof)
 * Javadoc Date assertions improvements.
 * Explain reference to `newLinkedHashMap` in Javadoc.
