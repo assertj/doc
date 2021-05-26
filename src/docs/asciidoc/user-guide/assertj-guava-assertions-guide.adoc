@@ -50,11 +50,6 @@ This section describes the assertions provided by AssertJ Guava.
 |Verifies that the actual `Multimap` is not empty.
 |===
 
-
-https://www.javadoc.io/static/org.assertj/assertj-guava/3.4.0/org/assertj/guava/api/MultimapAssert.html#containsValues(V...)
-https://www.javadoc.io/doc/org.assertj/assertj-guava/latest/org/assertj/guava/api/MultimapAssert.html#containsValues(V%E2%80%A6)
-
-
 ==== Multiset
 
 In addition to `Iterable` {assertj-core-javadoc-root}org/assertj/core/api/AbstractIterableAssert.html#method.summary[assertions], the following are also available.
