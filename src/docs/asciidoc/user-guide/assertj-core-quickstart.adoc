@@ -1,5 +1,5 @@
 [[assertj-core-quick-start]]
-=== AssertJ Core quick start
+=== Quick start
 
 This guide is for the AssertJ core module.
 
