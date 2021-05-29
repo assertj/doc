@@ -921,6 +921,42 @@ The same assertions are available for `long[][]`, `short[][]`, `byte[][]`, `floa
 
 `Object[][]` assertions are generic, they take a parameter type, ex: `isDeepEqualTo(ELEMENT[][] expected)`.
 
+Some assertions avaiable before this change can be migrated using the following mapping:
+
+[%header,cols=2*]
+|===
+|Assertion before 3.17.0
+|Assertion after 3.17.0
+
+|`contains(ELEMENT, Index)`
+|`contains(ELEMENT[], Index)`
+
+|`doesNotContain(ELEMENT, Index)`
+|`doesNotContain(ELEMENT[], Index)`
+
+|`hasSameSizeAs(Iterable)`
+|`hasSameDimensionsAs(Object)`
+
+|`hasSize(int)`
+|`hasDimensions(int, int)`
+
+|`isEmpty()`
+|`isEmpty()`
+
+|`isEqualTo(Object)`
+|`isEqualTo(Object)`
+
+|`isNotEmpty()`
+|`isNotEmpty()`
+
+|`isNullOrEmpty()`
+|`isNullOrEmpty()`
+
+
+|===
+
+The remaining assertions do not have a replacement and we are happy to receive feature requests if there is a use case for any of them.
+
 [[assertj-core-3.17.0-even-odd-assertions]]
 [.release-note-item]#Add `isEven/isOdd` assertions for `byte`, `short`, `int` and `long`#
 
