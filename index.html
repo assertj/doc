@@ -8444,7 +8444,7 @@ assertThat("Frodo").doesNotContainIgnoringCase("fro");</code></pre>
 <p><code>Object[][]</code> assertions are generic, they take a parameter type, ex: <code>isDeepEqualTo(ELEMENT[][] expected)</code>.</p>
 </div>
 <div class="paragraph">
-<p>Some assertions avaiable before this change can be migrated using the following mapping:</p>
+<p>The migration path from one-dimensional array assertions is the following:</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
@@ -8453,8 +8453,8 @@ assertThat("Frodo").doesNotContainIgnoringCase("fro");</code></pre>
 </colgroup>
 <thead>
 <tr>
-<th class="tableblock halign-left valign-top">Assertion before 3.17.0</th>
-<th class="tableblock halign-left valign-top">Assertion after 3.17.0</th>
+<th class="tableblock halign-left valign-top">Before 3.17.0</th>
+<th class="tableblock halign-left valign-top">After 3.17.0</th>
 </tr>
 </thead>
 <tbody>
@@ -8493,7 +8493,8 @@ assertThat("Frodo").doesNotContainIgnoringCase("fro");</code></pre>
 </tbody>
 </table>
 <div class="paragraph">
-<p>The remaining assertions do not have a replacement and we are happy to receive feature requests if there is a use case for any of them.</p>
+<p>The remaining one-dimensional array assertions do not have a direct replacement.
+Please raise a feature request if there is any use case for them.</p>
 </div>
 <div id="assertj-core-3.17.0-even-odd-assertions" class="paragraph">
 <p><span class="release-note-item">Add <code>isEven/isOdd</code> assertions for <code>byte</code>, <code>short</code>, <code>int</code> and <code>long</code></span></p>
@@ -18431,7 +18432,7 @@ AssertJ Swing would not exist without its contributors, you can find them all <a
 <div id="footer">
 <div id="footer-text">
 Version 1.0<br>
-Last updated 2021-05-29 10:31:36 UTC
+Last updated 2021-05-29 10:43:39 UTC
 </div>
 </div>
 <link rel="stylesheet" href="highlight/styles/railscasts.min.css">
