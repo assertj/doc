@@ -907,19 +907,19 @@ assertThat("Frodo").doesNotContainIgnoringCase("fro");
 
 The following assertions are available 2D arrays, here they are for `int[][]`:
 
-*	`isEqualTo​(Object expected)`: Verifies that the actual int[][] is equal to the given one.
-*	`isDeepEqualTo​(int[][] expected)`: Verifies that the actual 2D array is deeply equal to the given one.
+*	`isEqualTo(Object expected)`: Verifies that the actual int[][] is equal to the given one.
+*	`isDeepEqualTo(int[][] expected)`: Verifies that the actual 2D array is deeply equal to the given one.
 *	`isEmpty()`: Verifies that the actual array is empty, i.e the array has no elements, said otherwise it can have any number of rows but all rows must be empty.
 * `isNullOrEmpty()`: Verifies that the actual array is null or empty, empty means the same as `isEmpty()`.
 *	`isNotEmpty()`: Verifies that the actual array is not empty, i.e. the array has at least one element.
-*	`contains​(int[] value, Index index)`: Verifies that the actual array contains the given int[] at the given index.
-*	`doesNotContain​(int[] value, Index index)`: Verifies that the actual array does not contain the given value at the given index.
-*	`hasDimensions​(int expectedFirstDimension, int expectedSecondDimension)`: Verifies that the actual 2D array has the given dimensions.
-*	`hasSameDimensionsAs​(Object array)`: Verifies that the actual int[][] has the same dimensions as the given array.
+*	`contains(int[] value, Index index)`: Verifies that the actual array contains the given int[] at the given index.
+*	`doesNotContain(int[] value, Index index)`: Verifies that the actual array does not contain the given value at the given index.
+*	`hasDimensions(int expectedFirstDimension, int expectedSecondDimension)`: Verifies that the actual 2D array has the given dimensions.
+*	`hasSameDimensionsAs(Object array)`: Verifies that the actual int[][] has the same dimensions as the given array.
 
 The same assertions are available for `long[][]`, `short[][]`, `byte[][]`, `float[][]`, `double[][]`, `boolean[][]` and `Object[][]` (obviously replacing `int` by the array type).
 
-`Object[][]` assertions are generic, they take a parameter type, ex: `isDeepEqualTo​(ELEMENT[][] expected)`.
+`Object[][]` assertions are generic, they take a parameter type, ex: `isDeepEqualTo(ELEMENT[][] expected)`.
 
 [[assertj-core-3.17.0-even-odd-assertions]]
 [.release-note-item]#Add `isEven/isOdd` assertions for `byte`, `short`, `int` and `long`#
