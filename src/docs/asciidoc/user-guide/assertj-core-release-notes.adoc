@@ -921,6 +921,8 @@ The same assertions are available for `long[][]`, `short[][]`, `byte[][]`, `floa
 
 `Object[][]` assertions are generic, they take a parameter type, ex: `isDeepEqualTo​(ELEMENT[][] expected)`.
 
+Some assertions avaiable before this change can be migrated using the following mapping:
+
 [%header,cols=2*]
 |===
 |Assertion before 3.17.0
