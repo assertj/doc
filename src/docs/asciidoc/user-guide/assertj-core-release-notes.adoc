@@ -54,7 +54,7 @@ Special thanks to Filip Hrisafov to have got rid of the heap pollution compiler 
 [[assertj-core-3.20.0-binary-compatibility]]
 [.release-note-category]#icon:cogs[] Binary compatibility#
 
-The release [red]#is not binary compatible# with the previous version. Full report: icon:file-text[link=reports/assertj-core/3.20.0/japicmp.html]
+The release [red]#is not binary compatible# with the previous version. Full report: icon:file-text[link=reports/assertj-core/3.20.0/japicmp.html, window=_blank]
 
 [[assertj-core-3.20.0-breaking-changes]]
 [.release-note-category]#icon:exclamation-triangle[] Breaking changes#
@@ -548,7 +548,7 @@ Thanks to all the contributors of this release: Erhard Pointl, Stefano Cordio, P
 [[assertj-core-3.19.0-binary-compatibility]]
 [.release-note-category]#icon:cogs[] Binary compatibility#
 
-The release [red]#is not binary compatible# with the previous version. Full report: icon:file-text[link=reports/assertj-core/3.19.0/japicmp.html]
+The release [red]#is not binary compatible# with the previous version. Full report: icon:file-text[link=reports/assertj-core/3.19.0/japicmp.html, window=_blank]
 
 [[assertj-core-3.19.0-breaking-changes]]
 [.release-note-category]#icon:exclamation-triangle[] Breaking changes#
@@ -970,7 +970,7 @@ Shout out to Fr Jeremy Krieg for adding soft assertions field injection capabili
 [[assertj-core-3.18.0-binary-compatibility]]
 [.release-note-category]#icon:cogs[] Binary compatibility#
 
-The release [red]#is not binary compatible# with the previous version. Full report: icon:file-text[link=reports/assertj-core/3.18.0/japicmp.html]
+The release [red]#is not binary compatible# with the previous version. Full report: icon:file-text[link=reports/assertj-core/3.18.0/japicmp.html, window=_blank]
 
 [[assertj-core-3.18.0-breaking-changes]]
 [.release-note-category]#icon:exclamation-triangle[] Breaking changes#
@@ -1256,7 +1256,7 @@ _Joel Costigliola_: Apologies to Hayden Meloche, when integrating his work the f
 [[assertj-core-3.17.0-binary-compatibility]]
 [.release-note-category]#icon:cogs[] Binary compatibility#
 
-The release [red]#is not binary compatible# with the previous version. Full report: icon:file-text[link=reports/assertj-core/3.17.0/japicmp.html]
+The release [red]#is not binary compatible# with the previous version. Full report: icon:file-text[link=reports/assertj-core/3.17.0/japicmp.html, window=_blank]
 
 [[assertj-core-3.17.0-breaking-changes]]
 [.release-note-category]#icon:exclamation-triangle[] Breaking changes#
