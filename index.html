@@ -7059,6 +7059,11 @@ AssertJ Core would not exist without its contributors, you can find them all <a 
 <p><code>RecursiveFieldByFieldComparator</code> was removed as it has been replaced by the recursive comparison in <code>usingRecursiveFieldByFieldElementComparator</code>.</p>
 </li>
 <li>
+<p>Public methods that could cause heap pollution have been made <code>final</code> to improve the user experience with soft assertions and soft assumptions.
+In case a subclass was overriding any of these methods, a similar result can be achieved by overriding the corresponding <code>ForProxy</code> method.
+For example, <code>AbstractMapAssert#contains</code> now delegates the implementation to <code>AbstractMapAssert#containsForProxy</code>, which is <code>protected</code> and therefore can be overridden.</p>
+</li>
+<li>
 <p>Align return types across assertions / assumptions / soft assertions and return concrete types.
 The breaking change is for people that have implemented <code>WithAssertions</code> or <code>WithAssumption</code> as they now have different return types, the regular user should not see any difference.</p>
 </li>
@@ -7191,7 +7196,7 @@ The breaking change is for people that have implemented <code>WithAssertions</co
 <p>Internal: Hide implementation detail of <code>assertContainsOnlyKeys</code>. (Stefano Cordio)</p>
 </li>
 <li>
-<p>Internal: Remove unnecessary javadoc from internal class, import Map.Entry. (Stefano Cordio)</p>
+<p>Internal: Remove unnecessary javadoc from internal class, import <code>Map.Entry</code>. (Stefano Cordio)</p>
 </li>
 <li>
 <p>Internal: Favor <code>requireNonNull</code> with <code>Supplier</code>. (Stefano Cordio)</p>
@@ -7309,7 +7314,7 @@ The breaking change is for people that have implemented <code>WithAssertions</co
 <p>Extract value only if the map key exists in <code>PropertyOrFieldSupport</code>. (Stefano Cordio)</p>
 </li>
 <li>
-<p>Replace references to <code>mapOf</code> by guava <code>ImmutableMap.of</code> in javadoc.</p>
+<p>Replace references to <code>mapOf</code> by Guava <code>ImmutableMap.of</code> in javadoc.</p>
 </li>
 <li>
 <p>Fix Javadoc warnings.</p>
@@ -19242,7 +19247,7 @@ AssertJ Swing would not exist without its contributors, you can find them all <a
 <div id="footer">
 <div id="footer-text">
 Version 1.0<br>
-Last updated 2021-06-16 10:54:30 UTC
+Last updated 2021-06-16 21:27:47 UTC
 </div>
 </div>
 <link rel="stylesheet" href="highlight/styles/railscasts.min.css">
