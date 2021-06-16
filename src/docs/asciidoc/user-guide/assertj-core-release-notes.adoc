@@ -5,6 +5,7 @@ NOTE: AssertJ Core would not exist without its contributors, you can find them a
 
 Latest release notes:
 
+- link:#assertj-core-3-20-0-release-notes[AssertJ Core 3.20.0]
 - link:#assertj-core-3-19-0-release-notes[AssertJ Core 3.19.0]
 - link:#assertj-core-3-18-1-release-notes[AssertJ Core 3.18.1]
 - link:#assertj-core-3-18-0-release-notes[AssertJ Core 3.18.0]
@@ -23,6 +24,501 @@ Latest release notes:
 - link:#assertj-core-3-12-0-release-notes[AssertJ Core 3.12.0]
 
 Older release notes can be found in the old site: https://joel-costigliola.github.io/assertj/assertj-core-news.html, this is important to be aware of breaking changes if you are migrating from an old version.
+
+
+[[assertj-core-3-20-0-release-notes]]
+==== AssertJ Core 3.20.0
+
+Release date : 2021-06-15
+
+[[assertj-core-3.20.0-contributors]]
+[.release-note-category]#icon:user[] Contributors#
+
+Thanks to all the contributors of this release: Erhard Pointl, Stefano Cordio, Harsha Vipparti, Julien Roy, Aakarshit Uppal, Abhijeet Shukla, Jack Gough, Filip Hrisafov, RGalways17, Stefan Birkner, Stefan Bischof, Matthieu Baechler, sustc11810424, Henry Coles, Annette0127, Johannes Becker, Slawomir Jaranowski, and Patrick Allain.
+
+Special thanks to Filip Hrisafov to have got rid of the heap pollution compiler warning when using soft assertions or assumptions with methods having a generic vararg parameters.
+
+[[assertj-core-3.20.0-binary-compatibility]]
+[.release-note-category]#icon:cogs[] Binary compatibility#
+
+The release [red]#is not binary compatible# with the previous version. Full report: icon:file-text[link=reports/assertj-core/3.20.0/japicmp.html]
+
+[[assertj-core-3.20.0-breaking-changes]]
+[.release-note-category]#icon:exclamation-triangle[] Breaking changes#
+
+* `PropertyOrFieldSupport` fails when trying to get map value for an unknown key instead of returning null, this impacts:
+** `assertThat(map).hasFieldOrPropertyWithValue(name, value)` and `assertThat(map).hasFieldOrProperty(name)` now fail if `name` is not a known key.
+** `assertThat(map).extracting("unknown")` now fails instead of returning `null`.
+** `assertThat(map).flatExtracting("unknown1", "unknown2")` now fails instead of returning a list of with `null` values for unknown keys.
+* `assertThat(map).containsAllEntriesOf(otherMap)` now succeeds when `otherMap` is empty instead of failing.
+* `RecursiveComparisonConfiguration` now uses the same default values when built from builder and constructor.
+* `usingRecursiveFieldByFieldElementComparator` in iterable/array/atomic reference array now uses the new recursive comparison instead of the old implementation.
+* `RecursiveFieldByFieldComparator` was removed as it has been replaced by the recursive comparison in `usingRecursiveFieldByFieldElementComparator`. 
+* Align return types across assertions / assumptions / soft assertions and return concrete types.
+The breaking change is for people that have implemented `WithAssertions` or `WithAssumption` as they now have different return types, the regular user should not see any difference.
+
+[[assertj-core-3.20.0-new-features]]
+[.release-note-category]#icon:plus-circle[] New features#
+
+* Add link:#assertj-core-3.20.0-containsIgnoringWhitespaces[`containsIgnoringWhitespaces`] to `String` assertions. (Johannes Becker)
+* Add link:#assertj-core-3.20.0-elements[`IterableAssert.elements(int...)`] to assert on specific elements in an `Iterable`. (Matthieu Baechler)
+* Add link:#assertj-core-3.20.0-hasExactlyElementsOfTypes[`hasExactlyElementsOfTypes`] assertion for iterables, arrays and AtomicReferenceArrays. (RGalways17)
+* Add link:#assertj-core-3.20.0-asString[`asString(charset)`] to `AbstractInputStreamAssert` to support `String` assertions. (Stefan Birkner)
+* Add link:#assertj-core-3.20.0-assertWith[`assertWith`] assertion construct.
+* Add link:#assertj-core-3.20.0-isNotFinite[`isNotFinite`] float and double assertions.
+* Add link:#assertj-core-3.20.0-isNotInfinite[`isNotInfinite`] float and double assertions.
+* Add link:#assertj-core-3.20.0-comparingOnlyFields[`comparingOnlyFields`] to the recursive comparison to restrict the comparison to the specified fields.
+* Add `usingRecursiveFieldByFieldElementComparator(RecursiveComparisonConfiguration configuration)` to `AtomicReferenceArray` and `Object[]` assertions (it is already supported for iterable assertions).
+* Add link:#assertj-core-3.20.0-usingRecursiveFieldByFieldElementComparatorOnFields[`usingRecursiveFieldByFieldElementComparatorOnFields(String...)`] for iterable/array/atomic reference array assertions to restrict the recursive comparison to the specified fields.
+* Add link:#assertj-core-3.20.0-usingRecursiveFieldByFieldElementComparatorIgnoringFields[`usingRecursiveFieldByFieldElementComparatorIgnoringFields(String...)`] to iterable/array/atomic reference array assertions.
+* Add link:#assertj-core-3.20.0-MappedCondition[`MappedCondition`] to verify a `Condition` on the result of a map operation. (Stefan Bischof)
+* Add link:#assertj-core-3.20.0-VerboseCondition[`VerboseCondition`] to get a detailed description when the condition fails. (Stefan Bischof)
+
+[[assertj-core-3.20.0-improvements]]
+[.release-note-category]#icon:arrow-circle-up[] Improvements#
+
+* In error messages, use 'toString' method of subclasses of `AtomicReference` when overridden. (sustc11810424)
+* `SoftAssertionsExtension` now reports line number in reported assertion errors.
+* Align return types across assertions / assumptions / soft assertions and do not use Abstract Asserts. (Filip Hrisafov)
+* Use varargs for `satisfiesAnyOf` to remove the multiple overloaded versions. (Filip Hrisafov)
+* Remove compiler heap pollution warnings that were raised for soft assertions or assumptions. (Filip Hrisafov)
+* Improve performance in `StandardComparisonStrategy#areEqual`. (Filip Hrisafov)
+* Return concrete type where proxyable types were used in Assumptions, BDDAssumptions and WithAssumptions.
+* `RecursiveComparisonConfiguration` now uses the same default values when built from builder and constructor.
+* Improve error message when map is not empty and expected entries is. (Abhijeet Shukla)
+* `ThrowableTypeAlternative` now inherits from `AbstractObjectAssert` as `AbstractThrowableAssert` did.
+* Make `assertThat(map).containsAllEntriesOf(otherMap)` assertion to succeed when `otherMap` is empty. (Aakarshit Uppal)
+* Add non assertions methods in `BDDAssertions` that existed in `Assertions` but were missing in `BDDAssertions`.
+* Display proper collection type in `contains` and `containsAll` error messages . (Patrick Allain)
+* Rework `StandardComparisonStrategy#areEqual` to avoid shortcuts. (Stefano Cordio)
+* Disambiguate error messages by adding "actual" before printing actual value. (Harsha Vipparti)
+* Recursive comparison: properly track field location for maps and honor ignored fields. TODO add example
+* link:#assertj-core-3.20.0-allOf-error[`allOf`] condition error message shows state (successful/failed) of each combined conditions.
+* Javadoc improvements. (Stefano Cordio)
+* Clarify `newListAssertInstance` javadoc.
+* Fix flaky test by making sure default date formats are used before tests.
+* Remove unnecessary space `ShouldNotBe` and `ShouldNotHave` error messages. (Annette0127)
+
+* Internal: Rename test to match its purpose. (Matthieu Baechler)
+* Internal: Fix some warnings in AssertJ codebase. (Filip Hrisafov)
+* Internal: Remove Proxyable assert classes since we don't need to subclass assert classes to fix heap pollution with `@SafeVarargs`.
+* Internal: Hide implementation detail of `assertContainsOnlyKeys`. (Stefano Cordio)
+* Internal: Remove unnecessary javadoc from internal class, import Map.Entry. (Stefano Cordio)
+* Internal: Favor `requireNonNull` with `Supplier`. (Stefano Cordio)
+* Internal: Update CodeQL workflow. (Stefano Cordio)
+* Internal: Mention the JDK 11 requirement in the contribution guidelines. (Stefano Cordio)
+* Internal: Remove EOL JDK versions from CI multi versions build. (Stefano Cordio)
+* Internal: Bump maven version from 3.6.3 to 3.8.1 (Stefano Cordio)
+* Internal: Bump jacoco-maven-plugin.version from 0.8.6 to 0.8.7 
+* Internal: Bump guava from 30.1-jre to 30.1.1-jre 
+* Internal: Bump org.eclipse.osgi from 3.16.100 to 3.16.200 
+* Internal: Bump jackson-databind from 2.12.1 to 2.12.3 
+* Internal: Bump commons-lang3 from 3.11 to 3.12.0 
+* Internal: Bump commons-io from 2.8.0 to 2.9.0. 
+* Internal: Bump mockito.version from 3.7.7 to 3.10.0 (Erhard Pointl)
+* Internal: Bump bnd.version from 5.2.0 to 5.3.0
+* Internal: Bump sonar-maven-plugin to version 3.8.0.2131 (Stefano Cordio)
+* Internal: Bump equalsverifier from 3.5.2 to 3.6.1
+* Internal: Bump spring-core from 5.3.6 to 5.3.7
+* Internal: Bump byte-buddy version from 1.10.19 to 1.11.1
+* Internal: Bump maven-invoker-plugin from 3.2.1 to 3.2.2
+* Internal: Bump junit-jupiter.version from 5.6.3 to 5.7.2 (Erhard Pointl)
+* Internal: Bump junit.version from 4.13.1 to 4.13.2 (Erhard Pointl)
+* Internal: Fix IntelliJ flaky test due to JUnit upgrade to version 5.7. (Stefano Cordio)
+* Internal: Build AssertJ Core with java 16 in CI cross version build. (Erhard Pointl)
+* Internal: Bump actions/setup-java to version 2 (Stefano Cordio)
+* Internal: Verify PRs with pitest (Henry Coles)
+* Internal: Add .DS_Store to .gitignore (Slawomir Jaranowski)
+* Internal: Enforce Java 11 or newer to build the project (Slawomir Jaranowski)
+* Internal: Define Java 9 compile execution instead of maven profile (Slawomir Jaranowski)
+
+
+[[assertj-core-3.20.0-fixed]]
+[.release-note-category]#icon:wrench[] Fixed#
+
+* Honor map key comparison semantics in `containsOnly` assertions. (Stefano Cordio and Filip Hrisafov)
+* Fix `containsSubsequence` String assertion failing when given multiple empty values. (Jack Gough)
+* Fix `NullPointerException` in primitive double assertions where a null `Double` is compared to a primtive one. (Jack Gough)
+* Fix `NullPointerException` in `StandardRepresentation`. (Jack Gough)
+* Make `IterableDiff` to always compare actual elements to expected elements and not the other way around in case the comparison is not symmetrical.
+* Add `enum` types to the types that can't cause cycles in a recursive comparison.
+* Fix hasOnlyFields which should not consider static fields.
+* Fix `StackOverflowError` when `usingRecursiveComparison` of `Path` on Windows by using path natural comparator. (Julien Roy)
+* Extract value only if the map key exists in `PropertyOrFieldSupport`. (Stefano Cordio)
+* Replace references to `mapOf` by guava `ImmutableMap.of` in javadoc.
+* Fix Javadoc warnings.
+
+[[assertj-core-3.20.0-deprecated]]
+[.release-note-category]#icon:ban[] Deprecated#
+
+The main deprecations are related to shallow field by field comparison classes and methods:
+
+[underline]#usingFieldByFieldElementComparator#
+
+Use `usingRecursiveFieldByFieldElementComparator()` or `usingRecursiveComparison()` instead to perform a true recursive comparison. 
+
+[underline]#usingElementComparatorOnFields#
+
+Use link:#assertj-core-3.20.0-usingRecursiveFieldByFieldElementComparatorOnFields[`usingRecursiveFieldByFieldElementComparatorOnFields(String...)`] instead.
+
+[underline]#usingElementComparatorIgnoringFields#
+
+Use link:#assertj-core-3.20.0-usingRecursiveFieldByFieldElementComparatorIgnoringFields[`usingRecursiveFieldByFieldElementComparatorIgnoringFields(String...)`] instead.
+
+[underline]#usingComparatorForElementFieldsWithNames#
+
+This method is used with `usingFieldByFieldElementComparator()` which is deprecated in favor of `usingRecursiveFieldByFieldElementComparator(RecursiveComparisonConfiguration)` or `usingRecursiveComparison()`.
+
+When using `usingRecursiveComparison()` the equivalent is: 
+
+* link:++https://www.javadoc.io/doc/org.assertj/assertj-core/latest/org/assertj/core/api/RecursiveComparisonAssert.html#withEqualsForFields(java.util.function.BiPredicate,java.lang.String...)++[`RecursiveComparisonAssert.withEqualsForFields(java.util.function.BiPredicate, String...)`] or
+* link:++https://www.javadoc.io/static/org.assertj/assertj-core/3.19.0/org/assertj/core/api/RecursiveComparisonAssert.html#withComparatorForFields(java.util.Comparator,java.lang.String...)++[`RecursiveComparisonAssert.withComparatorForFields(Comparator, String...)`]
+
+and when using `usingRecursiveFieldByFieldElementComparator(RecursiveComparisonConfiguration config)`, sets the config with:
+
+* link:++https://www.javadoc.io/doc/org.assertj/assertj-core/latest/org/assertj/core/api/recursive/comparison/RecursiveComparisonConfiguration.Builder.html#withEqualsForFields(java.util.function.BiPredicate,java.lang.String...)++[`RecursiveComparisonConfiguration.Builder.withEqualsForFields(java.util.function.BiPredicate, String...)`] or
+* link:++https://www.javadoc.io/doc/org.assertj/assertj-core/latest/org/assertj/core/api/recursive/comparison/RecursiveComparisonConfiguration.Builder.html#withComparatorForFields(java.util.Comparator,java.lang.String...)++[`RecursiveComparisonConfiguration.Builder.withComparatorForFields(Comparator, String...)`]
+
+[underline]#usingComparatorForElementFieldsWithType#
+
+This method is used with `usingFieldByFieldElementComparator()` which is deprecated in favor of `usingRecursiveFieldByFieldElementComparator(RecursiveComparisonConfiguration)` or `usingRecursiveComparison()`.
+
+When using `usingRecursiveComparison()` the equivalent is:
+
+* link:++https://www.javadoc.io/doc/org.assertj/assertj-core/latest/org/assertj/core/api/RecursiveComparisonAssert.html#withEqualsForType(java.util.function.BiPredicate,java.lang.Class)++[`RecursiveComparisonAssert.withEqualsForType(java.util.function.BiPredicate, Class)`] or
+* link:++https://www.javadoc.io/doc/org.assertj/assertj-core/latest/org/assertj/core/api/RecursiveComparisonAssert.html#withComparatorForType(java.util.Comparator,java.lang.Class)++[`RecursiveComparisonAssert.withComparatorForType(Comparator, Class)`]
+
+and when] using `usingRecursiveFieldByFieldElementComparator(RecursiveComparisonConfiguration config)`, sets the config with:
+
+* link:++https://www.javadoc.io/doc/org.assertj/assertj-core/latest/org/assertj/core/api/recursive/comparison/RecursiveComparisonConfiguration.Builder.html#withEqualsForType(java.util.function.BiPredicate,java.lang.Class)++[`RecursiveComparisonConfiguration.Builder.withEqualsForType(java.util.function.BiPredicate, Class)`] or
+* link:++https://www.javadoc.io/doc/org.assertj/assertj-core/latest/org/assertj/core/api/recursive/comparison/RecursiveComparisonConfiguration.Builder.html#withComparatorForType(java.util.Comparator,java.lang.Class)++[`RecursiveComparisonConfiguration.Builder.withComparatorForType(Comparator, Class)`]
+
+[[assertj-core-3.20.0-containsIgnoringWhitespaces]]
+[.release-note-item]#Add `containsIgnoringWhitespaces` to `String` assertions#
+
+Verifies that the actual `CharSequence` contains all the given values, ignoring whitespace differences. 
+
+Example:
+[source,java]
+----
+assertThat("Gandalf the grey").containsIgnoringWhitespaces("alf")
+                              .containsIgnoringWhitespaces("alf", "grey")
+                              .containsIgnoringWhitespaces("thegrey")
+                              .containsIgnoringWhitespaces("thegr  ey")
+                              .containsIgnoringWhitespaces("t h e g r\t\r\n ey");
+----
+
+[[assertj-core-3.20.0-elements]]
+[.release-note-item]#Add `IterableAssert.elements(int...)` to assert on specific elements in an `Iterable`#
+
+Allow to perform assertions on the elements corresponding to the given indices (the iterable Iterable under test is changed to an iterable with the selected elements). 
+
+Example:
+[source,java]
+----
+Iterable<TolkienCharacter> hobbits = Arrays.asList(frodo, sam, pippin);
+
+// assertion succeeds
+assertThat(hobbits).elements(1, 2)
+                   .hasSize(2)
+                   .containsExactly(sam, pippin);
+
+// assertion fails
+assertThat(hobbits).element(1, 2)
+                   .containsExactly(frodo, pippin);
+----
+
+[[assertj-core-3.20.0-hasExactlyElementsOfTypes]]
+[.release-note-item]#Add `hasExactlyElementsOfTypes` assertion for iterables, arrays and AtomicReferenceArrays#
+
+Verifies that the actual elements are of the given types in the given order, there should be as many expected types as there are actual elements. 
+
+This assertion is available for iterables, arrays and AtomicReferenceArrays.
+
+Example:
+[source,java]
+----
+Iterable<Object> list = Arrays.asList(1, "a", "b", 1.00);
+
+assertThat(list).hasExactlyElementsOfTypes(Integer.class, String.class, String.class, Double.class);
+----
+
+[[assertj-core-3.20.0-asString]]
+[.release-note-item]#Add `asString(charset)` to `AbstractInputStreamAssert` to support `String` assertions#
+
+Converts the content of the actual `InputStream` to a `String` by decoding its bytes using the given charset and returns assertions for the computed `String` allowing `String` specific assertions from this call.
+
+Example:
+[source,java]
+----
+InputStream abcInputStream = new ByteArrayInputStream("abc".getBytes());
+
+assertThat(abcInputStream).asString(UTF_8)
+                          .startsWith("a");
+----
+
+[[assertj-core-3.20.0-allOf-error]]
+[.release-note-item]#`allOf` condition error message shows state (successful/failed) of each combined conditions#
+
+`allOf` condition error message reports which conditions failed [✗] and which succeeded [✓] to ease understanding the failure cause.
+
+Let's use an `allOf` condition checking 3 conditions: _young_, _very tall_ and _Jedi_ and try it on Yoda, it fails with the following error:
+[source,text]
+----
+Expecting actual:
+  "Yoda"
+to be:
+[✗] all of:[
+   [✓] a Jedi,
+   [✗] very tall,
+   [✗] young
+]
+----
+
+[[assertj-core-3.20.0-assertWith]]
+[.release-note-item]#Add `assertWith` assertion construct#
+
+Uses the given instance as the instance under test for all the assertions expressed as the passed Consumer.
+
+This is useful to avoid repeating getting the instance to test, a bit like a with block which turns the target into the equivalent of this (as in Groovy for example).
+
+Example:
+[source,java]
+----
+ assertWith(team.getPlayers().get(0).getStats(),
+            stats -> {
+               assertThat(stats.pointPerGame).isGreaterThan(25.7);
+               assertThat(stats.assistsPerGame).isGreaterThan(7.2);
+               assertThat(stats.reboundsPerGame).isBetween(9, 12);
+            });
+----
+
+`assertWith` is variation of `AbstractAssert.satisfies(Consumer)` hopefully easier to find for some users.
+
+[[assertj-core-3.20.0-isNotFinite]]
+[.release-note-item]#Add `isNotFinite` float and double assertions#
+
+Verifies that the double/float value is not a finite floating-point value.
+
+Note that 'not finite' is not equivalent to infinite as `NaN` is neither finite or infinite.
+
+Examples:
+[source,java]
+----
+assertThat(Double.POSITIVE_INFINITY).isNotFinite();
+assertThat(Double.NEGATIVE_INFINITY).isNotFinite();
+assertThat(Double.NaN).isNotFinite();
+
+assertThat(Float.POSITIVE_INFINITY).isNotFinite();
+assertThat(Float.NEGATIVE_INFINITY).isNotFinite();
+assertThat(Float.NaN).isNotFinite();
+----
+
+[[assertj-core-3.20.0-isNotInfinite]]
+[.release-note-item]#Add `isNotInfinite` float and double assertions#
+
+Verifies that the double/float value represents neither positive infinity nor negative infinity.
+
+Examples with doubles:
+[source,java]
+----
+// assertions succeed
+assertThat(1.0).isNotInfinite();
+assertThat(Double.NaN).isNotInfinite();
+
+// assertions fail
+assertThat(Double.POSITIVE_INFINITY).isNotInfinite();
+assertThat(Double.NEGATIVE_INFINITY).isNotInfinite();
+----
+
+[[assertj-core-3.20.0-comparingOnlyFields]]
+[.release-note-item]#Add `comparingOnlyFields` float and double assertions#
+
+Makes the recursive comparison to only compare given actual fields and their subfields (no other fields will be compared).
+
+Specifying a field will make all its subfields to be compared, for example specifying `person` will lead to compare `person.name`, `person.address` and all other `Person` fields.
+On the other hand if you specify `person.name`, `person` won't be compared but `person.name` will be.
+
+The fields are specified by name, not by value, for example you can specify `person.name` but not `"Jack"` as `"Jack"` is not a field value.
+
+`comparingOnlyFields` can be combined with ignoring fields methods to restrict further the fields actually compared, the resulting compared fields = {specified compared fields} - {specified ignored fields}.
+For example if compared fields = {"foo", "bar", "baz"} and ignored fields = {"bar"} then only {"foo", "baz"} fields will be compared.
+
+Example:
+[source,java]
+----
+public class Person {
+  String name;
+  double height;
+  Home home = new Home();
+}
+
+public class Home {
+  Address address = new Address();
+}
+
+public static class Address {
+  int number;
+  String street;
+}
+
+Person sherlock = new Person("Sherlock", 1.80);
+sherlock.home.address.street = "Baker Street";
+sherlock.home.address.number = 221;
+
+Person moriarty = new Person("Moriarty", 1.80);
+moriarty.home.address.street = "Butcher Street";
+moriarty.home.address.number = 221;
+
+// assertion succeeds as name and home.address.street fields are not compared.
+assertThat(sherlock).usingRecursiveComparison()
+                    .comparingOnlyFields("height", "home.address.number")
+                    .isEqualTo(moriarty);
+
+// assertion fails as home.address.street fields differ.
+assertThat(sherlock).usingRecursiveComparison()
+                    .comparingOnlyFields("height", "home")
+                    .isEqualTo(moriarty);
+----
+
+[[assertj-core-3.20.0-usingRecursiveFieldByFieldElementComparatorOnFields]]
+[.release-note-item]#Add `usingRecursiveFieldByFieldElementComparatorOnFields(String...)` to iterable/array/atomic reference array assertions to restrict the recursive comparison to the specified fields#
+
+The assertions chained after this method will use a recursive field by field comparison on the given fields (including inherited fields) instead of relying on the element `equals` method. This is handy when the element `equals` method is not overridden or implemented as you expect.
+
+Nested fields are supported and are expressed like: `name.first`
+
+The comparison is recursive: elements are compared field by field, if a field type has fields they are also compared field by field (and so on).
+
+Example:
+[source,java]
+----
+Player derrickRose = new Player(new Name("Derrick", "Rose"), "Chicago Bulls");
+derrickRose.nickname = new Name("Crazy", "Dunks");
+
+Player jalenRose = new Player(new Name("Jalen", "Rose"), "Chicago Bulls");
+jalenRose.nickname = new Name("Crazy", "Defense");
+
+// assertion succeeds as all compared fields match
+assertThat(list(derrickRose)).usingRecursiveFieldByFieldElementComparatorOnFields("name.last", "team", "nickname.first")
+                             .contains(jalenRose);
+
+// assertion fails, name.first values differ
+assertThat(list(derrickRose)).usingRecursiveFieldByFieldElementComparatorOnFields("name")
+                             .contains(jalenRose);
+----
+
+This method is actually a shortcut of `usingRecursiveFieldByFieldElementComparator(RecursiveComparisonConfiguration)` with a configuration comparing only the given fields, the previous example can be written as:
+
+[source,java]
+----
+ RecursiveComparisonConfiguration configuration = RecursiveComparisonConfiguration.builder()
+                                                                                  .withComparedFields("name.last", "team", "nickname.first")
+                                                                                  .build();
+
+ assertThat(list(derrickRose)).usingRecursiveFieldByFieldElementComparator(configuration)
+                              .contains(jalenRose);
+----
+
+[[assertj-core-3.20.0-usingRecursiveFieldByFieldElementComparatorIgnoringFields]]
+[.release-note-item]#Add `usingRecursiveFieldByFieldElementComparatorIgnoringFields(String...)` to iterable/array/atomic reference array assertions to ignore some fields in the recursive comparison#
+
+The assertions chained after this method will use a recursive field by field comparison on all fields (including inherited fields) except the given ones instead of relying on the element `equals` method. This is handy when the element `equals` method is not overridden or implemented as you expect. 
+
+Nested fields are supported and are expressed like: `name.first`
+
+The comparison is recursive: elements are compared field by field, if a field type has fields they are also compared field by field (and so on).
+
+Example:
+[source,java]
+----
+Player derrickRose = new Player(new Name("Derrick", "Rose"), "Chicago Bulls");
+derrickRose.nickname = new Name("Crazy", "Dunks");
+
+Player jalenRose = new Player(new Name("Jalen", "Rose"), "Chicago Bulls");
+jalenRose.nickname = new Name("Crazy", "Defense");
+
+// assertion succeeds as all compared fields match
+assertThat(list(derrickRose)).usingRecursiveFieldByFieldElementComparatorIgnoringFields("name.last", "nickname.first")
+                             .contains(jalenRose);
+
+// assertion fails, names are ignored but nicknames are not and nickname.last values differ
+assertThat(list(derrickRose)).usingRecursiveFieldByFieldElementComparatorIgnoringFields("name")
+                             .contains(jalenRose);
+----
+
+This method is actually a shortcut of `usingRecursiveFieldByFieldElementComparator(RecursiveComparisonConfiguration)` with a configuration comparing only the given fields, the previous example can be written as:
+
+[source,java]
+----
+ RecursiveComparisonConfiguration configuration = RecursiveComparisonConfiguration.builder()
+                                                                                  .withIgnoredFields("name.first", "nickname.last")
+                                                                                  .build();
+
+ assertThat(list(derrickRose)).usingRecursiveFieldByFieldElementComparator(configuration)
+                              .contains(jalenRose);
+----
+
+[[assertj-core-3.20.0-MappedCondition]]
+[.release-note-item]#Add `MappedCondition` to verify a `Condition` on the result of a map operation#
+
+A `MappedCondition` is defined with a map operation and a `Condition` that accepts the type returned by the map operation. +
+When applied the `MappedCondition` first map the value under test and then verify the resulting mapped value against its nested `Condition`. 
+
+Let's see how it works on an example:
+[source,java]
+----
+// nested Condition
+Condition<String> hasLineSeparator = new Condition<>(s -> s.contains(System.lineSeparator()), "has lineSeparator");
+// mapped Condition
+Condition<Optional<String>> optionalWithLineSeparator = MappedCondition.mappedCondition(Optional::get, hasLineSeparator, "optional value has lineSeparator");
+
+// assertion succeeds
+assertThat(Optional.of("a" + System.lineSeparator())).is(optionalWithLineSeparator)
+
+// assertion fails
+assertThat(Optional.of("a")).is(optionalWithLineSeparator)
+----
+
+[[assertj-core-3.20.0-VerboseCondition]]
+[.release-note-item]#Add `VerboseCondition` to get a detailed description when the condition fails#
+
+A `VerboseCondition` shows the value under test when it fails thanks to the specified `objectUnderTestDescriptor` function.
+
+When defining the `objectUnderTestDescriptor` function, you should take in consideration whether the condition is going to be used with link:https://www.javadoc.io/static/org.assertj/assertj-core/3.19.0/org/assertj/core/api/AbstractAssert.html#is(org.assertj.core.api.Condition)[`is(Condition)`] or link:https://www.javadoc.io/static/org.assertj/assertj-core/3.19.0/org/assertj/core/api/AbstractAssert.html#has(org.assertj.core.api.Condition)[`has(Condition)`] since the start of the error message is different between the two.
+
+Let's see how it works with an example that works well with `is(Condition)`:
+[source,java]
+----
+Condition<String> shorterThan4 = VerboseCondition.verboseCondition(actual -> actual.length() < 4,
+                                                                   // predicate description  
+                                                                   "shorter than 4",
+                                                                   // value under test description transformation function
+                                                                   s -> String.format(" but length was %s", s.length(), s));
+----
+
+If we execute:
+[source,java]
+----
+ assertThat("foooo").is(shorterThan4);
+----
+
+we get the following assertion error:
+[source,text]
+----
+Expecting actual:
+  "foooo"
+to be shorter than 4 but length was 5
+----
+
+Note that the beginning of the error message looks nice with `is(Condition)` but not so much `has(Condition)`:
+
+[source,text]
+----
+Expecting actual:
+  "foooo"
+to have shorter than 4 but length was 5
+----
 
 [[assertj-core-3-19-0-release-notes]]
 ==== AssertJ Core 3.19.0
@@ -976,9 +1472,9 @@ assertThat(-17).isOdd();
 [[assertj-core-3.17.0-singleElement]]
 [.release-note-item]#Add `singleElement` to iterable assertions#
 
-`singleElement()` and `singleElement​(InstanceOfAssertFactory assertFactory)` verify that the `Iterable` under test contains a single element and allow to perform assertions on that element (this is a shorthand for `hasSize(1).first()`).
+`singleElement()` and `singleElement(InstanceOfAssertFactory assertFactory)` verify that the `Iterable` under test contains a single element and allow to perform assertions on that element (this is a shorthand for `hasSize(1).first()`).
 
-You can only chain `Object` assertions after `singleElement()`, to get strongly typed assertions, use `singleElement​(InstanceOfAssertFactory)` and pass the proper `InstanceOfAssertFactory`.
+You can only chain `Object` assertions after `singleElement()`, to get strongly typed assertions, use `singleElement(InstanceOfAssertFactory)` and pass the proper `InstanceOfAssertFactory`.
 
 Examples:
 [source,java]
@@ -1517,12 +2013,12 @@ Shout out to Vincent Ricard for the various tests refactoring, that was quite a 
 
 The following `java.time.Duration` assertions are available:
 
-- `hasDays​(long otherDays)`: Verifies that the actual Duration has the given days.
-- `hasHours​(long otherHours)`: Verifies that the actual Duration has the given hours.
-- `hasMillis​(long otherMillis)`: Verifies that the actual Duration has the given millis.
-- `hasMinutes​(long otherMinutes)`: Verifies that the actual Duration has the given minutes.
-- `hasNanos​(long otherNanos)`: Verifies that the actual Duration has the given nanos.
-- `hasSeconds​(long otherSeconds)`: Verifies that the actual Duration has the given seconds.
+- `hasDays(long otherDays)`: Verifies that the actual Duration has the given days.
+- `hasHours(long otherHours)`: Verifies that the actual Duration has the given hours.
+- `hasMillis(long otherMillis)`: Verifies that the actual Duration has the given millis.
+- `hasMinutes(long otherMinutes)`: Verifies that the actual Duration has the given minutes.
+- `hasNanos(long otherNanos)`: Verifies that the actual Duration has the given nanos.
+- `hasSeconds(long otherSeconds)`: Verifies that the actual Duration has the given seconds.
 - `isNegative()`: Verifies that the actual Duration is negative (i.e. < `Duration.ZERO`)
 - `isPositive()`: Verifies that the actual Duration is positive (i.e. > `Duration.ZERO`)
 - `isZero()`: Verifies that the actual Duration is `Duration.ZERO`.
@@ -2700,7 +3196,7 @@ assertThatExceptionOfType(Throwable.class)
 [[assertj-core-3.13.0-check-soft-assertions-with-any-custom-assertions]]
 [.release-note-item]#Allow using any custom assertions in soft assertions#
 
-The new `check​` method catches and collect assertion errors coming from standard and custom assertions.
+The new `check` method catches and collect assertion errors coming from standard and custom assertions.
 
 Example:
 [source,java,indent=0]

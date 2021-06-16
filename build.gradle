@@ -37,6 +37,7 @@ asciidoctor {
 			include '**/*.css'
 			include '**/font-awesome/css/*.css'
 			include '**/javadoc/**'
+			include '**/reports/**'
 		}
 	}
 
