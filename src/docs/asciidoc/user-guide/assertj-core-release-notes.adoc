@@ -67,6 +67,9 @@ The release [red]#is not binary compatible# with the previous version. Full repo
 * `RecursiveComparisonConfiguration` now uses the same default values when built from builder and constructor.
 * `usingRecursiveFieldByFieldElementComparator` in iterable/array/atomic reference array now uses the new recursive comparison instead of the old implementation.
 * `RecursiveFieldByFieldComparator` was removed as it has been replaced by the recursive comparison in `usingRecursiveFieldByFieldElementComparator`. 
+* Public methods that could cause heap pollution have been made `final` to improve the user experience with soft assertions and soft assumptions.
+In case a subclass was overriding any of these methods, a similar result can be achieved by overriding the corresponding `ForProxy` method.
+For example, `AbstractMapAssert#contains` now delegates the implementation to `AbstractMapAssert#containsForProxy`, which is `protected` and therefore can be overridden.
 * Align return types across assertions / assumptions / soft assertions and return concrete types.
 The breaking change is for people that have implemented `WithAssertions` or `WithAssumption` as they now have different return types, the regular user should not see any difference.
 
