@@ -119,7 +119,7 @@ The breaking change is for people that have implemented `WithAssertions` or `Wit
 * Internal: Fix some warnings in AssertJ codebase. (Filip Hrisafov)
 * Internal: Remove Proxyable assert classes since we don't need to subclass assert classes to fix heap pollution with `@SafeVarargs`.
 * Internal: Hide implementation detail of `assertContainsOnlyKeys`. (Stefano Cordio)
-* Internal: Remove unnecessary javadoc from internal class, import Map.Entry. (Stefano Cordio)
+* Internal: Remove unnecessary javadoc from internal class, import `Map.Entry`. (Stefano Cordio)
 * Internal: Favor `requireNonNull` with `Supplier`. (Stefano Cordio)
 * Internal: Update CodeQL workflow. (Stefano Cordio)
 * Internal: Mention the JDK 11 requirement in the contribution guidelines. (Stefano Cordio)
@@ -148,7 +148,6 @@ The breaking change is for people that have implemented `WithAssertions` or `Wit
 * Internal: Enforce Java 11 or newer to build the project (Slawomir Jaranowski)
 * Internal: Define Java 9 compile execution instead of maven profile (Slawomir Jaranowski)
 
-
 [[assertj-core-3.20.0-fixed]]
 [.release-note-category]#icon:wrench[] Fixed#
 
@@ -161,7 +160,7 @@ The breaking change is for people that have implemented `WithAssertions` or `Wit
 * Fix hasOnlyFields which should not consider static fields.
 * Fix `StackOverflowError` when `usingRecursiveComparison` of `Path` on Windows by using path natural comparator. (Julien Roy)
 * Extract value only if the map key exists in `PropertyOrFieldSupport`. (Stefano Cordio)
-* Replace references to `mapOf` by guava `ImmutableMap.of` in javadoc.
+* Replace references to `mapOf` by Guava `ImmutableMap.of` in javadoc.
 * Fix Javadoc warnings.
 
 [[assertj-core-3.20.0-deprecated]]
