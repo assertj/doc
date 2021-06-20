@@ -5,6 +5,7 @@ NOTE: AssertJ Core would not exist without its contributors, you can find them a
 
 Latest release notes:
 
+- link:#assertj-core-3-20-2-release-notes[AssertJ Core 3.20.2]
 - link:#assertj-core-3-20-1-release-notes[AssertJ Core 3.20.1]
 - link:#assertj-core-3-20-0-release-notes[AssertJ Core 3.20.0]
 - link:#assertj-core-3-19-0-release-notes[AssertJ Core 3.19.0]
@@ -27,12 +28,39 @@ Latest release notes:
 Older release notes can be found in the old site: https://joel-costigliola.github.io/assertj/assertj-core-news.html, this is important to be aware of breaking changes if you are migrating from an old version.
 
 
+[[assertj-core-3-20-2-release-notes]]
+==== AssertJ Core 3.20.2
+
+Release date : 2021-06-20
+
+Bugfix release that revert a breaking change in 3.20.0 due to the heavy impact on binary compatibility and to continue allowing third-party libraries returning their own assertion classes with overridden `assertThat` methods.
+
+Thanks to David Schlosnagle and Stefano Cordio for the fixes in this release.
+
+[[assertj-core-3.20.2-binary-compatibility]]
+[.release-note-category]#icon:cogs[] Binary compatibility#
+
+The release [red]#is not binary compatible# with the previous minor version.
+More details are available in the <<Binary Compatibility>> section.
+
+[[assertj-core-3.20.2-fixed]]
+[.release-note-category]#icon:wrench[] Fixed#
+
+* Restore deep equality comparison for map `containsOnly` assertions. (David Schlosnagle)
+* Revert __"[Breaking change] Align return types across assertions / assumptions / soft assertions and do not use Abstract Asserts"__ introduced in 3.20.0.
+
 [[assertj-core-3-20-1-release-notes]]
 ==== AssertJ Core 3.20.1
 
 Release date : 2021-06-16
 
-Bugfix release. 
+Bugfix release.
+
+[[assertj-core-3.20.1-binary-compatibility]]
+[.release-note-category]#icon:cogs[] Binary compatibility#
+
+The release [red]#is not binary compatible# with the previous minor version.
+More details are available in the <<Binary Compatibility>> section.
 
 [[assertj-core-3.20.1-fixed]]
 [.release-note-category]#icon:wrench[] Fixed#
@@ -54,7 +82,8 @@ Special thanks to Filip Hrisafov to have got rid of the heap pollution compiler 
 [[assertj-core-3.20.0-binary-compatibility]]
 [.release-note-category]#icon:cogs[] Binary compatibility#
 
-The release [red]#is not binary compatible# with the previous version. Full report: icon:file-text[link=reports/assertj-core/3.20.0/japicmp.html, window=_blank]
+The release [red]#is not binary compatible# with the previous minor version.
+More details are available in the <<Binary Compatibility>> section.
 
 [[assertj-core-3.20.0-breaking-changes]]
 [.release-note-category]#icon:exclamation-triangle[] Breaking changes#
@@ -548,7 +577,8 @@ Thanks to all the contributors of this release: Erhard Pointl, Stefano Cordio, P
 [[assertj-core-3.19.0-binary-compatibility]]
 [.release-note-category]#icon:cogs[] Binary compatibility#
 
-The release [red]#is not binary compatible# with the previous version. Full report: icon:file-text[link=reports/assertj-core/3.19.0/japicmp.html, window=_blank]
+The release [red]#is not binary compatible# with the previous minor version.
+More details are available in the <<Binary Compatibility>> section.
 
 [[assertj-core-3.19.0-breaking-changes]]
 [.release-note-category]#icon:exclamation-triangle[] Breaking changes#
@@ -933,6 +963,12 @@ Release date : 2020-11-11
 
 Thanks to all the contributors of this release: Erhard Pointl, Stefano Cordio and  Kim S. Ly.
 
+[[assertj-core-3.18.1-binary-compatibility]]
+[.release-note-category]#icon:cogs[] Binary compatibility#
+
+The release [red]#is not binary compatible# with the previous minor version.
+More details are available in the <<Binary Compatibility>> section.
+
 [[assertj-core-3.18.1-new-features]]
 [.release-note-category]#icon:plus-circle[] New features#
 
@@ -970,7 +1006,8 @@ Shout out to Fr Jeremy Krieg for adding soft assertions field injection capabili
 [[assertj-core-3.18.0-binary-compatibility]]
 [.release-note-category]#icon:cogs[] Binary compatibility#
 
-The release [red]#is not binary compatible# with the previous version. Full report: icon:file-text[link=reports/assertj-core/3.18.0/japicmp.html, window=_blank]
+The release [red]#is not binary compatible# with the previous minor version.
+More details are available in the <<Binary Compatibility>> section.
 
 [[assertj-core-3.18.0-breaking-changes]]
 [.release-note-category]#icon:exclamation-triangle[] Breaking changes#
@@ -1177,7 +1214,6 @@ Example:
 assertThat(new AtomicReference("foo")).hasValueSatisfying(result -> assertThat(result).isNotBlank());
 ----
 
-
 [[assertj-core-3-17-2-release-notes]]
 ==== AssertJ Core 3.17.2
 
@@ -1187,6 +1223,12 @@ Release date : 2020-09-06
 [.release-note-category]#icon:user[] Contributors#
 
 Thanks to all the contributors of this release: Erhard Pointl, Stefano Cordio and BJ Hargrave.
+
+[[assertj-core-3.17.2-binary-compatibility]]
+[.release-note-category]#icon:cogs[] Binary compatibility#
+
+The release [red]#is not binary compatible# with the previous minor version.
+More details are available in the <<Binary Compatibility>> section.
 
 [[assertj-core-3.17.2-breaking-changes]]
 [.release-note-category]#icon:exclamation-triangle[] Breaking changes#
@@ -1219,6 +1261,12 @@ Release date : 2020-08-30
 [.release-note-category]#icon:user[] Contributors#
 
 Thanks to all the contributors of this release: Erhard Pointl, Stefano Cordio, Pascal Schumacher, rpolton, Andrey Nudko and Davide Angelocola.
+
+[[assertj-core-3.17.1-binary-compatibility]]
+[.release-note-category]#icon:cogs[] Binary compatibility#
+
+The release [red]#is not binary compatible# with the previous minor version.
+More details are available in the <<Binary Compatibility>> section.
 
 [[assertj-core-3.17.1-breaking-changes]]
 [.release-note-category]#icon:exclamation-triangle[] Breaking changes#
@@ -1256,7 +1304,8 @@ _Joel Costigliola_: Apologies to Hayden Meloche, when integrating his work the f
 [[assertj-core-3.17.0-binary-compatibility]]
 [.release-note-category]#icon:cogs[] Binary compatibility#
 
-The release [red]#is not binary compatible# with the previous version. Full report: icon:file-text[link=reports/assertj-core/3.17.0/japicmp.html, window=_blank]
+The release [red]#is not binary compatible# with the previous minor version.
+More details are available in the <<Binary Compatibility>> section.
 
 [[assertj-core-3.17.0-breaking-changes]]
 [.release-note-category]#icon:exclamation-triangle[] Breaking changes#
