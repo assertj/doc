@@ -79,15 +79,15 @@ The table below shows the binary compatibility of each minor release with the pr
 |3.19.0
 |-
 |icon:times[] icon:file-text[link=reports/assertj-core/japicmp-3.19.0-3.18.1.html, window=_blank]
-|
-|
+|icon:times[] icon:file-text[link=reports/assertj-core/japicmp-3.19.0-3.17.2.html, window=_blank]
+|icon:times[] icon:file-text[link=reports/assertj-core/japicmp-3.19.0-3.16.1.html, window=_blank]
 |icon:times[] icon:file-text[link=reports/assertj-core/japicmp-3.19.0-3.15.0.html, window=_blank]
 
 |3.18.1
 |-
 |-
 |icon:times[] icon:file-text[link=reports/assertj-core/japicmp-3.18.1-3.17.2.html, window=_blank]
-|
+|icon:times[] icon:file-text[link=reports/assertj-core/japicmp-3.18.1-3.16.1.html, window=_blank]
 |icon:times[] icon:file-text[link=reports/assertj-core/japicmp-3.18.1-3.15.0.html, window=_blank]
 
 |3.17.2
