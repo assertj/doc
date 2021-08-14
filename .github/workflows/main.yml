@@ -32,5 +32,5 @@ jobs:
         run: ./gradlew --stacktrace --info gitPublishPush
         env:
           GIT_COMMITTER_NAME: GitHub Actions
-          GIT_COMMITTER_EMAIL: actions@github.com
+          GIT_COMMITTER_EMAIL: 41898282+github-actions[bot]@users.noreply.github.com
           GRGIT_USER: ${{ secrets.ASCIIDOCTOR_TOKEN }}
