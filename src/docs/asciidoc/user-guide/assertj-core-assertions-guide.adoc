@@ -194,7 +194,7 @@ Assertions:
 [[assertj-core-overriding-error-message]]
 ==== Overriding error message
 
-AssertJ tries its best to give helpful error messages but you always change it with `overridingErrorMessage()` or `withFailMessage()`.
+AssertJ tries its best to give helpful error messages, but you can always change it with `overridingErrorMessage()` or `withFailMessage()`.
 
 Example with this failing test:
 [source,java,indent=0]
