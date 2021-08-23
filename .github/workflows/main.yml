@@ -19,12 +19,7 @@ jobs:
         with:
           distribution: 'zulu'
           java-version: 11
-      - name: Cache Gradle Repository
-        uses: actions/cache@v2
-        with:
-          path: ~/.gradle/caches
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
-          restore-keys: ${{ runner.os }}-gradle-
+          cache: 'gradle'
       - name: Run Asciidoctor
         run: ./gradlew asciidoctor
       - name: Publish to GitHub Pages
