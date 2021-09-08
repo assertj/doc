@@ -6,17 +6,14 @@
     {
       "label": "build documentation",
       "type": "shell",
-      "command": "rm build/docs/asciidoc/user-guide/index.html && ./gradlew asciidoctor",
-      "options": {
-        "env": {
-          "JAVA_HOME": "/home/joel/prog/java/current"
-        }
-      },
+      "command": "rm -f build/docs/asciidoc/user-guide/index.html && ./gradlew asciidoctor",
       "group": {
         "kind": "build",
         "isDefault": true
       },
-      "problemMatcher": []
+      "presentation": {
+        "reveal": "always"
+      }
     }
   ]
 }
