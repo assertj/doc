@@ -5,6 +5,7 @@ NOTE: AssertJ Core would not exist without its contributors, you can find them a
 
 Latest release notes:
 
+- link:#assertj-core-3-21-0-release-notes[AssertJ Core 3.21.0]
 - link:#assertj-core-3-20-2-release-notes[AssertJ Core 3.20.2]
 - link:#assertj-core-3-20-1-release-notes[AssertJ Core 3.20.1]
 - link:#assertj-core-3-20-0-release-notes[AssertJ Core 3.20.0]
@@ -26,6 +27,251 @@ Latest release notes:
 - link:#assertj-core-3-12-0-release-notes[AssertJ Core 3.12.0]
 
 Older release notes can be found in the old site: https://joel-costigliola.github.io/assertj/assertj-core-news.html, this is important to be aware of breaking changes if you are migrating from an old version.
+
+
+[[assertj-core-3-21-0-release-notes]]
+==== AssertJ Core 3.21.0
+
+Release date : 2021-09-xx
+
+[[assertj-core-3.21.0-contributors]]
+[.release-note-category]#icon:user[] Contributors#
+
+Thanks to all the contributors of this release: Erhard Pointl, Stefano Cordio, Shivakumar Swamy, Iván Aguilar, Alberto Pascual, Gily H, Stefan Bischof, RGalways17, Andrey Kuzmin, Eugene Lesnov, Szymon Linowski, Julian Honnen, Almir James Lucena and Golan Levy.
+
+[[assertj-core-3.21.0-binary-compatibility]]
+[.release-note-category]#icon:cogs[] Binary compatibility#
+
+The release [green]#*is binary compatible*# with the previous minor version.
+More details are available in the <<Binary Compatibility>> section.
+
+[[assertj-core-3.21.0-breaking-changes]]
+[.release-note-category]#icon:exclamation-triangle[] Breaking changes#
+
+* Custom comparison now takes precedence over reference comparison in recursive comparison (Fixes #2335).
+
+[[assertj-core-3.21.0-new-features]]
+[.release-note-category]#icon:plus-circle[] New features#
+
+* Add link:#assertj-core-3.21.0-path-file-content[`content()`/`content(Charset)`] to `Path` assertions to allow chaining string assertions on the `Path` content. (#2252)
+* Add link:#assertj-core-3.21.0-path-file-content[`content()`/`content(Charset)`] to `File` assertions to allow chaining string assertions on the `File` content. (#2243) 
+* Add link:#assertj-core-3.21.0-path-size[`hasSize(long expectedSizeInBytes)`] to `Path` assertions (#2198). (Gily-H)
+* Add link:#assertj-core-3.21.0-isMixedCase[`isMixedCase()`] to `CharSequence` assertions (#2246). (Andrey Kuzmin)
+* Add link:#assertj-core-3.21.0-containsAnyOf[`containsAnyOf(CharSequence... values)]` to `CharSequence` assertions (#2309). (Eugene Lesnov)
+* Add link:#assertj-core-3.21.0-hasExtension[`hasExtension(String extension)]` to `Path` assertions (#2255). (Szymon Linowski)
+* Add link:#assertj-core-3.21.0-hasNoExtension[`hasNoExtension()]` to `Path` assertions (#2318). (Szymon Linowski)
+* Add link:#assertj-core-3.21.0-hasNoExtension[`hasNoExtension()]` to `File` assertions.
+* Add link:#assertj-core-3.21.0-hasScaleOf[`hasScaleOf(int expectedScale)`] to `BigDecimals` assertions (#2321). (Almir James Lucena)
+* Add link:#assertj-core-3.21.0-isUnmodifiable[`isUnmodifiable()`] to `Collection` assertions (#2328). (Stefano Cordio)
+
+[[assertj-core-3.21.0-improvements]]
+[.release-note-category]#icon:arrow-circle-up[] Improvements#
+
+* Add `CollectionAssert` hierarchy (#2315). (Stefano Cordio)
+* Change AssertJ `MapEntry` and Java `Map.Entry` representation to be `key=value`.
+* Improve `containsEntry` and `containsAllEntriesOf` error message when keys match but not values.
+* Improve assertion error for `hasSameElementsAs(emptyList())`. (RGalways17)
+* Add stack trace information of `Throwable` that fails `hasCauseInstanceOf` or `hasCauseExactlyInstanceOf` (#2209). (RGalways17)
+* Add `isReadable` as an alias of `canRead` for `File` assertions (#2249). (Alberto Pascual)
+* Add `isWritable` as an alias of `canWrite` for `File` assertions (#2273). (Iván Aguilar)
+* Add `hasFileName` as an alias of `hasName` for `File` assertions (#2247). (Shivakumar Swamy)
+* Add `satisfies` with `ThrowingConsumer` to accept consumers that throw checked exceptions (#2297).
+* Add `satisfiesAnyOf` with `ThrowingConsumer` to accept consumers that throw checked exceptions.
+* Add `allSatisfy`, `anySatisfy`, `satisfiesExactly`, `noneSatisfy`, `satisfiesExactlyInAnyOrder` and `filteredOnAssertions` with `ThrowingConsumer` to accept consumers that throw checked exceptions.
+* Allow specifying supertype consumers for `satisfies` and `satisfiesAnyOf` in `AbstractAssert`.
+* Allow configuring the preferred assumption exception (#2267).
+* Generate proper `conditionDescriptionWithStatus` in `MappedCondition`. (Stefan Bischof)
+* Use `conditionDescriptionWithStatus` on `Join` Condition. (Stefan Bischof)
+* Add type parameter to `ThrowableAssert` (#2311). (Stefano Cordio)
+* Sync `BDDAssumptions` with `Assumptions` (#2313). (Stefano Cordio)
+* Javadoc improvements (#2274). (Golan Levy)
+* Javadoc improvements. (Stefano Cordio)
+* Fix Javadoc warnings. (Stefano Cordio)
+* Internal: Add binary compatibility check of `main` against latest release (#2271). (Stefano Cordio)
+* Internal: Add binary compatibility check of branches against `main` (#2285). (Stefano Cordio)
+* Internal: Use custom display name generator instead of `@DisplayName` on each test and remove unnecessary `@DisplayName` annotation. (Stefano Cordio)
+* Internal: `Path` and `File` assertions refactoring. (Stefano Cordio)
+* Internal: Add additional tests for `Path` assertions. (Stefano Cordio)
+* Internal: Remove unnecessary clean goal in build. (Stefano Cordio)
+* Internal: Remove `MockPathsBaseTest` in favor of `PathsBaseTest` and `@TempDir`. (Stefano Cordio)
+* Internal: Remove memoryfilesystem. (Stefano Cordio)
+* Internal: Reorder POM based on Maven code conventions. (Stefano Cordio)
+* Internal: Use Java 17 GA, remove EOL Java 16 in CI build. (Stefano Cordio)
+* Internal: Bump junit-jupiter.version from 5.7.2 to 5.8.0. (Stefano Cordio)
+* Internal: Bump mockito.version from 3.11.1 to 3.12.4. (Stefano Cordio)
+* Internal: Bump byte-buddy version from 1.11.2 to 1.11.16
+* Internal: Bump cdg.pitest.version from 0.0.10 to 0.1.0
+* Internal: Bump Bump pitest-junit5-plugin from 0.14 to 0.15
+* Internal: Bump pitest-maven from 1.6.7 to 1.7.0
+* Internal: Bump jackson-databind from 2.12.3 to 2.12.5 
+* Internal: Bump equalsverifier from 3.6.1 to 3.7.1
+* Internal: Bump commons-io from 2.10.0 to 2.11.0. 
+* Internal: Bump spring-core from 5.3.8 to 5.3.10
+* Internal: Bump org.eclipse.osgi from 3.16.300 to 3.17.0
+* Internal: Bump maven version from 3.8.1 to 3.8.2. (Stefano Cordio)
+
+[[assertj-core-3.21.0-fixed]]
+[.release-note-category]#icon:wrench[] Fixed#
+
+* Add default method lookup to `hasMethods` (#2324). (Stefano Cordio)
+* Load default configuration after default constants values to make sure the latter are initialized.
+* Don't use `String.format` to describe `ComparisonDifference` in case the given string has a % that must not be interpreted (#2279).
+* Fix handling of mappings to null in `MappedCondition`. (Stefan Bischof)
+* Fix Javadoc warnings.
+
+
+[[assertj-core-3.21.0-path-file-content]]
+[.release-note-item]#Add `content()`/`content(Charset)` to `Path/File` assertions to allow chaining string assertions on the `Path/File` content#
+
+Returns `String` assertions on the content of the actual `Path`/`File` read with the given charset or the default charset if no charset was given.
+
+Example with `content()`:
+[source,java]
+----
+File xFile = Files.write(Paths.get("xfile.txt"), "The Truth Is Out There".getBytes()).toFile();
+
+// assertion succeeds (default charset is used to read xFile content)
+assertThat(xFile).content().startsWith("The Truth Is ")
+                           .endsWith("There");
+// assertion fails
+assertThat(xFile).content().contains("Elsewhere");
+----
+
+Example with `content(Charset)`:
+[source,java]
+----
+File utf8File = Files.write(Paths.get("utf8.txt"), "é à".getBytes()).toFile();
+
+// assertion succeeds
+assertThat(utf8File).content(StandardCharsets.UTF_8).startsWith("é")
+                                                    .endsWith("à");
+// assertion fails
+assertThat(utf8File).content(StandardCharsets.UTF_8).contains("e");
+----
+
+[[assertj-core-3.21.0-path-size]]
+[.release-note-item]#Add `hasSize(long expectedSizeInBytes)` to `Path` assertions#
+
+Asserts that the tested `Path` has the given size in *bytes*.
+
+Note that the actual `Path` must exist and be a regular file.
+
+Examples:
+[source,java]
+----
+Path foxPath = Files.write(Paths.get("/fox.txt"), "The Quick Brown Fox.".getBytes());
+
+// assertion succeeds
+assertThat(foxPath).hasSize(20);
+
+// assertion fails
+assertThat(foxPath).hasSize(3);
+----
+
+[[assertj-core-3.21.0-isMixedCase]]
+[.release-note-item]#Add `isMixedCase()` to `CharSequence` assertions#
+
+Verifies that the actual `CharSequence` is a mixed case `CharSequence`, i.e., neither uppercase nor lowercase.
+
+If actual is empty or contains only case-independent characters, the assertion will pass.
+
+Examples:
+[source,java]
+----
+// assertions succeed
+assertThat("Capitalized").isMixedCase();
+assertThat("camelCase").isMixedCase();
+assertThat("rAndOMcAse1234").isMixedCase();
+assertThat("1@3$567").isMixedCase();
+assertThat("").isMixedCase();
+
+// assertions fail
+assertThat("I AM GROOT!").isMixedCase();
+assertThat("please be quiet").isMixedCase();
+----
+
+[[assertj-core-3.21.0-containsAnyOf]]
+[.release-note-item]#Add `containsAnyOf(CharSequence... values)` to `CharSequence` assertions#
+
+Verifies that the actual `CharSequence` contains any of the given values. 
+
+Examples:
+[source,java]
+----
+// assertion succeeds
+assertThat("Gandalf the grey").containsAnyOf("grey", "black");
+
+// assertion fails
+assertThat("Gandalf the grey").containsAnyOf("white", "black");
+----
+
+[[assertj-core-3.21.0-hasExtension]]
+[.release-note-item]#Add `hasExtension(String extension)` to `Path` assertions#
+
+Verifies that the actual `Path` has the given extension. 
+
+Examples:
+[source,java]
+----
+Path path = Paths.get("file.java");
+
+// assertion succeeds
+assertThat(path).hasExtension("java");
+
+// assertion fails
+assertThat(path).hasExtension("png");
+----
+
+[[assertj-core-3.21.0-hasNoExtension]]
+[.release-note-item]#Add `hasNoExtension()` to `Path` and `File` assertions#
+
+Verifies that the actual `Path` or `File` has no extension. 
+
+Examples with `Path`:
+[source,java]
+----
+// assertion succeeds
+assertThat(Paths.get("file")).hasNoExtension();
+assertThat(Paths.get("file.")).hasNoExtension();
+
+// assertion fails
+assertThat(Paths.get("file.txt")).hasNoExtension();
+----
+
+[[assertj-core-3.21.0-hasScaleOf]]
+[.release-note-item]#Add `hasScaleOf(int expectedScale)` to `BigDecimals` assertions#
+
+Verifies the `BigDecimal` under test has the given scale. 
+
+Examples:
+[source,java]
+----
+// assertions succeed
+assertThat(new BigDecimal("8.00")).hasScaleOf(2);
+assertThat(new BigDecimal("8.00").setScale(4)).hasScaleOf(4);
+
+// assertion fail
+assertThat(new BigDecimal("8.00")).hasScaleOf(3);
+assertThat(new BigDecimal("8.00").setScale(4)).hasScaleOf(2);
+----
+
+[[assertj-core-3.21.0-isUnmodifiable]]
+[.release-note-item]#Add `isUnmodifiable()` to `Collection` assertions#
+
+Verifies that the actual collection is unmodifiable, i.e., throws an `UnsupportedOperationException` with any attempt to modify the collection.
+
+Example:
+[source,java]
+----
+// assertions succeed
+assertThat(Collections.unmodifiableCollection(new ArrayList<>())).isUnmodifiable();
+assertThat(Collections.unmodifiableList(new ArrayList<>())).isUnmodifiable();
+assertThat(Collections.unmodifiableSet(new HashSet<>())).isUnmodifiable();
+
+// assertions fail
+assertThat(new ArrayList<>()).isUnmodifiable();
+assertThat(new HashSet<>()).isUnmodifiable();
+----
 
 
 [[assertj-core-3-20-2-release-notes]]
@@ -137,7 +383,7 @@ The breaking change is for people that have implemented `WithAssertions` or `Wit
 * Display proper collection type in `contains` and `containsAll` error messages . (Patrick Allain)
 * Rework `StandardComparisonStrategy#areEqual` to avoid shortcuts. (Stefano Cordio)
 * Disambiguate error messages by adding "actual" before printing actual value. (Harsha Vipparti)
-* Recursive comparison: properly track field location for maps and honor ignored fields. TODO add example
+* Recursive comparison: properly track field location for maps and honor ignored fields.
 * link:#assertj-core-3.20.0-allOf-error[`allOf`] condition error message shows state (successful/failed) of each combined conditions.
 * Javadoc improvements. (Stefano Cordio)
 * Clarify `newListAssertInstance` javadoc.
@@ -3571,7 +3817,7 @@ This is a bit tedious but an improvement is planned in the next release to provi
 ===== New features
 
 - New Recursive comparison API! (Beta version)
-- Add `satisfiesAnyOf` base assertion. TODO document
+- Add `satisfiesAnyOf` base assertion.
 - Add `isAbstract` to `Class` assertions. (Erhard Pointl)
 - Add `hasValueCloseTo(percentage)` to `OptionalDouble` assertion. (Joshua Kitchen)
 - Add `hasOnlyOneElementSatisfying(Consumer)` to `AtomicReferenceArray` assertions. (Vladimir Chernikov)
