@@ -32,7 +32,7 @@ Older release notes can be found in the old site: https://joel-costigliola.githu
 [[assertj-core-3-21-0-release-notes]]
 ==== AssertJ Core 3.21.0
 
-Release date : 2021-09-xx
+Release date : 2021-09-20
 
 [[assertj-core-3.21.0-contributors]]
 [.release-note-category]#icon:user[] Contributors#
