@@ -1331,6 +1331,30 @@ class TextException extends Exception {
  catchThrowableOfType(() -> { throw new TextException("boom!", 1, 5); }, RuntimeException.class);
 ----
 
+To improve the legibility of your code, specialized versions of `catchThrowableOfType` are also available for a number of well known exceptions:
+
+* `catchException`
+* `catchRuntimeException`
+* `catchNullPointerException`
+* `catchIllegalArgumentException`
+* `catchIOException`
+* `catchReflectiveOperationException`
+* `catchIllegalStateException`
+* `catchIndexOutOfBoundsException`
+
+Using one of these methods you can catch a specific exception or any of its subtypes and avoid specifying the second parameter which would be required if you were to use `catchThrowableOfType`.
+
+Example:
+[source,java]
+----
+ Exception exception = catchException(() -> { throw new Exception("boom!"); });
+ // assertions succeed
+ assertThat(textException).hasMessageContaining("boom");
+
+ // fails as TextException is not a RuntimeException
+ catchRuntimeException(() -> { throw new TextException("boom!", 1, 5); });
+----
+
 [[assertj-core-exception-assertions-assertThatThrownBy]]
 ===== assertThatThrownBy
 
