@@ -5,6 +5,7 @@ NOTE: AssertJ Core would not exist without its contributors, you can find them a
 
 Latest release notes:
 
+- link:#assertj-core-3-22-0-release-notes[AssertJ Core 3.22.0]
 - link:#assertj-core-3-21-0-release-notes[AssertJ Core 3.21.0]
 - link:#assertj-core-3-20-2-release-notes[AssertJ Core 3.20.2]
 - link:#assertj-core-3-20-1-release-notes[AssertJ Core 3.20.1]
@@ -28,6 +29,177 @@ Latest release notes:
 
 Older release notes can be found in the old site: https://joel-costigliola.github.io/assertj/assertj-core-news.html, this is important to be aware of breaking changes if you are migrating from an old version.
 
+[[assertj-core-3-22-0-release-notes]]
+==== AssertJ Core 3.22.0
+
+Release date : 2022-01-03
+
+[[assertj-core-3.22.0-contributors]]
+[.release-note-category]#icon:user[] Contributors#
+
+Thanks to all the contributors of this release: Erhard Pointl, Stefano Cordio, Yusuke Mukai, Martin Tarjányi, Trang Nguyen, jbock, Annette0127, Zihan Xu, Ashley Scopes, Benjamin Ze'ev Tels, Ahmad Sadeed, temp-droid, Ilya Koshaleu, Spacca and Erik Pragt.
+
+[[assertj-core-3.22.0-binary-compatibility]]
+[.release-note-category]#icon:cogs[] Binary compatibility#
+
+The release [red]#is not binary compatible# with the previous minor version.
+More details are available in the <<Binary Compatibility>> section.
+
+[[assertj-core-3.22.0-breaking-changes]]
+[.release-note-category]#icon:exclamation-triangle[] Breaking changes#
+
+* Breaking change: `extracting` now throws an assertion error if actual is null (Fixes #2401).
+* Breaking change: `extracting`/`map` for iterables now throws an assertion error if the actual `Iterable` is null (Fixes #2411).
+* Breaking change: `flatExtracting`/`flatMap` for iterables now throws an assertion error if the actual `Iterable` is null (Fixes #2412).
+
+[[assertj-core-3.22.0-new-features]]
+[.release-note-category]#icon:plus-circle[] New features#
+
+* Add link:#assertj-core-3.22.0-file-size-assertions[size assertions for `File`] (#2322). (Erik Pragt)
+* Add link:#assertj-core-3.22.0-throwable-message-assertions[`message()` navigation method for `Throwable`] (#2378). (Trang Nguyen)
+* Add support for link:#assertj-core-fine-grained-representations[fine-grained representations] (#2048). (Annette0127)
+* Add link:#assertj-core-3.22.0-singleElement[`singleElement`] to `Object[]` assertions (#2320).
+* Add link:#assertj-core-3.22.0-hasNoHost[`hasNoHost`] to `URI` and `URL` assertions (#2436). (Ashley Scopes)
+* Allow link:#assertj-core-recursive-comparison-overriding-error-messages[overriding error messages] for specific fields and types in the recursive comparison. (Ilya Koshaleu)
+* Add link:#assertj-core-exception-assertions-bdd-style[`catchThrowableOfType` alternatives] for commonly used exceptions (#2397). (Spacca)
+* Add link:#assertj-core-3.22.0-doesNotReturn[`doesNotReturn`]  to `Object` assertions (#2453). (Stefano Cordio)
+
+[[assertj-core-3.22.0-improvements]]
+[.release-note-category]#icon:arrow-circle-up[] Improvements#
+
+* Treat class cast exception as comparison failure in the recursive comparison. (#2434)
+* Improve `Class` representation for anonymous and local types (#2445). (Stefano Cordio)
+* Return `null` when extracting the value of an empty `Optional` (#2372). (Stefano Cordio)
+* Assumptions: avoid proxying methods that don't need to be proxied.
+* Accept vararg for `AbstractAssert.satisfies`. (Martin Tarjányi)
+* Print offending token in error message from containsSubsequence. (jbock)
+* `extracting` now throws an assertion error if actual is null (Fixes #2401). (Trang Nguyen)
+* `extracting`/`map` for iterables now throws an assertion error if the actual `Iterable` is null (Fixes #2411). (Trang Nguyen)
+* `flatExtracting`/`flatMap` for iterables now throws an assertion error if the actual `Iterable` is null (Fixes #2412). (Zihan Xu)
+* Allow checking of `null` keys and values with maps that do not allow them (see #2379 and #2382). (Benjamin Ze'ev Tels, Stefano Cordio)
+* Better `isEqualTo` error messages when values are multi lined (#2366). (temp-droid)
+* Javadoc improvements. (Stefano Cordio)
+* Internal: Avoid mocks for testing `File` assertions (#2337). (Ahmad Sadeed)
+* Internal: Align `assertContainsKeys` and `assertDoesNotContainKeys` testing to the pattern introduced in #2167. (Stefano Cordio)
+* Internal: Add JDK 9 collection factories (#2386). (Stefano Cordio)
+* Internal: Add release workflow (#1986). (Stefano Cordio)
+* Internal: Add additional test cases to `isUnmodifiable`. (Stefano Cordio)
+* Internal: Exclude Guava transitive dependency from EqualsVerifier. (Stefano Cordio)
+* Internal: Bump junit-jupiter.version from 5.8.0 to 5.8.2 (Erhard Pointl)
+* Internal: Bump mockito.version from 3.12.4 to 4.2.0 (Erhard Pointl, Stefano Cordio)
+* Internal: Bump jackson-databind from 2.12.5 to 2.13.1
+* Internal: Bump byte-buddy.version from 1.11.6 to 1.12.6
+* Internal: Bump guava from 30.1.1-jre to 31.0.1-jre
+* Internal: Bump assertj-parent-pom from 2.2.13 to 2.2.14
+* Internal: Bump pitest-maven from 1.7.0 to 1.7.3
+* Internal: Bump bnd.version from 5.3.0 to 6.1.0
+* Internal: Bump japicmp-maven-plugin from 0.15.3 to 0.15.4
+* Internal: Bump Maven version from 3.8.2 to 3.8.4 (Erhard Pointl)
+* Internal: Bump spring-core from 5.3.10 to 5.3.14
+* Internal: Bump equalsverifier from 3.7.1 to 3.8.1
+* Internal: Bump org.eclipse.osgi from 3.17.0 to 3.17.100
+
+[[assertj-core-3.22.0-fixed]]
+[.release-note-category]#icon:wrench[] Fixed#
+
+* Avoid reflection when extracting `Optional` value that fails with Java 17 (#2364). (Stefano Cordio)
+* Fix assumptions for `extracting` methods using `asInstanceOf`
+* Fix javadoc for `containsExactlyInAnyOrderElementsOf` (#2405). (Yusuke Mukai)
+* Fix `DefaultAssertionErrorCollector` that dismisses expected/actual fields during injection of line numbers.
+* Fall back to `Map` copy when cloning causes any `RuntimeException` (#2448). (Stefano Cordio)
+
+[[assertj-core-3.22.0-deprecated]]
+[.release-note-category]#icon:ban[] Deprecated#
+
+Deprecate `encodedAsBase64` / `decodedAsBase64` in favor of `asBase64Encoded` / `asBase64Decoded`
+
+[[assertj-core-3.22.0-file-size-assertions]]
+[.release-note-item]#Add size assertions for `File`#
+
+Returns an Assert object that allows performing assertions on the size of the `File` under test.
+
+Once this method is called, the object under test is no longer the `File` but its size, to return performing assertions on the `File`, call `returnToFile()`.
+
+Example:
+[source,java]
+----
+File file = File.createTempFile("tmp", "bin");
+Files.write(file.toPath(), new byte[] {1, 1});
+
+assertThat(file).size()
+                  .isGreaterThan(1L)
+                  .isLessThan(5L)
+                .returnToFile()
+                  .hasBinaryContent(new byte[] {1, 1});
+----
+
+[[assertj-core-3.22.0-throwable-message-assertions]]
+[.release-note-item]#Add `message()` navigation method for `Throwable`#
+
+A shortcut for `extracting(Throwable::getMessage, as(InstanceOfAssertFactories.STRING))` which allows to extract a throwable's message and then execute assertions on it.
+
+Note that once you have navigated to the throwable's message you can't navigate back to the throwable.
+
+Example:
+[source,java]
+----
+Throwable throwable = new Throwable("boom!");
+
+assertThat(throwable).message().startsWith("boo")
+                               .endsWith("!");
+----
+
+[[assertj-core-3.22.0-singleElement]]
+[.release-note-item]#Add `singleElement` for `Object[]` assertions#
+
+Verifies that the array under test contains a single element and allows performing assertions on that element.
+
+The assertions can be strongly typed if given an `AssertFactory` parameter.
+
+Example:
+[source,java]
+----
+String[] babySimpsons = { "Maggie" };
+
+// object assertions
+assertThat(babySimpsons).singleElement()
+                        .isEqualTo("Maggie");
+
+// strongly typed assertions with a predefined AssertFactory
+import static org.assertj.core.api.Assertions.as; // syntactic sugar
+import static org.assertj.core.api.InstanceOfAssertFactories.STRING;
+
+assertThat(babySimpsons).singleElement(as(STRING))
+                        .startsWith("Mag");
+----
+
+[[assertj-core-3.22.0-hasNoHost]]
+[.release-note-item]#Add `hasNoHost` to `URI` and `URL` assertions#
+
+Verifies that the actual `URI`/`URL` has no host.
+
+Example:
+[source,java]
+----
+assertThat(new URI("file:///home/user/Documents/hello-world.txt")).hasNoHost();
+assertThat(new URL("file:///home/user/Documents/hello-world.txt")).hasNoHost();
+----
+
+[[assertj-core-3.22.0-doesNotReturn]]
+[.release-note-item]#Add `doesNotReturn`  to `Object` assertions#
+
+Verifies that the object under test does not return the given expected value from the given `Function`, a typical usage is to pass a method reference to assert object's property.
+
+Wrapping the given Function with `Assertions.from(Function)` makes the assertion more readable.
+
+Example:
+[source,java]
+----
+// from is not mandatory but it makes the assertions more readable
+assertThat(frodo).doesNotReturn("Bilbo", from(TolkienCharacter::getName))
+                 .doesNotReturn("Bilbo", TolkienCharacter::getName) // no from :(
+                 .doesNotReturn(null, from(TolkienCharacter::getRace));
+----
 
 [[assertj-core-3-21-0-release-notes]]
 ==== AssertJ Core 3.21.0

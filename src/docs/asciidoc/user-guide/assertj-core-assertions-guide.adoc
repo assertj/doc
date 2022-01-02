@@ -540,6 +540,7 @@ Assertions error messages use a `Representation` to format the different types i
 * Changing the default global `Representation` by calling `Assertions.useRepresentation(myRepresentation)` - see <<Changing the default global scope custom representation>>
 * Changing the `Representation` per assertion with `assertThat(actual).withRepresentation(myRepresentation)` - see <<Per assertion scope custom representation>>
 * Globally registering a `Configuration` that specifies the `Representation` to use - see link:#assertj-core-configuration[AssertJ global configuration].
+* Registering multiple link:#assertj-core-fine-grained-representations[fine grained representations] that only defines representation of their custom types.
 
 Let's go over these different options with a custom `Representation`.
 
@@ -631,6 +632,120 @@ assertThat(new Example()).withRepresentation(customRepresentation)
 assertThat("foo").withRepresentation(customRepresentation)
                  .startsWith("bar");
 ----
+
+
+[[assertj-core-fine-grained-representations]]
+===== Registering multiple fine-grained representations
+
+Since 3.22.0 AssertJ allows registering multiple representations (one per jar).
+
+The typical use case is for different domain-specific libraries to be able to independently register `Representation` implementations for their specific domain objects.
+
+[NOTE]
+====
+In case different representations can represent the same type, the one with the highest priority wins.
+====
+
+Let's take a concrete example where we have two domain specific libraries: Lotr and star wars and a project that uses them both.
+
+The Lotr library is composed of an `Hobbit` class and a specific representation for it, note that `LotrRepresentation` represents Hobbits starting with `HOBBIT` unlike `Hobbit` `toString` method:
+[source,java,indent=0]
+----
+package org.assertj.example.lotr;
+
+public class Hobbit {
+
+  public String name;
+  public String age;
+
+  @Override
+  public String toString() {
+    return format("Hobbit [name=%s, age=%s]", name, age);
+  }
+}
+
+public class LotrRepresentation implements Representation {
+
+  @Override
+  public String toStringOf(Object object) {
+    if (object instanceof Hobbit) {
+      Hobbit hobbit = (Hobbit) object;
+      return String.format("HOBBIT [name=%s, age=%s]", hobbit.name, hobbit.age);
+    }
+    return null;
+  }
+
+  // only needed if another library was to represent Hobbit, in this case the one with highest priority wins
+  @Override
+  public int getPriority() {
+    return 5;
+  }
+}
+----
+
+`LotrRepresentation` is registered by creating a `META-INF/services/org.assertj.core.presentation.Representation` file that contain `org.assertj.example.lotr.LotrRepresentation`, the file must be available in the classpath (typically by putting in it src/main/resources it will end up in the library jar).
+
+Similarly the star wars library defines a `Jedi` and a `StarWarsRepresentation`:
+
+[source,java]
+----
+package org.assertj.example.starwars;
+
+public class Jedi {
+
+  public String name;
+  public String age;
+
+  @Override
+  public String toString() {
+    return format("Jedi [name=%s, age=%s]", name, age);
+  }
+}
+
+public class StarWarsRepresentation implements Representation {
+
+  @Override
+  public String toStringOf(Object object) {
+    if (object instanceof Jedi) {
+      Jedi jedi = (Jedi) object;
+      return String.format("JEDI [name=%s, age=%s]", jedi.name, jedi.age);
+    }
+    return null;
+  }
+
+  @Override
+  public int getPriority() {
+    return 10;
+  }
+}
+----
+
+Same as the Lotr library, `StarWarsRepresentation` is registered by creating a `META-INF/services/org.assertj.core.presentation.Representation` file that contain `org.assertj.example.starwars.StarWarsRepresentation`.
+
+The consuming project specifies both libraries as dependencies, since both have registered a representation, AssertJ will discover them and keep them in a composite representation that aggregates all registered representaions.
+
+The following test fails with frodo and luke being represented by `LotrRepresentation` and `StarWarsRepresentation` respectively.
+[source,java]
+----
+Hobbit frodo = new Hobbit();
+frodo.name = "Frodo";
+frodo.age = "33";
+
+Jedi luke = new Jedi();
+luke.name = "Luke";
+luke.age = "23";
+
+assertThat(frodo).isEqualTo(luke);
+----
+
+Error message:
+[source,text]
+----
+org.opentest4j.AssertionFailedError:
+expected: JEDI [name=Luke, age=23]
+ but was: HOBBIT [name=Frodo, age=33]
+----
+
 
 
 [[assertj-core-common-assertions]]
@@ -1302,7 +1417,7 @@ assertThat(thrown).isInstanceOf(ArrayIndexOutOfBoundsException.class)
                   .hasMessageContaining("9");
 ----
 
-TIP: `catchThrowable` returns null if no exception is thrown but there is a better way to link:#assertj-core-exception-assertions-no-exception[check that no exception is thrown].
+TIP: `catchThrowable` returns null if no exception is thrown, but there is a better way to link:#assertj-core-exception-assertions-no-exception[check that no exception is thrown].
 
 `catchThrowableOfType` is a variation of `catchThrowable` where the caught exception type is verified and returned allowing to check the custom exception fields/properties.
 
@@ -1330,6 +1445,34 @@ class TextException extends Exception {
  // fails as TextException is not a RuntimeException
  catchThrowableOfType(() -> { throw new TextException("boom!", 1, 5); }, RuntimeException.class);
 ----
+
+Although the example above can be used for any exception type, enriched alternatives for `catchThrowableOfType` are also available to catch an instance of various commonly used exceptions:
+
+* `catchException`
+* `catchIllegalArgumentException`
+* `catchIllegalStateException`
+* `catchIndexOutOfBoundsException`
+* `catchIOException`
+* `catchNullPointerException`
+* `catchReflectiveOperationException`
+* `catchRuntimeException`
+
+For example, using `catchIOException`, the `ThrowingCallable` given as a parameter is executed: `catchIOException` returns null if no exception is thrown, otherwise it checks that the caught `Throwable` is of type `IOException` and casts it, making it convenient to perform subtype-specific assertions on it.
+
+[source,java]
+----
+IOException iOException = catchIOException(() -> {throw new IOException("boom!");});
+// assertions succeed
+assertThat(iOException).hasMessage("boom!");
+
+// succeeds as catchIOException returns null when the code does not throw any exceptions
+assertThat(catchIOException(() -> {})).isNull();
+
+// fails as the thrown instance is not an IOException
+catchIOException(() -> {throw new Exception("boom!");});
+----
+
+The other `catchXXX` alternatives work the same way for their respective exception type.
 
 [[assertj-core-exception-assertions-assertThatThrownBy]]
 ===== assertThatThrownBy
@@ -1359,7 +1502,7 @@ assertThatExceptionOfType(IOException.class).isThrownBy(() -> { throw new IOExce
 
 NOTE: If the provided `ThrowingCallable` does not raise an exception, an assertion error is immediately thrown.
 
-This latter syntax has been enriched for common exceptions:
+Similarly to `catchThrowableOfType`, the latter syntax has been enriched for commonly used exceptions:
 
 * `assertThatNullPointerException`
 * `assertThatIllegalArgumentException`
@@ -1449,6 +1592,7 @@ Since 3.12.0 AssertJ Core provides a new fluent recursive comparison API for `Ob
 * link:#assertj-core-recursive-comparison-ignoring-equals[Force recursive comparison on classes that have redefined `equals`]
 * link:#assertj-core-recursive-comparison-ignoring-all-expected-null-fields[Ignoring all expected null fields]
 * link:#assertj-core-recursive-comparison-ignoring-all-actual-empty-optional-fields[Ignoring all actual empty optional fields].
+* link:#assertj-core-recursive-comparison-overriding-error-messages[Overriding error messages for specific fields or types].
 
 ===== Basic usage
 
@@ -1856,6 +2000,112 @@ assertThat(frodo).usingRecursiveComparison()
                  .isEqualTo(reallyTallFrodo);
 ----
 
+[[assertj-core-recursive-comparison-overriding-error-messages]]
+===== Overriding error messages for specific fields or types
+
+If AssertJ difference error description is not yo your liking, you can override it either by fields or types.
+
+You can override messages for all fields of a given type, example for `Double`:
+[source,java,indent=0]
+----
+withErrorMessageForType("Double field differ", Double.class)
+----
+
+Alternatively can override messages for some specific fields which must be specified from the root object, for example if `Foo` has a `Bar` field and both have an `id` field, one can register a message for `Foo` and `Bar` id by calling:
+
+[source,java,indent=0]
+----
+withErrorMessageForFields("id values differ", "foo.id", "foo.bar.id")
+----
+
+Messages registered with `withErrorMessageForFields` have precedence over the ones registered with `withErrorMessageForType`.
+
+Example overriding message for a field:
+[source,java,indent=0]
+----
+public class TolkienCharacter {
+  String name;
+  double height;
+}
+
+TolkienCharacter frodo = new TolkienCharacter("Frodo", 1.2);
+TolkienCharacter tallerFrodo = new TolkienCharacter("Frodon", 1.4);
+
+String message = "The field 'height' differ.";
+
+// assertion fails
+assertThat(frodo).usingRecursiveComparison()
+                 .withErrorMessageForFields(message, "height")
+                 .isEqualTo(tallerFrodo);
+----
+
+and the error will report the height field with the given overridden message instead of the one computed by AssertJ as with the name error:
+
+
+[source,text,indent=0]
+----
+Expecting actual:
+  TolkienCharacter [name=Frodo, height=1.2]
+to be equal to:
+  TolkienCharacter [name=Frodon, height=1.4]
+when recursively comparing field by field, but found the following 2 differences:
+
+The field 'height' differ.
+
+field/property 'name' differ:
+- actual value  : "Frodo"
+- expected value: "Frodon"
+
+The recursive comparison was performed with this configuration:
+- no overridden equals methods were used in the comparison (except for java types)
+- these types were compared with the following comparators:
+  - java.lang.Double -> DoubleComparator[precision=1.0E-15]
+  - java.lang.Float -> FloatComparator[precision=1.0E-6]
+  - java.nio.file.Path -> lexicographic comparator (Path natural order)
+- actual and expected objects and their fields were compared field by field recursively even if they were not of the same type, this allows for example to compare a Person to a PersonDto (call strictTypeChecking(true) to change that behavior).
+- these fields had overridden error messages:
+  - height
+----
+
+Example overriding message for a type:
+[source,java,indent=0]
+----
+String message = "Double field differ";
+
+// assertion fails
+assertThat(frodo).usingRecursiveComparison()
+                 .withErrorMessageForType(message, Double.class)
+                 .isEqualTo(tallerFrodo);
+----
+
+and the error will report the height field with the given overridden message instead of the one computed by AssertJ as with the name error:
+
+[source,text,indent=0]
+----
+Expecting actual:
+  TolkienCharacter [name=Frodo, height=1.2]
+to be equal to:
+  TolkienCharacter [name=Frodon, height=1.4]
+when recursively comparing field by field, but found the following 2 differences:
+
+Double field differ.
+
+field/property 'name' differ:
+- actual value  : "Frodo"
+- expected value: "Frodon"
+
+The recursive comparison was performed with this configuration:
+- no overridden equals methods were used in the comparison (except for java types)
+- these types were compared with the following comparators:
+  - java.lang.Double -> DoubleComparator[precision=1.0E-15]
+  - java.lang.Float -> FloatComparator[precision=1.0E-6]
+  - java.nio.file.Path -> lexicographic comparator (Path natural order)
+- actual and expected objects and their fields were compared field by field recursively even if they were not of the same type, this allows for example to compare a Person to a PersonDto (call strictTypeChecking(true) to change that behavior).
+- these types had overridden error messages:
+  - height
+----
+
+
 [[assertj-core-recursive-comparison-for-iterable]]
 ===== Recursive comparison for iterable assertions
 
@@ -1863,7 +2113,7 @@ assertThat(frodo).usingRecursiveComparison()
 
 Another difference is that `usingRecursiveComparison()` exposes a fluent API to tweak the recursive comparison, to achieve the same you will need to initialize a `RecursiveComparisonConfiguration` and pass it to `usingRecursiveFieldByFieldElementComparator​`, you can take advantage of the `RecursiveComparisonConfiguration.builder()` to do so.
 
-Example: 
+Example:
 [source,java,indent=0]
 ----
 public class Person {
