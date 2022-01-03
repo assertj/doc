@@ -37,7 +37,23 @@ Release date : 2022-01-03
 [[assertj-core-3.22.0-contributors]]
 [.release-note-category]#icon:user[] Contributors#
 
-Thanks to all the contributors of this release: Erhard Pointl, Stefano Cordio, Yusuke Mukai, Martin Tarjányi, Trang Nguyen, jbock, Annette0127, Zihan Xu, Ashley Scopes, Benjamin Ze'ev Tels, Ahmad Sadeed, temp-droid, Ilya Koshaleu, Spacca and Erik Pragt.
+Thanks to all the contributors of this release:
+Erhard Pointl,
+Stefano Cordio,
+Yusuke Mukai icon:user-plus[title=New contributor],
+Martin Tarjányi icon:user-plus[title=New contributor],
+Trang Nguyen icon:user-plus[title=New contributor],
+jbock icon:user-plus[title=New contributor],
+Annette0127,
+Zihan Xu icon:user-plus[title=New contributor],
+Ashley Scopes icon:user-plus[title=New contributor],
+Benjamin Ze'ev Tels icon:user-plus[title=New contributor],
+Ahmad Sadeed icon:user-plus[title=New contributor],
+temp-droid icon:user-plus[title=New contributor],
+Ilya Koshaleu icon:user-plus[title=New contributor],
+Spacca icon:user-plus[title=New contributor],
+Erik Pragt icon:user-plus[title=New contributor],
+and Jeremy Landis.
 
 [[assertj-core-3.22.0-binary-compatibility]]
 [.release-note-category]#icon:cogs[] Binary compatibility#
@@ -98,6 +114,7 @@ More details are available in the <<Binary Compatibility>> section.
 * Internal: Bump spring-core from 5.3.10 to 5.3.14
 * Internal: Bump equalsverifier from 3.7.1 to 3.8.1
 * Internal: Bump org.eclipse.osgi from 3.17.0 to 3.17.100
+* Internal: Switch to the official Maven Wrapper by Apache (#2452). (Jeremy Landis)
 
 [[assertj-core-3.22.0-fixed]]
 [.release-note-category]#icon:wrench[] Fixed#
