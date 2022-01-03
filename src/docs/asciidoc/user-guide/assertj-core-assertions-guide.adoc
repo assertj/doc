@@ -751,12 +751,12 @@ expected: JEDI [name=Luke, age=23]
 [[assertj-core-common-assertions]]
 ==== Common assertions
 
-This section describes the assertions common to all types.
+This section describes the assertions common to all types, the javadoc for common assertions methods is available https://www.javadoc.io/static/org.assertj/assertj-core/{assertj-core-version}/org/assertj/core/api/AbstractAssert.html#method.summary[here].
 
 [[assertj-core-object-assertions]]
-==== Object assertions (TODO)
+==== Object assertions
 
-TODO
+The javadoc for `Object` assertions is available https://www.javadoc.io/static/org.assertj/assertj-core/{assertj-core-version}/org/assertj/core/api/AbstractObjectAssert.html#method.summary[here].
 
 [[assertj-string-object-assertions]]
 ==== String/CharSequence assertions
