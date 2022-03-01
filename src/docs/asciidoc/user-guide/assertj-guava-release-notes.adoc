@@ -25,31 +25,31 @@ Thanks to Ilya Koshaleu for its contribution!
 
 Add link:#assertj-guava-3.4.0-range-set-assertions[`RangeSet` assertions] (Ilya Koshaleu): 
 
-- `contains​(T... ranges)`: Verifies that the given `RangeSet` contains the given ranges.
-- `containsAll​(Iterable<T> ranges)`: Verifies that the given `RangeSet` contains all the given ranges.
-- `containsAnyOf​(T... ranges)`: Verifies that the given `RangeSet` contains at least one of the given ranges.
-- `containsAnyRangesOf​(Iterable<T> ranges)`: Verifies that the given `RangeSet` contains at least one of the given ranges.
-- `doesNotContain​(T... ranges)`: Verifies that the given `RangeSet` does not contain any of the given ranges.
-- `doesNotContainAll​(Iterable<T> ranges)`: Verifies that the given `RangeSet` does not contain any of the given ranges.
-- `doesNotEnclose​(Range<T>... ranges)`: Verifies that the given `RangeSet` does not enclose the given ranges.
-- `doesNotEncloseAnyRangesOf​(RangeSet<T> rangeSet)`: Verifies that the given `RangeSet` does not enclose any range from the given range set.
-- `doesNotEncloseAnyRangesOf​(Iterable<Range<T>> ranges)`: Verifies that the given `RangeSet` does not enclose any of the given ranges.
-- `doesNotIntersect​(Range<T>... ranges)`: Verifies that the given `RangeSet` does not intersect the given ranges.
-- `doesNotIntersectAnyRangeFrom​(RangeSet<T> rangeSet)`: Verifies that the given `RangeSet` does not intersect ranges from the given range set.
-- `doesNotIntersectAnyRangeFrom​(Iterable<Range<T>> ranges)`: Verifies that the given `RangeSet` does not intersect all the given ranges.
-- `encloses​(Range<T>... ranges)`: Verifies that the given `RangeSet` encloses the given ranges.
-- `enclosesAll​(RangeSet<T> rangeSet)`: Verifies that the given `RangeSet` encloses all ranges from the given range set.
-- `enclosesAll​(Iterable<Range<T>> ranges)`: Verifies that the given `RangeSet` encloses all the given ranges.
-- `enclosesAnyOf​(Range<T>... ranges)`: Verifies that the given `RangeSet` encloses at least one of the given ranges.
-- `enclosesAnyRangesOf​(RangeSet<T> rangeSet)`: Verifies that the given `RangeSet` encloses at least one range from the given range set.
-- `enclosesAnyRangesOf​(Iterable<Range<T>> ranges)`: Verifies that the given `RangeSet` encloses at least one range of the given ranges.
-- `hasSize​(int size)`: Verifies that the given `RangeSet` has the specific size of disconnected Range elements.
-- `intersects​(Range<T>... ranges)`: Verifies that the given `RangeSet` intersects all the given ranges.
-- `intersectsAll​(RangeSet<T> rangeSet)`: Verifies that the given `RangeSet` intersects all the given range set.
-- `intersectsAll​(Iterable<Range<T>> ranges)`: Verifies that the given `RangeSet` intersects all the given ranges.
-- `intersectsAnyOf​(Range<T>... ranges)`: Verifies that the given `RangeSet` intersects at least one of the given ranges.
-- `intersectsAnyRangesOf​(RangeSet<T> rangeSet)`: Verifies that the given `RangeSet` intersects at least one range of the given range set.
-- `intersectsAnyRangesOf​(Iterable<Range<T>> ranges)`: Verifies that the given `RangeSet` intersects at least one of the given ranges.
+- `contains(T... ranges)`: Verifies that the given `RangeSet` contains the given ranges.
+- `containsAll(Iterable<T> ranges)`: Verifies that the given `RangeSet` contains all the given ranges.
+- `containsAnyOf(T... ranges)`: Verifies that the given `RangeSet` contains at least one of the given ranges.
+- `containsAnyRangesOf(Iterable<T> ranges)`: Verifies that the given `RangeSet` contains at least one of the given ranges.
+- `doesNotContain(T... ranges)`: Verifies that the given `RangeSet` does not contain any of the given ranges.
+- `doesNotContainAll(Iterable<T> ranges)`: Verifies that the given `RangeSet` does not contain any of the given ranges.
+- `doesNotEnclose(Range<T>... ranges)`: Verifies that the given `RangeSet` does not enclose the given ranges.
+- `doesNotEncloseAnyRangesOf(RangeSet<T> rangeSet)`: Verifies that the given `RangeSet` does not enclose any range from the given range set.
+- `doesNotEncloseAnyRangesOf(Iterable<Range<T>> ranges)`: Verifies that the given `RangeSet` does not enclose any of the given ranges.
+- `doesNotIntersect(Range<T>... ranges)`: Verifies that the given `RangeSet` does not intersect the given ranges.
+- `doesNotIntersectAnyRangeFrom(RangeSet<T> rangeSet)`: Verifies that the given `RangeSet` does not intersect ranges from the given range set.
+- `doesNotIntersectAnyRangeFrom(Iterable<Range<T>> ranges)`: Verifies that the given `RangeSet` does not intersect all the given ranges.
+- `encloses(Range<T>... ranges)`: Verifies that the given `RangeSet` encloses the given ranges.
+- `enclosesAll(RangeSet<T> rangeSet)`: Verifies that the given `RangeSet` encloses all ranges from the given range set.
+- `enclosesAll(Iterable<Range<T>> ranges)`: Verifies that the given `RangeSet` encloses all the given ranges.
+- `enclosesAnyOf(Range<T>... ranges)`: Verifies that the given `RangeSet` encloses at least one of the given ranges.
+- `enclosesAnyRangesOf(RangeSet<T> rangeSet)`: Verifies that the given `RangeSet` encloses at least one range from the given range set.
+- `enclosesAnyRangesOf(Iterable<Range<T>> ranges)`: Verifies that the given `RangeSet` encloses at least one range of the given ranges.
+- `hasSize(int size)`: Verifies that the given `RangeSet` has the specific size of disconnected Range elements.
+- `intersects(Range<T>... ranges)`: Verifies that the given `RangeSet` intersects all the given ranges.
+- `intersectsAll(RangeSet<T> rangeSet)`: Verifies that the given `RangeSet` intersects all the given range set.
+- `intersectsAll(Iterable<Range<T>> ranges)`: Verifies that the given `RangeSet` intersects all the given ranges.
+- `intersectsAnyOf(Range<T>... ranges)`: Verifies that the given `RangeSet` intersects at least one of the given ranges.
+- `intersectsAnyRangesOf(RangeSet<T> rangeSet)`: Verifies that the given `RangeSet` intersects at least one range of the given range set.
+- `intersectsAnyRangesOf(Iterable<Range<T>> ranges)`: Verifies that the given `RangeSet` intersects at least one of the given ranges.
 - `isEmpty()`: Verifies that the actual RangeSet is empty.
 - `isNotEmpty()`: Verifies that the actual RangeSet is not empty.
 - `isNullOrEmpty()`: Verifies that the actual RangeSet is null or empty.
@@ -61,7 +61,6 @@ Add link:#assertj-guava-3.4.0-range-set-assertions[`RangeSet` assertions] (Ilya 
 - Uses to assertj-core version 3.15.0.
 - Uses to guava version 29.0-jre.
 - Internal: setup github actions CI build and sonar reporting.
-
 
 [[assertj-guava-3-3-0-release-notes]]
 ==== AssertJ Guava 3.3.0
