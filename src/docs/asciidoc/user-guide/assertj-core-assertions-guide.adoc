@@ -1025,7 +1025,7 @@ TolkienCharacter mysteriousHobbit = new TolkienCharacter(null, 38, HOBBIT);
 
 List<TolkienCharacter> hobbits = list(frodo, mysteriousHobbit, merry, pippin);
 
-assertThat(hobbits).filteredOnNull("age"))
+assertThat(hobbits).filteredOnNull("name"))
                    .singleElement()
                    .isEqualTo(mysteriousHobbit);
 ----
