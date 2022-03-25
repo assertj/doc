@@ -973,7 +973,7 @@ Condition<String> shorterThan4 = VerboseCondition.verboseCondition(actual -> act
                                                                    // predicate description  
                                                                    "shorter than 4",
                                                                    // value under test description transformation function
-                                                                   s -> String.format(" but length was %s", s.length(), s));
+                                                                   s -> String.format(" but length was %s", s.length()));
 ----
 
 If we execute:
