@@ -5,6 +5,7 @@ NOTE: AssertJ Core would not exist without its contributors, you can find them a
 
 Latest release notes:
 
+- link:#assertj-core-3-23-1-release-notes[AssertJ Core 3.23.1]
 - link:#assertj-core-3-23-0-release-notes[AssertJ Core 3.23.0]
 - link:#assertj-core-3-22-0-release-notes[AssertJ Core 3.22.0]
 - link:#assertj-core-3-21-0-release-notes[AssertJ Core 3.21.0]
@@ -29,6 +30,22 @@ Latest release notes:
 - link:#assertj-core-3-12-0-release-notes[AssertJ Core 3.12.0]
 
 Older release notes can be found in the old site: https://joel-costigliola.github.io/assertj/assertj-core-news.html, this is important to be aware of breaking changes if you are migrating from an old version.
+
+[[assertj-core-3-23-1-release-notes]]
+==== AssertJ Core 3.23.1
+
+Release date : 2022-05-31
+
+[[assertj-core-3.23.1-binary-compatibility]]
+[.release-note-category]#icon:cogs[] Binary compatibility#
+
+The release [green]#*is binary compatible*# with the previous minor version.
+More details are available in the <<Binary Compatibility>> section.
+
+[[assertj-core-3.23.1-fixed]]
+[.release-note-category]#icon:wrench[] Fixed#
+
+* Downgrade `junit-jupiter` from 5.9.0-M1 to 5.8.2. This way, OSGi users are not forced to upgrade to a non-final Jupiter build.
 
 [[assertj-core-3-23-0-release-notes]]
 ==== AssertJ Core 3.23.0
