@@ -6,9 +6,61 @@ The new release notes though will be published here.
 
 Latest release notes:
 
+- link:#assertj-guava-3-5-0-release-notes[AssertJ Guava 3.5.0]
 - link:#assertj-guava-3-4-0-release-notes[AssertJ Guava 3.4.0]
 - link:#assertj-guava-3-3-0-release-notes[AssertJ Guava 3.3.0]
-- older release notes are in the http://joel-costigliola.github.io/assertj/assertj-guava.html#latest-release[old site].
+- Older release notes are in the http://joel-costigliola.github.io/assertj/assertj-guava.html#latest-release[old site].
+
+[[assertj-guava-3-5-0-release-notes]]
+==== AssertJ Guava 3.5.0
+
+Release date : 2022-06-11
+
+[[assertj-guava-3.5.0-contributors]]
+[.release-note-category]#icon:user[] Contributors#
+
+Thanks to all the contributors of this release:
+Erhard Pointl,
+Stefano Cordio,
+BJ Hargrave icon:user-plus[title=New contributor],
+sullis icon:user-plus[title=New contributor].
+
+[[assertj-guava-3.5.0-binary-compatibility]]
+[.release-note-category]#icon:cogs[] Binary compatibility#
+
+The release [green]#is binary compatible# with the previous minor version.
+
+[[assertj-guava-3.5.0-improvements]]
+[.release-note-category]#icon:arrow-circle-up[] Improvements#
+
+* Remove <> from error messages (Erhard Pointl)
+* Internal: Add binary compatibility check of `main` against the latest release (Stefano Cordio)
+* Internal: Add binary compatibility checks for pull requests (Stefano Cordio)
+* Internal: Add Code of Conduct (Stefano Cordio)
+* Internal: Add CodeQL workflow (Stefano Cordio)
+* Internal: Add Dependabot (sullis)
+* Internal: Add release workflow (Stefano Cordio)
+* Internal: Bump actions/cache from v1 to v2
+* Internal: Bump actions/checkout from 2 to 3
+* Internal: Bump actions/setup-java from 1 to 3
+* Internal: Bump actions/upload-artifact from 2 to 3
+* Internal: Bump assertj-core from 3.15.0 to 3.23.1 (sullis, Erhard Pointl, Stefano Cordio)
+* Internal: Bump assertj-parent-pom from 2.2.6 to 2.2.17
+* Internal: Bump github/codeql-action from 1 to 2
+* Internal: Bump guava from 29.0-jre to 31.1-jre
+* Internal: Bump Maven version from 3.6.3 to 3.8.5 (Erhard Pointl, Stefano Cordio)
+* Internal: Bump maven-bundle-plugin from 3.0.1 to 5.1.4
+* Internal: Convert JUnit 4 tests to JUnit 5 (Stefano Cordio)
+* Internal: Move `RangeSet` assertions to the api package (Stefano Cordio)
+* Internal: Simplify maven-bundle-plugin configuration (Stefano Cordio)
+* Internal: Switch to the official Maven Wrapper by Apache (Stefano Cordio)
+* Internal: Update license headers (Erhard Pointl, Stefano Cordio)
+* Internal: Use `bnd-maven-plugin` instead of `maven-bundle-plugin` (BJ Hargrave)
+
+[[assertj-guava-3.5.0-fixed]]
+[.release-note-category]#icon:wrench[] Fixed#
+
+* Remove the usage of `assertj-core` internal API to fix the compatibility with OSGi (Stefano Cordio)
 
 [[assertj-guava-3-4-0-release-notes]]
 ==== AssertJ Guava 3.4.0
@@ -23,7 +75,7 @@ Thanks to Ilya Koshaleu for its contribution!
 [[assertj-guava-3.4.0-new-features]]
 [.release-note-category]#icon:plus-circle[] New features#
 
-Add link:#assertj-guava-3.4.0-range-set-assertions[`RangeSet` assertions] (Ilya Koshaleu): 
+Add `RangeSet` assertions (Ilya Koshaleu):
 
 - `contains(T... ranges)`: Verifies that the given `RangeSet` contains the given ranges.
 - `containsAll(Iterable<T> ranges)`: Verifies that the given `RangeSet` contains all the given ranges.
