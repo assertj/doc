@@ -3,7 +3,7 @@
 
 This section describes the assertions provided by AssertJ Core and other useful features to get the best of it.
 
-AssertJ Core http://www.javadoc.io/doc/org.assertj/assertj-core/[javadoc] explains each assertions most of them with code examples so be sure to check it if you want to know what a specific assertion does. 
+AssertJ Core http://www.javadoc.io/doc/org.assertj/assertj-core/[javadoc] explains each assertions most of them with code examples so be sure to check it if you want to know what a specific assertion does.
 
 [[assertj-core-simple-example]]
 ==== A simple example
@@ -154,11 +154,11 @@ The error message starts with the given description in `[]` :
 ----
 
 [[assertj-core-assertion-description-consumer]]
-===== Printing or consuming description 
+===== Printing or consuming description
 
 AssertJ can print each assertion description (when it is set), to do so call `Assertions.setPrintAssertionsDescription(true);`.
 
-If printing assertion descriptions is not what you need, you can alternatively register a `Consumer<Description>` that will be called each time a description is set. 
+If printing assertion descriptions is not what you need, you can alternatively register a `Consumer<Description>` that will be called each time a description is set.
 
 Both options are exposed in AssertJ link:#assertj-core-configuration[`Configuration`] class.
 
@@ -166,7 +166,7 @@ Example: using a description consumer
 [source,java,indent=0]
 ----
 // initialize the description consumer
-final StringBuilder descriptionReportBuilder = new StringBuilder(String.format("Assertions:%n"));                   
+final StringBuilder descriptionReportBuilder = new StringBuilder(String.format("Assertions:%n"));
 Consumer<Description> descriptionConsumer = desc -> descriptionReportBuilder.append(String.format("-- %s%n", desc));
 
 // use the description consumer for any following assertions descriptions.
@@ -177,7 +177,7 @@ TolkienCharacter frodo = new TolkienCharacter("Frodo", 33, Race.HOBBIT);
 assertThat(frodo.getName()).as("check name")
                           .isEqualTo("Frodo");
 assertThat(frodo.getAge()).as("check age")
-                          .isEqualTo(33);   
+                          .isEqualTo(33);
 
 // get the report
 String descriptionReport = descriptionReportBuilder.toString();
@@ -906,7 +906,7 @@ assertThat(hobbitsName).last(as(STRING))
                        .startsWith("pip")
                        .endsWith("pin");
 
-// alternative for strongly typed assertions 
+// alternative for strongly typed assertions
 assertThat(hobbitsName, StringAssert.class).first()
                                            .startsWith("fro")
                                            .endsWith("do");
@@ -926,12 +926,12 @@ Iterable<String> babySimpsons = list("Maggie");
 assertThat(babySimpsons).singleElement()
                         .isEqualTo("Maggie");
 
-// to get specific typed assertions, pass the corresponding InstanceOfAssertFactory from 
+// to get specific typed assertions, pass the corresponding InstanceOfAssertFactory from
 // org.assertj.core.api.InstanceOfAssertFactories.STRING), as() is just synthetic sugar for readability
 assertThat(babySimpsons).singleElement(as(STRING))
                         .endsWith("gie");
 
-// alternative for strongly typed assertions             
+// alternative for strongly typed assertions
 assertThat(babySimpsons, StringAssert.class).singleElement()
                                             .startsWith("Mag");
 ----
@@ -945,7 +945,7 @@ Filtering is handy to target assertions on some specific elements, the filter cr
 * an link:#filtering-on-a-property-or-a-field[element property/field having a specific value (or not) or in a set of values (or not)]
 * an link:#filtering-on-null-value[element property/field having a null value]
 * an element link:#filtering-elements-matchin-given-assertions[matching some assertions]
-* an element matching a link:#filtering-with-a-condition[Condition] 
+* an element matching a link:#filtering-with-a-condition[Condition]
 
 Let's explore these options in some examples taken from {assertj-examples-repo}/tree/main/assertions-examples/src/test/java/org/assertj/examples/FilterExamples.java#L47[FilterExamples] from the {assertj-examples-repo}[assertions-examples] project.
 
@@ -1012,7 +1012,7 @@ assertThat(fellowshipOfTheRing).filteredOn(TolkienCharacter::getRace, HOBBIT)
 
 ====== Filtering on null value
 
-Filters the elements whose specified property/field is null. 
+Filters the elements whose specified property/field is null.
 
 Filter supports nested properties/fields. Note that if an intermediate value is null the whole nested property/field is considered to be null, for example reading `"address.street.name"` will return null if `"address.street"` is null.
 
@@ -1032,9 +1032,9 @@ assertThat(hobbits).filteredOnNull("name"))
 
 ====== Filtering elements matchin given assertions
 
-Filters the iterable under test keeping only elements matching the given assertions specified with a `Consumer`. 
+Filters the iterable under test keeping only elements matching the given assertions specified with a `Consumer`.
 
-Example: check hobbits whose age < 34 
+Example: check hobbits whose age < 34
 [source,java,indent=0]
 ----
 TolkienCharacter pippin = new TolkienCharacter("Pippin", 28, HOBBIT);
@@ -1141,7 +1141,7 @@ assertThat(fellowshipOfTheRing).extracting("name", String.class)
 
 ====== Extracting multiple values
 
-You can extract several values from the elements under test and check them using {assertj-core-javadoc-root}org/assertj/core/api/Assertions.html#tuple(java.lang.Object&#46;&#46;&#46;)[tuples]. 
+You can extract several values from the elements under test and check them using {assertj-core-javadoc-root}org/assertj/core/api/Assertions.html#tuple(java.lang.Object&#46;&#46;&#46;)[tuples].
 
 As an example, let's check the name, age and race's name of each TolkienCharacter element:
 
@@ -1345,7 +1345,7 @@ assertThatExceptionOfType(RuntimeException.class)
 
 ====== Checking the root cause
 
-You can check the root cause directly with `hasRootCause`, `hasRootCauseMessage` and `hasRootCauseInstanceOf​` if you have access to it but that's not always possible, this is a bit limited 
+You can check the root cause directly with `hasRootCause`, `hasRootCauseMessage` and `hasRootCauseInstanceOf​` if you have access to it but that's not always possible, this is a bit limited
 in term of assertions, a better way is to navigate to the root cause with `getRootCause()` and take advantage of all existing exception assertions.
 
 Examples:
@@ -1665,7 +1665,6 @@ Since 3.17.0 it does not use anymore `equals` methods of classes that have overr
 
 Since 3.17.0 `isNotEqualTo` is available in the recursive API, example:
 
-
 [source,java,indent=0]
 ----
 // equals not overridden in TolkienCharacter
@@ -1794,7 +1793,7 @@ assertThat(sherlock).usingRecursiveComparison()
                     .ignoringActualNullFields()
                     .isEqualTo(moriarty);
 
-// ignore height and address fields by type: 
+// ignore height and address fields by type:
 Person tallSherlock = new Person("sherlock", 2.10);
 tallSherlock.home.address.street = "Long Baker Street";
 tallSherlock.home.address.number = 222;
@@ -1804,9 +1803,11 @@ assertThat(sherlock).usingRecursiveComparison()
 ----
 
 [[assertj-core-recursive-comparison-ignoring-equals]]
-===== Ignoring overridden equals
+===== Using overridden equals
 
-Before 3.17.0 the recursive comparison used overridden `equals` methods to compare fields by default, it is possible to change that behavior and force a recursive comparison by calling:
+Since 3.17.0 the recursive comparison does not use overridden `equals` methods to compare fields anymore, it performs a recursive comparison on these fields, it is possible to change that behavior by calling `usingOverriddenEquals()`.
+
+Once using overridden `equals` methods is enabled, you can disable it for certain types or fields (and perform a recursive comparison instead) using the following methods:
 
 * `ignoringOverriddenEqualsForTypes(Class...)` Any fields of these classes are compared recursively
 * `ignoringOverriddenEqualsForFields(String...)` Any given fields are compared recursively
@@ -1851,11 +1852,13 @@ Example:
  // assertion succeeds but that's not what we expected since the home.address.street fields differ
  // but the equals implementation in Address does not compare them.
  assertThat(sherlock).usingRecursiveComparison()
+                     .usingOverriddenEquals()
                      .isEqualTo(sherlock2);
 
  // to avoid the previous issue, we force a recursive comparison on the Address type
  // now this assertion fails as expected since the home.address.street fields differ.
  assertThat(sherlock).usingRecursiveComparison()
+                     .usingOverriddenEquals()
                      .ignoringOverriddenEqualsForTypes(Address.class)
                      .isEqualTo(sherlock2);
 ----
@@ -1863,14 +1866,14 @@ Example:
 [[assertj-core-recursive-comparison-ignoring-all-expected-null-fields]]
 ===== Ignoring all expected null fields
 
-By using `ignoringExpectedNullFields()` the recursive comparison will exclude from the comparison any null fields in the expected object. + 
+By using `ignoringExpectedNullFields()` the recursive comparison will exclude from the comparison any null fields in the expected object. +
 One use case for that is when the object under test have fields with values hard to predict (id, timestamp, ...),  with this feature you simply build the expected object with null values values for these fields and they won't be compared.
 
 Example:
 
 [source,java,indent=0]
 ----
-public class Person {  
+public class Person {
   String name;
   double height;
   Home home = new Home();
@@ -1905,8 +1908,8 @@ assertThat(noName).usingRecursiveComparison()
 [[assertj-core-recursive-comparison-ignoring-all-actual-empty-optional-fields]]
 ===== Ignoring all actual empty optional fields
 
-`ignoringActualEmptyOptionalFields()` makes the recursive comparison to ignore all actual empty optional fields (including `Optional`, `OptionalInt`, `OptionalLong` and `OptionalDouble`). + 
-Note that the expected object empty optional fields are not ignored, this only applies to actual's fields. 
+`ignoringActualEmptyOptionalFields()` makes the recursive comparison to ignore all actual empty optional fields (including `Optional`, `OptionalInt`, `OptionalLong` and `OptionalDouble`). +
+Note that the expected object empty optional fields are not ignored, this only applies to actual's fields.
 
 [source,java,indent=0]
 ----
@@ -2170,7 +2173,7 @@ Since soft assertions don't fail at the first error, you need to tell AssertJ wh
 * Using a link:#assertj-core-junit4-soft-assertions[JUnit 4 rule] that takes care of calling `assertAll()` after each tests
 * Using the provided link:#assertj-core-junit5-soft-assertions[JUnit 5 extension] which injects a `SoftAssertions` or a `BDDSoftAssertions` parameter and calls `assertAll()` after each tests
 * Using a link:#assertj-core-closeable-soft-assertions[`AutoCloseableSoftAssertions`]
-* Using link:#assertj-core-assertSoftly-assertions[`assertSoftly` static method] 
+* Using link:#assertj-core-assertSoftly-assertions[`assertSoftly` static method]
 
 Soft assertions comes with a link:#assertj-core-bdd-soft-assertions[BDD flavor] where `assertThat` is replaced by `then`.
 
@@ -2261,7 +2264,7 @@ include::{testDir}/example/core/JUnit4BDDSoftAssertionsExample.java[tags=junit4-
 IMPORTANT: `JUnitJupiterSoftAssertions`, `JUnitJupiterBDDSoftAssertions` and `SoftlyExtension` are now deprecated in favor of `SoftAssertionsExtension`.
 
 [[assertj-core-junit5-soft-assertions-field-injection]]
-====== SoftAssertionsProvider field injection 
+====== SoftAssertionsProvider field injection
 
 `SoftAssertionsExtension` supports injecting any instance of `SoftAssertionsProvider` into a class test field annotated with `@InjectSoftAssertions`. +
 The injection occurs before each test method execution, after each test `assertAll()` is invoked to verify that no soft assertions failed.
@@ -2315,13 +2318,13 @@ public class JUnit5SoftAssertionsExtensionAssertionsExamples {
 ----
 
 [[assertj-core-junit5-soft-assertions-parameter-injection]]
-====== SoftAssertionsProvider parameter injection 
+====== SoftAssertionsProvider parameter injection
 
 `SoftAssertionsExtension` supports injecting any `SoftAssertionsProvider` implementation as a parameter in any test method.
 
 The term "test method" refers to any method annotated with `@Test`, `@RepeatedTest`, `@ParameterizedTest`, `@TestFactory` or `@TestTemplate`.
 Notably, the extension is compatible with link:https://junit.org/junit5/docs/current/user-guide/#writing-tests-parameterized-tests[parameterized tests], the parameterized arguments must come first and the soft assertions argument last.
- 
+
 The scope of the `SoftAssertionsProvider` instance managed by this extension begins when a parameter of type `SoftAssertionsProvider` is resolved for a test method. +
 It ends after the test method has been executed, this is when `assertAll()` will be invoked on the instance to verify that no soft assertions failed.
 
@@ -2371,7 +2374,7 @@ include::{testDir}/example/core/SoftAssertionsExample.java[tags=assertSoftly-sof
 [[assertj-core-soft-assertions-combining]]
 ===== Combining soft assertions entry points
 
-Since the 3.16.0 version AssertJ provides a way to combine standard soft assertions with custom ones in a single entry point. 
+Since the 3.16.0 version AssertJ provides a way to combine standard soft assertions with custom ones in a single entry point.
 
 Let's assume we have written an entry point for `TolkienCharacter` soft assertions so that we can write assertions like:
 
@@ -2386,7 +2389,7 @@ If we want to check standard soft assertions we could make `TolkienSoftAssertion
 The 3.16.0 release introduced the `SoftAssertionsProvider` interface to define soft assertions entry points.
 
 [.underline]#Step 1# +
-The first step consists in extending this interface to expose as many custom entry points as you need. + 
+The first step consists in extending this interface to expose as many custom entry points as you need. +
 The typical custom `SoftAssertionsProvider` interface exposes default `assertThat` methods, as shown below:
 
 [source,java,indent=0]
@@ -2409,7 +2412,7 @@ public interface GoTSoftAssertionsProvider extends SoftAssertionsProvider {
 
 [.underline]#Step 2# +
 In order to get a concrete entry point exposing all custom entry points, create a class implementing all custom `SoftAssertionsProvider`s and extending `AbstractSoftAssertions`.
-`AbstractSoftAssertions` provides the core internal implementation to collect all errors from the different implemented entry points (it also implements `SoftAssertionsProvider`). 
+`AbstractSoftAssertions` provides the core internal implementation to collect all errors from the different implemented entry points (it also implements `SoftAssertionsProvider`).
 
 To get standard soft assertions, inherit from `SoftAssertions` instead of `AbstractSoftAssertions` (or `BddSoftAssertions` to get the BDD flavor).
 
@@ -2417,7 +2420,7 @@ Let's define our concrete entry points implementing both `TolkienSoftAssertionsP
 [source,java,indent=0]
 ----
 // we extend SoftAssertions to get standard soft assertions
-public class FantasySoftAssertions extends SoftAssertions 
+public class FantasySoftAssertions extends SoftAssertions
                                    implements TolkienSoftAssertionsProvider, GoTSoftAssertionsProvider {
 
   // we can even add more assertions here
@@ -2453,7 +2456,7 @@ JUnit 4 rule so that we can use our custom assertions as a test rule for use in 
 [source,java,indent=0]
 ----
 // we extend JUnitSoftAssertions to get standard soft assertions classes
-public class JUnitFantasySoftAssertions extends JUnitSoftAssertions 
+public class JUnitFantasySoftAssertions extends JUnitSoftAssertions
                                    implements TolkienSoftAssertionsProvider, GoTSoftAssertionsProvider {}
 ----
 Then in our test class we use it per normal:
@@ -2462,7 +2465,7 @@ Then in our test class we use it per normal:
 public class JUnit4_StandardAndCustomSoftAssertionsExamples {
   @Rule
   public final JUnitFantasySoftAssertions softly = new JUnitFantasySoftAssertions();
-  
+
   @Test
   public void successful_junit_soft_custom_assertion_example() {
     softly.assertThat(frodo).hasName("Frodo")
@@ -2496,7 +2499,7 @@ public class JUnit5_StandardAndCustomSoftAssertionsExamples {
 ----
 
 [[assertj-core-soft-assertions-collect-listener]]
-===== Reacting to collected soft assertions 
+===== Reacting to collected soft assertions
 
 AssertJ allows to perform an action after an `AssertionError` is collected.
 
@@ -2585,4 +2588,4 @@ include::{testDir}/example/core/AssumptionsDemo.java[tags=assumption_met]
 [[assertj-core-javadoc]]
 ==== Javadoc
 
-http://www.javadoc.io/doc/org.assertj/assertj-core/ is the latest version of assertj core javadoc, each assertion is explained, most of them with code examples so be sure to check it if you want to know what a specific assertion does. 
+http://www.javadoc.io/doc/org.assertj/assertj-core/ is the latest version of assertj core javadoc, each assertion is explained, most of them with code examples so be sure to check it if you want to know what a specific assertion does.
