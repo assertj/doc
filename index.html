@@ -5332,7 +5332,7 @@ try {
 <p><a href="#assertj-core-recursive-comparison-comparators">Specifying how to compare specific types or fields in the comparison</a></p>
 </li>
 <li>
-<p><a href="#assertj-core-recursive-comparison-ignoring-equals">Force recursive comparison on classes that have redefined <code>equals</code></a></p>
+<p><a href="#assertj-core-using-overridden-equals">Use overridden <code>equals</code> instead of a recursive comparison</a></p>
 </li>
 <li>
 <p><a href="#assertj-core-recursive-comparison-ignoring-all-expected-null-fields">Ignoring all expected null fields</a></p>
@@ -5415,10 +5415,10 @@ If you enable bare properties resolution, a method <code>x()</code> is also used
 <div class="sect4">
 <h5 id="breaking-changes"><a class="anchor" href="#breaking-changes"></a>Breaking changes</h5>
 <div class="paragraph">
-<p>Since 3.18.0 bare name getter resoluation are disabled by default, to get the previous behaviour back, call <code>Assertions.setExtractBareNamePropertyMethods​(true);</code></p>
+<p>Since 3.18.0 bare name getter resolution are disabled by default, to get the previous behaviour back, call <code>Assertions.setExtractBareNamePropertyMethods​(true);</code></p>
 </div>
 <div class="paragraph">
-<p>Since 3.17.0 it does not use anymore <code>equals</code> methods of classes that have overriden it, so no need to force recursive comparison on these classes (<a href="#assertj-core-recursive-comparison-ignoring-equals">see this section</a>). To get the pre 3.17.0 behavior, use <code>usingOverriddenEquals()</code>.</p>
+<p>Since 3.17.0 it does not use anymore <code>equals</code> methods of classes that have overriden it, so no need to force recursive comparison on these classes. To get the previous behavior back, use <a href="#assertj-core-using-overridden-equals"><code>usingOverriddenEquals()</code></a>.</p>
 </div>
 </div>
 <div class="sect4">
@@ -5581,7 +5581,7 @@ assertThat(sherlock).usingRecursiveComparison()
 </div>
 </div>
 <div class="sect4">
-<h5 id="assertj-core-recursive-comparison-ignoring-equals"><a class="anchor" href="#assertj-core-recursive-comparison-ignoring-equals"></a>Using overridden equals</h5>
+<h5 id="assertj-core-using-overridden-equals"><a class="anchor" href="#assertj-core-using-overridden-equals"></a>Using overridden equals</h5>
 <div class="paragraph">
 <p>Since 3.17.0 the recursive comparison does not use overridden <code>equals</code> methods to compare fields anymore, it performs a recursive comparison on these fields, it is possible to change that behavior by calling <code>usingOverriddenEquals()</code>.</p>
 </div>
@@ -21258,7 +21258,7 @@ AssertJ Swing would not exist without its contributors, you can find them all <a
 <div id="footer">
 <div id="footer-text">
 Version 1.0<br>
-Last updated 2022-08-30 19:15:20 UTC
+Last updated 2022-08-31 08:58:03 UTC
 </div>
 </div>
 <link rel="stylesheet" href="highlight/styles/railscasts.min.css">
