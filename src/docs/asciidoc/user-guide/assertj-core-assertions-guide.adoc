@@ -1589,7 +1589,7 @@ Since 3.12.0 AssertJ Core provides a new fluent recursive comparison API for `Ob
 * link:#assertj-core-recursive-comparison-strict[Choosing a strict or lenient recursive comparison]
 * link:#assertj-core-recursive-comparison-ignoring-fields[Ignoring fields in the comparison]
 * link:#assertj-core-recursive-comparison-comparators[Specifying how to compare specific types or fields in the comparison]
-* link:#assertj-core-recursive-comparison-ignoring-equals[Force recursive comparison on classes that have redefined `equals`]
+* link:#assertj-core-using-overridden-equals[Use overridden `equals` instead of a recursive comparison]
 * link:#assertj-core-recursive-comparison-ignoring-all-expected-null-fields[Ignoring all expected null fields]
 * link:#assertj-core-recursive-comparison-ignoring-all-actual-empty-optional-fields[Ignoring all actual empty optional fields].
 * link:#assertj-core-recursive-comparison-overriding-error-messages[Overriding error messages for specific fields or types].
@@ -1654,9 +1654,9 @@ Lastly if the object under test is a map, the recursive comparison tries to reso
 
 ===== Breaking changes
 
-Since 3.18.0 bare name getter resoluation are disabled by default, to get the previous behaviour back, call `Assertions.setExtractBareNamePropertyMethods​(true);`
+Since 3.18.0 bare name getter resolution are disabled by default, to get the previous behaviour back, call `Assertions.setExtractBareNamePropertyMethods​(true);`
 
-Since 3.17.0 it does not use anymore `equals` methods of classes that have overriden it, so no need to force recursive comparison on these classes (link:#assertj-core-recursive-comparison-ignoring-equals[see this section]). To get the pre 3.17.0 behavior, use `usingOverriddenEquals()`.
+Since 3.17.0 it does not use anymore `equals` methods of classes that have overriden it, so no need to force recursive comparison on these classes. To get the previous behavior back, use link:#assertj-core-using-overridden-equals[`usingOverriddenEquals()`].
 
 
 
@@ -1802,7 +1802,7 @@ assertThat(sherlock).usingRecursiveComparison()
                     .isEqualTo(tallSherlock);
 ----
 
-[[assertj-core-recursive-comparison-ignoring-equals]]
+[[assertj-core-using-overridden-equals]]
 ===== Using overridden equals
 
 Since 3.17.0 the recursive comparison does not use overridden `equals` methods to compare fields anymore, it performs a recursive comparison on these fields, it is possible to change that behavior by calling `usingOverriddenEquals()`.
