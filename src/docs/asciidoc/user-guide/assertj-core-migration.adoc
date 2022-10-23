@@ -33,9 +33,9 @@ The preferred way is using the scripts as it is quicker and covers more assertio
 
 It is as simple as running one of the following script depending on which test framework you are using:
 
-* {current-branch}/src/main/scripts/convert-junit-assertions-to-assertj.sh[JUnit 3/4 to AssertJ migration script]
-* {current-branch}/src/main/scripts/convert-junit5-assertions-to-assertj.sh[JUnit 5 to AssertJ migration script]
-* {current-branch}/src/main/scripts/convert-testng-assertions-to-assertj.sh[TestNG to AssertJ migration script]
+* {current-branch}/assertj-core/src/main/scripts/convert-junit-assertions-to-assertj.sh[JUnit 3/4 to AssertJ migration script]
+* {current-branch}/assertj-core/src/main/scripts/convert-junit5-assertions-to-assertj.sh[JUnit 5 to AssertJ migration script]
+* {current-branch}/assertj-core/src/main/scripts/convert-testng-assertions-to-assertj.sh[TestNG to AssertJ migration script]
 
 Each shell scripts is based on the sed stream editor and regexps. It *recursively* looks at all `*Test.java` files and
 performs search and replace to convert assertions to AssertJ ones.
