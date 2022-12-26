@@ -102,7 +102,6 @@ More details are available in the <<Binary Compatibility>> section.
 * Generalize custom format creation to support any `CharSequence` (#2735) (Edgar Asatryan)
 * Improve containsExactly error message by print the indices where a mismatch occurred (Giovanni van der Schelde).
 * Throw `org.opentest4j.AssertionFailedError` for `containsExactly` assertion so that IDEs can show the diff between actual and expected (#2697) (Christiaan Zoet).
-* Add baseline for `ClassLoader` assertions (#2645) (Ashley Scopes)
 * Fix some typos and grammar in project documentation (#2656) (Michael Keppler)
 * Fix typo in docs for `assertIsEqualToNormalizingNewlines` (#2677) (Matthew Haughton)
 * Fix javadoc for `within(long, TemporalUnit)` (#2801) (Remy Lassaut)
@@ -303,7 +302,7 @@ assertThat(pramodSadalage).usingRecursiveAssertion()
 
 A typical usage consists in comparing double/float fields with a given precision.
 
-The fields are evaluated from the root object, for example if `Foo` has a `Bar` field and both have an id field, one can register a `BiPredicate` for `Foo` and `Bar` id by calling:
+The fields are evaluated from the root object, for example if `Foo` has a `Bar` field and both have an `id` field, one can register a `BiPredicate` for `Foo` and `Bar` `id` by calling:
 
 [source,java]
 ----
@@ -344,9 +343,9 @@ Specifying a field of type will make all its subfields to be compared, for examp
 
 `comparingOnlyFieldsOfTypes` can be combined with `comparingOnlyFields(String...)` to compare fields of the given types or names (union of both sets of fields).
 
-`comparingOnlyFieldsOfTypes` can be also combined with ignoring fields or compare only fields by name methods to restrict further the fields actually compared, the resulting compared fields = {specified compared fields of types} - {specified ignored fields}.
+`comparingOnlyFieldsOfTypes` can be also combined with ignoring fields or compare only fields by name methods to restrict further the fields actually compared, the resulting `compared fields = {specified compared fields of types} - {specified ignored fields}`.
 
-For example if the specified compared fields of types = {String.class, Integer.class, Double.class}, when there are fields String foo, Integer buzz and Double bar and the ignored fields = {"bar"} set with ignoringFields(String...) that will remove bar field from comparison, then only {foo, baz} fields will be compared.
+For example if the specified compared fields of types are `{String.class, Integer.class, Double.class}`, when there are fields `String foo`, `Integer baz` and `Double bar` and the ignored fields = `{"bar"}` set with `ignoringFields(String...)` that will remove `bar` field from comparison, then only `{foo, baz}` fields will be compared.
 
 Example:
 [source,java]
@@ -455,14 +454,13 @@ assertThat("Frodo").matchesSatisfying("..(o.o)", matcher -> assertThat(matcher.g
 
 // same assertion but with a Pattern
 Pattern pattern = Pattern.compile("..(o.o)");
-
 assertThat("Frodo").matchesSatisfying(pattern, matcher -> assertThat(matcher.group(1)).isEqualTo("odo"));
 ----
 
 [[assertj-core-3.24.0-nestable-condition]]
 [.release-note-item]#Add nestable condition#
 
-Building block to define more precise condition on complex objects. It allows to create readable assertions and produces beautiful assertion error messages.
+`nestable` is a building block defining more precise condition on complex objects. It allows to create readable assertions and produces nicer assertion error messages.
 
 Example:
 [source,java]
@@ -524,7 +522,7 @@ static Condition<Customer> address(Condition<Address>... conditions) {
 }
 ----
 
-And assertions can be written like:
+An assertions written like:
 
 [source,java]
 ----
@@ -539,7 +537,7 @@ assertThat(customer).is(
 );
 ----
 
-leads to an easy-to-read assertion error:
+will produce an easy-to-read assertion error:
 
 [source,text]
 ----

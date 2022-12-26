@@ -2170,19 +2170,89 @@ assertThat(doctors).usingRecursiveFieldByFieldElementComparator(configuration)
 
 Since 3.24.0, you can specify your own strategy telling the recursive comparison how to resolve the values to compare, this is useful if the default strategy does not suit you.
 
-To use specify your own introspection strategy, you need to:
+To use your own introspection strategy, you need to:
 
 * implement `RecursiveComparisonIntrospectionStrategy`
-* call `withIntrospectionStrategy(myIntrospectionStrategy)` with an instance of your `RecursiveComparisonIntrospectionStrategy`
+* call `withIntrospectionStrategy(myIntrospectionStrategy)` with an instance of your strategy
 
 AssertJ provides a few strategies out of the box:
 
 * `ComparingFields`: introspect fields only (no properties, map keys are not considered as fields)
 * `ComparingProperties`: introspect properties only (no fields, map keys are not considered as properties)
 * `ComparingSnakeOrCamelCaseFields`: compare fields only, can match camel case fields against snake case ones, ex: `firstName` vs `first_name` which is useful when comparing types with different fields naming conventions
-* `ComparingNormalizedFields`: compare fields after normalizing them (you just need to implement `normalizeFieldName(String fieldName)`)
+* `ComparingNormalizedFields`: an abstract strategy that compares fields after normalizing them, you just need to implement `normalizeFieldName(String fieldName)`
 
 `ComparingSnakeOrCamelCaseFields` is an example of `ComparingNormalizedFields` that normalizes snake case to camel case.
+
+Here's an example using `ComparingSnakeOrCamelCaseFields` where we compare `Author`/`Book` against `AuthorDto`/`BookDto`, `Author`/`Book` follow the regular camel case field naming convention while the dto classes follow the snake case naming convention.
+
+The recursive comparison would fail comparing the `Author`/`Book` fields against `AuthorDto`/`BookDto` ones, it would not know to match `Author.firstName` against `AuthorDto.first_name` for example but with `ComparingSnakeOrCamelCaseFields` it will know how to match these fields.
+
+Example:
+[source,java,indent=0]
+----
+Author martinFowler = new Author("Martin", "Fowler", 58, "https://www.thoughtworks.com/profiles/leaders/martin-fowler");
+Book refactoring = new Book("Refactoring", martinFowler);
+AuthorDto martinFowlerDto = new AuthorDto("Martin", "Fowler", 58, "https://www.thoughtworks.com/profiles/leaders/martin-fowler");
+BookDto refactoringDto = new BookDto("Refactoring", martinFowlerDto);
+
+RecursiveComparisonIntrospectionStrategy comparingSnakeOrCamelCaseFields = new ComparingSnakeOrCamelCaseFields();
+
+// both assertions succeed
+assertThat(refactoring).usingRecursiveComparison()
+                      .withIntrospectionStrategy(comparingSnakeOrCamelCaseFields)
+                      .isEqualTo(refactoringDto);
+assertThat(refactoringDto).usingRecursiveComparison()
+                          .withIntrospectionStrategy(comparingSnakeOrCamelCaseFields)
+                          .isEqualTo(refactoring);
+
+static class Author {
+  String firstName;
+  String lastName;
+  int age;
+  String profileURL;
+
+  Author(String firstName, String lastName, int age, String profileUrl) {
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.age = age;
+    this.profileURL = profileUrl;
+  }
+}
+
+static class Book {
+  String title;
+  Author mainAuthor;
+
+  Book(String title, Author author) {
+    this.title = title;
+    this.mainAuthor = author;
+  }
+}
+static class AuthorDto {
+  String first_name;
+  String last_name;
+  int _age;
+  String profile_url;
+
+  AuthorDto(String firstName, String lastName, int age, String profileUrl) {
+    this.first_name = firstName;
+    this.last_name = lastName;
+    this._age = age;
+    this.profile_url = profileUrl;
+  }
+}
+
+static class BookDto {
+  String title;
+  AuthorDto main_author;
+
+  BookDto(String title, AuthorDto author) {
+    this.title = title;
+    this.main_author = author;
+  }
+}
+----
 
 [[assertj-core-recursive-assertion]]
 ==== Recursive assertions
