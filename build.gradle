@@ -60,7 +60,8 @@ asciidoctor {
 			'assertj-joda-time-version': assertjJodaTimeVersion,
 			'assertj-db-version': assertjDbVersion,
 			'stylesheet': '../../../docs/asciidoc/asciidoctor.css',
-			'docinfo': 'shared'
+			'docinfo': 'shared',
+			'source-indent': '0'
 }
 
 asciidoctorj {
