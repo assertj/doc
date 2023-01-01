@@ -55,6 +55,7 @@ nith2001,
 Wojciech Zankowski,
 Anton Yakutovich icon:user-plus[title=New contributor],
 Christiaan Zoet icon:user-plus[title=New contributor],
+Dirk Toewe icon:user-plus[title=New contributor],
 Matthew Haughton icon:user-plus[title=New contributor],
 Oscar Westra van Holthe icon:user-plus[title=New contributor],
 Alessandro Ciccimarra icon:user-plus[title=New contributor],
@@ -63,7 +64,7 @@ Neshka Dantinor icon:user-plus[title=New contributor],
 Sergey Nuyanzin icon:user-plus[title=New contributor],
 Rostyslav Ivankiv icon:user-plus[title=New contributor],
 Remy Lassaut icon:user-plus[title=New contributor],
-and ...
+Michał Drożdż icon:user-plus[title=New contributor]
 
 Special thanks who has contributed a lot of internal improvements on our tests suite, greatly appreciated!
 
@@ -76,11 +77,14 @@ More details are available in the <<Binary Compatibility>> section.
 [[assertj-core-3.24.0-new-features]]
 [.release-note-category]#icon:plus-circle[] New features#
 
+* Add Bill of Materials for AssertJ (#2748) (Stefano Cordio)
 * Introduce link:#assertj-core-recursive-comparison-introspection-strategy[`IntrospectionStrategy`] for recursive comparison and assertion to allow users to control how the objects to compare are introspected.
 * Add link:#assertj-core-3.24.0-allFieldsSatisfy[`allFieldsSatisfy`] recursively assert that a predicate is met for all fields.
 * Add link:#assertj-core-3.24.0-hasNoNullFields[`hasNoNullFields`] recursively assert that no fields are null.
 * Add link:#assertj-core-3.24.0-withEqualsForFieldsMatchingRegexes[`withEqualsForFieldsMatchingRegexes`] in the recursive comparison (#2711).
 * Add link:#assertj-core-3.24.0-comparingOnlyFieldsOfTypes[`comparingOnlyFieldsOfTypes`] in the recursive comparison (#2794).
+* Add support for link:#assertj-core-3.24.0-recursive-comparison-isIn-isNotIn[`isIn`/`isNotIn`] assertions in the recursive comparison (#2794).
+* Add link:#assertj-core-3.24.0-RecursiveComparator[`RecursiveComparator`]  that uses the recursive comparison for any assertions.
 * Add link:#assertj-core-3.24.0-satisfiesOnlyOnce[`satisfiesOnlyOnce`] to iterable, array and atomic array assertions (#2691). (Stefan Bratanov)
 * Add link:#assertj-core-3.24.0-isAssignableTo[`isAssignableTo`] to `Class` assertions (#2611). (Jessica Hamilton, nith2001)
 * Add link:#assertj-core-3.24.0-withThrowableThat[`withThrowableThat`] to ease Future/CompletableFuture throwable assertions (#2704). (Oscar Westra van Holthe)
@@ -92,8 +96,9 @@ More details are available in the <<Binary Compatibility>> section.
 * Add link:#assertj-core-3.24.0-isHexadecimal[`isHexadecimal`] to `CharSequence` assertions (#2731). (Neshka Dantinor)
 * Add link:#assertj-core-3.24.0-isPrintable[`isPrintable`] to `CharSequence` assertions (#2731). (Neshka Dantinor)
 * Add link:#assertj-core-3.24.0-isVisible[`isVisible`] to `CharSequence` assertions (#2731). (Neshka Dantinor)
-* Add `isUnmodifiable` to `Map` assertions (#2458). (Wojciech Zankowski)
-* Add `isExecutable` to `File` assertions (#2829). (Rostyslav Ivankiv)
+* Add link:#assertj-core-3.24.0-isUnmodifiable[`isUnmodifiable`] to `Map` assertions (#2458). (Wojciech Zankowski)
+* Add link:#assertj-core-3.24.0-isExecutable[`isExecutable`] to `File` assertions (#2829). (Rostyslav Ivankiv)
+* Add link:#assertj-core-3.24.0-hasMessageMatching[`hasMessageMatching(Pattern)`] to throwable assertions (Andrei Solntsev) (#2853)
 
 [[assertj-core-3.24.0-improvements]]
 [.release-note-category]#icon:arrow-circle-up[] Improvements#
@@ -107,8 +112,10 @@ More details are available in the <<Binary Compatibility>> section.
 * Fix javadoc for `within(long, TemporalUnit)` (#2801) (Remy Lassaut)
 * Let `CaseInsensitiveStringComparator` delegate to `compareToIgnoreCase` (#2663) (Stefano Cordio)
 * Use actual `Map` type when invoking copying constructor (#2710) (Stefano Cordio)
+* Improve `isBetween` assertion performance by only building the error message when needed (#2884) (Dirk Toewe)
 * Avoid a copy in `assertContains` when actual is already a Collection (#2220 #2134) (Matthieu Baechler)
 * Style: Repair code style issues in org.assertj.core.internal.Dates (#2763) (Martin Witt)
+* Reduce `RealNumbers` constructors visibility to `protected` (#2772) (Martin Witt)
 * Internal: Use `getParameterCount` rather than `getParameterTypes().length` (#2813) (Sergey Nuyanzin)
 * Internal: Return cache in `setup-java` action (#2802) (Anton Yakutovich)
 * Internal: Fix test results summary (#2803) (Anton Yakutovich)
@@ -125,7 +132,7 @@ More details are available in the <<Binary Compatibility>> section.
 * Internal: Fix incomplete test for `given(Duration)` in BDDAssumptionsTest (#2686) (Ashley Scopes)
 * Internal: Fix some tests flakiness (#2657) (Ashley Scopes)
 * Internal: Fix some additional compilation warnings and deprecated JDK API usages
-* Internal: Update CodeQL workflow (Stefano Cordio)
+* Internal: Remove CodeQL workflow (Stefano Cordio)
 * Internal: Reuse spies in `Path` tests (#2826) (Stefano Cordio)
 * Internal: Reuse mocks and spies in `File` tests (#2827) (Stefano Cordio)
 * Internal: Remove unnecessary test for `MapEntry::hashCode` (Stefano Cordio)
@@ -142,42 +149,47 @@ More details are available in the <<Binary Compatibility>> section.
 * Internal: Add editorconfig for kotlin files (Erhard Pointl)
 * Internal: Fix locale handling for ignoring case assertions (#2690) (Stefano Cordio)
 * Internal: Enforce test only dependencies in test modules (Stefano Cordio)
+* Internal: Move japicmp common configuration to the parent POM  (#2875) (Stefano Cordio)
 * Internal: Allow Java 20 with Groovy tests (#2816) (Stefano Cordio)
-* Internal: Bump Bnd version to 6.3.1
+* Internal: Add Java 21, skip JaCoCo on cross-version workflow (#2876) (Stefano Cordio)
+* Internal: Bump Bnd version to 6.4.0
 * Internal: Bump byte-buddy version in `verify.bndrun` (Erhard Pointl)
-* Internal: Bump byte-buddy.version from 1.12.10 to 1.12.19
-* Internal: Bump cdg.pitest.version from 0.2.0 to 1.0.1
-* Internal: Bump equalsverifier from 3.10 to 3.11.1
+* Internal: Bump byte-buddy.version from 1.12.10 to 1.12.20
+* Internal: Bump cdg.pitest.version from 0.2.0 to 1.0.3
+* Internal: Bump equalsverifier from 3.10 to 3.12.3
 * Internal: Bump gmavenplus-plugin from 1.13.1 to 2.1.0
-* Internal: Bump groovy from 4.0.4 to 4.0.6
-* Internal: Bump hibernate-core from 6.0.2.Final to 6.1.5.Final
-* Internal: Bump jackson-databind from 2.13.3 to 2.14.0
+* Internal: Bump groovy from 4.0.4 to 4.0.7
+* Internal: Bump hibernate-core from 6.0.2.Final to 6.1.6.Final
+* Internal: Bump jackson-databind from 2.13.3 to 2.14.1
 * Internal: Bump japicmp-maven-plugin from 0.15.7 to 0.17.1
 * Internal: Bump junit-jupiter-api from 5.8.2 to 5.9.1
-* Internal: Bump junit-pioneer from 1.7.1 to 1.9.0
-* Internal: Bump kotlin.version from 1.7.10 to 1.7.21
+* Internal: Bump junit-pioneer from 1.7.1 to 1.9.1
+* Internal: Bump kotlin.version from 1.7.10 to 1.8.0
 * Internal: Bump Maven version from 3.8.5 to 3.8.6 (Erhard Pointl)
 * Internal: Bump maven-install-plugin from 3.0.1 to 3.1.0
 * Internal: Bump maven-javadoc-plugin from 3.4.0 to 3.4.1
 * Internal: Bump maven-jar-plugin from 3.2.2 to 3.3.0
 * Internal: Bump maven-project-info-reports-plugin from 3.4.0 to 3.4.1
 * Internal: Bump maven-site-plugin from 3.12.0 to 3.12.1
-* Internal: Bump Mockito to version 4.6.1 (Erhard Pointl)
-* Internal: Bump mockito-bom from 4.6.1 to 4.9.0
-* Internal: Bump org.eclipse.osgi from 3.17.200 to 3.18.100
+* Internal: Bump mockito-bom from 4.6.1 to 4.11.0
+* Internal: Bump org.eclipse.osgi from 3.17.200 to 3.18.200
 * Internal: Bump pitest from 1.9.2 to 1.9.4
 * Internal: Bump pitest-junit5-plugin from 0.15 to 1.1.0
-* Internal: Bump pitest-maven from 1.8.0 to 1.9.11
+* Internal: Bump pitest-maven from 1.8.0 to 1.10.3
+* Internal: Bump pitest-github-maven-plugin from 1.0.1 to 1.0.3
 * Internal: Bump spotbugs-maven-plugin from 4.7.1.1 to 4.7.3.0
 * Internal: Bump spring-core from 5.3.20 to 5.3.24
-* Internal: Bump versions-maven-plugin from 2.11.0 to 2.13.0
+* Internal: Bump testng from 7.6.1 to 7.7.1
+* Internal: Bump versions-maven-plugin from 2.11.0 to 2.14.2
 
 [[assertj-core-3.24.0-fixed]]
 [.release-note-category]#icon:wrench[] Fixed#
 
+* Avoid reflection in recursive comparison for types in `sun.*` packages (#2891) (Stefano Cordio)
 * Honor custom type comparators with `returns` and `doesNotReturn` (#2725) (Stefano Cordio)
 * Fix `ignoringOverriddenEqualsForFieldsMatchingRegexes` that was checking field class instead of the field path
 * Add support for soft assertions when calling `isThrownBy` (#2699)
+* Fix `isCloseTo` example for `Date` assertions javdoc (#2890) (Michał Drożdż)
 
 [[assertj-core-3.24.0-deprecated]]
 [.release-note-category]#icon:ban[] Deprecated#
@@ -383,6 +395,58 @@ assertThat(sherlock).usingRecursiveComparison()
 assertThat(sherlock).usingRecursiveComparison()
                     .comparingOnlyFieldsOfTypes(Home.class)
                     .isEqualTo(moriarty);
+----
+
+[[assertj-core-3.24.0-recursive-comparison-isIn-isNotIn]]
+[.release-note-item]#Add support for isIn/isNotIn assertions in the recursive comparison#
+
+`isIn`: verifies that the actual value is present in the given iterable/array, comparing values with the recursive comparison.
+
+`isNotIn`: verifies that the actual value is not present in the given iterable/array, comparing values with the recursive comparison.
+
+Example:
+[source,java]
+----
+class Person {
+  String name;
+  double height;
+  Home home = new Home();
+}
+
+class Home {
+  Address address = new Address();
+}
+
+class Address {
+  int number;
+  String street;
+}
+
+Person sherlock = new Person("Sherlock", 1.80);
+sherlock.home.ownedSince = new Date(123);
+sherlock.home.address.street = "Baker Street";
+sherlock.home.address.number = 221;
+
+Person sherlock2 = new Person("Sherlock", 1.80);
+sherlock2.home.ownedSince = new Date(123);
+sherlock2.home.address.street = "Baker Street";
+sherlock2.home.address.number = 221;
+
+Person watson = new Person("Watson", 1.70);
+watson.home.ownedSince = new Date(123);
+watson.home.address.street = "Baker Street";
+watson.home.address.number = 221;
+
+Person moriarty = new Person("Moriarty", 1.80);
+moriarty.home.ownedSince = new Date(123);
+moriarty.home.address.street = "Butcher Street";
+moriarty.home.address.number = 221;
+
+
+// assertion succeeds as sherlock and sherlock2 data are the same but not for watson and moriarty
+assertThat(sherlock).usingRecursiveComparison()
+                    .isIn(sherlock2, moriarty)
+                    .isNotIn(watson, moriarty);
 ----
 
 [[assertj-core-3.24.0-satisfiesOnlyOnce]]
@@ -676,6 +740,56 @@ assertThat("").isVisible();
 assertThat(" ").isVisible();
 ----
 
+[[assertj-core-3.24.0-isUnmodifiable]]
+[.release-note-item]#Add isUnmodifiable to Map assertions#
+
+Verifies that the map under test is unmodifiable, i.e. throws an `UnsupportedOperationException` with any attempt to modify the map.
+
+Example:
+[source,java]
+----
+// assertions succeeds
+assertThat(Collections.unmodifiableMap(new HashMap<>())).isUnmodifiable();
+
+// assertions fails
+assertThat(new HashMap<>()).isUnmodifiable();
+----
+
+[[assertj-core-3.24.0-isExecutable]]
+[.release-note-item]#Add isExecutable to file assertions#
+
+Verifies that the file under test is executable.
+
+Example:
+[source,java]
+----
+File tmpFile = java.nio.file.Files.createTempFile("executable_file", ".sh").toFile();
+
+tmpFile.setExecutable(true);
+// assertions succeeds
+assertThat(tmpFile).isExecutable();
+
+tmpFile.setExecutable(false);
+// assertions fails
+assertThat(tmpFile).isExecutable();
+----
+
+[[assertj-core-3.24.0-hasMessageMatching]]
+[.release-note-item]#Add hasMessageMatching(Pattern) to throwable assertions#
+
+Verifies that the message of the `Throwable` under test matches the given regular expression `Pattern`.
+
+Example:
+[source,java]
+----
+Throwable throwable = new IllegalArgumentException("wrong amount 123");
+
+// assertion succeeds
+assertThat(throwable).hasMessageMatching(Pattern.compile("wrong amount [0-9]*"));
+
+// assertion fails
+assertThat(throwable).hasMessageMatching(Pattern.compile("wrong amount [0-9]* euros"));
+----
 
 [[assertj-core-3-23-1-release-notes]]
 ==== AssertJ Core 3.23.1
