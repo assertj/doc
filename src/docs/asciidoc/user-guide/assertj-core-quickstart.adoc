@@ -36,7 +36,7 @@ AssertJ *does not officially support Android* but is mostly Android compatible:
   <groupId>org.assertj</groupId>
   <artifactId>assertj-core</artifactId>
   <!-- use 2.9.1 for Java 7 projects -->
-  <version>{assertj-core-version}</version>
+  <version>{assertj-version}</version>
   <scope>test</scope>
 </dependency>
 ----
@@ -47,7 +47,7 @@ For Gradle users (using the Maven Central Repository)
 
 [source,java,indent=0,subs=attributes+]
 ----
-testImplementation("org.assertj:assertj-core:{assertj-core-version}")
+testImplementation("org.assertj:assertj-core:{assertj-version}")
 ----
 
 Or version 2.9.1 for Java 7 projects
@@ -71,7 +71,7 @@ Additional AssertJ modules must be declared separately.
 
 ===== Other build tools
 
-Check this page to find the relevant https://search.maven.org/artifact/org.assertj/assertj-core/{assertj-core-version}/bundle[assertj core dependency declaration].
+Check this page to find the relevant https://search.maven.org/artifact/org.assertj/assertj-core/{assertj-version}/bundle[assertj core dependency declaration].
 
 ===== Binary Compatibility
 

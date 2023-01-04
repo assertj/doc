@@ -5,7 +5,7 @@ plugins {
 }
 
 dependencies {
-	testImplementation("org.assertj:assertj-core:" + project.getProperty('assertjCoreVersion'))
+	testImplementation("org.assertj:assertj-core:" + project.getProperty('assertjVersion'))
 	testImplementation("org.assertj:assertj-joda-time:" + project.getProperty('assertjJodaTimeVersion'))
 	testImplementation("org.assertj:assertj-db:" + project.getProperty('assertjDbVersion'))
 	testImplementation('junit:junit:4.13.2')
@@ -56,8 +56,7 @@ asciidoctor {
 			'sectanchors': true,
 			'idprefix': '',
 			'idseparator': '-',
-			'assertj-core-version': assertjCoreVersion,
-			'assertj-guava-version': assertjGuavaVersion,
+			'assertj-version': assertjVersion,
 			'assertj-joda-time-version': assertjJodaTimeVersion,
 			'assertj-db-version': assertjDbVersion,
 			'stylesheet': '../../../docs/asciidoc/asciidoctor.css',

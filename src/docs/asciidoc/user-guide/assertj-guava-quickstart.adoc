@@ -26,7 +26,7 @@ AssertJ Guava major versions depend on different Java versions:
   <groupId>org.assertj</groupId>
   <artifactId>assertj-guava</artifactId>
   <!-- use 2.0.1 for Java 7 projects -->
-  <version>{assertj-guava-version}</version>
+  <version>{assertj-version}</version>
   <scope>test</scope>
 </dependency>
 ----
@@ -37,7 +37,7 @@ For Gradle users (using the Maven Central Repository)
 
 [source,java,indent=0,subs=attributes+]
 ----
-testImplementation("org.assertj:assertj-guava:{assertj-guava-version}")
+testImplementation("org.assertj:assertj-guava:{assertj-version}")
 ----
 
 Or version 2.0.1 for Java 7 projects
@@ -49,7 +49,7 @@ testImplementation("org.assertj:assertj-guava:2.0.1")
 
 ===== Other build tools
 
-Check this page to find the relevant https://search.maven.org/artifact/org.assertj/assertj-guava/{assertj-guava-version}/bundle[assertj guava dependency declaration].
+Check this page to find the relevant https://search.maven.org/artifact/org.assertj/assertj-guava/{assertj-version}/bundle[assertj guava dependency declaration].
 
 ==== Use Assertions class entry point
 

@@ -751,19 +751,19 @@ expected: JEDI [name=Luke, age=23]
 [[assertj-core-common-assertions]]
 ==== Common assertions
 
-This section describes the assertions common to all types, the javadoc for common assertions methods is available https://www.javadoc.io/static/org.assertj/assertj-core/{assertj-core-version}/org/assertj/core/api/AbstractAssert.html#method.summary[here].
+This section describes the assertions common to all types, the javadoc for common assertions methods is available https://www.javadoc.io/static/org.assertj/assertj-core/{assertj-version}/org/assertj/core/api/AbstractAssert.html#method.summary[here].
 
 [[assertj-core-object-assertions]]
 ==== Object assertions
 
-The javadoc for `Object` assertions is available https://www.javadoc.io/static/org.assertj/assertj-core/{assertj-core-version}/org/assertj/core/api/AbstractObjectAssert.html#method.summary[here].
+The javadoc for `Object` assertions is available https://www.javadoc.io/static/org.assertj/assertj-core/{assertj-version}/org/assertj/core/api/AbstractObjectAssert.html#method.summary[here].
 
 [[assertj-string-object-assertions]]
 ==== String/CharSequence assertions
 
 This section describes all the available assertions for `CharSequence` (including `String`, `StringBuilder`, `StringBuffer`, ...):
 
-The javadoc for `CharSequence` assertions is available https://www.javadoc.io/static/org.assertj/assertj-core/{assertj-core-version}/org/assertj/core/api/AbstractCharSequenceAssert.html#method.summary[here].
+The javadoc for `CharSequence` assertions is available https://www.javadoc.io/static/org.assertj/assertj-core/{assertj-version}/org/assertj/core/api/AbstractCharSequenceAssert.html#method.summary[here].
 
 
 [[assertj-core-group-assertions]]
