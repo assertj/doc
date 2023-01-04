@@ -3,20 +3,15 @@
 
 This guide is for the AssertJ Guava module.
 
-[[get-assertj-guava]]
-==== Get assertj-guava library
-
-AssertJ Guava artifacts are in Maven central repository. 
-
 [[assertj-guava-java-versions]]
-===== Supported Java versions
+==== Supported Java versions
 
-AssertJ Guava major versions depend on different Java versions:
+AssertJ Guava requires Java 8 or higher.
 
-* AssertJ Guava 3.x requires Java 8 or higher
-* AssertJ Guava 2.x requires Java 7 or higher
+[[get-assertj-guava]]
+==== Get AssertJ Guava
 
-
+The AssertJ Guava artifact can be included directly using its link:#dependency-metadata-assertj-guava[dependency metadata] or indirectly via the link:#dependency-metadata-assertj-bom[_Bill of Materials_ POM].
 
 ===== Maven
 
@@ -25,7 +20,6 @@ AssertJ Guava major versions depend on different Java versions:
 <dependency>
   <groupId>org.assertj</groupId>
   <artifactId>assertj-guava</artifactId>
-  <!-- use 2.0.1 for Java 7 projects -->
   <version>{assertj-version}</version>
   <scope>test</scope>
 </dependency>
@@ -33,23 +27,14 @@ AssertJ Guava major versions depend on different Java versions:
 
 ===== Gradle
 
-For Gradle users (using the Maven Central Repository)
-
-[source,java,indent=0,subs=attributes+]
+[source,groovy,indent=0,subs=attributes+]
 ----
 testImplementation("org.assertj:assertj-guava:{assertj-version}")
 ----
 
-Or version 2.0.1 for Java 7 projects
-
-[source,java,indent=0]
-----
-testImplementation("org.assertj:assertj-guava:2.0.1")
-----
-
 ===== Other build tools
 
-Check this page to find the relevant https://search.maven.org/artifact/org.assertj/assertj-guava/{assertj-version}/bundle[assertj guava dependency declaration].
+Check this page to find the relevant https://central.sonatype.dev/artifact/org.assertj/assertj-guava/{assertj-version}[AssertJ Guava dependency declaration].
 
 ==== Use Assertions class entry point
 

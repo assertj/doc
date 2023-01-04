@@ -136,7 +136,7 @@ More details are available in the <<Binary Compatibility>> section.
 * Internal: Reuse spies in `Path` tests (#2826) (Stefano Cordio)
 * Internal: Reuse mocks and spies in `File` tests (#2827) (Stefano Cordio)
 * Internal: Remove unnecessary test for `MapEntry::hashCode` (Stefano Cordio)
-* Internal: Improve jacaco coverage test (Stefano Cordio)
+* Internal: Improve JaCoCo configuration (Stefano Cordio)
 * Internal: Use `oracle-actions/setup-java` for cross-version workflow (#2658) (Stefano Cordio)
 * Internal: Some more Turkish locale cleanup (Stefano Cordio)
 * Internal: Use specific labels for Dependabot (Stefano Cordio)
@@ -165,7 +165,7 @@ More details are available in the <<Binary Compatibility>> section.
 * Internal: Bump junit-jupiter-api from 5.8.2 to 5.9.1
 * Internal: Bump junit-pioneer from 1.7.1 to 1.9.1
 * Internal: Bump kotlin.version from 1.7.10 to 1.8.0
-* Internal: Bump Maven version from 3.8.5 to 3.8.6 (Erhard Pointl)
+* Internal: Bump Maven version from 3.8.5 to 3.8.7 (Erhard Pointl)
 * Internal: Bump maven-install-plugin from 3.0.1 to 3.1.0
 * Internal: Bump maven-javadoc-plugin from 3.4.0 to 3.4.1
 * Internal: Bump maven-jar-plugin from 3.2.2 to 3.3.0
@@ -196,7 +196,7 @@ More details are available in the <<Binary Compatibility>> section.
 
 * Deprecate `ObjectAssert(AtomicReference)` (#2795). (Stefano Cordio)
 
-Instead use `assertThat(actual.get())` or `AtomicReferenceAssert#hasValueSatisfying(Consumer)`.
+Instead, use `assertThat(actual.get())` or `AtomicReferenceAssert#hasValueSatisfying(Consumer)`.
 
 [[assertj-core-3.24.0-allFieldsSatisfy]]
 [.release-note-item]#Add allFieldsSatisfy recursive assertion#
