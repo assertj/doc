@@ -35,7 +35,7 @@ Older release notes can be found in the old site: https://joel-costigliola.githu
 [[assertj-core-3-24-0-release-notes]]
 ==== AssertJ Core 3.24.0
 
-Release date : 2022-12-xx
+Release date : 2023-01-06
 
 [[assertj-core-3.24.0-contributors]]
 [.release-note-category]#icon:user[] Contributors#
