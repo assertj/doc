@@ -5,6 +5,7 @@ NOTE: AssertJ Core would not exist without its contributors, you can find them a
 
 Latest release notes:
 
+- link:#assertj-core-3-24-0-release-notes[AssertJ Core 3.24.0]
 - link:#assertj-core-3-23-1-release-notes[AssertJ Core 3.23.1]
 - link:#assertj-core-3-23-0-release-notes[AssertJ Core 3.23.0]
 - link:#assertj-core-3-22-0-release-notes[AssertJ Core 3.22.0]
@@ -30,6 +31,765 @@ Latest release notes:
 - link:#assertj-core-3-12-0-release-notes[AssertJ Core 3.12.0]
 
 Older release notes can be found in the old site: https://joel-costigliola.github.io/assertj/assertj-core-news.html, this is important to be aware of breaking changes if you are migrating from an old version.
+
+[[assertj-core-3-24-0-release-notes]]
+==== AssertJ Core 3.24.0
+
+Release date : 2023-01-06
+
+[[assertj-core-3.24.0-contributors]]
+[.release-note-category]#icon:user[] Contributors#
+
+Thanks to all the contributors of this release:
+Erhard Pointl,
+Stefano Cordio,
+Ashley Scopes,
+Edgar Asatryan,
+Michael Keppler,
+Matthieu Baechler,
+Stefan Bratanov,
+Steven Schlansker,
+Jessica Hamilton,
+Martin Witt,
+nith2001,
+Wojciech Zankowski,
+Anton Yakutovich icon:user-plus[title=New contributor],
+Christiaan Zoet icon:user-plus[title=New contributor],
+Dirk Toewe icon:user-plus[title=New contributor],
+Matthew Haughton icon:user-plus[title=New contributor],
+Oscar Westra van Holthe icon:user-plus[title=New contributor],
+Alessandro Ciccimarra icon:user-plus[title=New contributor],
+Giovanni van der Schelde icon:user-plus[title=New contributor],
+Neshka Dantinor icon:user-plus[title=New contributor],
+Sergey Nuyanzin icon:user-plus[title=New contributor],
+Rostyslav Ivankiv icon:user-plus[title=New contributor],
+Remy Lassaut icon:user-plus[title=New contributor],
+Michał Drożdż icon:user-plus[title=New contributor]
+
+Special thanks who has contributed a lot of internal improvements on our tests suite, greatly appreciated!
+
+[[assertj-core-3.24.0-binary-compatibility]]
+[.release-note-category]#icon:cogs[] Binary compatibility#
+
+The release [green]#*is binary compatible*# with the previous minor version.
+More details are available in the <<Binary Compatibility>> section.
+
+[[assertj-core-3.24.0-new-features]]
+[.release-note-category]#icon:plus-circle[] New features#
+
+* Add Bill of Materials for AssertJ (#2748) (Stefano Cordio)
+* Introduce link:#assertj-core-recursive-comparison-introspection-strategy[`IntrospectionStrategy`] for recursive comparison and assertion to allow users to control how the objects to compare are introspected.
+* Add link:#assertj-core-3.24.0-allFieldsSatisfy[`allFieldsSatisfy`] recursively assert that a predicate is met for all fields.
+* Add link:#assertj-core-3.24.0-hasNoNullFields[`hasNoNullFields`] recursively assert that no fields are null.
+* Add link:#assertj-core-3.24.0-withEqualsForFieldsMatchingRegexes[`withEqualsForFieldsMatchingRegexes`] in the recursive comparison (#2711).
+* Add link:#assertj-core-3.24.0-comparingOnlyFieldsOfTypes[`comparingOnlyFieldsOfTypes`] in the recursive comparison (#2794).
+* Add support for link:#assertj-core-3.24.0-recursive-comparison-isIn-isNotIn[`isIn`/`isNotIn`] assertions in the recursive comparison (#2794).
+* Add link:#assertj-core-3.24.0-RecursiveComparator[`RecursiveComparator`]  that uses the recursive comparison for any assertions.
+* Add link:#assertj-core-3.24.0-satisfiesOnlyOnce[`satisfiesOnlyOnce`] to iterable, array and atomic array assertions (#2691). (Stefan Bratanov)
+* Add link:#assertj-core-3.24.0-isAssignableTo[`isAssignableTo`] to `Class` assertions (#2611). (Jessica Hamilton, nith2001)
+* Add link:#assertj-core-3.24.0-withThrowableThat[`withThrowableThat`] to ease Future/CompletableFuture throwable assertions (#2704). (Oscar Westra van Holthe)
+* Add link:#assertj-core-3.24.0-matchesSatisfying[`matchesSatisfying`] for checking pattern followed by assertion on matchers groups (#2723). (Steven Schlansker)
+* Add link:#assertj-core-3.24.0-nestable-condition[`nestable condition`] nestable `Condition` (#2726). (Alessandro Ciccimarra)
+* Add link:#assertj-core-3.24.0-isAlphabetic[`isAlphabetic`] to `CharSequence` assertions (#2731). (Neshka Dantinor)
+* Add link:#assertj-core-3.24.0-isAlphanumeric[`isAlphanumeric`] to `CharSequence` assertions (#2731). (Neshka Dantinor)
+* Add link:#assertj-core-3.24.0-isASCII[`isASCII`] to `CharSequence` assertions (#2731). (Neshka Dantinor)
+* Add link:#assertj-core-3.24.0-isHexadecimal[`isHexadecimal`] to `CharSequence` assertions (#2731). (Neshka Dantinor)
+* Add link:#assertj-core-3.24.0-isPrintable[`isPrintable`] to `CharSequence` assertions (#2731). (Neshka Dantinor)
+* Add link:#assertj-core-3.24.0-isVisible[`isVisible`] to `CharSequence` assertions (#2731). (Neshka Dantinor)
+* Add link:#assertj-core-3.24.0-isUnmodifiable[`isUnmodifiable`] to `Map` assertions (#2458). (Wojciech Zankowski)
+* Add link:#assertj-core-3.24.0-isExecutable[`isExecutable`] to `File` assertions (#2829). (Rostyslav Ivankiv)
+* Add link:#assertj-core-3.24.0-hasMessageMatching[`hasMessageMatching(Pattern)`] to throwable assertions (Andrei Solntsev) (#2853)
+
+[[assertj-core-3.24.0-improvements]]
+[.release-note-category]#icon:arrow-circle-up[] Improvements#
+
+* Move to multi-module project (#2716) (Stefano Cordio)
+* Generalize custom format creation to support any `CharSequence` (#2735) (Edgar Asatryan)
+* Improve containsExactly error message by print the indices where a mismatch occurred (Giovanni van der Schelde).
+* Throw `org.opentest4j.AssertionFailedError` for `containsExactly` assertion so that IDEs can show the diff between actual and expected (#2697) (Christiaan Zoet).
+* Fix some typos and grammar in project documentation (#2656) (Michael Keppler)
+* Fix typo in docs for `assertIsEqualToNormalizingNewlines` (#2677) (Matthew Haughton)
+* Fix javadoc for `within(long, TemporalUnit)` (#2801) (Remy Lassaut)
+* Let `CaseInsensitiveStringComparator` delegate to `compareToIgnoreCase` (#2663) (Stefano Cordio)
+* Use actual `Map` type when invoking copying constructor (#2710) (Stefano Cordio)
+* Improve `isBetween` assertion performance by only building the error message when needed (#2884) (Dirk Toewe)
+* Avoid a copy in `assertContains` when actual is already a Collection (#2220 #2134) (Matthieu Baechler)
+* Style: Repair code style issues in org.assertj.core.internal.Dates (#2763) (Martin Witt)
+* Reduce `RealNumbers` constructors visibility to `protected` (#2772) (Martin Witt)
+* Internal: Use `getParameterCount` rather than `getParameterTypes().length` (#2813) (Sergey Nuyanzin)
+* Internal: Return cache in `setup-java` action (#2802) (Anton Yakutovich)
+* Internal: Fix test results summary (#2803) (Anton Yakutovich)
+* Internal: Remove `public` modifier to fix some sonar violations (Erhard Pointl)
+* Internal: Clean up unused imports (Erhard Pointl)
+* Internal: Migrate `MatcherShouldMatch_create_Test` and `StandardRepresentation_toStringOf_AtomicReferences_Test` to junit jupiter (Erhard Pointl)
+* Internal: Require Java 17 in gitpod configuration (Erhard Pointl)
+* Internal: Swap out deprecated-for-removal methods in `BDDAssertions_then_Test.java` (#2644) (Ashley Scopes)
+* Internal: Fix 95 warnings produced on JDK-17 with -Xlint:all (#2648) (Ashley Scopes)
+* Internal: Fix spurious Future tests failure on Windows runners (#2649) (Ashley Scopes)
+* Internal: Fix CI allowing add-label to fail in `binary-compatibility.yml` (#2667) (Ashley Scopes)
+* Internal: Improve ci output (#2669) (Ashley Scopes)
+* Internal: Reset global state more aggressively in tests (#2670) (Ashley Scopes)
+* Internal: Fix incomplete test for `given(Duration)` in BDDAssumptionsTest (#2686) (Ashley Scopes)
+* Internal: Fix some tests flakiness (#2657) (Ashley Scopes)
+* Internal: Fix some additional compilation warnings and deprecated JDK API usages
+* Internal: Remove CodeQL workflow (Stefano Cordio)
+* Internal: Reuse spies in `Path` tests (#2826) (Stefano Cordio)
+* Internal: Reuse mocks and spies in `File` tests (#2827) (Stefano Cordio)
+* Internal: Remove unnecessary test for `MapEntry::hashCode` (Stefano Cordio)
+* Internal: Improve JaCoCo configuration (Stefano Cordio)
+* Internal: Use `oracle-actions/setup-java` for cross-version workflow (#2658) (Stefano Cordio)
+* Internal: Some more Turkish locale cleanup (Stefano Cordio)
+* Internal: Use specific labels for Dependabot (Stefano Cordio)
+* Internal: Switch license URL to HTTPS (Stefano Cordio)
+* Internal: Move assumptions related integration tests into separate modules (#2737) (Stefano Cordio)
+* Internal: Move OSGi related integration tests into separate modules (#2742) (Stefano Cordio)
+* Internal: Move performance tests into separate modules (#2743) (Stefano Cordio)
+* Internal: Add integration test infrastructure for Groovy (#2762) (Stefano Cordio)
+* Internal: Add integration test infrastructure for Kotlin (#2788) (Erhard Pointl)
+* Internal: Add editorconfig for kotlin files (Erhard Pointl)
+* Internal: Fix locale handling for ignoring case assertions (#2690) (Stefano Cordio)
+* Internal: Enforce test only dependencies in test modules (Stefano Cordio)
+* Internal: Move japicmp common configuration to the parent POM  (#2875) (Stefano Cordio)
+* Internal: Allow Java 20 with Groovy tests (#2816) (Stefano Cordio)
+* Internal: Add Java 21, skip JaCoCo on cross-version workflow (#2876) (Stefano Cordio)
+* Internal: Bump Bnd version to 6.4.0
+* Internal: Bump byte-buddy version in `verify.bndrun` (Erhard Pointl)
+* Internal: Bump byte-buddy.version from 1.12.10 to 1.12.20
+* Internal: Bump cdg.pitest.version from 0.2.0 to 1.0.3
+* Internal: Bump equalsverifier from 3.10 to 3.12.3
+* Internal: Bump gmavenplus-plugin from 1.13.1 to 2.1.0
+* Internal: Bump groovy from 4.0.4 to 4.0.7
+* Internal: Bump hibernate-core from 6.0.2.Final to 6.1.6.Final
+* Internal: Bump jackson-databind from 2.13.3 to 2.14.1
+* Internal: Bump japicmp-maven-plugin from 0.15.7 to 0.17.1
+* Internal: Bump junit-jupiter-api from 5.8.2 to 5.9.1
+* Internal: Bump junit-pioneer from 1.7.1 to 1.9.1
+* Internal: Bump kotlin.version from 1.7.10 to 1.8.0
+* Internal: Bump Maven version from 3.8.5 to 3.8.7 (Erhard Pointl)
+* Internal: Bump maven-install-plugin from 3.0.1 to 3.1.0
+* Internal: Bump maven-javadoc-plugin from 3.4.0 to 3.4.1
+* Internal: Bump maven-jar-plugin from 3.2.2 to 3.3.0
+* Internal: Bump maven-project-info-reports-plugin from 3.4.0 to 3.4.1
+* Internal: Bump maven-site-plugin from 3.12.0 to 3.12.1
+* Internal: Bump mockito-bom from 4.6.1 to 4.11.0
+* Internal: Bump org.eclipse.osgi from 3.17.200 to 3.18.200
+* Internal: Bump pitest from 1.9.2 to 1.9.4
+* Internal: Bump pitest-junit5-plugin from 0.15 to 1.1.1
+* Internal: Bump pitest-maven from 1.8.0 to 1.10.4
+* Internal: Bump pitest-github-maven-plugin from 1.0.1 to 1.0.3
+* Internal: Bump spotbugs-maven-plugin from 4.7.1.1 to 4.7.3.0
+* Internal: Bump spring-core from 5.3.20 to 5.3.24
+* Internal: Bump testng from 7.6.1 to 7.7.1
+* Internal: Bump versions-maven-plugin from 2.11.0 to 2.14.2
+
+[[assertj-core-3.24.0-fixed]]
+[.release-note-category]#icon:wrench[] Fixed#
+
+* Avoid reflection in recursive comparison for types in `sun.*` packages (#2891) (Stefano Cordio)
+* Honor custom type comparators with `returns` and `doesNotReturn` (#2725) (Stefano Cordio)
+* Fix `ignoringOverriddenEqualsForFieldsMatchingRegexes` that was checking field class instead of the field path
+* Add support for soft assertions when calling `isThrownBy` (#2699)
+* Fix `isCloseTo` example for `Date` assertions javdoc (#2890) (Michał Drożdż)
+
+[[assertj-core-3.24.0-deprecated]]
+[.release-note-category]#icon:ban[] Deprecated#
+
+* Deprecate `ObjectAssert(AtomicReference)` (#2795). (Stefano Cordio)
+
+Instead, use `assertThat(actual.get())` or `AtomicReferenceAssert#hasValueSatisfying(Consumer)`.
+
+[[assertj-core-3.24.0-allFieldsSatisfy]]
+[.release-note-item]#Add allFieldsSatisfy recursive assertion#
+
+`allFieldsSatisfy` verifies the given `Predicate` is met for all the fields of the object under test graph recursively (but not the object itself).
+
+For example if the object under test is an instance of class A, A has a B field and B a C field then `allFieldsSatisfy` checks A's B field and B's C field and all C's fields.
+
+It is possible to exclude some fields with any of these methods:
+
+* `ignoringFields(String...fieldsToIgnore)` - the assertion ignores the specified fields in the object under test
+* `ignoringFieldsMatchingRegexes(String...regexes)` - the assertion ignores the fields matching the specified regexes in the object under test
+* `ignoringFieldsOfTypes(Class<?>...typesToIgnore)` - the assertion ignores the object under test fields of the given types
+* `ignoringPrimitiveFields()` - avoid running the assertion on primitive fields
+
+Example:
+[source,java]
+----
+class Author {
+  String name;
+  String email;
+  List<Book> books = new ArrayList<>();
+
+  Author(String name, String email) {
+    this.name = name;
+    this.email = email;
+  }
+}
+
+class Book {
+  String title;
+  Author[] authors;
+
+  Book(String title, Author[] authors) {
+    this.title = title;
+    this.authors = authors;
+  }
+}
+
+Author pramodSadalage = new Author("Pramod Sadalage", "p.sadalage@recursive.test");
+Author martinFowler = new Author("Martin Fowler", "m.fowler@recursive.test");
+Author kentBeck = new Author("Kent Beck", "k.beck@recursive.test");
+
+Book noSqlDistilled = new Book("NoSql Distilled", new Author[] {pramodSadalage, martinFowler});
+pramodSadalage.books.add(noSqlDistilled);
+martinFowler.books.add(noSqlDistilled);
+
+Book refactoring = new Book("Refactoring", new Author[] {martinFowler, kentBeck});
+martinFowler.books.add(refactoring);
+kentBeck.books.add(refactoring);
+
+// assertion succeeds
+assertThat(pramodSadalage).usingRecursiveAssertion()
+                          .allFieldsSatisfy(field -> field != null);
+----
+
+The above example is best rewritten with `hasNoNullFields()`.
+
+[[assertj-core-3.24.0-hasNoNullFields]]
+[.release-note-item]#Add recursive assertions#
+
+Asserts that none of the fields of the object under test graph (i.e. recursively getting the fields) are null (but not the object itself).
+
+It is possible to exclude some fields with any of these methods:
+
+* `ignoringFields(String...fieldsToIgnore)` - the assertion ignores the specified fields in the object under test
+* `ignoringFieldsMatchingRegexes(String...regexes)` - the assertion ignores the fields matching the specified regexes in the object under test
+* `ignoringFieldsOfTypes(Class<?>...typesToIgnore)` - the assertion ignores the object under test fields of the given types
+
+Example:
+[source,java]
+----
+class Author {
+  String name;
+  String email;
+  List<Book> books = new ArrayList<>();
+
+  Author(String name, String email) {
+    this.name = name;
+    this.email = email;
+  }
+}
+
+class Book {
+  String title;
+  Author[] authors;
+
+  Book(String title, Author[] authors) {
+    this.title = title;
+    this.authors = authors;
+  }
+}
+
+Author pramodSadalage = new Author("Pramod Sadalage", "p.sadalage@recursive.test");
+Author martinFowler = new Author("Martin Fowler", "m.fowler@recursive.test");
+Author kentBeck = new Author("Kent Beck", "k.beck@recursive.test");
+
+Book noSqlDistilled = new Book("NoSql Distilled", new Author[] {pramodSadalage, martinFowler});
+pramodSadalage.books.add(noSqlDistilled);
+martinFowler.books.add(noSqlDistilled);
+
+Book refactoring = new Book("Refactoring", new Author[] {martinFowler, kentBeck});
+martinFowler.books.add(refactoring);
+kentBeck.books.add(refactoring);
+
+// assertion succeeds
+assertThat(pramodSadalage).usingRecursiveAssertion()
+                          .hasNoNullFields();
+----
+
+[[assertj-core-3.24.0-withEqualsForFieldsMatchingRegexes]]
+[.release-note-item]#Add withEqualsForFieldsMatchingRegexes in the recursive comparison#
+
+`withEqualsForFieldsMatchingRegexes` allows to register a `BiPredicate` to compare fields whose location matches the given regexes.
+
+A typical usage consists in comparing double/float fields with a given precision.
+
+The fields are evaluated from the root object, for example if `Foo` has a `Bar` field and both have an `id` field, one can register a `BiPredicate` for `Foo` and `Bar` `id` by calling:
+
+[source,java]
+----
+withEqualsForFields(idBiPredicate, ".*id")
+----
+or
+[source,java]
+----
+withEqualsForFields(idBiPredicate, "foo.*id")
+----
+
+Example:
+[source,java]
+----
+class TolkienCharacter {
+  String name;
+  double height;
+  double weight;
+}
+
+TolkienCharacter frodo = new TolkienCharacter("Frodo", 1.2, 40);
+TolkienCharacter tallerFrodo = new TolkienCharacter("Frodo", 1.3, 40.5);
+
+BiPredicate<Double, Double> closeEnough = (d1, d2) -> Math.abs(d1 - d2) <= 0.5;
+
+// assertion succeeds as both weight and height diff is less than 0.5
+assertThat(frodo).usingRecursiveComparison()
+                 .withEqualsForFieldsMatchingRegexes(closeEnough, ".eight")
+                 .isEqualTo(tallerFrodo);
+----
+
+[[assertj-core-3.24.0-comparingOnlyFieldsOfTypes]]
+[.release-note-item]#Add comparingOnlyFieldsOfTypes in the recursive comparison#
+
+`comparingOnlyFieldsOfTypes` makes the recursive comparison to only compare given actual fields of the specified types and their subfields (no other fields will be compared).
+
+Specifying a field of type will make all its subfields to be compared, for example specifying the `Person` type will lead to compare `Person.name`, `Person.address` and all other `Person` fields. In case actual's field is null, expected's field type will be checked to match one of the given types (we assume actual and expected fields have the same type).
+
+`comparingOnlyFieldsOfTypes` can be combined with `comparingOnlyFields(String...)` to compare fields of the given types or names (union of both sets of fields).
+
+`comparingOnlyFieldsOfTypes` can be also combined with ignoring fields or compare only fields by name methods to restrict further the fields actually compared, the resulting `compared fields = {specified compared fields of types} - {specified ignored fields}`.
+
+For example if the specified compared fields of types are `{String.class, Integer.class, Double.class}`, when there are fields `String foo`, `Integer baz` and `Double bar` and the ignored fields = `{"bar"}` set with `ignoringFields(String...)` that will remove `bar` field from comparison, then only `{foo, baz}` fields will be compared.
+
+Example:
+[source,java]
+----
+class Person {
+  String name;
+  double height;
+  Home home = new Home();
+}
+
+class Home {
+  Address address = new Address();
+}
+
+class Address {
+  int number;
+  String street;
+}
+
+Person sherlock = new Person("Sherlock", 1.80);
+sherlock.home.address.street = "Baker Street";
+sherlock.home.address.number = 221;
+
+Person moriarty = new Person("Moriarty", 1.80);
+moriarty.home.address.street = "Butcher Street";
+moriarty.home.address.number = 221;
+
+
+// assertion succeeds as it only compared fields height and home.address.number since their types match compared types
+assertThat(sherlock).usingRecursiveComparison()
+                    .comparingOnlyFieldsOfTypes(Integer.class, Double.class)
+                    .isEqualTo(moriarty);
+
+// assertion fails as home.address.street fields differ (Home fields and its subfields were compared)
+assertThat(sherlock).usingRecursiveComparison()
+                    .comparingOnlyFieldsOfTypes(Home.class)
+                    .isEqualTo(moriarty);
+----
+
+[[assertj-core-3.24.0-recursive-comparison-isIn-isNotIn]]
+[.release-note-item]#Add support for isIn/isNotIn assertions in the recursive comparison#
+
+`isIn`: verifies that the actual value is present in the given iterable/array, comparing values with the recursive comparison.
+
+`isNotIn`: verifies that the actual value is not present in the given iterable/array, comparing values with the recursive comparison.
+
+Example:
+[source,java]
+----
+class Person {
+  String name;
+  double height;
+  Home home = new Home();
+}
+
+class Home {
+  Address address = new Address();
+}
+
+class Address {
+  int number;
+  String street;
+}
+
+Person sherlock = new Person("Sherlock", 1.80);
+sherlock.home.ownedSince = new Date(123);
+sherlock.home.address.street = "Baker Street";
+sherlock.home.address.number = 221;
+
+Person sherlock2 = new Person("Sherlock", 1.80);
+sherlock2.home.ownedSince = new Date(123);
+sherlock2.home.address.street = "Baker Street";
+sherlock2.home.address.number = 221;
+
+Person watson = new Person("Watson", 1.70);
+watson.home.ownedSince = new Date(123);
+watson.home.address.street = "Baker Street";
+watson.home.address.number = 221;
+
+Person moriarty = new Person("Moriarty", 1.80);
+moriarty.home.ownedSince = new Date(123);
+moriarty.home.address.street = "Butcher Street";
+moriarty.home.address.number = 221;
+
+
+// assertion succeeds as sherlock and sherlock2 data are the same but not for watson and moriarty
+assertThat(sherlock).usingRecursiveComparison()
+                    .isIn(sherlock2, moriarty)
+                    .isNotIn(watson, moriarty);
+----
+
+[[assertj-core-3.24.0-satisfiesOnlyOnce]]
+[.release-note-item]#Add satisfiesOnlyOnce to iterable, array and atomic array assertions#
+
+Verifies that there is exactly one element in the iterable/array under test that satisfies the given `Consumer`.
+
+Example:
+[source,java]
+----
+List<String> starWarsCharacterNames = List.of("Luke", "Leia", "Yoda");
+
+// these assertions succeed:
+assertThat(starWarsCharacterNames).satisfiesOnlyOnce(name -> assertThat(name).contains("Y")) // matches only "Yoda"
+                                  .satisfiesOnlyOnce(name -> assertThat(name).contains("Lu")) // matches only "Luke"
+                                  .satisfiesOnlyOnce(name -> assertThat(name).contains("Le")); // matches only "Leia"
+
+// this assertion fails because the requirements are satisfied two times
+assertThat(starWarsCharacterNames).satisfiesOnlyOnce(name -> assertThat(name).contains("a")); // matches "Leia" and "Yoda"
+
+// this assertion fails because no element contains "Han"
+assertThat(starWarsCharacterNames).satisfiesOnlyOnce(name -> assertThat(name).contains("Han"));
+----
+
+[[assertj-core-3.24.0-isAssignableTo]]
+[.release-note-item]#Add isAssignableTo to Class assertions#
+
+Verifies that the `Class` under test is assignable to the given one.
+
+Example:
+[source,java]
+----
+class Jedi {}
+class HumanJedi extends Jedi {}
+
+// this assertion succeeds:
+assertThat(HumanJedi.class).isAssignableTo(Jedi.class);
+
+// this assertion fails
+assertThat(Jedi.class).isAssignableTo(HumanJedi.class);
+----
+
+[[assertj-core-3.24.0-withThrowableThat]]
+[.release-note-item]#Add withThrowableThat() to ease Future/CompletableFuture throwable assertions#
+
+Returns a `ThrowableAssertAlternative` to chain assertions on the underlying throwable for Future/CompletableFuture assertions.
+
+Example:
+[source,java]
+----
+CompletableFuture<Void> completableFuture = new CompletableFuture<>();
+completableFuture.completeExceptionally(new RuntimeException("boom!"));
+
+then(completableFuture).failsWithin(Duration.ofMillis(1))
+                       .withThrowableThat()
+                       .isInstanceOf(ExecutionException.class)
+                       .withMessageContaining("boom!");
+----
+
+[[assertj-core-3.24.0-matchesSatisfying]]
+[.release-note-item]#Add support for checking pattern followed by assertion on matchers groups#
+
+Verifies that the actual `CharSequence` matches the given regular expression pattern, then accepts the given `Consumer<Matcher>` to do further verification on the matcher.
+
+Example:
+[source,java]
+----
+assertThat("Frodo").matchesSatisfying("..(o.o)", matcher -> assertThat(matcher.group(1)).isEqualTo("odo"));
+
+// same assertion but with a Pattern
+Pattern pattern = Pattern.compile("..(o.o)");
+assertThat("Frodo").matchesSatisfying(pattern, matcher -> assertThat(matcher.group(1)).isEqualTo("odo"));
+----
+
+[[assertj-core-3.24.0-nestable-condition]]
+[.release-note-item]#Add nestable condition#
+
+`nestable` is a building block defining more precise condition on complex objects. It allows to create readable assertions and produces nicer assertion error messages.
+
+Example:
+[source,java]
+----
+import static org.assertj.core.condition.NestableCondition.nestable;
+import static org.assertj.core.condition.VerboseCondition.verboseCondition;
+
+class Customer {
+  final String name;
+  final Address address;
+
+  Customer(String name, Address address) {
+    this.name = name;
+    this.address = address;
+  }
+}
+
+class Address {
+  final String firstLine;
+  final String postcode;
+
+  Address(String firstLine, String postcode) {
+    this.firstLine = firstLine;
+    this.postcode = postcode;
+  }
+ }
+
+static Condition<Customer> name(String expected) {
+  return new Condition<>(
+    it -> expected.equals(it.name),
+    "name: " + expected
+  );
+}
+
+static Condition<Customer> customer(Condition<Customer>... conditions) {
+  return nestable("person", conditions);
+}
+
+static Condition<Address> firstLine(String expected) {
+  return new Condition<>(
+    it -> expected.equals(it.firstLine),
+    "first line: " + expected
+  );
+}
+
+static Condition<Address> postcode(String expected) {
+  return new Condition<>(
+    it -> expected.equals(it.postcode),
+    "postcode: " + expected
+  );
+}
+
+static Condition<Customer> address(Condition<Address>... conditions) {
+  return nestable(
+    "address",
+    customer -> customer.address,
+    conditions
+  );
+}
+----
+
+An assertions written like:
+
+[source,java]
+----
+assertThat(customer).is(
+  customer(
+    name("John"),
+    address(
+      firstLine("3"),
+      postcode("KM3 8SP")
+    )
+  )
+);
+----
+
+will produce an easy-to-read assertion error:
+
+[source,text]
+----
+Expecting actual:
+  org.assertj.core.condition.Customer@27ff5d15
+to be:
+  [✗] person:[
+      [✓] name: John,
+      [✗] address:[
+        [✗] first line: 3,
+        [✓] postcode: KM3 8SP
+      ]
+  ]
+----
+
+For an even better assertion error, see `VerboseCondition`.
+
+[[assertj-core-3.24.0-isAlphabetic]]
+[.release-note-item]#Add isAlphabetic to CharSequence assertions#
+
+Verifies that the actual `CharSequence` is alphabetic by checking it against the `\p{Alpha}+` regex pattern POSIX character classes (US-ASCII only).
+
+Example:
+[source,java]
+----
+// assertions will pass
+assertThat("lego").isAlphabetic();
+assertThat("a").isAlphabetic();
+assertThat("Lego").isAlphabetic();
+
+// assertions will fail
+assertThat("1").isAlphabetic();
+assertThat(" ").isAlphabetic();
+assertThat("").isAlphabetic();
+assertThat("L3go").isAlphabetic();
+----
+
+[[assertj-core-3.24.0-isAlphanumeric]]
+[.release-note-item]#Add isAlphanumeric to CharSequence assertions#
+
+Verifies that the actual `CharSequence` is alphanumeric by checking it against the `\p{Alnum}+` regex pattern POSIX character classes (US-ASCII only).
+
+Example:
+[source,java]
+----
+// assertions will pass
+assertThat("lego").isAlphanumeric();
+assertThat("a1").isAlphanumeric();
+assertThat("L3go").isAlphanumeric();
+
+// assertions will fail
+assertThat("!").isAlphanumeric();
+assertThat("").isAlphanumeric();
+assertThat(" ").isAlphanumeric();
+assertThat("L3go!").isAlphanumeric();
+----
+
+[[assertj-core-3.24.0-isASCII]]
+[.release-note-item]#Add isASCII to CharSequence assertions#
+
+Verifies that the actual `CharSequence` is ASCII by checking it against the `\p{ASCII}+` regex pattern POSIX character classes (US-ASCII only).
+
+Example:
+[source,java]
+----
+// assertions will pass
+assertThat("lego").isASCII();
+assertThat("a1").isASCII();
+assertThat("L3go").isASCII();
+
+// assertions will fail
+assertThat("").isASCII();
+assertThat("♪").isASCII();
+assertThat("⌃").isASCII();
+assertThat("L3go123⌃00abc").isASCII();
+----
+
+[[assertj-core-3.24.0-isHexadecimal]]
+[.release-note-item]#Add isHexadecimal to CharSequence assertions#
+
+Verifies that the actual `CharSequence` is hexadecimal by checking it against the `\p{XDigit}+` regex pattern POSIX character classes (US-ASCII only).
+
+Example:
+[source,java]
+----
+// assertions will pass
+assertThat("A").isHexadecimal();
+assertThat("2").isHexadecimal();
+
+// assertions will fail
+assertThat("!").isHexadecimal();
+assertThat("").isHexadecimal();
+assertThat(" ").isHexadecimal();
+assertThat("Z").isHexadecimal();
+assertThat("L3go!").isHexadecimal();
+----
+
+[[assertj-core-3.24.0-isPrintable]]
+[.release-note-item]#Add isAlphabetic to CharSequence assertions#
+
+Verifies that the actual `CharSequence` is printable by checking it against the `\p{Print}+` regex pattern POSIX character classes (US-ASCII only).
+
+Example:
+[source,java]
+----
+// assertions will pass
+assertThat("2").isPrintable();
+assertThat("a").isPrintable();
+assertThat("~").isPrintable();
+assertThat("").isPrintable();
+
+// assertions will fail
+assertThat("\t").isPrintable();
+assertThat("§").isPrintable();
+assertThat("©").isPrintable();
+assertThat("\n").isPrintable();
+----
+
+[[assertj-core-3.24.0-isVisible]]
+[.release-note-item]#Add isVisible to CharSequence assertions#
+
+Verifies that the actual `CharSequence` is visible by checking it against the `\p{Graph}+` regex pattern POSIX character classes (US-ASCII only).
+
+Example:
+[source,java]
+----
+// assertions will pass
+assertThat("2").isVisible();
+assertThat("a").isVisible();
+assertThat(".").isVisible();
+
+// assertions will fail
+assertThat("\t").isVisible();
+assertThat("\n").isVisible();
+assertThat("").isVisible();
+assertThat(" ").isVisible();
+----
+
+[[assertj-core-3.24.0-isUnmodifiable]]
+[.release-note-item]#Add isUnmodifiable to Map assertions#
+
+Verifies that the map under test is unmodifiable, i.e. throws an `UnsupportedOperationException` with any attempt to modify the map.
+
+Example:
+[source,java]
+----
+// assertions succeeds
+assertThat(Collections.unmodifiableMap(new HashMap<>())).isUnmodifiable();
+
+// assertions fails
+assertThat(new HashMap<>()).isUnmodifiable();
+----
+
+[[assertj-core-3.24.0-isExecutable]]
+[.release-note-item]#Add isExecutable to file assertions#
+
+Verifies that the file under test is executable.
+
+Example:
+[source,java]
+----
+File tmpFile = java.nio.file.Files.createTempFile("executable_file", ".sh").toFile();
+
+tmpFile.setExecutable(true);
+// assertions succeeds
+assertThat(tmpFile).isExecutable();
+
+tmpFile.setExecutable(false);
+// assertions fails
+assertThat(tmpFile).isExecutable();
+----
+
+[[assertj-core-3.24.0-hasMessageMatching]]
+[.release-note-item]#Add hasMessageMatching(Pattern) to throwable assertions#
+
+Verifies that the message of the `Throwable` under test matches the given regular expression `Pattern`.
+
+Example:
+[source,java]
+----
+Throwable throwable = new IllegalArgumentException("wrong amount 123");
+
+// assertion succeeds
+assertThat(throwable).hasMessageMatching(Pattern.compile("wrong amount [0-9]*"));
+
+// assertion fails
+assertThat(throwable).hasMessageMatching(Pattern.compile("wrong amount [0-9]* euros"));
+----
 
 [[assertj-core-3-23-1-release-notes]]
 ==== AssertJ Core 3.23.1

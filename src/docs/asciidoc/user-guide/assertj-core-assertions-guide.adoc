@@ -751,19 +751,19 @@ expected: JEDI [name=Luke, age=23]
 [[assertj-core-common-assertions]]
 ==== Common assertions
 
-This section describes the assertions common to all types, the javadoc for common assertions methods is available https://www.javadoc.io/static/org.assertj/assertj-core/{assertj-core-version}/org/assertj/core/api/AbstractAssert.html#method.summary[here].
+This section describes the assertions common to all types, the javadoc for common assertions methods is available https://www.javadoc.io/static/org.assertj/assertj-core/{assertj-version}/org/assertj/core/api/AbstractAssert.html#method.summary[here].
 
 [[assertj-core-object-assertions]]
 ==== Object assertions
 
-The javadoc for `Object` assertions is available https://www.javadoc.io/static/org.assertj/assertj-core/{assertj-core-version}/org/assertj/core/api/AbstractObjectAssert.html#method.summary[here].
+The javadoc for `Object` assertions is available https://www.javadoc.io/static/org.assertj/assertj-core/{assertj-version}/org/assertj/core/api/AbstractObjectAssert.html#method.summary[here].
 
 [[assertj-string-object-assertions]]
 ==== String/CharSequence assertions
 
 This section describes all the available assertions for `CharSequence` (including `String`, `StringBuilder`, `StringBuffer`, ...):
 
-The javadoc for `CharSequence` assertions is available https://www.javadoc.io/static/org.assertj/assertj-core/{assertj-core-version}/org/assertj/core/api/AbstractCharSequenceAssert.html#method.summary[here].
+The javadoc for `CharSequence` assertions is available https://www.javadoc.io/static/org.assertj/assertj-core/{assertj-version}/org/assertj/core/api/AbstractCharSequenceAssert.html#method.summary[here].
 
 
 [[assertj-core-group-assertions]]
@@ -798,30 +798,30 @@ There are different flavors of `contains` assertion, here's a table to help choo
 |{assertj-core-javadoc-root}org/assertj/core/api/AbstractIterableAssert.html#contains(ELEMENT&#46;&#46;&#46;)[`contains`]
 |Verifies that the actual iterable/array contains the given values in any order
 
-|{assertj-core-javadoc-root}org/assertj/core/api/AbstractIterableAssert.html#containsOnly(ELEMENT&#46;&#46;&#46;)[`containsOnly​`]
+|{assertj-core-javadoc-root}org/assertj/core/api/AbstractIterableAssert.html#containsOnly(ELEMENT&#46;&#46;&#46;)[`containsOnly`]
 |Verifies that the actual group contains only the given values and nothing else in any order and ignoring duplicates (i.e. once a value is found, its duplicates are also considered found)
 
-|{assertj-core-javadoc-root}org/assertj/core/api/AbstractIterableAssert.html#containsExactly(ELEMENT&#46;&#46;&#46;)[`containsExactly​`]
+|{assertj-core-javadoc-root}org/assertj/core/api/AbstractIterableAssert.html#containsExactly(ELEMENT&#46;&#46;&#46;)[`containsExactly`]
 |Verifies that the actual iterable/array contains exactly the given values and nothing else **in order**
 
-|{assertj-core-javadoc-root}org/assertj/core/api/AbstractIterableAssert.html#containsExactlyInAnyOrder(ELEMENT&#46;&#46;&#46;)[`containsExactlyInAnyOrder​`]
+|{assertj-core-javadoc-root}org/assertj/core/api/AbstractIterableAssert.html#containsExactlyInAnyOrder(ELEMENT&#46;&#46;&#46;)[`containsExactlyInAnyOrder`]
 |Verifies that the actual iterable/array contains exactly the given values and nothing else **in any order**
 
-|{assertj-core-javadoc-root}org/assertj/core/api/AbstractIterableAssert.html#containsSequence(ELEMENT&#46;&#46;&#46;)[`containsSequence​`]
+|{assertj-core-javadoc-root}org/assertj/core/api/AbstractIterableAssert.html#containsSequence(ELEMENT&#46;&#46;&#46;)[`containsSequence`]
 |Verifies that the actual group contains the given sequence in the correct order and **without extra values between the sequence values**
 
-|{assertj-core-javadoc-root}org/assertj/core/api/AbstractIterableAssert.html#containsSubsequence(ELEMENT&#46;&#46;&#46;)[`containsSubsequence​`]
+|{assertj-core-javadoc-root}org/assertj/core/api/AbstractIterableAssert.html#containsSubsequence(ELEMENT&#46;&#46;&#46;)[`containsSubsequence`]
 |Verifies that the actual group contains the given subsequence in the correct order **possibly with other values between them**
 
 |{assertj-core-javadoc-root}org/assertj/core/api/AbstractIterableAssert.html#containsOnlyOnce(ELEMENT&#46;&#46;&#46;)[`containsOnlyOnce`]
 |Verifies that the actual iterable/array contains the given values only once
 
-|{assertj-core-javadoc-root}org/assertj/core/api/AbstractIterableAssert.html#containsAnyOf(ELEMENT&#46;&#46;&#46;)[`containsAnyOf​`]
+|{assertj-core-javadoc-root}org/assertj/core/api/AbstractIterableAssert.html#containsAnyOf(ELEMENT&#46;&#46;&#46;)[`containsAnyOf`]
 |Verifies that the actual iterable/array contains at least one of the given values (like an `or` operator on the given values)
 
 |===
 
-TIP: the assertions above have a variant accepting an iterable/array argument, ex: `containsExactly(E...)` and `containsExactlyElementsOf​(Iterable)`
+TIP: the assertions above have a variant accepting an iterable/array argument, ex: `containsExactly(E...)` and `containsExactlyElementsOf(Iterable)`
 
 [[assertj-core-group-satisfy]]
 ===== Verify assertions on some elements
@@ -1345,7 +1345,7 @@ assertThatExceptionOfType(RuntimeException.class)
 
 ====== Checking the root cause
 
-You can check the root cause directly with `hasRootCause`, `hasRootCauseMessage` and `hasRootCauseInstanceOf​` if you have access to it but that's not always possible, this is a bit limited
+You can check the root cause directly with `hasRootCause`, `hasRootCauseMessage` and `hasRootCauseInstanceOf` if you have access to it but that's not always possible, this is a bit limited
 in term of assertions, a better way is to navigate to the root cause with `getRootCause()` and take advantage of all existing exception assertions.
 
 Examples:
@@ -1584,7 +1584,7 @@ try {
 [[assertj-core-recursive-comparison]]
 ==== Field by field recursive comparison
 
-Since 3.12.0 AssertJ Core provides a new fluent recursive comparison API for `Object` assertions, it is meant to replace `isEqualToComparingFieldByFieldRecursively` with more capabilities including:
+AssertJ Core provides a fluent recursive comparison API for `Object` assertions with the following capabilities:
 
 * link:#assertj-core-recursive-comparison-strict[Choosing a strict or lenient recursive comparison]
 * link:#assertj-core-recursive-comparison-ignoring-fields[Ignoring fields in the comparison]
@@ -1593,6 +1593,9 @@ Since 3.12.0 AssertJ Core provides a new fluent recursive comparison API for `Ob
 * link:#assertj-core-recursive-comparison-ignoring-all-expected-null-fields[Ignoring all expected null fields]
 * link:#assertj-core-recursive-comparison-ignoring-all-actual-empty-optional-fields[Ignoring all actual empty optional fields].
 * link:#assertj-core-recursive-comparison-overriding-error-messages[Overriding error messages for specific fields or types].
+* link:#assertj-core-recursive-comparison-introspection-strategy[Specifying how to introspect the objects to compare].
+
+The recursive comparison is meant to to replace `isEqualToComparingFieldByFieldRecursively`.
 
 ===== Basic usage
 
@@ -1647,14 +1650,16 @@ It first looks for the object under test fields (skipping any ignored ones as sp
 The next step is resolving the field values using first a getter method (if any) or reading the field value. The getter methods for a field `x` are `getX()` or `isX()` for boolean fields.
 If you enable bare properties resolution, a method `x()` is also used considered as a valid getter.
 
-Bare name property is enabled by calling `Assertions.setExtractBareNamePropertyMethods​(true);` (it is disabled by default since 3.18.0).
+Bare name property is enabled by calling `Assertions.setExtractBareNamePropertyMethods(true);` (it is disabled by default since 3.18.0).
 
 Lastly if the object under test is a map, the recursive comparison tries to resolve the field value by looking it up in the map with `map.get(fieldName)`.
+
+Since 3.24.0, you can specify your own strategy on how the recursive comparison resolve the values to compare, go to section link:#assertj-core-recursive-comparison-introspection-strategy[specifying how to introspect the objects to compare] for details.
 
 
 ===== Breaking changes
 
-Since 3.18.0 bare name getter resolution are disabled by default, to get the previous behaviour back, call `Assertions.setExtractBareNamePropertyMethods​(true);`
+Since 3.18.0 bare name getter resolution are disabled by default, to get the previous behaviour back, call `Assertions.setExtractBareNamePropertyMethods(true);`
 
 Since 3.17.0 it does not use anymore `equals` methods of classes that have overriden it, so no need to force recursive comparison on these classes. To get the previous behavior back, use link:#assertj-core-using-overridden-equals[`usingOverriddenEquals()`].
 
@@ -2112,9 +2117,9 @@ The recursive comparison was performed with this configuration:
 [[assertj-core-recursive-comparison-for-iterable]]
 ===== Recursive comparison for iterable assertions
 
-`usingRecursiveFieldByFieldElementComparator​(RecursiveComparisonConfiguration)` enables the recursive comparison for any iterable assertion as opposed to `usingRecursiveComparison()` which only allows `isEqualTo` and `isNotEqualTo`, the main difference between both `isEqualTo` assertions is that the `usingRecursiveComparison` one will give a detailed differences report while the `usingRecursiveFieldByFieldElementComparator​` one will give a generic error message without details.
+`usingRecursiveFieldByFieldElementComparator(RecursiveComparisonConfiguration)` enables the recursive comparison for any iterable assertion as opposed to `usingRecursiveComparison()` which only allows `isEqualTo` and `isNotEqualTo`, the main difference between both `isEqualTo` assertions is that the `usingRecursiveComparison` one will give a detailed differences report while the `usingRecursiveFieldByFieldElementComparator` one will give a generic error message without details.
 
-Another difference is that `usingRecursiveComparison()` exposes a fluent API to tweak the recursive comparison, to achieve the same you will need to initialize a `RecursiveComparisonConfiguration` and pass it to `usingRecursiveFieldByFieldElementComparator​`, you can take advantage of the `RecursiveComparisonConfiguration.builder()` to do so.
+Another difference is that `usingRecursiveComparison()` exposes a fluent API to tweak the recursive comparison, to achieve the same you will need to initialize a `RecursiveComparisonConfiguration` and pass it to `usingRecursiveFieldByFieldElementComparator`, you can take advantage of the `RecursiveComparisonConfiguration.builder()` to do so.
 
 Example:
 [source,java,indent=0]
@@ -2159,6 +2164,154 @@ people = list(howard, sheldon, raj)
 assertThat(doctors).usingRecursiveFieldByFieldElementComparator(configuration)
                    .contains(howard);
 ----
+
+[[assertj-core-recursive-comparison-introspection-strategy]]
+===== Specifying how to introspect the objects to compare
+
+Since 3.24.0, you can specify your own strategy telling the recursive comparison how to resolve the values to compare, this is useful if the default strategy does not suit you.
+
+To use your own introspection strategy, you need to:
+
+* implement `RecursiveComparisonIntrospectionStrategy`
+* call `withIntrospectionStrategy(myIntrospectionStrategy)` with an instance of your strategy
+
+AssertJ provides a few strategies out of the box:
+
+* `ComparingFields`: introspect fields only (no properties, map keys are not considered as fields)
+* `ComparingProperties`: introspect properties only (no fields, map keys are not considered as properties)
+* `ComparingSnakeOrCamelCaseFields`: compare fields only, can match camel case fields against snake case ones, ex: `firstName` vs `first_name` which is useful when comparing types with different fields naming conventions
+* `ComparingNormalizedFields`: an abstract strategy that compares fields after normalizing them, you just need to implement `normalizeFieldName(String fieldName)`
+
+`ComparingSnakeOrCamelCaseFields` is an example of `ComparingNormalizedFields` that normalizes snake case to camel case.
+
+Here's an example using `ComparingSnakeOrCamelCaseFields` where we compare `Author`/`Book` against `AuthorDto`/`BookDto`, `Author`/`Book` follow the regular camel case field naming convention while the dto classes follow the snake case naming convention.
+
+The recursive comparison would fail comparing the `Author`/`Book` fields against `AuthorDto`/`BookDto` ones, it would not know to match `Author.firstName` against `AuthorDto.first_name` for example but with `ComparingSnakeOrCamelCaseFields` it will know how to match these fields.
+
+Example:
+[source,java,indent=0]
+----
+Author martinFowler = new Author("Martin", "Fowler", 58, "https://www.thoughtworks.com/profiles/leaders/martin-fowler");
+Book refactoring = new Book("Refactoring", martinFowler);
+AuthorDto martinFowlerDto = new AuthorDto("Martin", "Fowler", 58, "https://www.thoughtworks.com/profiles/leaders/martin-fowler");
+BookDto refactoringDto = new BookDto("Refactoring", martinFowlerDto);
+
+RecursiveComparisonIntrospectionStrategy comparingSnakeOrCamelCaseFields = new ComparingSnakeOrCamelCaseFields();
+
+// both assertions succeed
+assertThat(refactoring).usingRecursiveComparison()
+                      .withIntrospectionStrategy(comparingSnakeOrCamelCaseFields)
+                      .isEqualTo(refactoringDto);
+assertThat(refactoringDto).usingRecursiveComparison()
+                          .withIntrospectionStrategy(comparingSnakeOrCamelCaseFields)
+                          .isEqualTo(refactoring);
+
+static class Author {
+  String firstName;
+  String lastName;
+  int age;
+  String profileURL;
+
+  Author(String firstName, String lastName, int age, String profileUrl) {
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.age = age;
+    this.profileURL = profileUrl;
+  }
+}
+
+static class Book {
+  String title;
+  Author mainAuthor;
+
+  Book(String title, Author author) {
+    this.title = title;
+    this.mainAuthor = author;
+  }
+}
+static class AuthorDto {
+  String first_name;
+  String last_name;
+  int _age;
+  String profile_url;
+
+  AuthorDto(String firstName, String lastName, int age, String profileUrl) {
+    this.first_name = firstName;
+    this.last_name = lastName;
+    this._age = age;
+    this.profile_url = profileUrl;
+  }
+}
+
+static class BookDto {
+  String title;
+  AuthorDto main_author;
+
+  BookDto(String title, AuthorDto author) {
+    this.title = title;
+    this.main_author = author;
+  }
+}
+----
+
+[[assertj-core-recursive-assertion]]
+==== Recursive assertions
+
+The recursive assertion `allFieldsSatisfy` lets you verify a `Predicate` is met for all the fields of the object under test graph recursively (but not the object itself).
+
+For example if the object under test is an instance of class A, A has a B field and B a C field then `allFieldsSatisfy` checks A's B field and B's C field and all C's fields.
+
+Example:
+[source,java]
+----
+class Author {
+  String name;
+  String email;
+  List<Book> books = new ArrayList<>();
+
+  Author(String name, String email) {
+    this.name = name;
+    this.email = email;
+  }
+}
+
+class Book {
+  String title;
+  Author[] authors;
+
+  Book(String title, Author[] authors) {
+    this.title = title;
+    this.authors = authors;
+  }
+}
+
+Author pramodSadalage = new Author("Pramod Sadalage", "p.sadalage@recursive.test");
+Author martinFowler = new Author("Martin Fowler", "m.fowler@recursive.test");
+Author kentBeck = new Author("Kent Beck", "k.beck@recursive.test");
+
+Book noSqlDistilled = new Book("NoSql Distilled", new Author[] {pramodSadalage, martinFowler});
+pramodSadalage.books.add(noSqlDistilled);
+martinFowler.books.add(noSqlDistilled);
+
+Book refactoring = new Book("Refactoring", new Author[] {martinFowler, kentBeck});
+martinFowler.books.add(refactoring);
+kentBeck.books.add(refactoring);
+
+// assertion succeeds
+assertThat(pramodSadalage).usingRecursiveAssertion()
+                          .allFieldsSatisfy(field -> field != null);
+----
+
+The above example is best rewritten with `hasNoNullFields()` which is common enough that it is supported out of the box.
+
+The recursive assertion provides these methods to exclude fields, the predicate won't be applied on the excluded fields:
+
+* `ignoringFields(String...fieldsToIgnore)` - the assertion ignores the specified fields in the object under test
+* `ignoringFieldsMatchingRegexes(String...regexes)` - the assertion ignores the fields matching the specified regexes in the object under test
+* `ignoringFieldsOfTypes(Class<?>...typesToIgnore)` - the assertion ignores the object under test fields of the given types
+* `ignoringPrimitiveFields()` - avoid running the assertion on primitive fields
+
+
 
 [[assertj-core-soft-assertions]]
 ==== Soft assertions

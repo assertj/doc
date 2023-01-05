@@ -29,3 +29,5 @@ include::assertj-neo4j.adoc[]
 include::assertj-db.adoc[]
 
 include::assertj-swing.adoc[]
+
+include::assertj-appendix.adoc[]

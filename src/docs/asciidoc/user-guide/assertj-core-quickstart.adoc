@@ -1,32 +1,22 @@
 [[assertj-core-quick-start]]
 === Quick start
 
-This guide is for the AssertJ core module.
-
-[[get-assertj-core]]
-==== Get assertj-core library
-
-AssertJ Core artifacts are in the Maven central repository. 
+This guide is for the AssertJ Core module.
 
 [[assertj-core-java-versions]]
-===== Supported Java versions
+==== Supported Java Versions
 
-AssertJ Core major versions depend on different Java versions:
-
-* AssertJ Core 3.x requires Java 8 or higher
-* AssertJ Core 2.x requires Java 7 or higher
-
-AssertJ Core 3.x includes all AssertJ Core 2.x features and adds Java 8 specific ones (like exception assertions with lambdas).
-
-IMPORTANT: AssertJ Core 2.x is in maintenance mode, it will only receive bugfixes.
+AssertJ Core requires Java 8 or higher.
 
 [[assertj-core-android]]
-===== Android support
+===== Android Support
 
-AssertJ *does not officially support Android* but is mostly Android compatible:
+AssertJ Core *does not officially support Android* but is compatible with Android API Level 26+, except for soft assertions and assumptions.
 
-* AssertJ Core 3.x is compatible with Android API Level 26+, except for soft assertions and assumptions.
-* AssertJ Core 2.x is Android compatible with Android API Level 26+ and API Level < 26 except for `Path` assertions.
+[[get-assertj-core]]
+==== Get AssertJ Core
+
+The AssertJ Core artifact can be included directly using its link:#dependency-metadata-assertj-core[dependency metadata] or indirectly via the link:#dependency-metadata-assertj-bom[_Bill of Materials_ POM].
 
 ===== Maven
 
@@ -35,31 +25,46 @@ AssertJ *does not officially support Android* but is mostly Android compatible:
 <dependency>
   <groupId>org.assertj</groupId>
   <artifactId>assertj-core</artifactId>
-  <!-- use 2.9.1 for Java 7 projects -->
-  <version>{assertj-core-version}</version>
+  <version>{assertj-version}</version>
   <scope>test</scope>
 </dependency>
 ----
 
 ===== Gradle
 
-For Gradle users (using the Maven Central Repository)
-
-[source,java,indent=0,subs=attributes+]
+[source,groovy,indent=0,subs=attributes+]
 ----
-testImplementation("org.assertj:assertj-core:{assertj-core-version}")
-----
-
-Or version 2.9.1 for Java 7 projects
-
-[source,java,indent=0]
-----
-testImplementation("org.assertj:assertj-core:2.9.1")
+testImplementation("org.assertj:assertj-core:{assertj-version}")
 ----
 
 ===== Other build tools
 
-Check this page to find the relevant https://search.maven.org/artifact/org.assertj/assertj-core/{assertj-core-version}/bundle[assertj core dependency declaration].
+Check this page to find the relevant https://central.sonatype.dev/artifact/org.assertj/assertj-core/{assertj-version}[Assertj Core dependency declaration].
+
+===== Spring Boot
+
+https://spring.io/projects/spring-boot[Spring Boot] provides automatic support for managing the version of AssertJ Core used in your project.
+In addition, the `spring-boot-starter-test` artifact automatically includes testing libraries such as JUnit Jupiter, AssertJ, Mockito, etc.
+
+If you need to override the version of a dependency used in your Spring Boot application, you have to override the exact name of the https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#appendix.dependency-versions.properties[version property] defined in the BOM used by the Spring Boot plugin.
+For example, the name of the AssertJ Core version property in Spring Boot is `assertj.version`.
+The mechanism for changing a dependency version is documented for both https://docs.spring.io/spring-boot/docs/current/maven-plugin/reference/htmlsingle/#using.parent-pom[Maven] and https://docs.spring.io/spring-boot/docs/current/gradle-plugin/reference/htmlsingle/#managing-dependencies.dependency-management-plugin.customizing[Gradle].
+
+With Maven, you can override the AssertJ Core version by including the following in your `pom.xml` file.
+
+[source,xml,indent=0,subs=attributes+]
+----
+<properties>
+  <assertj.version>{assertj-version}</assertj.version>
+</properties>
+----
+
+With Gradle, you can override the AssertJ Core version by including the following in your `build.gradle` file.
+
+[source,groovy,indent=0,subs=attributes+]
+----
+ext['assertj.version'] = '{assertj-version}'
+----
 
 ===== Binary Compatibility
 
