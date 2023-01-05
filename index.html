@@ -2488,6 +2488,11 @@ p {
 <li><a href="#assertj-swing-release-notes">7.1. Release Notes</a></li>
 </ul>
 </li>
+<li><a href="#appendix">8. Appendix</a>
+<ul class="sectlevel2">
+<li><a href="#dependency-metadata">8.1. Dependency Metadata</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
@@ -2614,59 +2619,24 @@ assertThat(fellowshipOfTheRing).filteredOn(character -&gt; character.getName().c
 <div class="sect2">
 <h3 id="assertj-core-quick-start"><a class="anchor" href="#assertj-core-quick-start"></a>2.4. Quick start</h3>
 <div class="paragraph">
-<p>This guide is for the AssertJ core module.</p>
+<p>This guide is for the AssertJ Core module.</p>
 </div>
 <div class="sect3">
-<h4 id="get-assertj-core"><a class="anchor" href="#get-assertj-core"></a>2.4.1. Get assertj-core library</h4>
+<h4 id="assertj-core-java-versions"><a class="anchor" href="#assertj-core-java-versions"></a>2.4.1. Supported Java Versions</h4>
 <div class="paragraph">
-<p>AssertJ Core artifacts are in the Maven central repository.</p>
+<p>AssertJ Core requires Java 8 or higher.</p>
 </div>
 <div class="sect4">
-<h5 id="assertj-core-java-versions"><a class="anchor" href="#assertj-core-java-versions"></a>Supported Java versions</h5>
+<h5 id="assertj-core-android"><a class="anchor" href="#assertj-core-android"></a>Android Support</h5>
 <div class="paragraph">
-<p>AssertJ Core major versions depend on different Java versions:</p>
+<p>AssertJ Core <strong>does not officially support Android</strong> but is compatible with Android API Level 26+, except for soft assertions and assumptions.</p>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p>AssertJ Core 3.x requires Java 8 or higher</p>
-</li>
-<li>
-<p>AssertJ Core 2.x requires Java 7 or higher</p>
-</li>
-</ul>
 </div>
+</div>
+<div class="sect3">
+<h4 id="get-assertj-core"><a class="anchor" href="#get-assertj-core"></a>2.4.2. Get AssertJ Core</h4>
 <div class="paragraph">
-<p>AssertJ Core 3.x includes all AssertJ Core 2.x features and adds Java 8 specific ones (like exception assertions with lambdas).</p>
-</div>
-<div class="admonitionblock important">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-important" title="Important"></i>
-</td>
-<td class="content">
-AssertJ Core 2.x is in maintenance mode, it will only receive bugfixes.
-</td>
-</tr>
-</table>
-</div>
-</div>
-<div class="sect4">
-<h5 id="assertj-core-android"><a class="anchor" href="#assertj-core-android"></a>Android support</h5>
-<div class="paragraph">
-<p>AssertJ <strong>does not officially support Android</strong> but is mostly Android compatible:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>AssertJ Core 3.x is compatible with Android API Level 26+, except for soft assertions and assumptions.</p>
-</li>
-<li>
-<p>AssertJ Core 2.x is Android compatible with Android API Level 26+ and API Level &lt; 26 except for <code>Path</code> assertions.</p>
-</li>
-</ul>
-</div>
+<p>The AssertJ Core artifact can be included directly using its <a href="#dependency-metadata-assertj-core">dependency metadata</a> or indirectly via the <a href="#dependency-metadata-assertj-bom"><em>Bill of Materials</em> POM</a>.</p>
 </div>
 <div class="sect4">
 <h5 id="maven"><a class="anchor" href="#maven"></a>Maven</h5>
@@ -2675,8 +2645,7 @@ AssertJ Core 2.x is in maintenance mode, it will only receive bugfixes.
 <pre class="highlightjs highlight"><code data-lang="xml" class="language-xml hljs">&lt;dependency&gt;
   &lt;groupId&gt;org.assertj&lt;/groupId&gt;
   &lt;artifactId&gt;assertj-core&lt;/artifactId&gt;
-  &lt;!-- use 2.9.1 for Java 7 projects --&gt;
-  &lt;version&gt;3.23.1&lt;/version&gt;
+  &lt;version&gt;3.24.0&lt;/version&gt;
   &lt;scope&gt;test&lt;/scope&gt;
 &lt;/dependency&gt;</code></pre>
 </div>
@@ -2684,27 +2653,46 @@ AssertJ Core 2.x is in maintenance mode, it will only receive bugfixes.
 </div>
 <div class="sect4">
 <h5 id="gradle"><a class="anchor" href="#gradle"></a>Gradle</h5>
-<div class="paragraph">
-<p>For Gradle users (using the Maven Central Repository)</p>
-</div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code data-lang="java" class="language-java hljs">testImplementation("org.assertj:assertj-core:3.23.1")</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Or version 2.9.1 for Java 7 projects</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code data-lang="java" class="language-java hljs">testImplementation("org.assertj:assertj-core:2.9.1")</code></pre>
+<pre class="highlightjs highlight"><code data-lang="groovy" class="language-groovy hljs">testImplementation("org.assertj:assertj-core:3.24.0")</code></pre>
 </div>
 </div>
 </div>
 <div class="sect4">
 <h5 id="other-build-tools"><a class="anchor" href="#other-build-tools"></a>Other build tools</h5>
 <div class="paragraph">
-<p>Check this page to find the relevant <a href="https://search.maven.org/artifact/org.assertj/assertj-core/3.23.1/bundle">assertj core dependency declaration</a>.</p>
+<p>Check this page to find the relevant <a href="https://central.sonatype.dev/artifact/org.assertj/assertj-core/3.24.0">Assertj Core dependency declaration</a>.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="spring-boot"><a class="anchor" href="#spring-boot"></a>Spring Boot</h5>
+<div class="paragraph">
+<p><a href="https://spring.io/projects/spring-boot">Spring Boot</a> provides automatic support for managing the version of AssertJ Core used in your project.
+In addition, the <code>spring-boot-starter-test</code> artifact automatically includes testing libraries such as JUnit Jupiter, AssertJ, Mockito, etc.</p>
+</div>
+<div class="paragraph">
+<p>If you need to override the version of a dependency used in your Spring Boot application, you have to override the exact name of the <a href="https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#appendix.dependency-versions.properties">version property</a> defined in the BOM used by the Spring Boot plugin.
+For example, the name of the AssertJ Core version property in Spring Boot is <code>assertj.version</code>.
+The mechanism for changing a dependency version is documented for both <a href="https://docs.spring.io/spring-boot/docs/current/maven-plugin/reference/htmlsingle/#using.parent-pom">Maven</a> and <a href="https://docs.spring.io/spring-boot/docs/current/gradle-plugin/reference/htmlsingle/#managing-dependencies.dependency-management-plugin.customizing">Gradle</a>.</p>
+</div>
+<div class="paragraph">
+<p>With Maven, you can override the AssertJ Core version by including the following in your <code>pom.xml</code> file.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="xml" class="language-xml hljs">&lt;properties&gt;
+  &lt;assertj.version&gt;3.24.0&lt;/assertj.version&gt;
+&lt;/properties&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>With Gradle, you can override the AssertJ Core version by including the following in your <code>build.gradle</code> file.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="groovy" class="language-groovy hljs">ext['assertj.version'] = '3.24.0'</code></pre>
+</div>
 </div>
 </div>
 <div class="sect4">
@@ -2831,7 +2819,7 @@ AssertJ Core 2.x is in maintenance mode, it will only receive bugfixes.
 </div>
 </div>
 <div class="sect3">
-<h4 id="use-assertions-class-entry-point"><a class="anchor" href="#use-assertions-class-entry-point"></a>2.4.2. Use Assertions class entry point</h4>
+<h4 id="use-assertions-class-entry-point"><a class="anchor" href="#use-assertions-class-entry-point"></a>2.4.3. Use Assertions class entry point</h4>
 <div class="paragraph">
 <p>The <code>Assertions</code> class is the only class you need to start using AssertJ, it provides all the methods you need.</p>
 </div>
@@ -2942,7 +2930,7 @@ public class BDDAssertionsExamples extends AbstractAssertionsExamples {
 </div>
 </div>
 <div class="sect3">
-<h4 id="use-code-completion"><a class="anchor" href="#use-code-completion"></a>2.4.3. Use code completion</h4>
+<h4 id="use-code-completion"><a class="anchor" href="#use-code-completion"></a>2.4.4. Use code completion</h4>
 <div class="paragraph">
 <p>Type <code>assertThat</code> followed by the object under test and a dot &#8230;&#8203; and any Java IDE code completion will show you all available assertions.</p>
 </div>
@@ -2969,7 +2957,7 @@ public class BDDAssertionsExamples extends AbstractAssertionsExamples {
 </div>
 </div>
 <div class="sect3">
-<h4 id="assertj-core-javadoc-quickstart"><a class="anchor" href="#assertj-core-javadoc-quickstart"></a>2.4.4. Javadoc</h4>
+<h4 id="assertj-core-javadoc-quickstart"><a class="anchor" href="#assertj-core-javadoc-quickstart"></a>2.4.5. Javadoc</h4>
 <div class="paragraph">
 <p><a href="http://www.javadoc.io/doc/org.assertj/assertj-core/" class="bare">http://www.javadoc.io/doc/org.assertj/assertj-core/</a> is the latest version of assertj core javadoc, each assertion is explained, most of them with code examples so be sure to check it if you want to know what a specific assertion does.</p>
 </div>
@@ -4178,13 +4166,13 @@ expected: JEDI [name=Luke, age=23]
 <div class="sect3">
 <h4 id="assertj-core-common-assertions"><a class="anchor" href="#assertj-core-common-assertions"></a>2.5.8. Common assertions</h4>
 <div class="paragraph">
-<p>This section describes the assertions common to all types, the javadoc for common assertions methods is available <a href="https://www.javadoc.io/static/org.assertj/assertj-core/3.23.1/org/assertj/core/api/AbstractAssert.html#method.summary">here</a>.</p>
+<p>This section describes the assertions common to all types, the javadoc for common assertions methods is available <a href="https://www.javadoc.io/static/org.assertj/assertj-core/3.24.0/org/assertj/core/api/AbstractAssert.html#method.summary">here</a>.</p>
 </div>
 </div>
 <div class="sect3">
 <h4 id="assertj-core-object-assertions"><a class="anchor" href="#assertj-core-object-assertions"></a>2.5.9. Object assertions</h4>
 <div class="paragraph">
-<p>The javadoc for <code>Object</code> assertions is available <a href="https://www.javadoc.io/static/org.assertj/assertj-core/3.23.1/org/assertj/core/api/AbstractObjectAssert.html#method.summary">here</a>.</p>
+<p>The javadoc for <code>Object</code> assertions is available <a href="https://www.javadoc.io/static/org.assertj/assertj-core/3.24.0/org/assertj/core/api/AbstractObjectAssert.html#method.summary">here</a>.</p>
 </div>
 </div>
 <div class="sect3">
@@ -4193,7 +4181,7 @@ expected: JEDI [name=Luke, age=23]
 <p>This section describes all the available assertions for <code>CharSequence</code> (including <code>String</code>, <code>StringBuilder</code>, <code>StringBuffer</code>, &#8230;&#8203;):</p>
 </div>
 <div class="paragraph">
-<p>The javadoc for <code>CharSequence</code> assertions is available <a href="https://www.javadoc.io/static/org.assertj/assertj-core/3.23.1/org/assertj/core/api/AbstractCharSequenceAssert.html#method.summary">here</a>.</p>
+<p>The javadoc for <code>CharSequence</code> assertions is available <a href="https://www.javadoc.io/static/org.assertj/assertj-core/3.24.0/org/assertj/core/api/AbstractCharSequenceAssert.html#method.summary">here</a>.</p>
 </div>
 </div>
 <div class="sect3">
@@ -4261,23 +4249,23 @@ expected: JEDI [name=Luke, age=23]
 <td class="tableblock halign-left valign-top"><p class="tableblock">Verifies that the actual iterable/array contains the given values in any order</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://www.javadoc.io/doc/org.assertj/assertj-core/latest/org/assertj/core/api/AbstractIterableAssert.html#containsOnly(ELEMENT&#46;&#46;&#46;)"><code>containsOnly​</code></a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://www.javadoc.io/doc/org.assertj/assertj-core/latest/org/assertj/core/api/AbstractIterableAssert.html#containsOnly(ELEMENT&#46;&#46;&#46;)"><code>containsOnly</code></a></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Verifies that the actual group contains only the given values and nothing else in any order and ignoring duplicates (i.e. once a value is found, its duplicates are also considered found)</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://www.javadoc.io/doc/org.assertj/assertj-core/latest/org/assertj/core/api/AbstractIterableAssert.html#containsExactly(ELEMENT&#46;&#46;&#46;)"><code>containsExactly​</code></a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://www.javadoc.io/doc/org.assertj/assertj-core/latest/org/assertj/core/api/AbstractIterableAssert.html#containsExactly(ELEMENT&#46;&#46;&#46;)"><code>containsExactly</code></a></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Verifies that the actual iterable/array contains exactly the given values and nothing else <strong>in order</strong></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://www.javadoc.io/doc/org.assertj/assertj-core/latest/org/assertj/core/api/AbstractIterableAssert.html#containsExactlyInAnyOrder(ELEMENT&#46;&#46;&#46;)"><code>containsExactlyInAnyOrder​</code></a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://www.javadoc.io/doc/org.assertj/assertj-core/latest/org/assertj/core/api/AbstractIterableAssert.html#containsExactlyInAnyOrder(ELEMENT&#46;&#46;&#46;)"><code>containsExactlyInAnyOrder</code></a></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Verifies that the actual iterable/array contains exactly the given values and nothing else <strong>in any order</strong></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://www.javadoc.io/doc/org.assertj/assertj-core/latest/org/assertj/core/api/AbstractIterableAssert.html#containsSequence(ELEMENT&#46;&#46;&#46;)"><code>containsSequence​</code></a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://www.javadoc.io/doc/org.assertj/assertj-core/latest/org/assertj/core/api/AbstractIterableAssert.html#containsSequence(ELEMENT&#46;&#46;&#46;)"><code>containsSequence</code></a></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Verifies that the actual group contains the given sequence in the correct order and <strong>without extra values between the sequence values</strong></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://www.javadoc.io/doc/org.assertj/assertj-core/latest/org/assertj/core/api/AbstractIterableAssert.html#containsSubsequence(ELEMENT&#46;&#46;&#46;)"><code>containsSubsequence​</code></a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://www.javadoc.io/doc/org.assertj/assertj-core/latest/org/assertj/core/api/AbstractIterableAssert.html#containsSubsequence(ELEMENT&#46;&#46;&#46;)"><code>containsSubsequence</code></a></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Verifies that the actual group contains the given subsequence in the correct order <strong>possibly with other values between them</strong></p></td>
 </tr>
 <tr>
@@ -4285,7 +4273,7 @@ expected: JEDI [name=Luke, age=23]
 <td class="tableblock halign-left valign-top"><p class="tableblock">Verifies that the actual iterable/array contains the given values only once</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://www.javadoc.io/doc/org.assertj/assertj-core/latest/org/assertj/core/api/AbstractIterableAssert.html#containsAnyOf(ELEMENT&#46;&#46;&#46;)"><code>containsAnyOf​</code></a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://www.javadoc.io/doc/org.assertj/assertj-core/latest/org/assertj/core/api/AbstractIterableAssert.html#containsAnyOf(ELEMENT&#46;&#46;&#46;)"><code>containsAnyOf</code></a></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Verifies that the actual iterable/array contains at least one of the given values (like an <code>or</code> operator on the given values)</p></td>
 </tr>
 </tbody>
@@ -4297,7 +4285,7 @@ expected: JEDI [name=Luke, age=23]
 <i class="fa icon-tip" title="Tip"></i>
 </td>
 <td class="content">
-the assertions above have a variant accepting an iterable/array argument, ex: <code>containsExactly(E&#8230;&#8203;)</code> and <code>containsExactlyElementsOf​(Iterable)</code>
+the assertions above have a variant accepting an iterable/array argument, ex: <code>containsExactly(E&#8230;&#8203;)</code> and <code>containsExactlyElementsOf(Iterable)</code>
 </td>
 </tr>
 </table>
@@ -4978,7 +4966,7 @@ assertThat(throwable).getCause()
 <div class="sect5">
 <h6 id="checking-the-root-cause"><a class="anchor" href="#checking-the-root-cause"></a>Checking the root cause</h6>
 <div class="paragraph">
-<p>You can check the root cause directly with <code>hasRootCause</code>, <code>hasRootCauseMessage</code> and <code>hasRootCauseInstanceOf​</code> if you have access to it but that&#8217;s not always possible, this is a bit limited
+<p>You can check the root cause directly with <code>hasRootCause</code>, <code>hasRootCauseMessage</code> and <code>hasRootCauseInstanceOf</code> if you have access to it but that&#8217;s not always possible, this is a bit limited
 in term of assertions, a better way is to navigate to the root cause with <code>getRootCause()</code> and take advantage of all existing exception assertions.</p>
 </div>
 <div class="paragraph">
@@ -5318,7 +5306,7 @@ try {
 <div class="sect3">
 <h4 id="assertj-core-recursive-comparison"><a class="anchor" href="#assertj-core-recursive-comparison"></a>2.5.13. Field by field recursive comparison</h4>
 <div class="paragraph">
-<p>Since 3.12.0 AssertJ Core provides a new fluent recursive comparison API for <code>Object</code> assertions, it is meant to replace <code>isEqualToComparingFieldByFieldRecursively</code> with more capabilities including:</p>
+<p>AssertJ Core provides a fluent recursive comparison API for <code>Object</code> assertions with the following capabilities:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -5343,7 +5331,13 @@ try {
 <li>
 <p><a href="#assertj-core-recursive-comparison-overriding-error-messages">Overriding error messages for specific fields or types</a>.</p>
 </li>
+<li>
+<p><a href="#assertj-core-recursive-comparison-introspection-strategy">Specifying how to introspect the objects to compare</a>.</p>
+</li>
 </ul>
+</div>
+<div class="paragraph">
+<p>The recursive comparison is meant to to replace <code>isEqualToComparingFieldByFieldRecursively</code>.</p>
 </div>
 <div class="sect4">
 <h5 id="basic-usage"><a class="anchor" href="#basic-usage"></a>Basic usage</h5>
@@ -5406,16 +5400,19 @@ assertThat(sherlock).isEqualTo(sherlock2);</code></pre>
 If you enable bare properties resolution, a method <code>x()</code> is also used considered as a valid getter.</p>
 </div>
 <div class="paragraph">
-<p>Bare name property is enabled by calling <code>Assertions.setExtractBareNamePropertyMethods​(true);</code> (it is disabled by default since 3.18.0).</p>
+<p>Bare name property is enabled by calling <code>Assertions.setExtractBareNamePropertyMethods(true);</code> (it is disabled by default since 3.18.0).</p>
 </div>
 <div class="paragraph">
 <p>Lastly if the object under test is a map, the recursive comparison tries to resolve the field value by looking it up in the map with <code>map.get(fieldName)</code>.</p>
+</div>
+<div class="paragraph">
+<p>Since 3.24.0, you can specify your own strategy on how the recursive comparison resolve the values to compare, go to section <a href="#assertj-core-recursive-comparison-introspection-strategy">specifying how to introspect the objects to compare</a> for details.</p>
 </div>
 </div>
 <div class="sect4">
 <h5 id="breaking-changes"><a class="anchor" href="#breaking-changes"></a>Breaking changes</h5>
 <div class="paragraph">
-<p>Since 3.18.0 bare name getter resolution are disabled by default, to get the previous behaviour back, call <code>Assertions.setExtractBareNamePropertyMethods​(true);</code></p>
+<p>Since 3.18.0 bare name getter resolution are disabled by default, to get the previous behaviour back, call <code>Assertions.setExtractBareNamePropertyMethods(true);</code></p>
 </div>
 <div class="paragraph">
 <p>Since 3.17.0 it does not use anymore <code>equals</code> methods of classes that have overriden it, so no need to force recursive comparison on these classes. To get the previous behavior back, use <a href="#assertj-core-using-overridden-equals"><code>usingOverriddenEquals()</code></a>.</p>
@@ -5937,10 +5934,10 @@ The recursive comparison was performed with this configuration:
 <div class="sect4">
 <h5 id="assertj-core-recursive-comparison-for-iterable"><a class="anchor" href="#assertj-core-recursive-comparison-for-iterable"></a>Recursive comparison for iterable assertions</h5>
 <div class="paragraph">
-<p><code>usingRecursiveFieldByFieldElementComparator​(RecursiveComparisonConfiguration)</code> enables the recursive comparison for any iterable assertion as opposed to <code>usingRecursiveComparison()</code> which only allows <code>isEqualTo</code> and <code>isNotEqualTo</code>, the main difference between both <code>isEqualTo</code> assertions is that the <code>usingRecursiveComparison</code> one will give a detailed differences report while the <code>usingRecursiveFieldByFieldElementComparator​</code> one will give a generic error message without details.</p>
+<p><code>usingRecursiveFieldByFieldElementComparator(RecursiveComparisonConfiguration)</code> enables the recursive comparison for any iterable assertion as opposed to <code>usingRecursiveComparison()</code> which only allows <code>isEqualTo</code> and <code>isNotEqualTo</code>, the main difference between both <code>isEqualTo</code> assertions is that the <code>usingRecursiveComparison</code> one will give a detailed differences report while the <code>usingRecursiveFieldByFieldElementComparator</code> one will give a generic error message without details.</p>
 </div>
 <div class="paragraph">
-<p>Another difference is that <code>usingRecursiveComparison()</code> exposes a fluent API to tweak the recursive comparison, to achieve the same you will need to initialize a <code>RecursiveComparisonConfiguration</code> and pass it to <code>usingRecursiveFieldByFieldElementComparator​</code>, you can take advantage of the <code>RecursiveComparisonConfiguration.builder()</code> to do so.</p>
+<p>Another difference is that <code>usingRecursiveComparison()</code> exposes a fluent API to tweak the recursive comparison, to achieve the same you will need to initialize a <code>RecursiveComparisonConfiguration</code> and pass it to <code>usingRecursiveFieldByFieldElementComparator</code>, you can take advantage of the <code>RecursiveComparisonConfiguration.builder()</code> to do so.</p>
 </div>
 <div class="paragraph">
 <p>Example:</p>
@@ -5989,9 +5986,198 @@ assertThat(doctors).usingRecursiveFieldByFieldElementComparator(configuration)
 </div>
 </div>
 </div>
+<div class="sect4">
+<h5 id="assertj-core-recursive-comparison-introspection-strategy"><a class="anchor" href="#assertj-core-recursive-comparison-introspection-strategy"></a>Specifying how to introspect the objects to compare</h5>
+<div class="paragraph">
+<p>Since 3.24.0, you can specify your own strategy telling the recursive comparison how to resolve the values to compare, this is useful if the default strategy does not suit you.</p>
+</div>
+<div class="paragraph">
+<p>To use your own introspection strategy, you need to:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>implement <code>RecursiveComparisonIntrospectionStrategy</code></p>
+</li>
+<li>
+<p>call <code>withIntrospectionStrategy(myIntrospectionStrategy)</code> with an instance of your strategy</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>AssertJ provides a few strategies out of the box:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>ComparingFields</code>: introspect fields only (no properties, map keys are not considered as fields)</p>
+</li>
+<li>
+<p><code>ComparingProperties</code>: introspect properties only (no fields, map keys are not considered as properties)</p>
+</li>
+<li>
+<p><code>ComparingSnakeOrCamelCaseFields</code>: compare fields only, can match camel case fields against snake case ones, ex: <code>firstName</code> vs <code>first_name</code> which is useful when comparing types with different fields naming conventions</p>
+</li>
+<li>
+<p><code>ComparingNormalizedFields</code>: an abstract strategy that compares fields after normalizing them, you just need to implement <code>normalizeFieldName(String fieldName)</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><code>ComparingSnakeOrCamelCaseFields</code> is an example of <code>ComparingNormalizedFields</code> that normalizes snake case to camel case.</p>
+</div>
+<div class="paragraph">
+<p>Here&#8217;s an example using <code>ComparingSnakeOrCamelCaseFields</code> where we compare <code>Author</code>/<code>Book</code> against <code>AuthorDto</code>/<code>BookDto</code>, <code>Author</code>/<code>Book</code> follow the regular camel case field naming convention while the dto classes follow the snake case naming convention.</p>
+</div>
+<div class="paragraph">
+<p>The recursive comparison would fail comparing the <code>Author</code>/<code>Book</code> fields against <code>AuthorDto</code>/<code>BookDto</code> ones, it would not know to match <code>Author.firstName</code> against <code>AuthorDto.first_name</code> for example but with <code>ComparingSnakeOrCamelCaseFields</code> it will know how to match these fields.</p>
+</div>
+<div class="paragraph">
+<p>Example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="java" class="language-java hljs">Author martinFowler = new Author("Martin", "Fowler", 58, "https://www.thoughtworks.com/profiles/leaders/martin-fowler");
+Book refactoring = new Book("Refactoring", martinFowler);
+AuthorDto martinFowlerDto = new AuthorDto("Martin", "Fowler", 58, "https://www.thoughtworks.com/profiles/leaders/martin-fowler");
+BookDto refactoringDto = new BookDto("Refactoring", martinFowlerDto);
+
+RecursiveComparisonIntrospectionStrategy comparingSnakeOrCamelCaseFields = new ComparingSnakeOrCamelCaseFields();
+
+// both assertions succeed
+assertThat(refactoring).usingRecursiveComparison()
+                      .withIntrospectionStrategy(comparingSnakeOrCamelCaseFields)
+                      .isEqualTo(refactoringDto);
+assertThat(refactoringDto).usingRecursiveComparison()
+                          .withIntrospectionStrategy(comparingSnakeOrCamelCaseFields)
+                          .isEqualTo(refactoring);
+
+static class Author {
+  String firstName;
+  String lastName;
+  int age;
+  String profileURL;
+
+  Author(String firstName, String lastName, int age, String profileUrl) {
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.age = age;
+    this.profileURL = profileUrl;
+  }
+}
+
+static class Book {
+  String title;
+  Author mainAuthor;
+
+  Book(String title, Author author) {
+    this.title = title;
+    this.mainAuthor = author;
+  }
+}
+static class AuthorDto {
+  String first_name;
+  String last_name;
+  int _age;
+  String profile_url;
+
+  AuthorDto(String firstName, String lastName, int age, String profileUrl) {
+    this.first_name = firstName;
+    this.last_name = lastName;
+    this._age = age;
+    this.profile_url = profileUrl;
+  }
+}
+
+static class BookDto {
+  String title;
+  AuthorDto main_author;
+
+  BookDto(String title, AuthorDto author) {
+    this.title = title;
+    this.main_author = author;
+  }
+}</code></pre>
+</div>
+</div>
+</div>
 </div>
 <div class="sect3">
-<h4 id="assertj-core-soft-assertions"><a class="anchor" href="#assertj-core-soft-assertions"></a>2.5.14. Soft assertions</h4>
+<h4 id="assertj-core-recursive-assertion"><a class="anchor" href="#assertj-core-recursive-assertion"></a>2.5.14. Recursive assertions</h4>
+<div class="paragraph">
+<p>The recursive assertion <code>allFieldsSatisfy</code> lets you verify a <code>Predicate</code> is met for all the fields of the object under test graph recursively (but not the object itself).</p>
+</div>
+<div class="paragraph">
+<p>For example if the object under test is an instance of class A, A has a B field and B a C field then <code>allFieldsSatisfy</code> checks A&#8217;s B field and B&#8217;s C field and all C&#8217;s fields.</p>
+</div>
+<div class="paragraph">
+<p>Example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="java" class="language-java hljs">class Author {
+  String name;
+  String email;
+  List&lt;Book&gt; books = new ArrayList&lt;&gt;();
+
+  Author(String name, String email) {
+    this.name = name;
+    this.email = email;
+  }
+}
+
+class Book {
+  String title;
+  Author[] authors;
+
+  Book(String title, Author[] authors) {
+    this.title = title;
+    this.authors = authors;
+  }
+}
+
+Author pramodSadalage = new Author("Pramod Sadalage", "p.sadalage@recursive.test");
+Author martinFowler = new Author("Martin Fowler", "m.fowler@recursive.test");
+Author kentBeck = new Author("Kent Beck", "k.beck@recursive.test");
+
+Book noSqlDistilled = new Book("NoSql Distilled", new Author[] {pramodSadalage, martinFowler});
+pramodSadalage.books.add(noSqlDistilled);
+martinFowler.books.add(noSqlDistilled);
+
+Book refactoring = new Book("Refactoring", new Author[] {martinFowler, kentBeck});
+martinFowler.books.add(refactoring);
+kentBeck.books.add(refactoring);
+
+// assertion succeeds
+assertThat(pramodSadalage).usingRecursiveAssertion()
+                          .allFieldsSatisfy(field -&gt; field != null);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The above example is best rewritten with <code>hasNoNullFields()</code> which is common enough that it is supported out of the box.</p>
+</div>
+<div class="paragraph">
+<p>The recursive assertion provides these methods to exclude fields, the predicate won&#8217;t be applied on the excluded fields:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>ignoringFields(String&#8230;&#8203;fieldsToIgnore)</code> - the assertion ignores the specified fields in the object under test</p>
+</li>
+<li>
+<p><code>ignoringFieldsMatchingRegexes(String&#8230;&#8203;regexes)</code> - the assertion ignores the fields matching the specified regexes in the object under test</p>
+</li>
+<li>
+<p><code>ignoringFieldsOfTypes(Class&lt;?&gt;&#8230;&#8203;typesToIgnore)</code> - the assertion ignores the object under test fields of the given types</p>
+</li>
+<li>
+<p><code>ignoringPrimitiveFields()</code> - avoid running the assertion on primitive fields</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="assertj-core-soft-assertions"><a class="anchor" href="#assertj-core-soft-assertions"></a>2.5.15. Soft assertions</h4>
 <div class="paragraph">
 <p>With soft assertions AssertJ collects all assertion errors instead of stopping at the first one.</p>
 </div>
@@ -6637,7 +6823,7 @@ softly.assertThat(frodo).hasName("Bilbo");</code></pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="assertj-core-assumptions"><a class="anchor" href="#assertj-core-assumptions"></a>2.5.15. Assumptions</h4>
+<h4 id="assertj-core-assumptions"><a class="anchor" href="#assertj-core-assumptions"></a>2.5.16. Assumptions</h4>
 <div class="paragraph">
 <p>Assumptions provide support for conditional test execution, if the assumptions are met the test is executed normally, if they don&#8217;t the test is aborted and marked as ignored.</p>
 </div>
@@ -6678,7 +6864,7 @@ public void when_all_assumptions_are_met_the_test_is_run_normally() {
 </div>
 </div>
 <div class="sect3">
-<h4 id="assertj-core-javadoc"><a class="anchor" href="#assertj-core-javadoc"></a>2.5.16. Javadoc</h4>
+<h4 id="assertj-core-javadoc"><a class="anchor" href="#assertj-core-javadoc"></a>2.5.17. Javadoc</h4>
 <div class="paragraph">
 <p><a href="http://www.javadoc.io/doc/org.assertj/assertj-core/" class="bare">http://www.javadoc.io/doc/org.assertj/assertj-core/</a> is the latest version of assertj core javadoc, each assertion is explained, most of them with code examples so be sure to check it if you want to know what a specific assertion does.</p>
 </div>
@@ -7360,6 +7546,9 @@ AssertJ Core would not exist without its contributors, you can find them all <a 
 <div class="ulist">
 <ul>
 <li>
+<p><a href="#assertj-core-3-24-0-release-notes">AssertJ Core 3.24.0</a></p>
+</li>
+<li>
 <p><a href="#assertj-core-3-23-1-release-notes">AssertJ Core 3.23.1</a></p>
 </li>
 <li>
@@ -7434,7 +7623,1089 @@ AssertJ Core would not exist without its contributors, you can find them all <a 
 <p>Older release notes can be found in the old site: <a href="https://joel-costigliola.github.io/assertj/assertj-core-news.html" class="bare">https://joel-costigliola.github.io/assertj/assertj-core-news.html</a>, this is important to be aware of breaking changes if you are migrating from an old version.</p>
 </div>
 <div class="sect3">
-<h4 id="assertj-core-3-23-1-release-notes"><a class="anchor" href="#assertj-core-3-23-1-release-notes"></a>2.9.1. AssertJ Core 3.23.1</h4>
+<h4 id="assertj-core-3-24-0-release-notes"><a class="anchor" href="#assertj-core-3-24-0-release-notes"></a>2.9.1. AssertJ Core 3.24.0</h4>
+<div class="paragraph">
+<p>Release date : 2023-01-06</p>
+</div>
+<div id="assertj-core-3.24.0-contributors" class="paragraph">
+<p><span class="release-note-category"><span class="icon"><i class="fa fa-user"></i></span> Contributors</span></p>
+</div>
+<div class="paragraph">
+<p>Thanks to all the contributors of this release:
+Erhard Pointl,
+Stefano Cordio,
+Ashley Scopes,
+Edgar Asatryan,
+Michael Keppler,
+Matthieu Baechler,
+Stefan Bratanov,
+Steven Schlansker,
+Jessica Hamilton,
+Martin Witt,
+nith2001,
+Wojciech Zankowski,
+Anton Yakutovich <span class="icon"><i class="fa fa-user-plus" title="New contributor"></i></span>,
+Christiaan Zoet <span class="icon"><i class="fa fa-user-plus" title="New contributor"></i></span>,
+Dirk Toewe <span class="icon"><i class="fa fa-user-plus" title="New contributor"></i></span>,
+Matthew Haughton <span class="icon"><i class="fa fa-user-plus" title="New contributor"></i></span>,
+Oscar Westra van Holthe <span class="icon"><i class="fa fa-user-plus" title="New contributor"></i></span>,
+Alessandro Ciccimarra <span class="icon"><i class="fa fa-user-plus" title="New contributor"></i></span>,
+Giovanni van der Schelde <span class="icon"><i class="fa fa-user-plus" title="New contributor"></i></span>,
+Neshka Dantinor <span class="icon"><i class="fa fa-user-plus" title="New contributor"></i></span>,
+Sergey Nuyanzin <span class="icon"><i class="fa fa-user-plus" title="New contributor"></i></span>,
+Rostyslav Ivankiv <span class="icon"><i class="fa fa-user-plus" title="New contributor"></i></span>,
+Remy Lassaut <span class="icon"><i class="fa fa-user-plus" title="New contributor"></i></span>,
+Michał Drożdż <span class="icon"><i class="fa fa-user-plus" title="New contributor"></i></span></p>
+</div>
+<div class="paragraph">
+<p>Special thanks who has contributed a lot of internal improvements on our tests suite, greatly appreciated!</p>
+</div>
+<div id="assertj-core-3.24.0-binary-compatibility" class="paragraph">
+<p><span class="release-note-category"><span class="icon"><i class="fa fa-cogs"></i></span> Binary compatibility</span></p>
+</div>
+<div class="paragraph">
+<p>The release <span class="green"><strong>is binary compatible</strong></span> with the previous minor version.
+More details are available in the <a href="#binary-compatibility">Binary Compatibility</a> section.</p>
+</div>
+<div id="assertj-core-3.24.0-new-features" class="paragraph">
+<p><span class="release-note-category"><span class="icon"><i class="fa fa-plus-circle"></i></span> New features</span></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Add Bill of Materials for AssertJ (#2748) (Stefano Cordio)</p>
+</li>
+<li>
+<p>Introduce <a href="#assertj-core-recursive-comparison-introspection-strategy"><code>IntrospectionStrategy</code></a> for recursive comparison and assertion to allow users to control how the objects to compare are introspected.</p>
+</li>
+<li>
+<p>Add <a href="#assertj-core-3.24.0-allFieldsSatisfy"><code>allFieldsSatisfy</code></a> recursively assert that a predicate is met for all fields.</p>
+</li>
+<li>
+<p>Add <a href="#assertj-core-3.24.0-hasNoNullFields"><code>hasNoNullFields</code></a> recursively assert that no fields are null.</p>
+</li>
+<li>
+<p>Add <a href="#assertj-core-3.24.0-withEqualsForFieldsMatchingRegexes"><code>withEqualsForFieldsMatchingRegexes</code></a> in the recursive comparison (#2711).</p>
+</li>
+<li>
+<p>Add <a href="#assertj-core-3.24.0-comparingOnlyFieldsOfTypes"><code>comparingOnlyFieldsOfTypes</code></a> in the recursive comparison (#2794).</p>
+</li>
+<li>
+<p>Add support for <a href="#assertj-core-3.24.0-recursive-comparison-isIn-isNotIn"><code>isIn</code>/<code>isNotIn</code></a> assertions in the recursive comparison (#2794).</p>
+</li>
+<li>
+<p>Add <a href="#assertj-core-3.24.0-RecursiveComparator"><code>RecursiveComparator</code></a>  that uses the recursive comparison for any assertions.</p>
+</li>
+<li>
+<p>Add <a href="#assertj-core-3.24.0-satisfiesOnlyOnce"><code>satisfiesOnlyOnce</code></a> to iterable, array and atomic array assertions (#2691). (Stefan Bratanov)</p>
+</li>
+<li>
+<p>Add <a href="#assertj-core-3.24.0-isAssignableTo"><code>isAssignableTo</code></a> to <code>Class</code> assertions (#2611). (Jessica Hamilton, nith2001)</p>
+</li>
+<li>
+<p>Add <a href="#assertj-core-3.24.0-withThrowableThat"><code>withThrowableThat</code></a> to ease Future/CompletableFuture throwable assertions (#2704). (Oscar Westra van Holthe)</p>
+</li>
+<li>
+<p>Add <a href="#assertj-core-3.24.0-matchesSatisfying"><code>matchesSatisfying</code></a> for checking pattern followed by assertion on matchers groups (#2723). (Steven Schlansker)</p>
+</li>
+<li>
+<p>Add <a href="#assertj-core-3.24.0-nestable-condition"><code>nestable condition</code></a> nestable <code>Condition</code> (#2726). (Alessandro Ciccimarra)</p>
+</li>
+<li>
+<p>Add <a href="#assertj-core-3.24.0-isAlphabetic"><code>isAlphabetic</code></a> to <code>CharSequence</code> assertions (#2731). (Neshka Dantinor)</p>
+</li>
+<li>
+<p>Add <a href="#assertj-core-3.24.0-isAlphanumeric"><code>isAlphanumeric</code></a> to <code>CharSequence</code> assertions (#2731). (Neshka Dantinor)</p>
+</li>
+<li>
+<p>Add <a href="#assertj-core-3.24.0-isASCII"><code>isASCII</code></a> to <code>CharSequence</code> assertions (#2731). (Neshka Dantinor)</p>
+</li>
+<li>
+<p>Add <a href="#assertj-core-3.24.0-isHexadecimal"><code>isHexadecimal</code></a> to <code>CharSequence</code> assertions (#2731). (Neshka Dantinor)</p>
+</li>
+<li>
+<p>Add <a href="#assertj-core-3.24.0-isPrintable"><code>isPrintable</code></a> to <code>CharSequence</code> assertions (#2731). (Neshka Dantinor)</p>
+</li>
+<li>
+<p>Add <a href="#assertj-core-3.24.0-isVisible"><code>isVisible</code></a> to <code>CharSequence</code> assertions (#2731). (Neshka Dantinor)</p>
+</li>
+<li>
+<p>Add <a href="#assertj-core-3.24.0-isUnmodifiable"><code>isUnmodifiable</code></a> to <code>Map</code> assertions (#2458). (Wojciech Zankowski)</p>
+</li>
+<li>
+<p>Add <a href="#assertj-core-3.24.0-isExecutable"><code>isExecutable</code></a> to <code>File</code> assertions (#2829). (Rostyslav Ivankiv)</p>
+</li>
+<li>
+<p>Add <a href="#assertj-core-3.24.0-hasMessageMatching"><code>hasMessageMatching(Pattern)</code></a> to throwable assertions (Andrei Solntsev) (#2853)</p>
+</li>
+</ul>
+</div>
+<div id="assertj-core-3.24.0-improvements" class="paragraph">
+<p><span class="release-note-category"><span class="icon"><i class="fa fa-arrow-circle-up"></i></span> Improvements</span></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Move to multi-module project (#2716) (Stefano Cordio)</p>
+</li>
+<li>
+<p>Generalize custom format creation to support any <code>CharSequence</code> (#2735) (Edgar Asatryan)</p>
+</li>
+<li>
+<p>Improve containsExactly error message by print the indices where a mismatch occurred (Giovanni van der Schelde).</p>
+</li>
+<li>
+<p>Throw <code>org.opentest4j.AssertionFailedError</code> for <code>containsExactly</code> assertion so that IDEs can show the diff between actual and expected (#2697) (Christiaan Zoet).</p>
+</li>
+<li>
+<p>Fix some typos and grammar in project documentation (#2656) (Michael Keppler)</p>
+</li>
+<li>
+<p>Fix typo in docs for <code>assertIsEqualToNormalizingNewlines</code> (#2677) (Matthew Haughton)</p>
+</li>
+<li>
+<p>Fix javadoc for <code>within(long, TemporalUnit)</code> (#2801) (Remy Lassaut)</p>
+</li>
+<li>
+<p>Let <code>CaseInsensitiveStringComparator</code> delegate to <code>compareToIgnoreCase</code> (#2663) (Stefano Cordio)</p>
+</li>
+<li>
+<p>Use actual <code>Map</code> type when invoking copying constructor (#2710) (Stefano Cordio)</p>
+</li>
+<li>
+<p>Improve <code>isBetween</code> assertion performance by only building the error message when needed (#2884) (Dirk Toewe)</p>
+</li>
+<li>
+<p>Avoid a copy in <code>assertContains</code> when actual is already a Collection (#2220 #2134) (Matthieu Baechler)</p>
+</li>
+<li>
+<p>Style: Repair code style issues in org.assertj.core.internal.Dates (#2763) (Martin Witt)</p>
+</li>
+<li>
+<p>Reduce <code>RealNumbers</code> constructors visibility to <code>protected</code> (#2772) (Martin Witt)</p>
+</li>
+<li>
+<p>Internal: Use <code>getParameterCount</code> rather than <code>getParameterTypes().length</code> (#2813) (Sergey Nuyanzin)</p>
+</li>
+<li>
+<p>Internal: Return cache in <code>setup-java</code> action (#2802) (Anton Yakutovich)</p>
+</li>
+<li>
+<p>Internal: Fix test results summary (#2803) (Anton Yakutovich)</p>
+</li>
+<li>
+<p>Internal: Remove <code>public</code> modifier to fix some sonar violations (Erhard Pointl)</p>
+</li>
+<li>
+<p>Internal: Clean up unused imports (Erhard Pointl)</p>
+</li>
+<li>
+<p>Internal: Migrate <code>MatcherShouldMatch_create_Test</code> and <code>StandardRepresentation_toStringOf_AtomicReferences_Test</code> to junit jupiter (Erhard Pointl)</p>
+</li>
+<li>
+<p>Internal: Require Java 17 in gitpod configuration (Erhard Pointl)</p>
+</li>
+<li>
+<p>Internal: Swap out deprecated-for-removal methods in <code>BDDAssertions_then_Test.java</code> (#2644) (Ashley Scopes)</p>
+</li>
+<li>
+<p>Internal: Fix 95 warnings produced on JDK-17 with -Xlint:all (#2648) (Ashley Scopes)</p>
+</li>
+<li>
+<p>Internal: Fix spurious Future tests failure on Windows runners (#2649) (Ashley Scopes)</p>
+</li>
+<li>
+<p>Internal: Fix CI allowing add-label to fail in <code>binary-compatibility.yml</code> (#2667) (Ashley Scopes)</p>
+</li>
+<li>
+<p>Internal: Improve ci output (#2669) (Ashley Scopes)</p>
+</li>
+<li>
+<p>Internal: Reset global state more aggressively in tests (#2670) (Ashley Scopes)</p>
+</li>
+<li>
+<p>Internal: Fix incomplete test for <code>given(Duration)</code> in BDDAssumptionsTest (#2686) (Ashley Scopes)</p>
+</li>
+<li>
+<p>Internal: Fix some tests flakiness (#2657) (Ashley Scopes)</p>
+</li>
+<li>
+<p>Internal: Fix some additional compilation warnings and deprecated JDK API usages</p>
+</li>
+<li>
+<p>Internal: Remove CodeQL workflow (Stefano Cordio)</p>
+</li>
+<li>
+<p>Internal: Reuse spies in <code>Path</code> tests (#2826) (Stefano Cordio)</p>
+</li>
+<li>
+<p>Internal: Reuse mocks and spies in <code>File</code> tests (#2827) (Stefano Cordio)</p>
+</li>
+<li>
+<p>Internal: Remove unnecessary test for <code>MapEntry::hashCode</code> (Stefano Cordio)</p>
+</li>
+<li>
+<p>Internal: Improve JaCoCo configuration (Stefano Cordio)</p>
+</li>
+<li>
+<p>Internal: Use <code>oracle-actions/setup-java</code> for cross-version workflow (#2658) (Stefano Cordio)</p>
+</li>
+<li>
+<p>Internal: Some more Turkish locale cleanup (Stefano Cordio)</p>
+</li>
+<li>
+<p>Internal: Use specific labels for Dependabot (Stefano Cordio)</p>
+</li>
+<li>
+<p>Internal: Switch license URL to HTTPS (Stefano Cordio)</p>
+</li>
+<li>
+<p>Internal: Move assumptions related integration tests into separate modules (#2737) (Stefano Cordio)</p>
+</li>
+<li>
+<p>Internal: Move OSGi related integration tests into separate modules (#2742) (Stefano Cordio)</p>
+</li>
+<li>
+<p>Internal: Move performance tests into separate modules (#2743) (Stefano Cordio)</p>
+</li>
+<li>
+<p>Internal: Add integration test infrastructure for Groovy (#2762) (Stefano Cordio)</p>
+</li>
+<li>
+<p>Internal: Add integration test infrastructure for Kotlin (#2788) (Erhard Pointl)</p>
+</li>
+<li>
+<p>Internal: Add editorconfig for kotlin files (Erhard Pointl)</p>
+</li>
+<li>
+<p>Internal: Fix locale handling for ignoring case assertions (#2690) (Stefano Cordio)</p>
+</li>
+<li>
+<p>Internal: Enforce test only dependencies in test modules (Stefano Cordio)</p>
+</li>
+<li>
+<p>Internal: Move japicmp common configuration to the parent POM  (#2875) (Stefano Cordio)</p>
+</li>
+<li>
+<p>Internal: Allow Java 20 with Groovy tests (#2816) (Stefano Cordio)</p>
+</li>
+<li>
+<p>Internal: Add Java 21, skip JaCoCo on cross-version workflow (#2876) (Stefano Cordio)</p>
+</li>
+<li>
+<p>Internal: Bump Bnd version to 6.4.0</p>
+</li>
+<li>
+<p>Internal: Bump byte-buddy version in <code>verify.bndrun</code> (Erhard Pointl)</p>
+</li>
+<li>
+<p>Internal: Bump byte-buddy.version from 1.12.10 to 1.12.20</p>
+</li>
+<li>
+<p>Internal: Bump cdg.pitest.version from 0.2.0 to 1.0.3</p>
+</li>
+<li>
+<p>Internal: Bump equalsverifier from 3.10 to 3.12.3</p>
+</li>
+<li>
+<p>Internal: Bump gmavenplus-plugin from 1.13.1 to 2.1.0</p>
+</li>
+<li>
+<p>Internal: Bump groovy from 4.0.4 to 4.0.7</p>
+</li>
+<li>
+<p>Internal: Bump hibernate-core from 6.0.2.Final to 6.1.6.Final</p>
+</li>
+<li>
+<p>Internal: Bump jackson-databind from 2.13.3 to 2.14.1</p>
+</li>
+<li>
+<p>Internal: Bump japicmp-maven-plugin from 0.15.7 to 0.17.1</p>
+</li>
+<li>
+<p>Internal: Bump junit-jupiter-api from 5.8.2 to 5.9.1</p>
+</li>
+<li>
+<p>Internal: Bump junit-pioneer from 1.7.1 to 1.9.1</p>
+</li>
+<li>
+<p>Internal: Bump kotlin.version from 1.7.10 to 1.8.0</p>
+</li>
+<li>
+<p>Internal: Bump Maven version from 3.8.5 to 3.8.7 (Erhard Pointl)</p>
+</li>
+<li>
+<p>Internal: Bump maven-install-plugin from 3.0.1 to 3.1.0</p>
+</li>
+<li>
+<p>Internal: Bump maven-javadoc-plugin from 3.4.0 to 3.4.1</p>
+</li>
+<li>
+<p>Internal: Bump maven-jar-plugin from 3.2.2 to 3.3.0</p>
+</li>
+<li>
+<p>Internal: Bump maven-project-info-reports-plugin from 3.4.0 to 3.4.1</p>
+</li>
+<li>
+<p>Internal: Bump maven-site-plugin from 3.12.0 to 3.12.1</p>
+</li>
+<li>
+<p>Internal: Bump mockito-bom from 4.6.1 to 4.11.0</p>
+</li>
+<li>
+<p>Internal: Bump org.eclipse.osgi from 3.17.200 to 3.18.200</p>
+</li>
+<li>
+<p>Internal: Bump pitest from 1.9.2 to 1.9.4</p>
+</li>
+<li>
+<p>Internal: Bump pitest-junit5-plugin from 0.15 to 1.1.1</p>
+</li>
+<li>
+<p>Internal: Bump pitest-maven from 1.8.0 to 1.10.4</p>
+</li>
+<li>
+<p>Internal: Bump pitest-github-maven-plugin from 1.0.1 to 1.0.3</p>
+</li>
+<li>
+<p>Internal: Bump spotbugs-maven-plugin from 4.7.1.1 to 4.7.3.0</p>
+</li>
+<li>
+<p>Internal: Bump spring-core from 5.3.20 to 5.3.24</p>
+</li>
+<li>
+<p>Internal: Bump testng from 7.6.1 to 7.7.1</p>
+</li>
+<li>
+<p>Internal: Bump versions-maven-plugin from 2.11.0 to 2.14.2</p>
+</li>
+</ul>
+</div>
+<div id="assertj-core-3.24.0-fixed" class="paragraph">
+<p><span class="release-note-category"><span class="icon"><i class="fa fa-wrench"></i></span> Fixed</span></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Avoid reflection in recursive comparison for types in <code>sun.*</code> packages (#2891) (Stefano Cordio)</p>
+</li>
+<li>
+<p>Honor custom type comparators with <code>returns</code> and <code>doesNotReturn</code> (#2725) (Stefano Cordio)</p>
+</li>
+<li>
+<p>Fix <code>ignoringOverriddenEqualsForFieldsMatchingRegexes</code> that was checking field class instead of the field path</p>
+</li>
+<li>
+<p>Add support for soft assertions when calling <code>isThrownBy</code> (#2699)</p>
+</li>
+<li>
+<p>Fix <code>isCloseTo</code> example for <code>Date</code> assertions javdoc (#2890) (Michał Drożdż)</p>
+</li>
+</ul>
+</div>
+<div id="assertj-core-3.24.0-deprecated" class="paragraph">
+<p><span class="release-note-category"><span class="icon"><i class="fa fa-ban"></i></span> Deprecated</span></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Deprecate <code>ObjectAssert(AtomicReference)</code> (#2795). (Stefano Cordio)</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Instead, use <code>assertThat(actual.get())</code> or <code>AtomicReferenceAssert#hasValueSatisfying(Consumer)</code>.</p>
+</div>
+<div id="assertj-core-3.24.0-allFieldsSatisfy" class="paragraph">
+<p><span class="release-note-item">Add allFieldsSatisfy recursive assertion</span></p>
+</div>
+<div class="paragraph">
+<p><code>allFieldsSatisfy</code> verifies the given <code>Predicate</code> is met for all the fields of the object under test graph recursively (but not the object itself).</p>
+</div>
+<div class="paragraph">
+<p>For example if the object under test is an instance of class A, A has a B field and B a C field then <code>allFieldsSatisfy</code> checks A&#8217;s B field and B&#8217;s C field and all C&#8217;s fields.</p>
+</div>
+<div class="paragraph">
+<p>It is possible to exclude some fields with any of these methods:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>ignoringFields(String&#8230;&#8203;fieldsToIgnore)</code> - the assertion ignores the specified fields in the object under test</p>
+</li>
+<li>
+<p><code>ignoringFieldsMatchingRegexes(String&#8230;&#8203;regexes)</code> - the assertion ignores the fields matching the specified regexes in the object under test</p>
+</li>
+<li>
+<p><code>ignoringFieldsOfTypes(Class&lt;?&gt;&#8230;&#8203;typesToIgnore)</code> - the assertion ignores the object under test fields of the given types</p>
+</li>
+<li>
+<p><code>ignoringPrimitiveFields()</code> - avoid running the assertion on primitive fields</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="java" class="language-java hljs">class Author {
+  String name;
+  String email;
+  List&lt;Book&gt; books = new ArrayList&lt;&gt;();
+
+  Author(String name, String email) {
+    this.name = name;
+    this.email = email;
+  }
+}
+
+class Book {
+  String title;
+  Author[] authors;
+
+  Book(String title, Author[] authors) {
+    this.title = title;
+    this.authors = authors;
+  }
+}
+
+Author pramodSadalage = new Author("Pramod Sadalage", "p.sadalage@recursive.test");
+Author martinFowler = new Author("Martin Fowler", "m.fowler@recursive.test");
+Author kentBeck = new Author("Kent Beck", "k.beck@recursive.test");
+
+Book noSqlDistilled = new Book("NoSql Distilled", new Author[] {pramodSadalage, martinFowler});
+pramodSadalage.books.add(noSqlDistilled);
+martinFowler.books.add(noSqlDistilled);
+
+Book refactoring = new Book("Refactoring", new Author[] {martinFowler, kentBeck});
+martinFowler.books.add(refactoring);
+kentBeck.books.add(refactoring);
+
+// assertion succeeds
+assertThat(pramodSadalage).usingRecursiveAssertion()
+                          .allFieldsSatisfy(field -&gt; field != null);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The above example is best rewritten with <code>hasNoNullFields()</code>.</p>
+</div>
+<div id="assertj-core-3.24.0-hasNoNullFields" class="paragraph">
+<p><span class="release-note-item">Add recursive assertions</span></p>
+</div>
+<div class="paragraph">
+<p>Asserts that none of the fields of the object under test graph (i.e. recursively getting the fields) are null (but not the object itself).</p>
+</div>
+<div class="paragraph">
+<p>It is possible to exclude some fields with any of these methods:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>ignoringFields(String&#8230;&#8203;fieldsToIgnore)</code> - the assertion ignores the specified fields in the object under test</p>
+</li>
+<li>
+<p><code>ignoringFieldsMatchingRegexes(String&#8230;&#8203;regexes)</code> - the assertion ignores the fields matching the specified regexes in the object under test</p>
+</li>
+<li>
+<p><code>ignoringFieldsOfTypes(Class&lt;?&gt;&#8230;&#8203;typesToIgnore)</code> - the assertion ignores the object under test fields of the given types</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="java" class="language-java hljs">class Author {
+  String name;
+  String email;
+  List&lt;Book&gt; books = new ArrayList&lt;&gt;();
+
+  Author(String name, String email) {
+    this.name = name;
+    this.email = email;
+  }
+}
+
+class Book {
+  String title;
+  Author[] authors;
+
+  Book(String title, Author[] authors) {
+    this.title = title;
+    this.authors = authors;
+  }
+}
+
+Author pramodSadalage = new Author("Pramod Sadalage", "p.sadalage@recursive.test");
+Author martinFowler = new Author("Martin Fowler", "m.fowler@recursive.test");
+Author kentBeck = new Author("Kent Beck", "k.beck@recursive.test");
+
+Book noSqlDistilled = new Book("NoSql Distilled", new Author[] {pramodSadalage, martinFowler});
+pramodSadalage.books.add(noSqlDistilled);
+martinFowler.books.add(noSqlDistilled);
+
+Book refactoring = new Book("Refactoring", new Author[] {martinFowler, kentBeck});
+martinFowler.books.add(refactoring);
+kentBeck.books.add(refactoring);
+
+// assertion succeeds
+assertThat(pramodSadalage).usingRecursiveAssertion()
+                          .hasNoNullFields();</code></pre>
+</div>
+</div>
+<div id="assertj-core-3.24.0-withEqualsForFieldsMatchingRegexes" class="paragraph">
+<p><span class="release-note-item">Add withEqualsForFieldsMatchingRegexes in the recursive comparison</span></p>
+</div>
+<div class="paragraph">
+<p><code>withEqualsForFieldsMatchingRegexes</code> allows to register a <code>BiPredicate</code> to compare fields whose location matches the given regexes.</p>
+</div>
+<div class="paragraph">
+<p>A typical usage consists in comparing double/float fields with a given precision.</p>
+</div>
+<div class="paragraph">
+<p>The fields are evaluated from the root object, for example if <code>Foo</code> has a <code>Bar</code> field and both have an <code>id</code> field, one can register a <code>BiPredicate</code> for <code>Foo</code> and <code>Bar</code> <code>id</code> by calling:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="java" class="language-java hljs">withEqualsForFields(idBiPredicate, ".*id")</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>or</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="java" class="language-java hljs">withEqualsForFields(idBiPredicate, "foo.*id")</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="java" class="language-java hljs">class TolkienCharacter {
+  String name;
+  double height;
+  double weight;
+}
+
+TolkienCharacter frodo = new TolkienCharacter("Frodo", 1.2, 40);
+TolkienCharacter tallerFrodo = new TolkienCharacter("Frodo", 1.3, 40.5);
+
+BiPredicate&lt;Double, Double&gt; closeEnough = (d1, d2) -&gt; Math.abs(d1 - d2) &lt;= 0.5;
+
+// assertion succeeds as both weight and height diff is less than 0.5
+assertThat(frodo).usingRecursiveComparison()
+                 .withEqualsForFieldsMatchingRegexes(closeEnough, ".eight")
+                 .isEqualTo(tallerFrodo);</code></pre>
+</div>
+</div>
+<div id="assertj-core-3.24.0-comparingOnlyFieldsOfTypes" class="paragraph">
+<p><span class="release-note-item">Add comparingOnlyFieldsOfTypes in the recursive comparison</span></p>
+</div>
+<div class="paragraph">
+<p><code>comparingOnlyFieldsOfTypes</code> makes the recursive comparison to only compare given actual fields of the specified types and their subfields (no other fields will be compared).</p>
+</div>
+<div class="paragraph">
+<p>Specifying a field of type will make all its subfields to be compared, for example specifying the <code>Person</code> type will lead to compare <code>Person.name</code>, <code>Person.address</code> and all other <code>Person</code> fields. In case actual&#8217;s field is null, expected&#8217;s field type will be checked to match one of the given types (we assume actual and expected fields have the same type).</p>
+</div>
+<div class="paragraph">
+<p><code>comparingOnlyFieldsOfTypes</code> can be combined with <code>comparingOnlyFields(String&#8230;&#8203;)</code> to compare fields of the given types or names (union of both sets of fields).</p>
+</div>
+<div class="paragraph">
+<p><code>comparingOnlyFieldsOfTypes</code> can be also combined with ignoring fields or compare only fields by name methods to restrict further the fields actually compared, the resulting <code>compared fields = {specified compared fields of types} - {specified ignored fields}</code>.</p>
+</div>
+<div class="paragraph">
+<p>For example if the specified compared fields of types are <code>{String.class, Integer.class, Double.class}</code>, when there are fields <code>String foo</code>, <code>Integer baz</code> and <code>Double bar</code> and the ignored fields = <code>{"bar"}</code> set with <code>ignoringFields(String&#8230;&#8203;)</code> that will remove <code>bar</code> field from comparison, then only <code>{foo, baz}</code> fields will be compared.</p>
+</div>
+<div class="paragraph">
+<p>Example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="java" class="language-java hljs">class Person {
+  String name;
+  double height;
+  Home home = new Home();
+}
+
+class Home {
+  Address address = new Address();
+}
+
+class Address {
+  int number;
+  String street;
+}
+
+Person sherlock = new Person("Sherlock", 1.80);
+sherlock.home.address.street = "Baker Street";
+sherlock.home.address.number = 221;
+
+Person moriarty = new Person("Moriarty", 1.80);
+moriarty.home.address.street = "Butcher Street";
+moriarty.home.address.number = 221;
+
+
+// assertion succeeds as it only compared fields height and home.address.number since their types match compared types
+assertThat(sherlock).usingRecursiveComparison()
+                    .comparingOnlyFieldsOfTypes(Integer.class, Double.class)
+                    .isEqualTo(moriarty);
+
+// assertion fails as home.address.street fields differ (Home fields and its subfields were compared)
+assertThat(sherlock).usingRecursiveComparison()
+                    .comparingOnlyFieldsOfTypes(Home.class)
+                    .isEqualTo(moriarty);</code></pre>
+</div>
+</div>
+<div id="assertj-core-3.24.0-recursive-comparison-isIn-isNotIn" class="paragraph">
+<p><span class="release-note-item">Add support for isIn/isNotIn assertions in the recursive comparison</span></p>
+</div>
+<div class="paragraph">
+<p><code>isIn</code>: verifies that the actual value is present in the given iterable/array, comparing values with the recursive comparison.</p>
+</div>
+<div class="paragraph">
+<p><code>isNotIn</code>: verifies that the actual value is not present in the given iterable/array, comparing values with the recursive comparison.</p>
+</div>
+<div class="paragraph">
+<p>Example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="java" class="language-java hljs">class Person {
+  String name;
+  double height;
+  Home home = new Home();
+}
+
+class Home {
+  Address address = new Address();
+}
+
+class Address {
+  int number;
+  String street;
+}
+
+Person sherlock = new Person("Sherlock", 1.80);
+sherlock.home.ownedSince = new Date(123);
+sherlock.home.address.street = "Baker Street";
+sherlock.home.address.number = 221;
+
+Person sherlock2 = new Person("Sherlock", 1.80);
+sherlock2.home.ownedSince = new Date(123);
+sherlock2.home.address.street = "Baker Street";
+sherlock2.home.address.number = 221;
+
+Person watson = new Person("Watson", 1.70);
+watson.home.ownedSince = new Date(123);
+watson.home.address.street = "Baker Street";
+watson.home.address.number = 221;
+
+Person moriarty = new Person("Moriarty", 1.80);
+moriarty.home.ownedSince = new Date(123);
+moriarty.home.address.street = "Butcher Street";
+moriarty.home.address.number = 221;
+
+
+// assertion succeeds as sherlock and sherlock2 data are the same but not for watson and moriarty
+assertThat(sherlock).usingRecursiveComparison()
+                    .isIn(sherlock2, moriarty)
+                    .isNotIn(watson, moriarty);</code></pre>
+</div>
+</div>
+<div id="assertj-core-3.24.0-satisfiesOnlyOnce" class="paragraph">
+<p><span class="release-note-item">Add satisfiesOnlyOnce to iterable, array and atomic array assertions</span></p>
+</div>
+<div class="paragraph">
+<p>Verifies that there is exactly one element in the iterable/array under test that satisfies the given <code>Consumer</code>.</p>
+</div>
+<div class="paragraph">
+<p>Example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="java" class="language-java hljs">List&lt;String&gt; starWarsCharacterNames = List.of("Luke", "Leia", "Yoda");
+
+// these assertions succeed:
+assertThat(starWarsCharacterNames).satisfiesOnlyOnce(name -&gt; assertThat(name).contains("Y")) // matches only "Yoda"
+                                  .satisfiesOnlyOnce(name -&gt; assertThat(name).contains("Lu")) // matches only "Luke"
+                                  .satisfiesOnlyOnce(name -&gt; assertThat(name).contains("Le")); // matches only "Leia"
+
+// this assertion fails because the requirements are satisfied two times
+assertThat(starWarsCharacterNames).satisfiesOnlyOnce(name -&gt; assertThat(name).contains("a")); // matches "Leia" and "Yoda"
+
+// this assertion fails because no element contains "Han"
+assertThat(starWarsCharacterNames).satisfiesOnlyOnce(name -&gt; assertThat(name).contains("Han"));</code></pre>
+</div>
+</div>
+<div id="assertj-core-3.24.0-isAssignableTo" class="paragraph">
+<p><span class="release-note-item">Add isAssignableTo to Class assertions</span></p>
+</div>
+<div class="paragraph">
+<p>Verifies that the <code>Class</code> under test is assignable to the given one.</p>
+</div>
+<div class="paragraph">
+<p>Example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="java" class="language-java hljs">class Jedi {}
+class HumanJedi extends Jedi {}
+
+// this assertion succeeds:
+assertThat(HumanJedi.class).isAssignableTo(Jedi.class);
+
+// this assertion fails
+assertThat(Jedi.class).isAssignableTo(HumanJedi.class);</code></pre>
+</div>
+</div>
+<div id="assertj-core-3.24.0-withThrowableThat" class="paragraph">
+<p><span class="release-note-item">Add withThrowableThat() to ease Future/CompletableFuture throwable assertions</span></p>
+</div>
+<div class="paragraph">
+<p>Returns a <code>ThrowableAssertAlternative</code> to chain assertions on the underlying throwable for Future/CompletableFuture assertions.</p>
+</div>
+<div class="paragraph">
+<p>Example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="java" class="language-java hljs">CompletableFuture&lt;Void&gt; completableFuture = new CompletableFuture&lt;&gt;();
+completableFuture.completeExceptionally(new RuntimeException("boom!"));
+
+then(completableFuture).failsWithin(Duration.ofMillis(1))
+                       .withThrowableThat()
+                       .isInstanceOf(ExecutionException.class)
+                       .withMessageContaining("boom!");</code></pre>
+</div>
+</div>
+<div id="assertj-core-3.24.0-matchesSatisfying" class="paragraph">
+<p><span class="release-note-item">Add support for checking pattern followed by assertion on matchers groups</span></p>
+</div>
+<div class="paragraph">
+<p>Verifies that the actual <code>CharSequence</code> matches the given regular expression pattern, then accepts the given <code>Consumer&lt;Matcher&gt;</code> to do further verification on the matcher.</p>
+</div>
+<div class="paragraph">
+<p>Example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="java" class="language-java hljs">assertThat("Frodo").matchesSatisfying("..(o.o)", matcher -&gt; assertThat(matcher.group(1)).isEqualTo("odo"));
+
+// same assertion but with a Pattern
+Pattern pattern = Pattern.compile("..(o.o)");
+assertThat("Frodo").matchesSatisfying(pattern, matcher -&gt; assertThat(matcher.group(1)).isEqualTo("odo"));</code></pre>
+</div>
+</div>
+<div id="assertj-core-3.24.0-nestable-condition" class="paragraph">
+<p><span class="release-note-item">Add nestable condition</span></p>
+</div>
+<div class="paragraph">
+<p><code>nestable</code> is a building block defining more precise condition on complex objects. It allows to create readable assertions and produces nicer assertion error messages.</p>
+</div>
+<div class="paragraph">
+<p>Example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="java" class="language-java hljs">import static org.assertj.core.condition.NestableCondition.nestable;
+import static org.assertj.core.condition.VerboseCondition.verboseCondition;
+
+class Customer {
+  final String name;
+  final Address address;
+
+  Customer(String name, Address address) {
+    this.name = name;
+    this.address = address;
+  }
+}
+
+class Address {
+  final String firstLine;
+  final String postcode;
+
+  Address(String firstLine, String postcode) {
+    this.firstLine = firstLine;
+    this.postcode = postcode;
+  }
+ }
+
+static Condition&lt;Customer&gt; name(String expected) {
+  return new Condition&lt;&gt;(
+    it -&gt; expected.equals(it.name),
+    "name: " + expected
+  );
+}
+
+static Condition&lt;Customer&gt; customer(Condition&lt;Customer&gt;... conditions) {
+  return nestable("person", conditions);
+}
+
+static Condition&lt;Address&gt; firstLine(String expected) {
+  return new Condition&lt;&gt;(
+    it -&gt; expected.equals(it.firstLine),
+    "first line: " + expected
+  );
+}
+
+static Condition&lt;Address&gt; postcode(String expected) {
+  return new Condition&lt;&gt;(
+    it -&gt; expected.equals(it.postcode),
+    "postcode: " + expected
+  );
+}
+
+static Condition&lt;Customer&gt; address(Condition&lt;Address&gt;... conditions) {
+  return nestable(
+    "address",
+    customer -&gt; customer.address,
+    conditions
+  );
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>An assertions written like:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="java" class="language-java hljs">assertThat(customer).is(
+  customer(
+    name("John"),
+    address(
+      firstLine("3"),
+      postcode("KM3 8SP")
+    )
+  )
+);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>will produce an easy-to-read assertion error:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="text" class="language-text hljs">Expecting actual:
+  org.assertj.core.condition.Customer@27ff5d15
+to be:
+  [✗] person:[
+      [✓] name: John,
+      [✗] address:[
+        [✗] first line: 3,
+        [✓] postcode: KM3 8SP
+      ]
+  ]</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>For an even better assertion error, see <code>VerboseCondition</code>.</p>
+</div>
+<div id="assertj-core-3.24.0-isAlphabetic" class="paragraph">
+<p><span class="release-note-item">Add isAlphabetic to CharSequence assertions</span></p>
+</div>
+<div class="paragraph">
+<p>Verifies that the actual <code>CharSequence</code> is alphabetic by checking it against the <code>\p{Alpha}+</code> regex pattern POSIX character classes (US-ASCII only).</p>
+</div>
+<div class="paragraph">
+<p>Example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="java" class="language-java hljs">// assertions will pass
+assertThat("lego").isAlphabetic();
+assertThat("a").isAlphabetic();
+assertThat("Lego").isAlphabetic();
+
+// assertions will fail
+assertThat("1").isAlphabetic();
+assertThat(" ").isAlphabetic();
+assertThat("").isAlphabetic();
+assertThat("L3go").isAlphabetic();</code></pre>
+</div>
+</div>
+<div id="assertj-core-3.24.0-isAlphanumeric" class="paragraph">
+<p><span class="release-note-item">Add isAlphanumeric to CharSequence assertions</span></p>
+</div>
+<div class="paragraph">
+<p>Verifies that the actual <code>CharSequence</code> is alphanumeric by checking it against the <code>\p{Alnum}+</code> regex pattern POSIX character classes (US-ASCII only).</p>
+</div>
+<div class="paragraph">
+<p>Example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="java" class="language-java hljs">// assertions will pass
+assertThat("lego").isAlphanumeric();
+assertThat("a1").isAlphanumeric();
+assertThat("L3go").isAlphanumeric();
+
+// assertions will fail
+assertThat("!").isAlphanumeric();
+assertThat("").isAlphanumeric();
+assertThat(" ").isAlphanumeric();
+assertThat("L3go!").isAlphanumeric();</code></pre>
+</div>
+</div>
+<div id="assertj-core-3.24.0-isASCII" class="paragraph">
+<p><span class="release-note-item">Add isASCII to CharSequence assertions</span></p>
+</div>
+<div class="paragraph">
+<p>Verifies that the actual <code>CharSequence</code> is ASCII by checking it against the <code>\p{ASCII}+</code> regex pattern POSIX character classes (US-ASCII only).</p>
+</div>
+<div class="paragraph">
+<p>Example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="java" class="language-java hljs">// assertions will pass
+assertThat("lego").isASCII();
+assertThat("a1").isASCII();
+assertThat("L3go").isASCII();
+
+// assertions will fail
+assertThat("").isASCII();
+assertThat("♪").isASCII();
+assertThat("⌃").isASCII();
+assertThat("L3go123⌃00abc").isASCII();</code></pre>
+</div>
+</div>
+<div id="assertj-core-3.24.0-isHexadecimal" class="paragraph">
+<p><span class="release-note-item">Add isHexadecimal to CharSequence assertions</span></p>
+</div>
+<div class="paragraph">
+<p>Verifies that the actual <code>CharSequence</code> is hexadecimal by checking it against the <code>\p{XDigit}+</code> regex pattern POSIX character classes (US-ASCII only).</p>
+</div>
+<div class="paragraph">
+<p>Example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="java" class="language-java hljs">// assertions will pass
+assertThat("A").isHexadecimal();
+assertThat("2").isHexadecimal();
+
+// assertions will fail
+assertThat("!").isHexadecimal();
+assertThat("").isHexadecimal();
+assertThat(" ").isHexadecimal();
+assertThat("Z").isHexadecimal();
+assertThat("L3go!").isHexadecimal();</code></pre>
+</div>
+</div>
+<div id="assertj-core-3.24.0-isPrintable" class="paragraph">
+<p><span class="release-note-item">Add isAlphabetic to CharSequence assertions</span></p>
+</div>
+<div class="paragraph">
+<p>Verifies that the actual <code>CharSequence</code> is printable by checking it against the <code>\p{Print}+</code> regex pattern POSIX character classes (US-ASCII only).</p>
+</div>
+<div class="paragraph">
+<p>Example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="java" class="language-java hljs">// assertions will pass
+assertThat("2").isPrintable();
+assertThat("a").isPrintable();
+assertThat("~").isPrintable();
+assertThat("").isPrintable();
+
+// assertions will fail
+assertThat("\t").isPrintable();
+assertThat("§").isPrintable();
+assertThat("©").isPrintable();
+assertThat("\n").isPrintable();</code></pre>
+</div>
+</div>
+<div id="assertj-core-3.24.0-isVisible" class="paragraph">
+<p><span class="release-note-item">Add isVisible to CharSequence assertions</span></p>
+</div>
+<div class="paragraph">
+<p>Verifies that the actual <code>CharSequence</code> is visible by checking it against the <code>\p{Graph}+</code> regex pattern POSIX character classes (US-ASCII only).</p>
+</div>
+<div class="paragraph">
+<p>Example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="java" class="language-java hljs">// assertions will pass
+assertThat("2").isVisible();
+assertThat("a").isVisible();
+assertThat(".").isVisible();
+
+// assertions will fail
+assertThat("\t").isVisible();
+assertThat("\n").isVisible();
+assertThat("").isVisible();
+assertThat(" ").isVisible();</code></pre>
+</div>
+</div>
+<div id="assertj-core-3.24.0-isUnmodifiable" class="paragraph">
+<p><span class="release-note-item">Add isUnmodifiable to Map assertions</span></p>
+</div>
+<div class="paragraph">
+<p>Verifies that the map under test is unmodifiable, i.e. throws an <code>UnsupportedOperationException</code> with any attempt to modify the map.</p>
+</div>
+<div class="paragraph">
+<p>Example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="java" class="language-java hljs">// assertions succeeds
+assertThat(Collections.unmodifiableMap(new HashMap&lt;&gt;())).isUnmodifiable();
+
+// assertions fails
+assertThat(new HashMap&lt;&gt;()).isUnmodifiable();</code></pre>
+</div>
+</div>
+<div id="assertj-core-3.24.0-isExecutable" class="paragraph">
+<p><span class="release-note-item">Add isExecutable to file assertions</span></p>
+</div>
+<div class="paragraph">
+<p>Verifies that the file under test is executable.</p>
+</div>
+<div class="paragraph">
+<p>Example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="java" class="language-java hljs">File tmpFile = java.nio.file.Files.createTempFile("executable_file", ".sh").toFile();
+
+tmpFile.setExecutable(true);
+// assertions succeeds
+assertThat(tmpFile).isExecutable();
+
+tmpFile.setExecutable(false);
+// assertions fails
+assertThat(tmpFile).isExecutable();</code></pre>
+</div>
+</div>
+<div id="assertj-core-3.24.0-hasMessageMatching" class="paragraph">
+<p><span class="release-note-item">Add hasMessageMatching(Pattern) to throwable assertions</span></p>
+</div>
+<div class="paragraph">
+<p>Verifies that the message of the <code>Throwable</code> under test matches the given regular expression <code>Pattern</code>.</p>
+</div>
+<div class="paragraph">
+<p>Example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="java" class="language-java hljs">Throwable throwable = new IllegalArgumentException("wrong amount 123");
+
+// assertion succeeds
+assertThat(throwable).hasMessageMatching(Pattern.compile("wrong amount [0-9]*"));
+
+// assertion fails
+assertThat(throwable).hasMessageMatching(Pattern.compile("wrong amount [0-9]* euros"));</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="assertj-core-3-23-1-release-notes"><a class="anchor" href="#assertj-core-3-23-1-release-notes"></a>2.9.2. AssertJ Core 3.23.1</h4>
 <div class="paragraph">
 <p>Release date : 2022-05-31</p>
 </div>
@@ -7457,7 +8728,7 @@ More details are available in the <a href="#binary-compatibility">Binary Compati
 </div>
 </div>
 <div class="sect3">
-<h4 id="assertj-core-3-23-0-release-notes"><a class="anchor" href="#assertj-core-3-23-0-release-notes"></a>2.9.2. AssertJ Core 3.23.0</h4>
+<h4 id="assertj-core-3-23-0-release-notes"><a class="anchor" href="#assertj-core-3-23-0-release-notes"></a>2.9.3. AssertJ Core 3.23.0</h4>
 <div class="paragraph">
 <p>Release date : 2022-05-31</p>
 </div>
@@ -8083,7 +9354,7 @@ assertThat(xFile).binaryContent().isEqualTo(expectedBinaryContent);</code></pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="assertj-core-3-22-0-release-notes"><a class="anchor" href="#assertj-core-3-22-0-release-notes"></a>2.9.3. AssertJ Core 3.22.0</h4>
+<h4 id="assertj-core-3-22-0-release-notes"><a class="anchor" href="#assertj-core-3-22-0-release-notes"></a>2.9.4. AssertJ Core 3.22.0</h4>
 <div class="paragraph">
 <p>Release date : 2022-01-03</p>
 </div>
@@ -8403,7 +9674,7 @@ assertThat(frodo).doesNotReturn("Bilbo", from(TolkienCharacter::getName))
 </div>
 </div>
 <div class="sect3">
-<h4 id="assertj-core-3-21-0-release-notes"><a class="anchor" href="#assertj-core-3-21-0-release-notes"></a>2.9.4. AssertJ Core 3.21.0</h4>
+<h4 id="assertj-core-3-21-0-release-notes"><a class="anchor" href="#assertj-core-3-21-0-release-notes"></a>2.9.5. AssertJ Core 3.21.0</h4>
 <div class="paragraph">
 <p>Release date : 2021-09-20</p>
 </div>
@@ -8805,7 +10076,7 @@ assertThat(new HashSet&lt;&gt;()).isUnmodifiable();</code></pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="assertj-core-3-20-2-release-notes"><a class="anchor" href="#assertj-core-3-20-2-release-notes"></a>2.9.5. AssertJ Core 3.20.2</h4>
+<h4 id="assertj-core-3-20-2-release-notes"><a class="anchor" href="#assertj-core-3-20-2-release-notes"></a>2.9.6. AssertJ Core 3.20.2</h4>
 <div class="paragraph">
 <p>Release date : 2021-06-20</p>
 </div>
@@ -8837,7 +10108,7 @@ More details are available in the <a href="#binary-compatibility">Binary Compati
 </div>
 </div>
 <div class="sect3">
-<h4 id="assertj-core-3-20-1-release-notes"><a class="anchor" href="#assertj-core-3-20-1-release-notes"></a>2.9.6. AssertJ Core 3.20.1</h4>
+<h4 id="assertj-core-3-20-1-release-notes"><a class="anchor" href="#assertj-core-3-20-1-release-notes"></a>2.9.7. AssertJ Core 3.20.1</h4>
 <div class="paragraph">
 <p>Release date : 2021-06-16</p>
 </div>
@@ -8863,7 +10134,7 @@ More details are available in the <a href="#binary-compatibility">Binary Compati
 </div>
 </div>
 <div class="sect3">
-<h4 id="assertj-core-3-20-0-release-notes"><a class="anchor" href="#assertj-core-3-20-0-release-notes"></a>2.9.7. AssertJ Core 3.20.0</h4>
+<h4 id="assertj-core-3-20-0-release-notes"><a class="anchor" href="#assertj-core-3-20-0-release-notes"></a>2.9.8. AssertJ Core 3.20.0</h4>
 <div class="paragraph">
 <p>Release date : 2021-06-15</p>
 </div>
@@ -9654,7 +10925,7 @@ to have shorter than 4 but length was 5</code></pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="assertj-core-3-19-0-release-notes"><a class="anchor" href="#assertj-core-3-19-0-release-notes"></a>2.9.8. AssertJ Core 3.19.0</h4>
+<h4 id="assertj-core-3-19-0-release-notes"><a class="anchor" href="#assertj-core-3-19-0-release-notes"></a>2.9.9. AssertJ Core 3.19.0</h4>
 <div class="paragraph">
 <p>Release date : 2021-01-24</p>
 </div>
@@ -10217,7 +11488,7 @@ assertThat(withContent).isEmptyFile();</code></pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="assertj-core-3-18-1-release-notes"><a class="anchor" href="#assertj-core-3-18-1-release-notes"></a>2.9.9. AssertJ Core 3.18.1</h4>
+<h4 id="assertj-core-3-18-1-release-notes"><a class="anchor" href="#assertj-core-3-18-1-release-notes"></a>2.9.10. AssertJ Core 3.18.1</h4>
 <div class="paragraph">
 <p>Release date : 2020-11-11</p>
 </div>
@@ -10284,7 +11555,7 @@ More details are available in the <a href="#binary-compatibility">Binary Compati
 </div>
 </div>
 <div class="sect3">
-<h4 id="assertj-core-3-18-0-release-notes"><a class="anchor" href="#assertj-core-3-18-0-release-notes"></a>2.9.10. AssertJ Core 3.18.0</h4>
+<h4 id="assertj-core-3-18-0-release-notes"><a class="anchor" href="#assertj-core-3-18-0-release-notes"></a>2.9.11. AssertJ Core 3.18.0</h4>
 <div class="paragraph">
 <p>Release date : 2020-10-25</p>
 </div>
@@ -10622,7 +11893,7 @@ assertThat(new AtomicReference("foo")).hasValueMatching(result -&gt; result != n
 </div>
 </div>
 <div class="sect3">
-<h4 id="assertj-core-3-17-2-release-notes"><a class="anchor" href="#assertj-core-3-17-2-release-notes"></a>2.9.11. AssertJ Core 3.17.2</h4>
+<h4 id="assertj-core-3-17-2-release-notes"><a class="anchor" href="#assertj-core-3-17-2-release-notes"></a>2.9.12. AssertJ Core 3.17.2</h4>
 <div class="paragraph">
 <p>Release date : 2020-09-06</p>
 </div>
@@ -10693,7 +11964,7 @@ More details are available in the <a href="#binary-compatibility">Binary Compati
 </div>
 </div>
 <div class="sect3">
-<h4 id="assertj-core-3-17-1-release-notes"><a class="anchor" href="#assertj-core-3-17-1-release-notes"></a>2.9.12. AssertJ Core 3.17.1</h4>
+<h4 id="assertj-core-3-17-1-release-notes"><a class="anchor" href="#assertj-core-3-17-1-release-notes"></a>2.9.13. AssertJ Core 3.17.1</h4>
 <div class="paragraph">
 <p>Release date : 2020-08-30</p>
 </div>
@@ -10761,7 +12032,7 @@ More details are available in the <a href="#binary-compatibility">Binary Compati
 </div>
 </div>
 <div class="sect3">
-<h4 id="assertj-core-3-17-0-release-notes"><a class="anchor" href="#assertj-core-3-17-0-release-notes"></a>2.9.13. AssertJ Core 3.17.0</h4>
+<h4 id="assertj-core-3-17-0-release-notes"><a class="anchor" href="#assertj-core-3-17-0-release-notes"></a>2.9.14. AssertJ Core 3.17.0</h4>
 <div class="paragraph">
 <p>Release date : 2020-08-23</p>
 </div>
@@ -11346,7 +12617,7 @@ assertThat(employees).filteredOn(e -&gt; e.getName(), null)
 </div>
 </div>
 <div class="sect3">
-<h4 id="assertj-core-3-16-1-release-notes"><a class="anchor" href="#assertj-core-3-16-1-release-notes"></a>2.9.14. AssertJ Core 3.16.1</h4>
+<h4 id="assertj-core-3-16-1-release-notes"><a class="anchor" href="#assertj-core-3-16-1-release-notes"></a>2.9.15. AssertJ Core 3.16.1</h4>
 <div class="paragraph">
 <p>Release date : 2020-05-09</p>
 </div>
@@ -11371,7 +12642,7 @@ assertThat(employees).filteredOn(e -&gt; e.getName(), null)
 </div>
 </div>
 <div class="sect3">
-<h4 id="assertj-core-3-16-0-release-notes"><a class="anchor" href="#assertj-core-3-16-0-release-notes"></a>2.9.15. AssertJ Core 3.16.0</h4>
+<h4 id="assertj-core-3-16-0-release-notes"><a class="anchor" href="#assertj-core-3-16-0-release-notes"></a>2.9.16. AssertJ Core 3.16.0</h4>
 <div class="paragraph">
 <p>Release date : 2020-05-05</p>
 </div>
@@ -11877,7 +13148,7 @@ and others were not expected:
 </div>
 </div>
 <div class="sect3">
-<h4 id="assertj-core-3-15-0-release-notes"><a class="anchor" href="#assertj-core-3-15-0-release-notes"></a>2.9.16. AssertJ Core 3.15.0</h4>
+<h4 id="assertj-core-3-15-0-release-notes"><a class="anchor" href="#assertj-core-3-15-0-release-notes"></a>2.9.17. AssertJ Core 3.15.0</h4>
 <div class="paragraph">
 <p>Release date : 2020-01-28</p>
 </div>
@@ -12387,7 +13658,7 @@ assertThat(doctor).usingRecursiveComparison()
 </div>
 </div>
 <div class="sect3">
-<h4 id="assertj-core-3-14-0-release-notes"><a class="anchor" href="#assertj-core-3-14-0-release-notes"></a>2.9.17. AssertJ Core 3.14.0</h4>
+<h4 id="assertj-core-3-14-0-release-notes"><a class="anchor" href="#assertj-core-3-14-0-release-notes"></a>2.9.18. AssertJ Core 3.14.0</h4>
 <div class="paragraph">
 <p>Release date : 2019-10-27</p>
 </div>
@@ -13121,7 +14392,7 @@ public void matching_example() {
 </div>
 </div>
 <div class="sect3">
-<h4 id="assertj-core-3-13-2-release-notes"><a class="anchor" href="#assertj-core-3-13-2-release-notes"></a>2.9.18. AssertJ Core 3.13.2</h4>
+<h4 id="assertj-core-3-13-2-release-notes"><a class="anchor" href="#assertj-core-3-13-2-release-notes"></a>2.9.19. AssertJ Core 3.13.2</h4>
 <div class="paragraph">
 <p>Release date : 2019-08-04</p>
 </div>
@@ -13146,7 +14417,7 @@ public void matching_example() {
 </div>
 </div>
 <div class="sect3">
-<h4 id="assertj-core-3-13-1-release-notes"><a class="anchor" href="#assertj-core-3-13-1-release-notes"></a>2.9.19. AssertJ Core 3.13.1</h4>
+<h4 id="assertj-core-3-13-1-release-notes"><a class="anchor" href="#assertj-core-3-13-1-release-notes"></a>2.9.20. AssertJ Core 3.13.1</h4>
 <div class="paragraph">
 <p>Release date : 2019-07-29</p>
 </div>
@@ -13180,7 +14451,7 @@ public void matching_example() {
 </div>
 </div>
 <div class="sect3">
-<h4 id="assertj-core-3-13-0-release-notes"><a class="anchor" href="#assertj-core-3-13-0-release-notes"></a>2.9.20. AssertJ Core 3.13.0</h4>
+<h4 id="assertj-core-3-13-0-release-notes"><a class="anchor" href="#assertj-core-3-13-0-release-notes"></a>2.9.21. AssertJ Core 3.13.0</h4>
 <div class="paragraph">
 <p>Release date : 2019-07-28</p>
 </div>
@@ -13934,7 +15205,7 @@ assertThat(yoda).extracting(Jedi::getName) // ObjectAssert&lt;String&gt;
 </div>
 </div>
 <div class="sect3">
-<h4 id="assertj-core-3-12-2-release-notes"><a class="anchor" href="#assertj-core-3-12-2-release-notes"></a>2.9.21. AssertJ Core 3.12.2</h4>
+<h4 id="assertj-core-3-12-2-release-notes"><a class="anchor" href="#assertj-core-3-12-2-release-notes"></a>2.9.22. AssertJ Core 3.12.2</h4>
 <div class="paragraph">
 <p>The main issue fixed was to ignore static methods when finding property accessors (contributed by Andy Wilkinson) which could break some tests since bare name method introspection was introduced in 3.12.0.</p>
 </div>
@@ -13943,13 +15214,13 @@ assertThat(yoda).extracting(Jedi::getName) // ObjectAssert&lt;String&gt;
 </div>
 </div>
 <div class="sect3">
-<h4 id="assertj-core-3-12-1-release-notes"><a class="anchor" href="#assertj-core-3-12-1-release-notes"></a>2.9.22. AssertJ Core 3.12.1</h4>
+<h4 id="assertj-core-3-12-1-release-notes"><a class="anchor" href="#assertj-core-3-12-1-release-notes"></a>2.9.23. AssertJ Core 3.12.1</h4>
 <div class="paragraph">
 <p>Fix a regression that included a bad module-info.class (thanks Jaro Kuruc) and other minor improvements.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="assertj-core-3-12-0-release-notes"><a class="anchor" href="#assertj-core-3-12-0-release-notes"></a>2.9.23. AssertJ Core 3.12.0</h4>
+<h4 id="assertj-core-3-12-0-release-notes"><a class="anchor" href="#assertj-core-3-12-0-release-notes"></a>2.9.24. AssertJ Core 3.12.0</h4>
 <div class="paragraph">
 <p>Release date : 2019-02-14</p>
 </div>
@@ -14181,25 +15452,15 @@ Bare-named property introspection is enabled by default and thus changes AssertJ
 <p>This guide is for the AssertJ Guava module.</p>
 </div>
 <div class="sect3">
-<h4 id="get-assertj-guava"><a class="anchor" href="#get-assertj-guava"></a>3.1.1. Get assertj-guava library</h4>
+<h4 id="assertj-guava-java-versions"><a class="anchor" href="#assertj-guava-java-versions"></a>3.1.1. Supported Java versions</h4>
 <div class="paragraph">
-<p>AssertJ Guava artifacts are in Maven central repository.</p>
+<p>AssertJ Guava requires Java 8 or higher.</p>
 </div>
-<div class="sect4">
-<h5 id="assertj-guava-java-versions"><a class="anchor" href="#assertj-guava-java-versions"></a>Supported Java versions</h5>
+</div>
+<div class="sect3">
+<h4 id="get-assertj-guava"><a class="anchor" href="#get-assertj-guava"></a>3.1.2. Get AssertJ Guava</h4>
 <div class="paragraph">
-<p>AssertJ Guava major versions depend on different Java versions:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>AssertJ Guava 3.x requires Java 8 or higher</p>
-</li>
-<li>
-<p>AssertJ Guava 2.x requires Java 7 or higher</p>
-</li>
-</ul>
-</div>
+<p>The AssertJ Guava artifact can be included directly using its <a href="#dependency-metadata-assertj-guava">dependency metadata</a> or indirectly via the <a href="#dependency-metadata-assertj-bom"><em>Bill of Materials</em> POM</a>.</p>
 </div>
 <div class="sect4">
 <h5 id="maven-2"><a class="anchor" href="#maven-2"></a>Maven</h5>
@@ -14208,8 +15469,7 @@ Bare-named property introspection is enabled by default and thus changes AssertJ
 <pre class="highlightjs highlight"><code data-lang="xml" class="language-xml hljs">&lt;dependency&gt;
   &lt;groupId&gt;org.assertj&lt;/groupId&gt;
   &lt;artifactId&gt;assertj-guava&lt;/artifactId&gt;
-  &lt;!-- use 2.0.1 for Java 7 projects --&gt;
-  &lt;version&gt;3.5.0&lt;/version&gt;
+  &lt;version&gt;3.24.0&lt;/version&gt;
   &lt;scope&gt;test&lt;/scope&gt;
 &lt;/dependency&gt;</code></pre>
 </div>
@@ -14217,32 +15477,21 @@ Bare-named property introspection is enabled by default and thus changes AssertJ
 </div>
 <div class="sect4">
 <h5 id="gradle-2"><a class="anchor" href="#gradle-2"></a>Gradle</h5>
-<div class="paragraph">
-<p>For Gradle users (using the Maven Central Repository)</p>
-</div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code data-lang="java" class="language-java hljs">testImplementation("org.assertj:assertj-guava:3.5.0")</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Or version 2.0.1 for Java 7 projects</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code data-lang="java" class="language-java hljs">testImplementation("org.assertj:assertj-guava:2.0.1")</code></pre>
+<pre class="highlightjs highlight"><code data-lang="groovy" class="language-groovy hljs">testImplementation("org.assertj:assertj-guava:3.24.0")</code></pre>
 </div>
 </div>
 </div>
 <div class="sect4">
 <h5 id="other-build-tools-2"><a class="anchor" href="#other-build-tools-2"></a>Other build tools</h5>
 <div class="paragraph">
-<p>Check this page to find the relevant <a href="https://search.maven.org/artifact/org.assertj/assertj-guava/3.5.0/bundle">assertj guava dependency declaration</a>.</p>
+<p>Check this page to find the relevant <a href="https://central.sonatype.dev/artifact/org.assertj/assertj-guava/3.24.0">AssertJ Guava dependency declaration</a>.</p>
 </div>
 </div>
 </div>
 <div class="sect3">
-<h4 id="use-assertions-class-entry-point-2"><a class="anchor" href="#use-assertions-class-entry-point-2"></a>3.1.2. Use Assertions class entry point</h4>
+<h4 id="use-assertions-class-entry-point-2"><a class="anchor" href="#use-assertions-class-entry-point-2"></a>3.1.3. Use Assertions class entry point</h4>
 <div class="paragraph">
 <p>The <code>org.assertj.guava.api.Assertions</code> class is the only class you need to start using AssertJ Guava.</p>
 </div>
@@ -14253,7 +15502,7 @@ Bare-named property introspection is enabled by default and thus changes AssertJ
 </div>
 </div>
 <div class="sect3">
-<h4 id="examples"><a class="anchor" href="#examples"></a>3.1.3. Examples</h4>
+<h4 id="examples"><a class="anchor" href="#examples"></a>3.1.4. Examples</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code data-lang="java" class="language-java hljs">import static org.assertj.guava.api.Assertions.assertThat;
@@ -14305,7 +15554,7 @@ assertThat(bestMovies).hasRowCount(5).hasColumnCount(3).hasSize(5)
 </div>
 </div>
 <div class="sect3">
-<h4 id="assertj-guava-ide"><a class="anchor" href="#assertj-guava-ide"></a>3.1.4. IDE configuration</h4>
+<h4 id="assertj-guava-ide"><a class="anchor" href="#assertj-guava-ide"></a>3.1.5. IDE configuration</h4>
 <div class="paragraph">
 <p>You can configure your IDE so that when you start typing <code>as</code> and trigger code completion <code>assertThat</code> will show up in the suggested completions.</p>
 </div>
@@ -14772,6 +16021,9 @@ The new release notes though will be published here.
 <div class="ulist">
 <ul>
 <li>
+<p><a href="#assertj-guava-3-24-0-release-notes">AssertJ Guava 3.24.0</a></p>
+</li>
+<li>
 <p><a href="#assertj-guava-3-5-0-release-notes">AssertJ Guava 3.5.0</a></p>
 </li>
 <li>
@@ -14786,7 +16038,23 @@ The new release notes though will be published here.
 </ul>
 </div>
 <div class="sect3">
-<h4 id="assertj-guava-3-5-0-release-notes"><a class="anchor" href="#assertj-guava-3-5-0-release-notes"></a>3.4.1. AssertJ Guava 3.5.0</h4>
+<h4 id="assertj-guava-3-24-0-release-notes"><a class="anchor" href="#assertj-guava-3-24-0-release-notes"></a>3.4.1. AssertJ Guava 3.24.0</h4>
+<div class="paragraph">
+<p>Release date : 2023-01-06</p>
+</div>
+<div id="assertj-guava-3.24.0-binary-compatibility" class="paragraph">
+<p><span class="release-note-category"><span class="icon"><i class="fa fa-cogs"></i></span> Binary compatibility</span></p>
+</div>
+<div class="paragraph">
+<p>The release <span class="green">is binary compatible</span> with the previous minor version.</p>
+</div>
+<div id="assertj-guava-3.5.0-improvements" class="paragraph">
+<p><span class="release-note-category"><span class="icon"><i class="fa fa-arrow-circle-up"></i></span> Improvements</span>
+* AssertJ Guava is now part of the AssertJ multimodule and follows the same versioning.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="assertj-guava-3-5-0-release-notes"><a class="anchor" href="#assertj-guava-3-5-0-release-notes"></a>3.4.2. AssertJ Guava 3.5.0</h4>
 <div class="paragraph">
 <p>Release date : 2022-06-11</p>
 </div>
@@ -14894,7 +16162,7 @@ sullis <span class="icon"><i class="fa fa-user-plus" title="New contributor"></i
 </div>
 </div>
 <div class="sect3">
-<h4 id="assertj-guava-3-4-0-release-notes"><a class="anchor" href="#assertj-guava-3-4-0-release-notes"></a>3.4.2. AssertJ Guava 3.4.0</h4>
+<h4 id="assertj-guava-3-4-0-release-notes"><a class="anchor" href="#assertj-guava-3-4-0-release-notes"></a>3.4.3. AssertJ Guava 3.4.0</h4>
 <div class="paragraph">
 <p>Release date : 2020-04-24</p>
 </div>
@@ -15019,7 +16287,7 @@ sullis <span class="icon"><i class="fa fa-user-plus" title="New contributor"></i
 </div>
 </div>
 <div class="sect3">
-<h4 id="assertj-guava-3-3-0-release-notes"><a class="anchor" href="#assertj-guava-3-3-0-release-notes"></a>3.4.3. AssertJ Guava 3.3.0</h4>
+<h4 id="assertj-guava-3-3-0-release-notes"><a class="anchor" href="#assertj-guava-3-3-0-release-notes"></a>3.4.4. AssertJ Guava 3.3.0</h4>
 <div class="paragraph">
 <p>Release date : 2019-11-09</p>
 </div>
@@ -21254,11 +22522,74 @@ AssertJ Swing would not exist without its contributors, you can find them all <a
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="appendix"><a class="anchor" href="#appendix"></a>8. Appendix</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="dependency-metadata"><a class="anchor" href="#dependency-metadata"></a>8.1. Dependency Metadata</h3>
+<div class="paragraph">
+<p>Artifacts for final releases and milestones are deployed to <a href="https://central.sonatype.dev/">Maven Central</a>.
+Snapshot artifacts are not deployed.</p>
+</div>
+<div class="sect3">
+<h4 id="dependency-metadata-assertj-core"><a class="anchor" href="#dependency-metadata-assertj-core"></a>8.1.1. AssertJ Core</h4>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Group ID:</strong> <code>org.assertj</code></p>
+</li>
+<li>
+<p><strong>Artifact ID:</strong> <code>assertj-core</code></p>
+</li>
+<li>
+<p><strong>Version:</strong> <code>3.24.0</code></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="dependency-metadata-assertj-guava"><a class="anchor" href="#dependency-metadata-assertj-guava"></a>8.1.2. AssertJ Guava</h4>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Group ID:</strong> <code>org.assertj</code></p>
+</li>
+<li>
+<p><strong>Artifact ID:</strong> <code>assertj-guava</code></p>
+</li>
+<li>
+<p><strong>Version:</strong> <code>3.24.0</code></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="dependency-metadata-assertj-bom"><a class="anchor" href="#dependency-metadata-assertj-bom"></a>8.1.3. Bill of Materials (BOM)</h4>
+<div class="paragraph">
+<p>The <em>Bill of Materials</em> POM provided under the following Maven coordinates can be used to ease dependency management when referencing multiple of the above artifacts using <a href="https://maven.apache.org/guides/introduction/introduction-to-dependency-mechanism.html#Importing_Dependencies">Maven</a> or <a href="https://docs.gradle.org/current/userguide/managing_transitive_dependencies.html#sec:bom_import">Gradle</a>.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Group ID:</strong> <code>org.assertj</code></p>
+</li>
+<li>
+<p><strong>Artifact ID:</strong> <code>assertj-bom</code></p>
+</li>
+<li>
+<p><strong>Version:</strong> <code>3.24.0</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
 </div>
 <div id="footer">
 <div id="footer-text">
 Version 1.0<br>
-Last updated 2022-10-23 12:13:23 UTC
+Last updated 2023-01-05 23:40:22 UTC
 </div>
 </div>
 <link rel="stylesheet" href="highlight/styles/railscasts.min.css">
