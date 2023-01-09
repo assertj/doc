@@ -101,8 +101,9 @@ Note that you can find more working examples in the assertj-examples project: ht
 You can configure your IDE so that when you start typing `as` and trigger code completion `assertThat` will show up in the suggested completions.
 
 Eclipse:
-. Go to : Window > Preferences > Java > Editor > Content Assist > Favorites > New Type
-. Enter : `org.assertj.guava.api.Assertions` and click OK
+
+. Go to Window > Preferences > Java > Editor > Content Assist > Favorites > New Type.
+. Enter `org.assertj.guava.api.Assertions` and click OK.
 . Check that you see `org.assertj.guava.api.Assertions.*` in Favorites.
 
 Intellij Idea: No special configuration is needed, just start typing `asser` and then invoke completion (Ctrl-Space) twice.

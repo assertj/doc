@@ -1,9 +1,9 @@
 [[assertj-migration]]
 === Migrating assertions
 
-This page will help you converting your existing JUnit assertions to AssertJ ones. Note that both types of assertions can coexist, you don't have to migrate all at once.
+This page will help you to convert your existing JUnit assertions to AssertJ ones. Note that both types of assertions can coexist, you don't have to migrate all at once.
 
-The idea is to convert code like :
+The idea is to convert code like:
 
 [source,java,indent=0]
 ----

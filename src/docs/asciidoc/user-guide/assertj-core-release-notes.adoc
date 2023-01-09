@@ -36,7 +36,7 @@ Older release notes can be found in the old site: https://joel-costigliola.githu
 [[assertj-core-3-24-1-release-notes]]
 ==== AssertJ Core 3.24.1
 
-Release date : 2023-01-06
+Release date: 2023-01-06
 
 [[assertj-core-3.24.1-binary-compatibility]]
 [.release-note-category]#icon:cogs[] Binary compatibility#
@@ -52,7 +52,7 @@ More details are available in the <<Binary Compatibility>> section.
 [[assertj-core-3-24-0-release-notes]]
 ==== AssertJ Core 3.24.0
 
-Release date : 2023-01-06
+Release date: 2023-01-06
 
 [[assertj-core-3.24.0-contributors]]
 [.release-note-category]#icon:user[] Contributors#
@@ -126,7 +126,7 @@ More details are available in the <<Binary Compatibility>> section.
 * Throw `org.opentest4j.AssertionFailedError` for `containsExactly` assertion so that IDEs can show the diff between actual and expected (#2697) (Christiaan Zoet).
 * Fix some typos and grammar in project documentation (#2656) (Michael Keppler)
 * Fix typo in docs for `assertIsEqualToNormalizingNewlines` (#2677) (Matthew Haughton)
-* Fix javadoc for `within(long, TemporalUnit)` (#2801) (Remy Lassaut)
+* Fix Javadoc for `within(long, TemporalUnit)` (#2801) (Remy Lassaut)
 * Let `CaseInsensitiveStringComparator` delegate to `compareToIgnoreCase` (#2663) (Stefano Cordio)
 * Use actual `Map` type when invoking copying constructor (#2710) (Stefano Cordio)
 * Improve `isBetween` assertion performance by only building the error message when needed (#2884) (Dirk Toewe)
@@ -811,7 +811,7 @@ assertThat(throwable).hasMessageMatching(Pattern.compile("wrong amount [0-9]* eu
 [[assertj-core-3-23-1-release-notes]]
 ==== AssertJ Core 3.23.1
 
-Release date : 2022-05-31
+Release date: 2022-05-31
 
 [[assertj-core-3.23.1-binary-compatibility]]
 [.release-note-category]#icon:cogs[] Binary compatibility#
@@ -827,7 +827,7 @@ More details are available in the <<Binary Compatibility>> section.
 [[assertj-core-3-23-0-release-notes]]
 ==== AssertJ Core 3.23.0
 
-Release date : 2022-05-31
+Release date: 2022-05-31
 
 [[assertj-core-3.23.0-contributors]]
 [.release-note-category]#icon:user[] Contributors#
@@ -921,12 +921,12 @@ More details are available in the <<Binary Compatibility>> section.
 * Fix typos in Javadoc of ObjectEnumerableAssert (#2624). (Roland Weisleder)
 * Internal: Update maven wrapper to 3.1.1 (#2622). (Jeremy Landis)
 * Internal: Bump maven wrapper distributionUrl to 3.8.5 (#2551). (Jeremy Landis)
-* Internal: Align javadoc stylesheet to be compatible with Java 17. (Stefano Cordio)
+* Internal: Align Javadoc stylesheet to be compatible with Java 17. (Stefano Cordio)
 * Internal: Add Gitpod configuration. (Stefano Cordio)
 * Internal: Open user specific fork on Gitpod. (Anugrah Singhal)
 * Internal: Verify binary compatibility with latest release also with PRs (#2613). (Stefano Cordio)
 * Internal: Change visibility of constructor in final util class to private (#2465). (Martin Witt)
-* Internal: Update licence headers to 2022. (Stefano Cordio)
+* Internal: Update license headers to 2022. (Stefano Cordio)
 * Internal: Add build with Java 19 EA. (Stefano Cordio)
 * Internal: Add binary compatibility result to job summary. (Stefano Cordio)
 * Internal: Use Java 18 GA in build (Stefano Cordio)
@@ -968,7 +968,7 @@ More details are available in the <<Binary Compatibility>> section.
 * Recursive comparison did not honor `comparingOnlyFields` when getting actual fields to compare (#2610). (Andreas Kutschera)
 * Fix comparingOnlyFields that was greedily evaluating fields to compare.
 * Fix usingRecursiveComparison with usingOverriddenEquals ignores equals method of the root object (#2479). (Yuta Saito)
-* Fix error in javadoc. (Yuta Saito)
+* Fix error in Javadoc. (Yuta Saito)
 * As Java 17 forbids it, don't use reflection to compare java types in the recursive comparison, use equals even if not overridden (#2450).
 * Recursive comparison: Compare Atomic types embedded value recursively (value is not accessed by reflection) (#2466).
 * Fix pom url to match the actual url to the doc (#2514). (BJ Hargrave)
@@ -1202,7 +1202,7 @@ assertThat("Gandalf the grey").startsWithIgnoringCase("gandalf")
 [[assertj-core-3-22-0-release-notes]]
 ==== AssertJ Core 3.22.0
 
-Release date : 2022-01-03
+Release date: 2022-01-03
 
 [[assertj-core-3.22.0-contributors]]
 [.release-note-category]#icon:user[] Contributors#
@@ -1291,7 +1291,7 @@ More details are available in the <<Binary Compatibility>> section.
 
 * Avoid reflection when extracting `Optional` value that fails with Java 17 (#2364). (Stefano Cordio)
 * Fix assumptions for `extracting` methods using `asInstanceOf`
-* Fix javadoc for `containsExactlyInAnyOrderElementsOf` (#2405). (Yusuke Mukai)
+* Fix Javadoc for `containsExactlyInAnyOrderElementsOf` (#2405). (Yusuke Mukai)
 * Fix `DefaultAssertionErrorCollector` that dismisses expected/actual fields during injection of line numbers.
 * Fall back to `Map` copy when cloning causes any `RuntimeException` (#2448). (Stefano Cordio)
 
@@ -1391,7 +1391,7 @@ assertThat(frodo).doesNotReturn("Bilbo", from(TolkienCharacter::getName))
 [[assertj-core-3-21-0-release-notes]]
 ==== AssertJ Core 3.21.0
 
-Release date : 2021-09-20
+Release date: 2021-09-20
 
 [[assertj-core-3.21.0-contributors]]
 [.release-note-category]#icon:user[] Contributors#
@@ -1636,7 +1636,7 @@ assertThat(new HashSet<>()).isUnmodifiable();
 [[assertj-core-3-20-2-release-notes]]
 ==== AssertJ Core 3.20.2
 
-Release date : 2021-06-20
+Release date: 2021-06-20
 
 Bugfix release that revert a breaking change in 3.20.0 due to the heavy impact on binary compatibility and to continue allowing third-party libraries returning their own assertion classes with overridden `assertThat` methods.
 
@@ -1657,7 +1657,7 @@ More details are available in the <<Binary Compatibility>> section.
 [[assertj-core-3-20-1-release-notes]]
 ==== AssertJ Core 3.20.1
 
-Release date : 2021-06-16
+Release date: 2021-06-16
 
 Bugfix release.
 
@@ -1675,7 +1675,7 @@ More details are available in the <<Binary Compatibility>> section.
 [[assertj-core-3-20-0-release-notes]]
 ==== AssertJ Core 3.20.0
 
-Release date : 2021-06-15
+Release date: 2021-06-15
 
 [[assertj-core-3.20.0-contributors]]
 [.release-note-category]#icon:user[] Contributors#
@@ -1745,7 +1745,7 @@ The breaking change is for people that have implemented `WithAssertions` or `Wit
 * Recursive comparison: properly track field location for maps and honor ignored fields.
 * link:#assertj-core-3.20.0-allOf-error[`allOf`] condition error message shows state (successful/failed) of each combined conditions.
 * Javadoc improvements. (Stefano Cordio)
-* Clarify `newListAssertInstance` javadoc.
+* Clarify `newListAssertInstance` Javadoc.
 * Fix flaky test by making sure default date formats are used before tests.
 * Remove unnecessary space `ShouldNotBe` and `ShouldNotHave` error messages. (Annette0127)
 
@@ -1753,7 +1753,7 @@ The breaking change is for people that have implemented `WithAssertions` or `Wit
 * Internal: Fix some warnings in AssertJ codebase. (Filip Hrisafov)
 * Internal: Remove Proxyable assert classes since we don't need to subclass assert classes to fix heap pollution with `@SafeVarargs`.
 * Internal: Hide implementation detail of `assertContainsOnlyKeys`. (Stefano Cordio)
-* Internal: Remove unnecessary javadoc from internal class, import `Map.Entry`. (Stefano Cordio)
+* Internal: Remove unnecessary Javadoc from internal class, import `Map.Entry`. (Stefano Cordio)
 * Internal: Favor `requireNonNull` with `Supplier`. (Stefano Cordio)
 * Internal: Update CodeQL workflow. (Stefano Cordio)
 * Internal: Mention the JDK 11 requirement in the contribution guidelines. (Stefano Cordio)
@@ -1794,7 +1794,7 @@ The breaking change is for people that have implemented `WithAssertions` or `Wit
 * Fix hasOnlyFields which should not consider static fields.
 * Fix `StackOverflowError` when `usingRecursiveComparison` of `Path` on Windows by using path natural comparator. (Julien Roy)
 * Extract value only if the map key exists in `PropertyOrFieldSupport`. (Stefano Cordio)
-* Replace references to `mapOf` by Guava `ImmutableMap.of` in javadoc.
+* Replace references to `mapOf` by Guava `ImmutableMap.of` in Javadoc.
 * Fix Javadoc warnings.
 
 [[assertj-core-3.20.0-deprecated]]
@@ -2172,7 +2172,7 @@ to have shorter than 4 but length was 5
 [[assertj-core-3-19-0-release-notes]]
 ==== AssertJ Core 3.19.0
 
-Release date : 2021-01-24
+Release date: 2021-01-24
 
 [[assertj-core-3.19.0-contributors]]
 [.release-note-category]#icon:user[] Contributors#
@@ -2561,7 +2561,7 @@ assertThat(withContent).isEmptyFile();
 [[assertj-core-3-18-1-release-notes]]
 ==== AssertJ Core 3.18.1
 
-Release date : 2020-11-11
+Release date: 2020-11-11
 
 [[assertj-core-3.18.1-contributors]]
 [.release-note-category]#icon:user[] Contributors#
@@ -2583,7 +2583,7 @@ More details are available in the <<Binary Compatibility>> section.
 [.release-note-category]#icon:arrow-circle-up[] Improvements#
 
 * Make `isElementOfCustomAssert` protected to ease integration with 3rd party libraries like XML Unit.
-* Add javadoc for methods that needs to be implemented in `AbstractIterableAssert` subclasses.
+* Add Javadoc for methods that needs to be implemented in `AbstractIterableAssert` subclasses.
 * Internal: Adjust `hasPackage` tests style. (Stefano Cordio)
 * Internal: Bump junit-jupiter version from 5.6.2 to 5.6.3. (Erhard Pointl)
 * Internal: Bump mockito from 3.5.15 to 3.6.0. (Erhard Pointl)
@@ -2593,13 +2593,13 @@ More details are available in the <<Binary Compatibility>> section.
 [.release-note-category]#icon:wrench[] Fixed#
 
 * Fix `ShouldNotHaveSameClass` error message. ( Kim S. Ly)
-* Fix `hasNotFailed` javadoc deprecation example.
+* Fix `hasNotFailed` Javadoc deprecation example.
 
 
 [[assertj-core-3-18-0-release-notes]]
 ==== AssertJ Core 3.18.0
 
-Release date : 2020-10-25
+Release date: 2020-10-25
 
 [[assertj-core-3.18.0-contributors]]
 [.release-note-category]#icon:user[] Contributors#
@@ -2822,7 +2822,7 @@ assertThat(new AtomicReference("foo")).hasValueSatisfying(result -> assertThat(r
 [[assertj-core-3-17-2-release-notes]]
 ==== AssertJ Core 3.17.2
 
-Release date : 2020-09-06
+Release date: 2020-09-06
 
 [[assertj-core-3.17.2-contributors]]
 [.release-note-category]#icon:user[] Contributors#
@@ -2860,7 +2860,7 @@ More details are available in the <<Binary Compatibility>> section.
 [[assertj-core-3-17-1-release-notes]]
 ==== AssertJ Core 3.17.1
 
-Release date : 2020-08-30
+Release date: 2020-08-30
 
 [[assertj-core-3.17.1-contributors]]
 [.release-note-category]#icon:user[] Contributors#
@@ -2897,7 +2897,7 @@ More details are available in the <<Binary Compatibility>> section.
 [[assertj-core-3-17-0-release-notes]]
 ==== AssertJ Core 3.17.0
 
-Release date : 2020-08-23
+Release date: 2020-08-23
 
 [[assertj-core-3.17.0-contributors]]
 [.release-note-category]#icon:user[] Contributors#
@@ -3256,7 +3256,7 @@ assertThat(employees).filteredOn(e -> e.getName(), null)
 [[assertj-core-3-16-1-release-notes]]
 ==== AssertJ Core 3.16.1
 
-Release date : 2020-05-09
+Release date: 2020-05-09
 
 [[assertj-core-3.16.1-contributors]]
 [.release-note-category]#icon:user[] Contributors#
@@ -3267,13 +3267,13 @@ Thanks to Erhard Pointl and Eddú Meléndez Gonzales for their contributions.
 [.release-note-category]#icon:wrench[] Fixed#
 
 - Fix NPE in recursive comparison when checking local or anonymous classes. (#1868)
-- Fix `assertThat(Duration actual)` javadoc. (Eddú Meléndez Gonzales)
+- Fix `assertThat(Duration actual)` Javadoc. (Eddú Meléndez Gonzales)
 
 
 [[assertj-core-3-16-0-release-notes]]
 ==== AssertJ Core 3.16.0
 
-Release date : 2020-05-05
+Release date: 2020-05-05
 
 [[assertj-core-3.16.0-contributors]]
 [.release-note-category]#icon:user[] Contributors#
@@ -3321,7 +3321,7 @@ Thanks to all the contributors of this release: Erhard Pointl, Stefano Cordio, P
 - Clarify the error message when comparing float/double NaN with ==.
 - Use a more descriptive element's name in ShouldContain/ShouldContainOnly error message. (WuYff)
 - Add short array assertions taking `int...`. (Daniel Avila)
-- Use AssertJ site theme for javadoc.
+- Use AssertJ site theme for Javadoc.
 - Improve converting JUnit/JUnit5 assertions to AssertJ. (Yubin Hu)
 - Move core `extracting` features from `AbstractObjectAssert` to `AbstractAssert`, making them available for custom assertions. (Stefano Cordio)
 - Improve line number accuracy in soft assertion error messages. (Stefano Cordio)
@@ -3603,7 +3603,7 @@ and others were not expected:
 [[assertj-core-3-15-0-release-notes]]
 ==== AssertJ Core 3.15.0
 
-Release date : 2020-01-28
+Release date: 2020-01-28
 
 The recursive comparison API has been promoted and is not a beta API anymore.
 
@@ -3674,9 +3674,9 @@ Shout out to Vincent Ricard for the various tests refactoring, that was quite a 
 
 - Fix grammatical errors in README.md (Jayati Goyal)
 - Fix `allOf(Iterable)` and `anyOf(Iterable)` that no longer tracked descriptions when built with an `Iterable<Condition>`.
-- Fix typos in javadoc and comments. (Erhard Pointl)
+- Fix typos in Javadoc and comments. (Erhard Pointl)
 - Add `abstract` modifier for `Java6AbstractStandardSoftAssertions`. (Stefano Cordio)
-- Fix typo in javadoc. (Gyumin Kim)
+- Fix typo in Javadoc. (Gyumin Kim)
 - Fix how `Enum` are compared in recursive comparison which now compares them by value.
 - Fix tests failing only on Windows. (Fr Jeremy Krieg)
 - Refactoring: remove useless null check. (Pascal Schumacher)
@@ -3924,7 +3924,7 @@ assertThat(doctor).usingRecursiveComparison()
 [[assertj-core-3-14-0-release-notes]]
 ==== AssertJ Core 3.14.0
 
-Release date : 2019-10-27
+Release date: 2019-10-27
 
 [[assertj-core-3.14.0-contributors]]
 [.release-note-category]#icon:user[] Contributors#
@@ -3962,8 +3962,8 @@ Thanks to all the contributors of this release: Erhard Pointl, Stefano Cordio, J
 [[assertj-core-3.14.0-improvements]]
 [.release-note-category]#icon:arrow-circle-up[] Improvements#
 
-- AssertJ's javadoc are now searchable.
-- Use beautiful AssertJ's site code style for javadoc :)
+- AssertJ's Javadoc are now searchable.
+- Use beautiful AssertJ's site code style for Javadoc :)
 - `ObjectAssert.extracting(String...)` learned to extract link:#assertj-core-3.14.0-extract-nested-map[nested map key field/property]. (Sven Johansson)
 - Prettify `allOf` and `anyOf` link:#assertj-core-3.14.0-combined-condition-description[combined conditions description]. (Edgar Asatryan)
 - Clearly differentiate top level objects in the new recursive comparison.
@@ -3973,7 +3973,7 @@ Thanks to all the contributors of this release: Erhard Pointl, Stefano Cordio, J
 - Add link:#assertj-core-3.14.0-hamcrest-matching[`matching` syntactic sugar method] to use Hamcrest Matcher as Condition. (Jonas Berlin)
 - Update ByteBuddy to version 1.10.2.
 - Update Hamcrest to version 2.2.
-- Fix javadoc typos and incorrect references. (Erhard Pointl, Stefano Cordio)
+- Fix Javadoc typos and incorrect references. (Erhard Pointl, Stefano Cordio)
 - Stop throwing an `IllegalArgumentException` when `isIn` and `isNotIn` are given an empty group of values.
 - Expose `AbstractAssert.objects` to be used by subclasses.
 - Bump opentest4j from 1.1.1 to 1.2.0. (still optional)
@@ -3987,8 +3987,8 @@ Thanks to all the contributors of this release: Erhard Pointl, Stefano Cordio, J
 
 - Fix `BDDSoftAssertions.then(URL actual)` that just did not work 🤦‍. (Rob Spieldenner)
 - Fix possible `MissingFormatArgumentException` in `ShouldHaveMessage` and `ShouldContain`. (Erhard Pointl)
-- Fix javadoc search.
-- Fix javadoc links. (Stefano Cordio)
+- Fix Javadoc search.
+- Fix Javadoc links. (Stefano Cordio)
 - Fix `hasSizeBetween()` that did not work with strings. (Geoffrey Arthaud)
 - Fix failing soft assertions when combined with `asInstanceOf`.
 - Fix missing soft assertions proxying for `get` of `OptionalAssert`. (Stefano Cordio)
@@ -4470,19 +4470,19 @@ public void matching_example() {
 [[assertj-core-3-13-2-release-notes]]
 ==== AssertJ Core 3.13.2
 
-Release date : 2019-08-04
+Release date: 2019-08-04
 
 This release ships a few improvements:
 
 * Fixes an annoyance in `InstanceOfAssertFactories`, where `URL` and `URI` constants have been renamed to `URL_TYPE` and `URI_TYPE` respectively to avoid a clash with `java.net.URL` and `java.net.URI`. See https://github.com/assertj/assertj-core/issues/1567 for details.
 * Updates ByteBuddy to version 1.10.0.
-* Fixes some javadoc typos.
+* Fixes some Javadoc typos.
 * Enforces banned dependencies with `maven-enforcer-plugin`.
 
 [[assertj-core-3-13-1-release-notes]]
 ==== AssertJ Core 3.13.1
 
-Release date : 2019-07-29
+Release date: 2019-07-29
 
 This release addresses the 3.13.0 https://github.com/assertj/assertj-core/issues/1563[issue] by which AssertJ required OpenTest4J to be on the classpath otherwise a `java.lang.NoClassDefFoundError: org/opentest4j/MultipleFailuresError` would be raised. Thanks Pascal Schumacher for the quick fix!
 
@@ -4514,7 +4514,7 @@ java.lang.NoClassDefFoundError: org/opentest4j/MultipleFailuresError
 [[assertj-core-3-13-0-release-notes]]
 ==== AssertJ Core 3.13.0
 
-Release date : 2019-07-28
+Release date: 2019-07-28
 
 The highlight of this release is the addition of `asInstanceOf` which allows to chain specific type assertions from a value that was initially declared with a different type (usually `Object`). Thanks Stefano Cordio for this contribution!
 
@@ -4590,7 +4590,7 @@ As a consequence of the two previous points, when comparing collection/map field
 - Add support for link:#assertj-core-3.13.0-millisecond-and-timezone-parsing[combined millisecond and timezone parsing]. (Matej Drobnič)
 - Add support for link:#assertj-core-3.13.0-optional-support-in-recursive-comparison[`Optional` in the new recursive comparison].
 - Allow link:#assertj-core-3.13.0-ignore-order-in-recursive-comparison[ignoring collection order] in specific fields in the new recursive comparison. (Željko Mirović)
-- Make `catchThrowableOfType` easier to discover in the javadoc.
+- Make `catchThrowableOfType` easier to discover in the Javadoc.
 - Rename methods `isBeforeOrEqualsTo` and `isAfterOrEqualsTo` to `isBeforeOrEqualTo` and `isAfterOrEqualTo`. (Eddú Meléndez Gonzales)
 - Improve error messages in the new recursive comparison when group size differs or when trying to compare actual unordered vs expected ordered.
 - Introduce explicit module descriptor. (Christian Stein)
@@ -5134,7 +5134,7 @@ Fix a regression that included a bad module-info.class (thanks Jaro Kuruc) and o
 [[assertj-core-3-12-0-release-notes]]
 ==== AssertJ Core 3.12.0
 
-Release date : 2019-02-14
+Release date: 2019-02-14
 
 The main feature of this release is a beta version of the link:#assertj-core-recursive-comparison[new Recursive comparison API]!
 It covers what `isEqualToComparingFieldByFieldRecursively` used but easier to use and with more capabilities.

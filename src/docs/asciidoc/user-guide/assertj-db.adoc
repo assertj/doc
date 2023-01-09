@@ -8,7 +8,7 @@ It requires Java 8 or later and can be used with either JUnit or TestNG.
 
 If you need additional assertions, please create a ticket in the https://github.com/assertj/assertj-db/issues?labels=&milestone=&page=1&state=open[AssertJ-DB issue tracker].
 
-AssertJ-DB is hosted on github : https://github.com/assertj/assertj-db[https://github.com/assertj/assertj-db].
+AssertJ-DB is hosted on GitHub: https://github.com/assertj/assertj-db[https://github.com/assertj/assertj-db].
 
 Big thanks to Joel Costigliola for his welcome, for his help and for having accepted to associate this project with a great project like AssertJ.
 
@@ -23,7 +23,7 @@ include::assertj-db-features.adoc[]
 
 === Javadoc
 
-Latest javadoc release : https://www.javadoc.io/doc/org.assertj/assertj-db/latest/index.html[AssertJ DB javadoc].
+Latest Javadoc release: https://www.javadoc.io/doc/org.assertj/assertj-db/latest/index.html[AssertJ DB Javadoc].
 
 === Examples
 
@@ -37,7 +37,7 @@ If you have any questions, please use the https://groups.google.com/forum/?fromg
 
 === Code and issue tracker
 
-AssertJ-DB is hosted on github : https://github.com/assertj/assertj-db[https://github.com/assertj/assertj-db].
+AssertJ-DB is hosted on GitHub: https://github.com/assertj/assertj-db[https://github.com/assertj/assertj-db].
 
 Please report bugs or missing features in the https://github.com/assertj/assertj-db/issues?labels=&milestone=&page=1&state=open[AssertJ-DB issue tracker].
 

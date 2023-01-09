@@ -12,7 +12,7 @@ Older release notes can be found in the old site: https://joel-costigliola.githu
 [[assertj-swing-3-17-0-release-notes]]
 ==== AssertJ Swing 3.17.0
 
-Release date : 2020-09-13
+Release date: 2020-09-13
 
 [[assertj-swing-3.17.0-contributors]]
 [.release-note-category]#icon:user[] Contributors#

@@ -7,7 +7,7 @@ Latest release notes:
 - link:#assertj-joda-time-2-1-0-release-notes[AssertJ Joda Time 2.1.0]
 - link:#assertj-joda-time-2-0-0-release-notes[AssertJ Joda Time 2.0.0]
 
-The javadoc for this release can be found here: https://www.javadoc.io/doc/org.assertj/assertj-joda-time/2.2.0/index.html
+The Javadoc for this release can be found here: https://www.javadoc.io/doc/org.assertj/assertj-joda-time/2.2.0/index.html
 
 [[assertj-joda-time-2-2-0-release-notes]]
 ==== AssertJ Joda Time 2.2.0
@@ -123,7 +123,7 @@ AssertJ Joda Time 2.0.0 requires Java 8 as it relies on AssertJ Core 3.x, use 1.
 [[assertj-joda-time-2-0-0-improvements]]
 [.release-note-category]#icon:arrow-circle-up[] Improvements#
 
-* DateTime assertion : better handling of null in assertions. (David Simmons)
+* DateTime assertion: better handling of null in assertions. (David Simmons)
 * To be OS agnostic, replace `\n` with `%n` in error messages. (Pascal Schumacher)
 * Better spacing in Javadoc code examples. (Pascal Schumacher)
 

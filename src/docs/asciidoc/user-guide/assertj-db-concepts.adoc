@@ -924,7 +924,7 @@ All these static methods (except for `now` method) have equivalent constructors.
 In assertj, it is possible to add a description with the methods of the https://www.javadoc.io/doc/org.assertj/assertj-core/latest/org/assertj/core/api/Descriptable.html[Descriptable] interface.
 This description is used in the error message if the assertion fails.
 
-Due to the navigation, it is more complicated in asserj-db to know on which element an error is thrown.
+Due to the navigation, it is more complicated in assertj-db to know on which element an error is thrown.
 So to help the tester, there are default descriptions.
 
 For example :
