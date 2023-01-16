@@ -5,6 +5,7 @@ NOTE: AssertJ Core would not exist without its contributors, you can find them a
 
 Latest release notes:
 
+- link:#assertj-core-3-24-2-release-notes[AssertJ Core 3.24.2]
 - link:#assertj-core-3-24-1-release-notes[AssertJ Core 3.24.1]
 - link:#assertj-core-3-24-0-release-notes[AssertJ Core 3.24.0]
 - link:#assertj-core-3-23-1-release-notes[AssertJ Core 3.23.1]
