@@ -735,7 +735,7 @@ assertThat("L3go!").isHexadecimal();
 ----
 
 [[assertj-core-3.24.0-isPrintable]]
-[.release-note-item]#Add isAlphabetic to CharSequence assertions#
+[.release-note-item]#Add isPrintable to CharSequence assertions#
 
 Verifies that the actual `CharSequence` is printable by checking it against the `\p{Print}+` regex pattern POSIX character classes (US-ASCII only).
 
