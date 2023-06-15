@@ -2564,7 +2564,7 @@ public interface GoTSoftAssertionsProvider extends SoftAssertionsProvider {
 ----
 
 [.underline]#Step 2# +
-In order to get a concrete entry point exposing all custom entry points, create a class implementing all custom `SoftAssertionsProvider`s and extending `AbstractSoftAssertions`.
+In order to get a concrete entry point exposing all custom entry points, create a class implementing all custom `SoftAssertionsProvider` subinterfaces and extending `AbstractSoftAssertions`.
 `AbstractSoftAssertions` provides the core internal implementation to collect all errors from the different implemented entry points (it also implements `SoftAssertionsProvider`).
 
 To get standard soft assertions, inherit from `SoftAssertions` instead of `AbstractSoftAssertions` (or `BddSoftAssertions` to get the BDD flavor).
