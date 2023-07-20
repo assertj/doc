@@ -22,8 +22,9 @@ Release date : 2023-01-06
 
 The release [green]#is binary compatible# with the previous minor version.
 
-[[assertj-guava-3.5.0-improvements]]
+[[assertj-guava-3.24.0-improvements]]
 [.release-note-category]#icon:arrow-circle-up[] Improvements#
+
 * AssertJ Guava is now part of the AssertJ multimodule and follows the same versioning.
 
 [[assertj-guava-3-5-0-release-notes]]
