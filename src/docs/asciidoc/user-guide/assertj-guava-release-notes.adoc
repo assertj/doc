@@ -6,11 +6,43 @@ The new release notes though will be published here.
 
 Latest release notes:
 
+- link:#assertj-guava-3-24-2-release-notes[AssertJ Guava 3.24.2]
+- link:#assertj-guava-3-24-1-release-notes[AssertJ Guava 3.24.1]
 - link:#assertj-guava-3-24-0-release-notes[AssertJ Guava 3.24.0]
 - link:#assertj-guava-3-5-0-release-notes[AssertJ Guava 3.5.0]
 - link:#assertj-guava-3-4-0-release-notes[AssertJ Guava 3.4.0]
 - link:#assertj-guava-3-3-0-release-notes[AssertJ Guava 3.3.0]
 - Older release notes are in the http://joel-costigliola.github.io/assertj/assertj-guava.html#latest-release[old site].
+
+[[assertj-guava-3-24-2-release-notes]]
+==== AssertJ Guava 3.24.2
+
+Release date : 2023-01-16
+
+[[assertj-guava-3.24.2-binary-compatibility]]
+[.release-note-category]#icon:cogs[] Binary compatibility#
+
+The release [green]#is binary compatible# with the previous minor version.
+
+[[assertj-guava-3.24.2-improvements]]
+[.release-note-category]#icon:arrow-circle-up[] Improvements#
+
+* Internal: Bump assertj-core from 3.24.1 to 3.24.2
+
+[[assertj-guava-3-24-1-release-notes]]
+==== AssertJ Guava 3.24.1
+
+Release date : 2023-01-06
+
+[[assertj-guava-3.24.1-binary-compatibility]]
+[.release-note-category]#icon:cogs[] Binary compatibility#
+
+The release [green]#is binary compatible# with the previous minor version.
+
+[[assertj-guava-3.24.1-improvements]]
+[.release-note-category]#icon:arrow-circle-up[] Improvements#
+
+* Internal: Bump assertj-core from 3.24.0 to 3.24.1
 
 [[assertj-guava-3-24-0-release-notes]]
 ==== AssertJ Guava 3.24.0
@@ -26,6 +58,7 @@ The release [green]#is binary compatible# with the previous minor version.
 [.release-note-category]#icon:arrow-circle-up[] Improvements#
 
 * AssertJ Guava is now part of the AssertJ multimodule and follows the same versioning.
+* Internal: Bump assertj-core from 3.23.1 to 3.24.0
 
 [[assertj-guava-3-5-0-release-notes]]
 ==== AssertJ Guava 3.5.0
