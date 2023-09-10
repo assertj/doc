@@ -3,10 +3,10 @@
 
 NOTE: AssertJ Core would not exist without its contributors, you can find them all {assertj-core-repo}/graphs/contributors[directly on GitHub].
 
-Latest release notes:
+The latest release notes can be found in the https://github.com/assertj/assertj/releases[GitHub releases].
 
-- link:#assertj-core-3-24-2-release-notes[AssertJ Core 3.24.2]
-- link:#assertj-core-3-24-1-release-notes[AssertJ Core 3.24.1]
+Older release notes:
+
 - link:#assertj-core-3-24-0-release-notes[AssertJ Core 3.24.0]
 - link:#assertj-core-3-23-1-release-notes[AssertJ Core 3.23.1]
 - link:#assertj-core-3-23-0-release-notes[AssertJ Core 3.23.0]
@@ -32,40 +32,7 @@ Latest release notes:
 - link:#assertj-core-3-12-1-release-notes[AssertJ Core 3.12.1]
 - link:#assertj-core-3-12-0-release-notes[AssertJ Core 3.12.0]
 
-Older release notes can be found in the old site: https://joel-costigliola.github.io/assertj/assertj-core-news.html, this is important to be aware of breaking changes if you are migrating from an old version.
-
-[[assertj-core-3-24-2-release-notes]]
-==== AssertJ Core 3.24.2
-
-Release date : 2023-01-16
-
-[[assertj-core-3.24.2-binary-compatibility]]
-[.release-note-category]#icon:cogs[] Binary compatibility#
-
-The release [green]#*is binary compatible*# with the previous minor version.
-More details are available in the <<Binary Compatibility>> section.
-
-[[assertj-core-3.24.2-fixed]]
-[.release-note-category]#icon:wrench[] Fixed#
-
-* Remove unintentional `@Deprecated` from `containsOnlyDigits` of `CharSequence` assertions
-* Fix a regression that caused NPE on `contains` of `Iterable` assertions when the iterable under test is an anonymous subclass of `Collection`
-
-[[assertj-core-3-24-1-release-notes]]
-==== AssertJ Core 3.24.1
-
-Release date : 2023-01-06
-
-[[assertj-core-3.24.1-binary-compatibility]]
-[.release-note-category]#icon:cogs[] Binary compatibility#
-
-The release [green]#*is binary compatible*# with the previous minor version.
-More details are available in the <<Binary Compatibility>> section.
-
-[[assertj-core-3.24.1-fixed]]
-[.release-note-category]#icon:wrench[] Fixed#
-
-* Fix a regression that caused NPE on `returns` / `doesNotReturn` when the expected value is `null`
+Even older release notes can be found in the old site: https://joel-costigliola.github.io/assertj/assertj-core-news.html, this is important to be aware of breaking changes if you are migrating from an old version.
 
 [[assertj-core-3-24-0-release-notes]]
 ==== AssertJ Core 3.24.0
