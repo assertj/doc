@@ -1,32 +1,17 @@
 [[assertj-guava-release-notes]]
 === Release Notes
 
-NOTE: AssertJ Guava main documentation is still in http://joel-costigliola.github.io/assertj/assertj-guava.html until it is moved to this website. +
-The new release notes though will be published here.
+NOTE: AssertJ Guava main documentation is still in http://joel-costigliola.github.io/assertj/assertj-guava.html until it is moved to this website.
 
-Latest release notes:
+The latest release notes can be found in the https://github.com/assertj/assertj/releases[GitHub releases].
 
-- link:#assertj-guava-3-24-0-release-notes[AssertJ Guava 3.24.0]
+Older release notes:
+
 - link:#assertj-guava-3-5-0-release-notes[AssertJ Guava 3.5.0]
 - link:#assertj-guava-3-4-0-release-notes[AssertJ Guava 3.4.0]
 - link:#assertj-guava-3-3-0-release-notes[AssertJ Guava 3.3.0]
-- Older release notes are in the http://joel-costigliola.github.io/assertj/assertj-guava.html#latest-release[old site].
 
-[[assertj-guava-3-24-0-release-notes]]
-==== AssertJ Guava 3.24.0
-
-Release date : 2023-01-06
-
-[[assertj-guava-3.24.0-binary-compatibility]]
-[.release-note-category]#icon:cogs[] Binary compatibility#
-
-The release [green]#is binary compatible# with the previous minor version.
-
-[[assertj-guava-3.24.0-improvements]]
-[.release-note-category]#icon:arrow-circle-up[] Improvements#
-
-* AssertJ Guava is now part of the AssertJ multimodule and follows the same versioning.
-* Internal: Bump assertj-core from 3.23.1 to 3.24.0
+Even older release notes can be found in the old site: http://joel-costigliola.github.io/assertj/assertj-guava.html#latest-release.
 
 [[assertj-guava-3-5-0-release-notes]]
 ==== AssertJ Guava 3.5.0
