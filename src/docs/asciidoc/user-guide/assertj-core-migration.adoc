@@ -27,7 +27,7 @@ There are several ways to perform the conversion :
 ** https://plugins.jetbrains.com/plugin/12195-concise-assertj-optimizing-nitpicker-cajon-[Concise AssertJ Optimizing Nitpicker (Cajon)] plugin.
 * With IntelliJ IDEA, using the Structural Search and Replace (SSR) feature.
 
-The preferred approach is to use the provided migration scripts or OpenRewrite recipes as they are quicker and cover more assertions than the other ones.
+The preferred approach is to use the provided migration scripts or OpenRewrite recipes as they are type safe and cover more assertions than the other ones.
 
 [[assertj-migration-using-scripts]]
 ==== Assertions migration scripts
