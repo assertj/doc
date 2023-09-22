@@ -1,7 +1,7 @@
 [[assertj-migration]]
 === Migrating assertions
 
-This page will help you converting your existing JUnit assertions to AssertJ ones. Note that both types of assertions can coexist, you don't have to migrate all at once.
+This page will help you convert your existing JUnit assertions to AssertJ ones. Note that both types of assertions can coexist, you don't have to migrate all at once.
 
 The idea is to convert code like :
 
@@ -20,24 +20,25 @@ assertThat(actual).isEqualTo(expected);
 There are several ways to perform the conversion :
 
 * Automatically using the provided link:#assertj-migration-using-scripts[migration scripts].
+* Automatically with link:#assertj-migration-using-openrewrite[OpenRewrite].
 * Manually using the regexes described in this link:#assertj-migration-using-regexes[section].
 * With IntelliJ IDEA, using these plugins:
 ** https://plugins.jetbrains.com/plugin/10345-assertions2assertj[Assertions2Assertj] plugin.
 ** https://plugins.jetbrains.com/plugin/12195-concise-assertj-optimizing-nitpicker-cajon-[Concise AssertJ Optimizing Nitpicker (Cajon)] plugin.
 * With IntelliJ IDEA, using the Structural Search and Replace (SSR) feature.
 
-The preferred way is using the scripts as it is quicker and covers more assertions that the other ones.
+The preferred approach is to use the provided migration scripts or OpenRewrite recipes as they are quicker and cover more assertions than the other ones.
 
 [[assertj-migration-using-scripts]]
 ==== Assertions migration scripts
 
-It is as simple as running one of the following script depending on which test framework you are using:
+It is as simple as running one of the following scripts depending on which test framework you are using:
 
 * {current-branch}/assertj-core/src/main/scripts/convert-junit-assertions-to-assertj.sh[JUnit 3/4 to AssertJ migration script]
 * {current-branch}/assertj-core/src/main/scripts/convert-junit5-assertions-to-assertj.sh[JUnit 5 to AssertJ migration script]
 * {current-branch}/assertj-core/src/main/scripts/convert-testng-assertions-to-assertj.sh[TestNG to AssertJ migration script]
 
-Each shell scripts is based on the sed stream editor and regexps. It *recursively* looks at all `*Test.java` files and
+Each shell script is based on the sed stream editor and regexps. It *recursively* looks at all `*Test.java` files and
 performs search and replace to convert assertions to AssertJ ones.
 
 The script handles the cases where you use an assertion description, for example:
@@ -55,7 +56,7 @@ assertThat("a").as("test context").isEqualTo("a");
 
 Note that the script does a best effort and some assertions might not be converted if formatted on multiple lines. Anyway the script usually migrates the vast majority of assertions.
 
-The script works on windows within a bash console like git bash (tested a long time ago) or cygwin (not tested).
+The script works on Windows within a bash console like git bash (tested a long time ago) or cygwin (not tested).
 
 ===== Usage
 
@@ -169,3 +170,24 @@ Find/replace regex:
 ----
 assertFalse\((.*)\); -> assertThat(\1).isFalse();
 ----
+
+[[assertj-migration-using-openrewrite]]
+==== Assertions migration with OpenRewrite
+
+link:https://docs.openrewrite.org/[OpenRewrite], a large-scale automated source code refactoring tool, offers a couple of recipes that assist with the migration to AssertJ:
+
+The link:https://docs.openrewrite.org/recipes/java/testing/hamcrest/migratehamcresttoassertj[Migrate to AssertJ assertions] recipe will:
+
+* Migrate various Hamcrest `Matchers` to AssertJ (e.g., changing `equalTo` to `isEqualTo` or changing `!emptyString` to `isNotEmpty`)
+* Migrate the Hamcrest `is(Object)` method to AssertJ
+* Remove the Hamcrest `is(Matcher)` method
+* Add Gradle or Maven dependencies as needed
+
+If you want to go even further, you can run the link:https://docs.openrewrite.org/recipes/java/testing/assertj/assertj[AssertJ best practices] recipe which will do all of the above plus:
+
+* Migrate JUnit to AssertJ (e.g., changing `assertEquals()` to `assertThat().isEqualTo()`)
+* Simplify AssertJ chained assertions (e.g., `assertThat(foo.size()).isEqualTo(1)` would change to `assertThat(foo).hasSize(1)`)
+* Statically import AssertJ's `assertThat` (rather than inlining the `Assertions` class name in tests)
+
+To learn more about how to run these recipes, please see the link:https://docs.openrewrite.org/running-recipes/running-rewrite-on-a-gradle-project-without-modifying-the-build[OpenRewrite Gradle] or link:https://docs.openrewrite.org/running-recipes/running-rewrite-on-a-maven-project-without-modifying-the-build[OpenRewrite Maven] instructions.
+
