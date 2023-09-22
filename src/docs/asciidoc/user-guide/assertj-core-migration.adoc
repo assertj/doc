@@ -176,7 +176,7 @@ assertFalse\((.*)\); -> assertThat(\1).isFalse();
 
 link:https://docs.openrewrite.org/[OpenRewrite], a large-scale automated source code refactoring tool, offers a couple of recipes that assist with the migration to AssertJ:
 
-The link:https://docs.openrewrite.org/recipes/java/testing/hamcrest/migratehamcresttoassertj[Migrate to AssertJ assertions] recipe will:
+The link:https://docs.openrewrite.org/recipes/java/testing/hamcrest/migratehamcresttoassertj[Migrate Hamcrest to AssertJ assertions] recipe will:
 
 * Migrate various Hamcrest `Matchers` to AssertJ (e.g., changing `equalTo` to `isEqualTo` or changing `!emptyString` to `isNotEmpty`)
 * Migrate the Hamcrest `is(Object)` method to AssertJ
