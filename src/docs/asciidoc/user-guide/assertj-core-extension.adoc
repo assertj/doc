@@ -8,7 +8,7 @@ AssertJ can be extends by Condition or writing your own assertions class.
 
 Assertions can be extended by using conditions, to create a condition you just have to implement https://www.javadoc.io/doc/org.assertj/assertj-core/latest/org/assertj/core/api/Condition.html[`org.assertj.assertions.core.Condition`] and its unique method matches.
 
-Once your Condition is created, you can use it with methods : `is(myCondition)` or `has(myCondition)`, both verifying that the condition is met (hint: pick the one that makes your code more readable).
+Once your Condition is created, you can use it with methods: `is(myCondition)` or `has(myCondition)`, both verifying that the condition is met (hint: pick the one that makes your code more readable).
 
 Example:
 [source,java]
@@ -131,9 +131,9 @@ assertThat("Solo").is(allOf(not(jedi), not(sith)));
 
 Creating assertions specific to your own classes is interesting because these assertions will reflect the domain model. It's a way to use Domain Driven Design ubiquitous language in your tests.
 
-Writing your own assertions is simple : create a class inheriting from `AbstractAssert` and add your custom assertions methods.
+Writing your own assertions is simple: create a class inheriting from `AbstractAssert` and add your custom assertions methods.
 
-TIP: Add a static method assertThat to provide an handy entry point to your new assertion class.
+TIP: Add a static method `assertThat` to provide a handy entry point to your new assertion class.
 
 Sections:
 
@@ -162,7 +162,7 @@ public class TolkienCharacter {
 
 Let's name our assertion class `TolkienCharacterAssert`, we make it inherit from `AbstractAssert` and specify two generic parameters: the first is the class itself (needed for assertion chaining) and the second is the class we want to make assertions on: TolkienCharacter.
 
-Inheriting from `AbstractAssert` will give you all the basic assertions : `isEqualTo`, `isNull`, `satisfies`, ...
+Inheriting from `AbstractAssert` will give you all the basic assertions: `isEqualTo`, `isNull`, `satisfies`, ...
 
 [source,java]
 ----
@@ -271,7 +271,7 @@ import static my.project.MyOtherAssertions.assertThat;
 
 @Test
 public void ambiguous_assertThat_resolution() {
-  // ERROR : assertThat(String) is ambiguous!
+  // ERROR: assertThat(String) is ambiguous!
   // assertThat(String) is available from MyAssertions AND MyOtherAssertions 
   // (it is defined in Assertions the class both MyAssertions and MyOtherAssertions inherits from)
   assertThat("frodo").contains("do");

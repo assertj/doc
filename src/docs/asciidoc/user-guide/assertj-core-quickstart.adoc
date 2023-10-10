@@ -246,8 +246,9 @@ public class BDDAssertionsExamples extends AbstractAssertionsExamples {
 You can configure your IDE so that when you start typing `as` and trigger code completion `assertThat` will show up in the suggested completions.
 
 Eclipse:
-. Go to : Window > Preferences > Java > Editor > Content Assist > Favorites > New Type
-. Enter : `org.assertj.core.api.Assertions` and click OK
+
+. Go to Window > Preferences > Java > Editor > Content Assist > Favorites > New Type.
+. Enter `org.assertj.core.api.Assertions` and click OK.
 . Check that you see `org.assertj.core.api.Assertions.*` in Favorites.
 
 Intellij Idea: No special configuration is needed, just start typing `asser` and then invoke completion (Ctrl-Space) twice.
@@ -269,4 +270,4 @@ image::ide-completion.png[]
 [[assertj-core-javadoc-quickstart]]
 ==== Javadoc
 
-http://www.javadoc.io/doc/org.assertj/assertj-core/ is the latest version of assertj core javadoc, each assertion is explained, most of them with code examples so be sure to check it if you want to know what a specific assertion does. 
+http://www.javadoc.io/doc/org.assertj/assertj-core/ is the latest version of AssertJ Core Javadoc, each assertion is explained, most of them with code examples so be sure to check it if you want to know what a specific assertion does. 

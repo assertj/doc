@@ -16,7 +16,7 @@ Even older release notes can be found in the old site: http://joel-costigliola.g
 [[assertj-guava-3-5-0-release-notes]]
 ==== AssertJ Guava 3.5.0
 
-Release date : 2022-06-11
+Release date: 2022-06-11
 
 [[assertj-guava-3.5.0-contributors]]
 [.release-note-category]#icon:user[] Contributors#
@@ -67,7 +67,7 @@ The release [green]#is binary compatible# with the previous minor version.
 [[assertj-guava-3-4-0-release-notes]]
 ==== AssertJ Guava 3.4.0
 
-Release date : 2020-04-24
+Release date: 2020-04-24
 
 [[assertj-guava-3.4.0-contributors]]
 [.release-note-category]#icon:user[] Contributors#
@@ -114,12 +114,12 @@ Add `RangeSet` assertions (Ilya Koshaleu):
 - Javadoc uses AssertJ site beautiful theme :)
 - Uses to assertj-core version 3.15.0.
 - Uses to guava version 29.0-jre.
-- Internal: setup github actions CI build and sonar reporting.
+- Internal: setup GitHub actions CI build and sonar reporting.
 
 [[assertj-guava-3-3-0-release-notes]]
 ==== AssertJ Guava 3.3.0
 
-Release date : 2019-11-09
+Release date: 2019-11-09
 
 [[assertj-guava-3.3.0-contributors]]
 [.release-note-category]#icon:user[] Contributors#
@@ -134,8 +134,8 @@ Thanks to chrisly42 and Stefano Cordio for their contributions!
 [[assertj-guava-3.3.0-improvements]]
 [.release-note-category]#icon:arrow-circle-up[] Improvements#
 
-- AssertJ's javadoc are now searchable.
-- Use beautiful AssertJ's site code style for javadoc :)
+- AssertJ's Javadoc are now searchable.
+- Use beautiful AssertJ's site code style for Javadoc :)
 - Migrate to JUnit 5 and assertj-core version 3.14.0.
 
 [[assertj-guava-3.3.0-fixed]]
