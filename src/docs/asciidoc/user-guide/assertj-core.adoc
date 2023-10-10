@@ -11,7 +11,7 @@ programmers writing tests assertions with AssertJ.
 
 AssertJ is a Java library that provides a rich set of assertions and truly helpful error messages, improves test code readability, and is designed to be super easy to use within your favorite IDE.
 
-http://www.javadoc.io/doc/org.assertj/assertj-core/ is the latest version of assertj core javadoc, each assertion is explained, most of them with code examples so be sure to check it if you want to know what a specific assertion does. 
+http://www.javadoc.io/doc/org.assertj/assertj-core/ is the latest version of AssertJ Core Javadoc, each assertion is explained, most of them with code examples so be sure to check it if you want to know what a specific assertion does. 
 
 Here are a few examples of AssertJ assertions:
 
@@ -79,7 +79,7 @@ You are very welcome to suggest or contribute improvements to this guide, that's
 
 The repository containing the guide is https://github.com/assertj/doc, you can https://github.com/assertj/doc/issues[create a new issue], submit a pull request. Et voila!
 
-This guide is written with the awesome https://asciidoctor.org/docs/asciidoc-writers-guide/[asciidoctor] which makes it easy to improve.
+This guide is written with the awesome https://asciidoctor.org/docs/asciidoc-writers-guide/[Asciidoctor] which makes it easy to improve.
 
 
 include::assertj-core-quickstart.adoc[]

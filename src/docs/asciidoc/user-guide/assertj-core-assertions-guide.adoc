@@ -3,7 +3,7 @@
 
 This section describes the assertions provided by AssertJ Core and other useful features to get the best of it.
 
-AssertJ Core http://www.javadoc.io/doc/org.assertj/assertj-core/[javadoc] explains each assertions most of them with code examples so be sure to check it if you want to know what a specific assertion does.
+AssertJ Core http://www.javadoc.io/doc/org.assertj/assertj-core/[Javadoc] explains each assertion, most of them with code examples so be sure to check it if you want to know what a specific assertion does.
 
 [[assertj-core-simple-example]]
 ==== A simple example
@@ -232,8 +232,12 @@ There are a few things to keep in mind when using AssertJ to avoid misusing it.
 
 ===== Forgetting to call an assertion
 
-The main trap is to pass the object under to test to `assertThat()` and forget to call an assertion afterward.
-This misuse can be detected by https://spotbugs.github.io/[SpotBugs] or http://findbugs.sourceforge.net/[Findbugs] thanks to the `@CheckReturnValue` annotation on all `assertThat()` methods.
+The main trap is to pass the object under test to `assertThat()` and forget to call an assertion afterward.
+This misuse can be detected by multiple static code analysis tools:
+
+* https://spotbugs.github.io/[SpotBugs] or http://findbugs.sourceforge.net/[FindBugs] with the https://spotbugs.readthedocs.io/en/latest/bugDescriptions.html#rv-method-ignores-return-value-is-this-ok-rv-return-value-ignored-inferred[`RV_RETURN_VALUE_IGNORED_INFERRED`] rule
+* https://www.sonarsource.com/products/sonarqube/[SonarQube] with the https://sonarsource.atlassian.net/browse/RSPEC-2970[`Assertions should be complete (S2970)`] rule
+* other tools that can evaluate whether calls to methods annotated with the `@CheckReturnValue` annotation are done correctly.
 
 Here's what it looks like in SpotBugs:
 [#img-sunset]
@@ -279,7 +283,8 @@ assertThat(1 == 2).isTrue();
 
 ===== Calling as() after the assertion
 
-Describing an assertion must be done before calling the assertion otherwise it is ignored as a failing assertion breaks will prevent the call to `as()`.
+Describing an assertion must be done before calling the assertion.
+Otherwise it is ignored as a failing assertion will prevent the call to `as()`.
 
 [.bad]#Bad#
 [source,java,indent=0]
@@ -299,7 +304,8 @@ assertThat(actual).describedAs("description").isEqualTo(expected);
 
 ===== Calling withFailMessage/overridingErrorMessage after the assertion
 
-Setting an error message must be done before calling the assertion otherwise it is ignored as a failing assertion breaks will prevent the call to `withFailMessage()` / `overridingErrorMessage()`.
+Setting an error message must be done before calling the assertion.
+Otherwise it is ignored as a failing assertion will prevent the call to `withFailMessage()` / `overridingErrorMessage()`.
 
 [.bad]#Bad#
 [source,java,indent=0]
@@ -319,7 +325,8 @@ assertThat(actual).withFailMessage("custom error message").isEqualTo(expected);
 
 ===== Setting a comparator after the assertion
 
-Setting comparators must be done before calling the assertion otherwise it is ignored as a failing assertion breaks will prevent the call to `usingComparator()` / `usingElementComparator()`.
+Setting comparators must be done before calling the assertion.
+Otherwise it is ignored as a failing assertion will prevent the call to `usingComparator()` / `usingElementComparator()`.
 
 [.bad]#Bad#
 [source,java,indent=0]
@@ -481,7 +488,7 @@ Applying configuration org.assertj.core.configuration.Configuration
 - extractingPrivateFieldsEnabled .................. = true
 - bareNamePropertyExtractionEnabled ............... = false
 - lenientDateParsingEnabled ....................... = true
-- additionnal date formats ........................ = [yyyy_MM_dd, yyyy|MM|dd]
+- additional date formats ......................... = [yyyy_MM_dd, yyyy|MM|dd]
 - maxLengthForSingleLineDescription ............... = 150
 - maxElementsForPrinting .......................... = 2000
 - removeAssertJRelatedElementsFromStackTraceEnabled = true
@@ -563,7 +570,7 @@ public class CustomRepresentation extends StandardRepresentation { // <1>
     return super.fallbackToStringOf(o);
   }
 
-  // override a predefined type formatting : String
+  // override a predefined type formatting: String
   @Override
   protected String toStringOf(String str) { // <3>
     return "$" + str + "$";
@@ -683,7 +690,7 @@ public class LotrRepresentation implements Representation {
 }
 ----
 
-`LotrRepresentation` is registered by creating a `META-INF/services/org.assertj.core.presentation.Representation` file that contain `org.assertj.example.lotr.LotrRepresentation`, the file must be available in the classpath (typically by putting in it src/main/resources it will end up in the library jar).
+`LotrRepresentation` is registered by creating a `META-INF/services/org.assertj.core.presentation.Representation` file that contain `org.assertj.example.lotr.LotrRepresentation`, the file must be available in the classpath (typically by putting it in `src/main/resources` it will end up in the library jar).
 
 Similarly the star wars library defines a `Jedi` and a `StarWarsRepresentation`:
 
@@ -751,19 +758,19 @@ expected: JEDI [name=Luke, age=23]
 [[assertj-core-common-assertions]]
 ==== Common assertions
 
-This section describes the assertions common to all types, the javadoc for common assertions methods is available https://www.javadoc.io/static/org.assertj/assertj-core/{assertj-version}/org/assertj/core/api/AbstractAssert.html#method.summary[here].
+This section describes the assertions common to all types, the Javadoc for common assertions methods is available https://www.javadoc.io/static/org.assertj/assertj-core/{assertj-version}/org/assertj/core/api/AbstractAssert.html#method.summary[here].
 
 [[assertj-core-object-assertions]]
 ==== Object assertions
 
-The javadoc for `Object` assertions is available https://www.javadoc.io/static/org.assertj/assertj-core/{assertj-version}/org/assertj/core/api/AbstractObjectAssert.html#method.summary[here].
+The Javadoc for `Object` assertions is available https://www.javadoc.io/static/org.assertj/assertj-core/{assertj-version}/org/assertj/core/api/AbstractObjectAssert.html#method.summary[here].
 
 [[assertj-string-object-assertions]]
 ==== String/CharSequence assertions
 
 This section describes all the available assertions for `CharSequence` (including `String`, `StringBuilder`, `StringBuffer`, ...):
 
-The javadoc for `CharSequence` assertions is available https://www.javadoc.io/static/org.assertj/assertj-core/{assertj-version}/org/assertj/core/api/AbstractCharSequenceAssert.html#method.summary[here].
+The Javadoc for `CharSequence` assertions is available https://www.javadoc.io/static/org.assertj/assertj-core/{assertj-version}/org/assertj/core/api/AbstractCharSequenceAssert.html#method.summary[here].
 
 
 [[assertj-core-group-assertions]]
@@ -944,7 +951,7 @@ Filtering is handy to target assertions on some specific elements, the filter cr
 * a link:#filtering-with-a-predicate[java Predicate]
 * an link:#filtering-on-a-property-or-a-field[element property/field having a specific value (or not) or in a set of values (or not)]
 * an link:#filtering-on-null-value[element property/field having a null value]
-* an element link:#filtering-elements-matchin-given-assertions[matching some assertions]
+* an element link:#filtering-elements-matching-given-assertions[matching some assertions]
 * an element matching a link:#filtering-with-a-condition[Condition]
 
 Let's explore these options in some examples taken from {assertj-examples-repo}/tree/main/assertions-examples/src/test/java/org/assertj/examples/FilterExamples.java#L47[FilterExamples] from the {assertj-examples-repo}[assertions-examples] project.
@@ -967,7 +974,7 @@ First you specify the property/field name to filter on and then its expected val
 
 Filter supports nested properties/fields. Note that if an intermediate value is null the whole nested property/field is considered to be null, for example reading `"address.street.name"` will return null if `"address.street"` is null.
 
-Filters support these basic operations : `not`, `in`, `notIn`
+Filters support these basic operations: `not`, `in`, `notIn`
 
 [source,java,indent=0]
 ----
@@ -1030,7 +1037,7 @@ assertThat(hobbits).filteredOnNull("name"))
                    .isEqualTo(mysteriousHobbit);
 ----
 
-====== Filtering elements matchin given assertions
+====== Filtering elements matching given assertions
 
 Filters the iterable under test keeping only elements matching the given assertions specified with a `Consumer`.
 
@@ -1051,7 +1058,7 @@ assertThat(hobbits).filteredOnAssertions(hobbit -> assertThat(hobbit.age).isLess
 
 Filter the iterable/array under test keeping only elements matching the given link:#assertj-core-conditions[`Condition`].
 
-Two methods are available : being(Condition) and having(Condition). They do the same job - pick the one that makes your code more readable!
+Two methods are available: being(Condition) and having(Condition). They do the same job - pick the one that makes your code more readable!
 
 [source,java,indent=0]
 ----
@@ -1062,9 +1069,9 @@ Condition<Player> mvpStats= new Condition<Player>(player -> {
   }, "mvp");
 
 List<Player> players;
-players.add(rose); // Derrick Rose : 25 ppg - 8 assists - 5 rebounds
-players.add(lebron); // Lebron James : 27 ppg - 6 assists - 9 rebounds
-players.add(noah); // Joachim Noah : 8 ppg - 5 assists - 11 rebounds
+players.add(rose); // Derrick Rose: 25 ppg - 8 assists - 5 rebounds
+players.add(lebron); // Lebron James: 27 ppg - 6 assists - 9 rebounds
+players.add(noah); // Joachim Noah: 8 ppg - 5 assists - 11 rebounds
 
 // noah does not have more than 20 ppg
 assertThat(players).filteredOn(mvpStats)
@@ -1568,7 +1575,7 @@ try {
   assertThat(e).hasMessage("Index: 9, Size: 9");
 }
 
-// Warning : don't catch Throwable as it would also catch the AssertionError thrown by fail method
+// Warning: don't catch Throwable as it would also catch the AssertionError thrown by fail method
 
 // another way to do the same thing
 try {
@@ -1661,7 +1668,7 @@ Since 3.24.0, you can specify your own strategy on how the recursive comparison 
 
 Since 3.18.0 bare name getter resolution are disabled by default, to get the previous behaviour back, call `Assertions.setExtractBareNamePropertyMethods(true);`
 
-Since 3.17.0 it does not use anymore `equals` methods of classes that have overriden it, so no need to force recursive comparison on these classes. To get the previous behavior back, use link:#assertj-core-using-overridden-equals[`usingOverriddenEquals()`].
+Since 3.17.0 it does not use anymore `equals` methods of classes that have overridden it, so no need to force recursive comparison on these classes. To get the previous behavior back, use link:#assertj-core-using-overridden-equals[`usingOverriddenEquals()`].
 
 
 
@@ -2741,4 +2748,4 @@ include::{testDir}/example/core/AssumptionsDemo.java[tags=assumption_met]
 [[assertj-core-javadoc]]
 ==== Javadoc
 
-http://www.javadoc.io/doc/org.assertj/assertj-core/ is the latest version of assertj core javadoc, each assertion is explained, most of them with code examples so be sure to check it if you want to know what a specific assertion does.
+http://www.javadoc.io/doc/org.assertj/assertj-core/ is the latest version of AssertJ Core Javadoc, each assertion is explained, most of them with code examples so be sure to check it if you want to know what a specific assertion does.

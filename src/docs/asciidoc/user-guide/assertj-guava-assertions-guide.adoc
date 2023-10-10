@@ -274,6 +274,6 @@ In addition to `Iterable` {assertj-core-javadoc-root}org/assertj/core/api/Abstra
 [[assertj-guava-javadoc]]
 === Javadoc
 
-The latest javadoc for AssertJ Guava API is here: https://www.javadoc.io/doc/org.assertj/assertj-guava/latest/org/assertj/guava/api/package-summary.html
+The latest Javadoc for AssertJ Guava API is here: https://www.javadoc.io/doc/org.assertj/assertj-guava/latest/org/assertj/guava/api/package-summary.html
 
 
