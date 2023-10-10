@@ -1,7 +1,6 @@
 # AssertJ User Guide
 
 [![Github CI status](https://github.com/assertj/doc/workflows/CI/badge.svg)](https://github.com/assertj/doc/actions?query=workflow%3ACI)
-[![Gradle Status](https://gradleupdate.appspot.com/assertj/doc/status.svg)](https://gradleupdate.appspot.com/assertj/doc/status) 
 
 The AssertJ User Guide is available here: https://assertj.github.io/doc/
 
