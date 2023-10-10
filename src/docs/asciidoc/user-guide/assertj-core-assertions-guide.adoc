@@ -235,8 +235,8 @@ There are a few things to keep in mind when using AssertJ to avoid misusing it.
 The main trap is to pass the object under test to `assertThat()` and forget to call an assertion afterward.
 This misuse can be detected by multiple static code analysis tools:
 
-* https://spotbugs.github.io/[SpotBugs] or http://findbugs.sourceforge.net/[Findbugs] with the https://spotbugs.readthedocs.io/en/latest/bugDescriptions.html#rv-method-ignores-return-value-is-this-ok-rv-return-value-ignored-inferred[RV_RETURN_VALUE_IGNORED_INFERRED] rule
-* https://www.sonarsource.com/products/sonarqube/[Sonarqube] with the https://sonarsource.atlassian.net/browse/RSPEC-2970[Assertions should be complete (S2970)] rule
+* https://spotbugs.github.io/[SpotBugs] or http://findbugs.sourceforge.net/[FindBugs] with the https://spotbugs.readthedocs.io/en/latest/bugDescriptions.html#rv-method-ignores-return-value-is-this-ok-rv-return-value-ignored-inferred[`RV_RETURN_VALUE_IGNORED_INFERRED`] rule
+* https://www.sonarsource.com/products/sonarqube/[SonarQube] with the https://sonarsource.atlassian.net/browse/RSPEC-2970[`Assertions should be complete (S2970)`] rule
 * other tools that can evaluate whether calls to methods annotated with the `@CheckReturnValue` annotation are done correctly.
 
 Here's what it looks like in SpotBugs:

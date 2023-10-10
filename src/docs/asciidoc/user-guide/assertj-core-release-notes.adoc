@@ -3802,7 +3802,7 @@ As a consequence of the two previous points, when comparing collection/map field
 - Rename methods `isBeforeOrEqualsTo` and `isAfterOrEqualsTo` to `isBeforeOrEqualTo` and `isAfterOrEqualTo`. (Eddú Meléndez Gonzales)
 - Improve error messages in the new recursive comparison when group size differs or when trying to compare actual unordered vs expected ordered.
 - Introduce explicit module descriptor. (Christian Stein)
-- Allow returned values of `WithAssertions#fail` methods to be ignored by findbugs/spotbugs. (Jiri Pejchal)
+- Allow returned values of `WithAssertions#fail` methods to be ignored by FindBugs/SpotBugs. (Jiri Pejchal)
 - Improve the error message when multiple (soft) assertions error are raised.
 - link:#assertj-core-3.13.0-extracting-type-propagation[Propagate value type with `extracting(Function)`]. (Stefano Cordio)
 
