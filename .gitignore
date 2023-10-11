@@ -1,30 +1,4 @@
-# Gradle
-.gradle
-build
-build/asciidoc/*
-
-# Ignore Gradle GUI config
-gradle-app.setting
-
-# Eclipse
-.classpath
-.settings/
-.project
-bin/
-
-# IntelliJ
-*.iml
-*.ipr
-*.iws
-*.uml
-.idea/
-*/out/*
-
-# Misc
-*.log
-*.graphml
-coverage.db*
-out
-.metadata
-*.svg.cache
-*.pdf
+_site
+.sass-cache
+.jekyll-metadata
+Gemfile.lock
