@@ -7338,7 +7338,7 @@ public void ambiguous_assertThat_resolution() {
 <p>The preferred approach is to use the provided migration scripts or OpenRewrite recipes as they are type safe and cover more assertions than the other ones.</p>
 </div>
 <div class="sect3">
-<h4 id="assertj-migration-using-scripts"><a class="anchor" href="#assertj-migration-using-scripts"></a>2.7.1. Migration scripts</h4>
+<h4 id="assertj-migration-using-scripts"><a class="anchor" href="#assertj-migration-using-scripts"></a>2.7.1. Migration Scripts</h4>
 <div class="paragraph">
 <p>It is as simple as running one of the following scripts depending on which test framework you are using:</p>
 </div>
@@ -7441,7 +7441,51 @@ Replacing JUnit static imports by AssertJ ones, at this point you will probably 
 </div>
 </div>
 <div class="sect3">
-<h4 id="assertj-migration-using-regexes"><a class="anchor" href="#assertj-migration-using-regexes"></a>2.7.2. Migration regexes</h4>
+<h4 id="assertj-migration-using-openrewrite"><a class="anchor" href="#assertj-migration-using-openrewrite"></a>2.7.2. OpenRewrite</h4>
+<div class="paragraph">
+<p><a href="https://docs.openrewrite.org/">OpenRewrite</a>, a large-scale automated source code refactoring tool, offers a couple of recipes that assist with the migration to AssertJ:</p>
+</div>
+<div class="paragraph">
+<p>The <a href="https://docs.openrewrite.org/recipes/java/testing/hamcrest/migratehamcresttoassertj">Migrate Hamcrest to AssertJ assertions</a> recipe will:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Migrate various Hamcrest <code>Matchers</code> to AssertJ (e.g., changing <code>equalTo</code> to <code>isEqualTo</code> or changing <code>!emptyString</code> to <code>isNotEmpty</code>)</p>
+</li>
+<li>
+<p>Migrate the Hamcrest <code>is(Object)</code> method to AssertJ</p>
+</li>
+<li>
+<p>Remove the Hamcrest <code>is(Matcher)</code> method</p>
+</li>
+<li>
+<p>Add Gradle or Maven dependencies as needed</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>If you want to go even further, you can run the <a href="https://docs.openrewrite.org/recipes/java/testing/assertj/assertj">AssertJ best practices</a> recipe which will do all of the above plus:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Migrate JUnit to AssertJ (e.g., changing <code>assertEquals()</code> to <code>assertThat().isEqualTo()</code>)</p>
+</li>
+<li>
+<p>Simplify AssertJ chained assertions (e.g., <code>assertThat(foo.size()).isEqualTo(1)</code> would change to <code>assertThat(foo).hasSize(1)</code>)</p>
+</li>
+<li>
+<p>Statically import AssertJ&#8217;s <code>assertThat</code> (rather than inlining the <code>Assertions</code> class name in tests)</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>To learn more about how to run these recipes, please see the <a href="https://docs.openrewrite.org/running-recipes/running-rewrite-on-a-gradle-project-without-modifying-the-build">OpenRewrite Gradle</a> or <a href="https://docs.openrewrite.org/running-recipes/running-rewrite-on-a-maven-project-without-modifying-the-build">OpenRewrite Maven</a> instructions.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="assertj-migration-using-regexes"><a class="anchor" href="#assertj-migration-using-regexes"></a>2.7.3. Migration Regexes</h4>
 <div class="paragraph">
 <p>Here&#8217;s a list of find/replace expressions to change JUnit assertions into AssertJ assertions (don&#8217;t forget to check the regex mode in your editor replace window).</p>
 </div>
@@ -7522,50 +7566,6 @@ Replacing JUnit static imports by AssertJ ones, at this point you will probably 
 <pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">assertFalse\((.*)\); -&gt; assertThat(\1).isFalse();</code></pre>
 </div>
 </div>
-</div>
-</div>
-<div class="sect3">
-<h4 id="assertj-migration-using-openrewrite"><a class="anchor" href="#assertj-migration-using-openrewrite"></a>2.7.3. OpenRewrite</h4>
-<div class="paragraph">
-<p><a href="https://docs.openrewrite.org/">OpenRewrite</a>, a large-scale automated source code refactoring tool, offers a couple of recipes that assist with the migration to AssertJ:</p>
-</div>
-<div class="paragraph">
-<p>The <a href="https://docs.openrewrite.org/recipes/java/testing/hamcrest/migratehamcresttoassertj">Migrate Hamcrest to AssertJ assertions</a> recipe will:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Migrate various Hamcrest <code>Matchers</code> to AssertJ (e.g., changing <code>equalTo</code> to <code>isEqualTo</code> or changing <code>!emptyString</code> to <code>isNotEmpty</code>)</p>
-</li>
-<li>
-<p>Migrate the Hamcrest <code>is(Object)</code> method to AssertJ</p>
-</li>
-<li>
-<p>Remove the Hamcrest <code>is(Matcher)</code> method</p>
-</li>
-<li>
-<p>Add Gradle or Maven dependencies as needed</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>If you want to go even further, you can run the <a href="https://docs.openrewrite.org/recipes/java/testing/assertj/assertj">AssertJ best practices</a> recipe which will do all of the above plus:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Migrate JUnit to AssertJ (e.g., changing <code>assertEquals()</code> to <code>assertThat().isEqualTo()</code>)</p>
-</li>
-<li>
-<p>Simplify AssertJ chained assertions (e.g., <code>assertThat(foo.size()).isEqualTo(1)</code> would change to <code>assertThat(foo).hasSize(1)</code>)</p>
-</li>
-<li>
-<p>Statically import AssertJ&#8217;s <code>assertThat</code> (rather than inlining the <code>Assertions</code> class name in tests)</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>To learn more about how to run these recipes, please see the <a href="https://docs.openrewrite.org/running-recipes/running-rewrite-on-a-gradle-project-without-modifying-the-build">OpenRewrite Gradle</a> or <a href="https://docs.openrewrite.org/running-recipes/running-rewrite-on-a-maven-project-without-modifying-the-build">OpenRewrite Maven</a> instructions.</p>
 </div>
 </div>
 </div>
@@ -21557,7 +21557,7 @@ Snapshot artifacts are not deployed.</p>
 <div id="footer">
 <div id="footer-text">
 Version 1.0<br>
-Last updated 2023-10-11 07:27:37 UTC
+Last updated 2023-10-11 08:21:38 UTC
 </div>
 </div>
 <link rel="stylesheet" href="highlight/styles/railscasts.min.css">
