@@ -30,7 +30,7 @@ There are several ways to perform the conversion :
 The preferred approach is to use the provided migration scripts or OpenRewrite recipes as they are type safe and cover more assertions than the other ones.
 
 [[assertj-migration-using-scripts]]
-==== Migration scripts
+==== Migration Scripts
 
 It is as simple as running one of the following scripts depending on which test framework you are using:
 
@@ -103,8 +103,28 @@ Replacing JUnit static imports by AssertJ ones, at this point you will probably 
 12 --- add "import static org.assertj.core.api.Assertions.within;" if you were using JUnit number assertions with deltas
 ----
 
+[[assertj-migration-using-openrewrite]]
+==== OpenRewrite
+
+link:https://docs.openrewrite.org/[OpenRewrite], a large-scale automated source code refactoring tool, offers a couple of recipes that assist with the migration to AssertJ:
+
+The link:https://docs.openrewrite.org/recipes/java/testing/hamcrest/migratehamcresttoassertj[Migrate Hamcrest to AssertJ assertions] recipe will:
+
+* Migrate various Hamcrest `Matchers` to AssertJ (e.g., changing `equalTo` to `isEqualTo` or changing `!emptyString` to `isNotEmpty`)
+* Migrate the Hamcrest `is(Object)` method to AssertJ
+* Remove the Hamcrest `is(Matcher)` method
+* Add Gradle or Maven dependencies as needed
+
+If you want to go even further, you can run the link:https://docs.openrewrite.org/recipes/java/testing/assertj/assertj[AssertJ best practices] recipe which will do all of the above plus:
+
+* Migrate JUnit to AssertJ (e.g., changing `assertEquals()` to `assertThat().isEqualTo()`)
+* Simplify AssertJ chained assertions (e.g., `assertThat(foo.size()).isEqualTo(1)` would change to `assertThat(foo).hasSize(1)`)
+* Statically import AssertJ's `assertThat` (rather than inlining the `Assertions` class name in tests)
+
+To learn more about how to run these recipes, please see the link:https://docs.openrewrite.org/running-recipes/running-rewrite-on-a-gradle-project-without-modifying-the-build[OpenRewrite Gradle] or link:https://docs.openrewrite.org/running-recipes/running-rewrite-on-a-maven-project-without-modifying-the-build[OpenRewrite Maven] instructions.
+
 [[assertj-migration-using-regexes]]
-==== Migration regexes
+==== Migration Regexes
 
 Here's a list of find/replace expressions to change JUnit assertions into AssertJ assertions (don't forget to check the regex mode in your editor replace window).
 
@@ -170,24 +190,3 @@ Find/replace regex:
 ----
 assertFalse\((.*)\); -> assertThat(\1).isFalse();
 ----
-
-[[assertj-migration-using-openrewrite]]
-==== OpenRewrite
-
-link:https://docs.openrewrite.org/[OpenRewrite], a large-scale automated source code refactoring tool, offers a couple of recipes that assist with the migration to AssertJ:
-
-The link:https://docs.openrewrite.org/recipes/java/testing/hamcrest/migratehamcresttoassertj[Migrate Hamcrest to AssertJ assertions] recipe will:
-
-* Migrate various Hamcrest `Matchers` to AssertJ (e.g., changing `equalTo` to `isEqualTo` or changing `!emptyString` to `isNotEmpty`)
-* Migrate the Hamcrest `is(Object)` method to AssertJ
-* Remove the Hamcrest `is(Matcher)` method
-* Add Gradle or Maven dependencies as needed
-
-If you want to go even further, you can run the link:https://docs.openrewrite.org/recipes/java/testing/assertj/assertj[AssertJ best practices] recipe which will do all of the above plus:
-
-* Migrate JUnit to AssertJ (e.g., changing `assertEquals()` to `assertThat().isEqualTo()`)
-* Simplify AssertJ chained assertions (e.g., `assertThat(foo.size()).isEqualTo(1)` would change to `assertThat(foo).hasSize(1)`)
-* Statically import AssertJ's `assertThat` (rather than inlining the `Assertions` class name in tests)
-
-To learn more about how to run these recipes, please see the link:https://docs.openrewrite.org/running-recipes/running-rewrite-on-a-gradle-project-without-modifying-the-build[OpenRewrite Gradle] or link:https://docs.openrewrite.org/running-recipes/running-rewrite-on-a-maven-project-without-modifying-the-build[OpenRewrite Maven] instructions.
-
