@@ -30,7 +30,7 @@ There are several ways to perform the conversion :
 The preferred approach is to use the provided migration scripts or OpenRewrite recipes as they are type safe and cover more assertions than the other ones.
 
 [[assertj-migration-using-scripts]]
-==== Assertions migration scripts
+==== Migration scripts
 
 It is as simple as running one of the following scripts depending on which test framework you are using:
 
@@ -104,7 +104,7 @@ Replacing JUnit static imports by AssertJ ones, at this point you will probably 
 ----
 
 [[assertj-migration-using-regexes]]
-==== Assertions migration regexes
+==== Migration regexes
 
 Here's a list of find/replace expressions to change JUnit assertions into AssertJ assertions (don't forget to check the regex mode in your editor replace window).
 
@@ -172,7 +172,7 @@ assertFalse\((.*)\); -> assertThat(\1).isFalse();
 ----
 
 [[assertj-migration-using-openrewrite]]
-==== Assertions migration with OpenRewrite
+==== OpenRewrite
 
 link:https://docs.openrewrite.org/[OpenRewrite], a large-scale automated source code refactoring tool, offers a couple of recipes that assist with the migration to AssertJ:
 
