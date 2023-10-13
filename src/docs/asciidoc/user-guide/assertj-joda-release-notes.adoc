@@ -38,7 +38,7 @@ Add `LocalDate` assertions providing the following ones (Eugene Strepetov):
 The assertions taking `String` parameter(s) can be used with `LocalDate` String representation: `yyyy-MM-dd`.
 
 Examples:
-[source,java,indent=0]
+[source,java]
 ----
 LocalDate localDate = new LocalDate(2000, 1, 1);
 
@@ -92,7 +92,7 @@ Add `LocalDateTime` assertions providing the following ones (John Killmer):
 - `hasMillisOfSecond`: Verifies that the milliseconds of the actual LocalDateTime is equal to the given milliseconds
 
 Examples:
-[source,java,indent=0]
+[source,java]
 ----
 DateTime dateTime = new DateTime(1999, 12, 31, 23, 59, 59, 999, DateTimeZone.UTC);
 

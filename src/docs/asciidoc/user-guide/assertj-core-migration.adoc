@@ -5,14 +5,14 @@ This page will help you convert your existing JUnit assertions to AssertJ ones. 
 
 The idea is to convert code like:
 
-[source,java,indent=0]
+[source,java]
 ----
 assertEquals(expected, actual);
 ----
 
 to:
 
-[source,java,indent=0]
+[source,java]
 ----
 assertThat(actual).isEqualTo(expected);
 ----
@@ -43,12 +43,12 @@ performs search and replace to convert assertions to AssertJ ones.
 
 The script handles the cases where you use an assertion description, for example:
 
-[source,java,indent=0]
+[source,java]
 ----
 assertEquals("test context", "a", "a");
 ----
 will be replaced by:
-[source,java,indent=0]
+[source,java]
 ----
 assertThat("a").as("test context").isEqualTo("a");
 ----
@@ -62,14 +62,14 @@ The script works on Windows within a bash console like git bash (tested a long t
 
 Execute the script in the base directory containing the test files:
 
-[source,bash,indent=0]
+[source,bash]
 ----
 cd ./src/test/java
 ./convert-junit-assertions-to-assertj.sh
 ----
 
 If the `*Test.java` file pattern does not suit you, just specify another as an argument:
-[source,bash,indent=0]
+[source,bash]
 ----
 # enclose your pattern with double quotes "" to avoid it to be expanded by your shell prematurely
 ./convert-junit-assertions-to-assertj.sh "*IT.java"
@@ -137,7 +137,7 @@ The order of find/replace is important to benefit from the most relevant AssertJ
 
 Find/replace regex:
 
-[source,bash,indent=0]
+[source,bash]
 ----
 assertEquals\(0,(.*).size\(\)\); -> assertThat(\1).isEmpty();
 ----
@@ -148,7 +148,7 @@ It's better to run this before the `assertEquals` -> `isEqualTo` conversion to a
 
 Find/replace regex:
 
-[source,bash,indent=0]
+[source,bash]
 ----
 assertEquals\((.*),(.*).size\(\)\); -> assertThat(\2).hasSize(\1);
 ----
@@ -159,7 +159,7 @@ It's better to run this before the `assertEquals` -> `isEqualTo` conversion to a
 
 Find/replace regex:
 
-[source,bash,indent=0]
+[source,bash]
 ----
 assertEquals\((.*),(.*)\); -> assertThat(\2).isEqualTo(\1);
 ----
@@ -168,7 +168,7 @@ assertEquals\((.*),(.*)\); -> assertThat(\2).isEqualTo(\1);
 
 Find/replace regex:
 
-[source,bash,indent=0]
+[source,bash]
 ----
 assertNull\((.*)\); -> assertThat(\1).isNull();
 ----
@@ -177,7 +177,7 @@ assertNull\((.*)\); -> assertThat(\1).isNull();
 
 Find/replace regex:
 
-[source,bash,indent=0]
+[source,bash]
 ----
 assertNotNull\((.*)\); -> assertThat(\1).isNotNull();
 ----
@@ -186,7 +186,7 @@ assertNotNull\((.*)\); -> assertThat(\1).isNotNull();
 
 Find/replace regex:
 
-[source,bash,indent=0]
+[source,bash]
 ----
 assertFalse\((.*)\); -> assertThat(\1).isFalse();
 ----

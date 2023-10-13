@@ -15,7 +15,7 @@ http://www.javadoc.io/doc/org.assertj/assertj-core/ is the latest version of Ass
 
 Here are a few examples of AssertJ assertions:
 
-[source,java,indent=0]
+[source,java]
 ----
 // entry point for all assertThat methods and utility methods (e.g. entry)
 import static org.assertj.core.api.Assertions.*;

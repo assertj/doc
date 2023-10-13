@@ -15,7 +15,7 @@ The AssertJ Guava artifact can be included directly using its link:#dependency-m
 
 ===== Maven
 
-[source,xml,indent=0,subs=attributes+]
+[source,xml,subs=attributes+]
 ----
 <dependency>
   <groupId>org.assertj</groupId>
@@ -27,7 +27,7 @@ The AssertJ Guava artifact can be included directly using its link:#dependency-m
 
 ===== Gradle
 
-[source,groovy,indent=0,subs=attributes+]
+[source,groovy,subs=attributes+]
 ----
 testImplementation("org.assertj:assertj-guava:{assertj-version}")
 ----
@@ -40,14 +40,14 @@ Check this page to find the relevant https://central.sonatype.dev/artifact/org.a
 
 The `org.assertj.guava.api.Assertions` class is the only class you need to start using AssertJ Guava.
 
-[source,java,indent=0]
+[source,java]
 ----
 import static org.assertj.guava.api.Assertions.assertThat;
 ----
 
 ==== Examples
 
-[source,java,indent=0]
+[source,java]
 ----
 import static org.assertj.guava.api.Assertions.assertThat;
 import static org.assertj.guava.api.Assertions.entry;

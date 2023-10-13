@@ -10,7 +10,7 @@ AssertJ Core http://www.javadoc.io/doc/org.assertj/assertj-core/[Javadoc] explai
 
 Let's start with a simple example showing a few important things.
 
-[source,java,indent=0]
+[source,java]
 ----
 include::{testDir}/example/core/SimpleAssertionsExample.java[tags=user_guide]
 ----
@@ -141,7 +141,7 @@ It is often valuable to describe the assertion performed, especially for boolean
 You can set such a description with `as(String description, Object... args)` but remember to do it before calling the assertion otherwise it is simply ignored as a failing assertion breaks the chained calls.
 
 Example of a failing assertion with a description:
-[source,java,indent=0]
+[source,java]
 ----
 include::{testDir}/example/core/DescribingAssertionsExample.java[tags=user_guide]
 ----
@@ -163,7 +163,7 @@ If printing assertion descriptions is not what you need, you can alternatively r
 Both options are exposed in AssertJ link:#assertj-core-configuration[`Configuration`] class.
 
 Example: using a description consumer
-[source,java,indent=0]
+[source,java]
 ----
 // initialize the description consumer
 final StringBuilder descriptionReportBuilder = new StringBuilder(String.format("Assertions:%n"));
@@ -197,7 +197,7 @@ Assertions:
 AssertJ tries its best to give helpful error messages, but you can always change it with `overridingErrorMessage()` or `withFailMessage()`.
 
 Example with this failing test:
-[source,java,indent=0]
+[source,java]
 ----
 include::{testDir}/example/core/OverridingErrorMessageExample.java[tags=user_guide]
 ----
@@ -215,7 +215,7 @@ java.lang.AssertionError: should be TolkienCharacter [name=Frodo, age=33, race=H
 If the error message is expensive to build, use the overloaded methods taking a `Supplier<String>` instead of a `String`, the message will only be built if the assertion fails.
 
 Example:
-[source,java,indent=0]
+[source,java]
 ----
 assertThat(player.isRookie()).overridingErrorMessage(() -> "Expecting Player to be a rookie but was not.")
                              .isTrue();
@@ -247,14 +247,14 @@ image::spotbugs-invalid-assertj-usage-detection.png[SpotBugs detecting AssertJ i
 The following examples show incorrect AssertJ API usage to avoid!
 
 [.bad]#Bad#
-[source,java,indent=0]
+[source,java]
 ----
 // DON'T DO THIS ! It does not assert anything
 assertThat(actual.equals(expected));
 ----
 
 [.good]#Good#
-[source,java,indent=0]
+[source,java]
 ----
 // DO THIS:
 assertThat(actual).isEqualTo(expected);
@@ -264,7 +264,7 @@ assertThat(actual.equals(expected)).isTrue();
 ----
 
 [.bad]#Bad#
-[source,java,indent=0]
+[source,java]
 ----
 // DON'T DO THIS ! It does not assert anything and passes
 assertThat(1 == 2);
@@ -272,7 +272,7 @@ assertThat(1 == 2);
 ----
 
 [.good]#Good#
-[source,java,indent=0]
+[source,java]
 ----
 // DO THIS: (fails as expected)
 assertThat(1).isEqualTo(2);
@@ -287,7 +287,7 @@ Describing an assertion must be done before calling the assertion.
 Otherwise it is ignored as a failing assertion will prevent the call to `as()`.
 
 [.bad]#Bad#
-[source,java,indent=0]
+[source,java]
 ----
 // DON'T DO THIS ! as/describedAs have no effect after the assertion
 assertThat(actual).isEqualTo(expected).as("description");
@@ -295,7 +295,7 @@ assertThat(actual).isEqualTo(expected).describedAs("description");
 ----
 
 [.good]#Good#
-[source,java,indent=0]
+[source,java]
 ----
 // DO THIS: use as/describedAs before the assertion
 assertThat(actual).as("description").isEqualTo(expected);
@@ -308,7 +308,7 @@ Setting an error message must be done before calling the assertion.
 Otherwise it is ignored as a failing assertion will prevent the call to `withFailMessage()` / `overridingErrorMessage()`.
 
 [.bad]#Bad#
-[source,java,indent=0]
+[source,java]
 ----
 // DON'T DO THIS ! overridingErrorMessage/withFailMessage have no effect after the assertion
 assertThat(actual).isEqualTo(expected).overridingErrorMessage("custom error message");
@@ -316,7 +316,7 @@ assertThat(actual).isEqualTo(expected).withFailMessage("custom error message");
 ----
 
 [.good]#Good#
-[source,java,indent=0]
+[source,java]
 ----
 // DO THIS: use overridingErrorMessage/withFailMessage before the assertion
 assertThat(actual).overridingErrorMessage("custom error message").isEqualTo(expected);
@@ -329,14 +329,14 @@ Setting comparators must be done before calling the assertion.
 Otherwise it is ignored as a failing assertion will prevent the call to `usingComparator()` / `usingElementComparator()`.
 
 [.bad]#Bad#
-[source,java,indent=0]
+[source,java]
 ----
 // DON'T DO THIS ! Comparator is not used
 assertThat(actual).isEqualTo(expected).usingComparator(new CustomComparator());
 ----
 
 [.good]#Good#
-[source,java,indent=0]
+[source,java]
 ----
 // DO THIS:
 assertThat(actual).usingComparator(new CustomComparator()).isEqualTo("a");
@@ -359,7 +359,7 @@ To be effective the configuration changes must be applied before the tests are e
 
 The `Assertions` class provides static methods to change each configuration properties.
 
-[source,java,indent=0]
+[source,java]
 ----
 Assertions.setAllowComparingPrivateFields(true);
 Assertions.setAllowExtractingPrivateFields(false);
@@ -416,28 +416,28 @@ is less than this parameter) or it will be formatted with one element per line. 
 
 Example:
 
-[source,java,indent=0]
+[source,java]
 ----
 String[] greatBooks = array("A Game of Thrones", "The Lord of the Rings", "Assassin's Apprentice");
 ----
 
 this array is formatted on one line as its length < 80:
 
-[source,java,indent=0]
+[source,java]
 ----
 ["A Game of Thrones", "The Lord of the Rings", "Assassin's Apprentice"]
 ----
 
 Whereas this array ...
 
-[source,java,indent=0]
+[source,java]
 ----
 String[] greatBooks = array("A Game of Thrones", "The Lord of the Rings", "Assassin's Apprentice", "Guards! Guards! (Discworld)");
 ----
 
 \... is formatted on multiple lines with one element per line:
 
-[source,java,indent=0]
+[source,java]
 ----
 
 ["A Game of Thrones",
@@ -462,7 +462,7 @@ IMPORTANT: Your configuration will be effective once you call `Configuration.app
 
 Example:
 
-[source,java,indent=0]
+[source,java]
 ----
 Configuration configuration = new Configuration();
 
@@ -480,7 +480,7 @@ configuration.applyAndDisplay();
 
 Printing the above configuration produces the following output:
 
-[source,plaintext,indent=0]
+[source,plaintext]
 ----
 Applying configuration org.assertj.core.configuration.Configuration
 - representation .................................. = BinaryRepresentation
@@ -511,19 +511,19 @@ This is all you have to do, AssertJ will pick up the `Configuration` automatical
 
 Here's an example of a custom configuration class:
 
-[source,java,indent=0]
+[source,java]
 ----
 include::{testDir}/example/core/CustomConfiguration.java[]
 ----
 
 With this custom configuration, the content of `META-INF/services/org.assertj.core.configuration.Configuration` must be:
-[source,java,indent=0]
+[source,java]
 ----
 example.core.CustomConfiguration
 ----
 
 Printing the  `CustomConfiguration` shows:
-[source,plaintext,indent=0]
+[source,plaintext]
 ----
 Applying configuration example.core.CustomConfiguration
 - representation .................................. = BinaryRepresentation
@@ -555,7 +555,7 @@ Let's go over these different options with a custom `Representation`.
 ===== Creating a custom Representation
 
 An example of a custom `Representation`:
-[source,java,indent=0]
+[source,java]
 ----
 // dummy class
 private class Example {}
@@ -584,24 +584,24 @@ public class CustomRepresentation extends StandardRepresentation { // <1>
 Let's see the above custom representation in action when representing `Example` or `String` instances.
 
 This assertion fails ...
-[source,java,indent=0]
+[source,java]
 ----
 assertThat(new Example()).isNull();
 ----
 ...with the following error:
-[source,java,indent=0]
+[source,java]
 ----
 expected:<[null]> but was:<[Example]>
 ----
 
 This one fails ...
-[source,java,indent=0]
+[source,java]
 ----
 // this one fails ...
 assertThat("foo").startsWith("bar");
 ----
 ...with the following error:
-[source,java,indent=0]
+[source,java]
 ----
 Expecting:
   <$foo$>
@@ -614,7 +614,7 @@ to start with:
 
 You only have to register `CustomRepresentation` once but need to do it before executing any tests, for the tests executed before that, AssertJ will use the default representation.
 
-[source,java,indent=0]
+[source,java]
 ----
 // to call before executing tests
 Assertions.useRepresentation(new CustomRepresentation());
@@ -628,7 +628,7 @@ Consider writing a JUnit 5 extension implementing https://junit.org/junit5/docs/
 Follow this approach if you want to use a specific representation for a single assertion only.
 
 Example with the failing assertions used before:
-[source,java,indent=0]
+[source,java]
 ----
 Representation customRepresentation = new CustomRepresentation();
 
@@ -656,7 +656,7 @@ In case different representations can represent the same type, the one with the 
 Let's take a concrete example where we have two domain specific libraries: Lotr and star wars and a project that uses them both.
 
 The Lotr library is composed of an `Hobbit` class and a specific representation for it, note that `LotrRepresentation` represents Hobbits starting with `HOBBIT` unlike `Hobbit` `toString` method:
-[source,java,indent=0]
+[source,java]
 ----
 package org.assertj.example.lotr;
 
@@ -840,7 +840,7 @@ You can assert that all or any elements verify the given assertions with `allSat
 The given assertions are expressed with a `Consumer` (typically with a lambda).
 
 Examples:
-[source,java,indent=0]
+[source,java]
 ----
 List<TolkienCharacter> hobbits = list(frodo, sam, pippin);
 
@@ -867,7 +867,7 @@ NOTE: if `allSatisfy` fails, all the elements and their failing the assertions a
 You can assert that all or any elements match the given `Predicate` with `allMatch` and `anyMatch`, conversely `noneMatch` lets you assert that no elements verify the given predicate.
 
 Examples:
-[source,java,indent=0]
+[source,java]
 ----
 List<TolkienCharacter> hobbits = list(frodo, sam, pippin);
 
@@ -891,7 +891,7 @@ NOTE: this is only available for iterables at the moment.
 Use `first`, `last` and `element(index)` to navigate to the corresponding element, after navigating you can only use object assertions unless you have specified an Assert class or preferrably an `InstanceOfAssertFactory` as shown in the following examples.
 
 Examples:
-[source,java,indent=0]
+[source,java]
 ----
 // only object assertions available after navigation
 Iterable<TolkienCharacter> hobbits = list(frodo, sam, pippin);
@@ -925,7 +925,7 @@ assertThat(hobbitsName, StringAssert.class).first()
 `singleElement` checks that the iterable has only one element and navigates to it, after navigating you can only use object assertions unless you have specified an Assert class or preferrably an `InstanceOfAssertFactory` as shown in the following examples.
 
 Examples:
-[source,java,indent=0]
+[source,java]
 ----
 Iterable<String> babySimpsons = list("Maggie");
 
@@ -962,7 +962,7 @@ You specify the filter condition using simple predicate, best expressed with a l
 
 Example:
 
-[source,java,indent=0]
+[source,java]
 ----
 assertThat(fellowshipOfTheRing).filteredOn( character -> character.getName().contains("o") )
                                .containsOnly(aragorn, frodo, legolas, boromir);
@@ -976,7 +976,7 @@ Filter supports nested properties/fields. Note that if an intermediate value is 
 
 Filters support these basic operations: `not`, `in`, `notIn`
 
-[source,java,indent=0]
+[source,java]
 ----
 import static org.assertj.core.api.Assertions.in;
 import static org.assertj.core.api.Assertions.not;
@@ -1011,7 +1011,7 @@ assertThat(fellowshipOfTheRing).filteredOn("race", MAN)
 
 This is a more flexible way of getting the value to filter on but note that there is no support for operators like `not`, `in` and `notIn`.
 
-[source,java,indent=0]
+[source,java]
 ----
 assertThat(fellowshipOfTheRing).filteredOn(TolkienCharacter::getRace, HOBBIT)
                                .containsOnly(sam, frodo, pippin, merry);
@@ -1023,7 +1023,7 @@ Filters the elements whose specified property/field is null.
 
 Filter supports nested properties/fields. Note that if an intermediate value is null the whole nested property/field is considered to be null, for example reading `"address.street.name"` will return null if `"address.street"` is null.
 
-[source,java,indent=0]
+[source,java]
 ----
 TolkienCharacter pippin = new TolkienCharacter("Pippin", 28, HOBBIT);
 TolkienCharacter frodo = new TolkienCharacter("Frodo", 33, HOBBIT);
@@ -1042,7 +1042,7 @@ assertThat(hobbits).filteredOnNull("name"))
 Filters the iterable under test keeping only elements matching the given assertions specified with a `Consumer`.
 
 Example: check hobbits whose age < 34
-[source,java,indent=0]
+[source,java]
 ----
 TolkienCharacter pippin = new TolkienCharacter("Pippin", 28, HOBBIT);
 TolkienCharacter frodo = new TolkienCharacter("Frodo", 33, HOBBIT);
@@ -1060,7 +1060,7 @@ Filter the iterable/array under test keeping only elements matching the given li
 
 Two methods are available: being(Condition) and having(Condition). They do the same job - pick the one that makes your code more readable!
 
-[source,java,indent=0]
+[source,java]
 ----
 import org.assertj.core.api.Condition;
 
@@ -1085,7 +1085,7 @@ assertThat(players).filteredOn(mvpStats)
 
 Let's say you have called some service and got a list (or an array) of `TolkienCharacter`, to check the results you have to build the expected TolkienCharacters, that can be quite tedious!
 
-[source,java,indent=0]
+[source,java]
 ----
 List<TolkienCharacter> fellowshipOfTheRing = tolkienDao.findHeroes();  // frodo, sam, aragorn ...
 
@@ -1095,7 +1095,7 @@ assertThat(fellowshipOfTheRing).contains(frodo, aragorn);
 
 Instead, it is usually enough to check some fields or properties on the elements, for that you have to extract the fields/properties before performing your assertions, something like:
 
-[source,java,indent=0]
+[source,java]
 ----
 // extract the names ...
 List<String> names = fellowshipOfTheRing.stream().map(TolkienCharacter::getName).collect(toList());
@@ -1116,7 +1116,7 @@ Specify the field/property to extract (or pass a `Function`) from each elements 
 Extracting by name can access private fields/properties which is handy to check internals not exposed with public methods (lambda won't work here), it also supports nested field/property like `"race.name"`.
 
 Examples:
-[source,java,indent=0]
+[source,java]
 ----
 // "name" needs to be either a property or a field of the TolkienCharacter class
 assertThat(fellowshipOfTheRing).extracting("name")
@@ -1138,7 +1138,7 @@ assertThat(fellowshipOfTheRing).map(TolkienCharacter::getName)
 
 Note that extracting one property can be made strongly typed by giving the property type as the second argument.
 
-[source,java,indent=0]
+[source,java]
 ----
 // to have type safe extracting, use the second parameter to pass the expected property type:
 assertThat(fellowshipOfTheRing).extracting("name", String.class)
@@ -1152,7 +1152,7 @@ You can extract several values from the elements under test and check them using
 
 As an example, let's check the name, age and race's name of each TolkienCharacter element:
 
-[source,java,indent=0]
+[source,java]
 ----
 // when checking several properties/fields you have to use tuples:
 import static org.assertj.core.api.Assertions.tuple;
@@ -1182,7 +1182,7 @@ More examples are available in link:{assertj-examples-base-package}IterableAsser
 Flat extracting is hard to explain but easy to understand with an example, so let's see how it works (in functional programming it is juts a flatMap).
 
 Let's assume we have a `Player` class with a `teamMates` property returning a `List<Player>` and we want to assert that it returns the expected players:
-[source,java,indent=0]
+[source,java]
 ----
 Player jordan = ... // initialized with Pippen and Kukoc team mates
 Player magic = ... // initialized with Jabbar and Worthy team mates
@@ -1209,7 +1209,7 @@ TIP: You can use `flatMap` in place of `flatExtracting` (except for the variant 
 
 Flat extracting can be used to group multiple values if you don't want to use `extracting` and tuples:
 
-[source,java,indent=0]
+[source,java]
 ----
 // extract a list of values, flatten them and use contains assertion
 assertThat(fellowshipOfTheRing).flatExtracting("name", "race.name")
@@ -1227,7 +1227,7 @@ assertThat(fellowshipOfTheRing).flatExtracting(TolkienCharacter::getName,
 `usingElementComparator` allows you to change the way elements are compared (instead of using the elements `equals` method).
 
 Examples:
-[source,java,indent=0]
+[source,java]
 ----
 List<TolkienCharacter> fellowshipOfTheRing = list(frodo, sam, merry, pippin, gandald, legolas, boromir, aragorn, gimli);
 
@@ -1610,7 +1610,7 @@ The recursive comparison mode starts after calling `usingRecursiveComparison()`.
 
 Here's a simple example:
 
-[source,java,indent=0]
+[source,java]
 ----
  public class Person {
    String name;
@@ -1677,7 +1677,7 @@ Since 3.17.0 it does not use anymore `equals` methods of classes that have overr
 
 Since 3.17.0 `isNotEqualTo` is available in the recursive API, example:
 
-[source,java,indent=0]
+[source,java]
 ----
 // equals not overridden in TolkienCharacter
 TolkienCharacter frodo = new TolkienCharacter("Frodo", 33, HOBBIT);
@@ -1703,7 +1703,7 @@ By default the objects to compare can be of different types but must have the sa
 
 It is possible to enforce strict type checking by calling `withStrictTypeChecking()` and make the comparison fail whenever the compared objects or their fields are not compatible. Compatible means that the expected object/field types are the same or a subtype of actual/field types, for example if actual is an `Animal` and expected a `Dog`, they will be compared field by field in strict type checking mode.
 
-[source,java,indent=0]
+[source,java]
 ----
 public class Person {
   String name;
@@ -1772,7 +1772,7 @@ It is also possible to ignore the the object under test with `ignoringActualNull
 
 Examples
 
-[source,java,indent=0]
+[source,java]
 ----
 Person sherlock = new Person("Sherlock", 1.80);
 sherlock.home.address.street = "Baker Street";
@@ -1828,7 +1828,7 @@ Once using overridden `equals` methods is enabled, you can disable it for certai
 
 Example:
 
-[source,java,indent=0]
+[source,java]
 ----
  public class Person {
    String name;
@@ -1883,7 +1883,7 @@ One use case for that is when the object under test have fields with values hard
 
 Example:
 
-[source,java,indent=0]
+[source,java]
 ----
 public class Person {
   String name;
@@ -1923,7 +1923,7 @@ assertThat(noName).usingRecursiveComparison()
 `ignoringActualEmptyOptionalFields()` makes the recursive comparison to ignore all actual empty optional fields (including `Optional`, `OptionalInt`, `OptionalLong` and `OptionalDouble`). +
 Note that the expected object empty optional fields are not ignored, this only applies to actual's fields.
 
-[source,java,indent=0]
+[source,java]
 ----
  public class Person {
    String name;
@@ -1981,7 +1981,7 @@ TIP: Prefer using `withEqualsForFields`/`withEqualsForType`, providing a `BiPred
 
 Examples:
 
-[source,java,indent=0]
+[source,java]
 ----
 public class TolkienCharacter {
   String name;
@@ -2021,14 +2021,14 @@ assertThat(frodo).usingRecursiveComparison()
 If AssertJ difference error description is not yo your liking, you can override it either by fields or types.
 
 You can override messages for all fields of a given type, example for `Double`:
-[source,java,indent=0]
+[source,java]
 ----
 withErrorMessageForType("Double field differ", Double.class)
 ----
 
 Alternatively can override messages for some specific fields which must be specified from the root object, for example if `Foo` has a `Bar` field and both have an `id` field, one can register a message for `Foo` and `Bar` id by calling:
 
-[source,java,indent=0]
+[source,java]
 ----
 withErrorMessageForFields("id values differ", "foo.id", "foo.bar.id")
 ----
@@ -2036,7 +2036,7 @@ withErrorMessageForFields("id values differ", "foo.id", "foo.bar.id")
 Messages registered with `withErrorMessageForFields` have precedence over the ones registered with `withErrorMessageForType`.
 
 Example overriding message for a field:
-[source,java,indent=0]
+[source,java]
 ----
 public class TolkienCharacter {
   String name;
@@ -2057,7 +2057,7 @@ assertThat(frodo).usingRecursiveComparison()
 and the error will report the height field with the given overridden message instead of the one computed by AssertJ as with the name error:
 
 
-[source,text,indent=0]
+[source,text]
 ----
 Expecting actual:
   TolkienCharacter [name=Frodo, height=1.2]
@@ -2083,7 +2083,7 @@ The recursive comparison was performed with this configuration:
 ----
 
 Example overriding message for a type:
-[source,java,indent=0]
+[source,java]
 ----
 String message = "Double field differ";
 
@@ -2095,7 +2095,7 @@ assertThat(frodo).usingRecursiveComparison()
 
 and the error will report the height field with the given overridden message instead of the one computed by AssertJ as with the name error:
 
-[source,text,indent=0]
+[source,text]
 ----
 Expecting actual:
   TolkienCharacter [name=Frodo, height=1.2]
@@ -2129,7 +2129,7 @@ The recursive comparison was performed with this configuration:
 Another difference is that `usingRecursiveComparison()` exposes a fluent API to tweak the recursive comparison, to achieve the same you will need to initialize a `RecursiveComparisonConfiguration` and pass it to `usingRecursiveFieldByFieldElementComparator`, you can take advantage of the `RecursiveComparisonConfiguration.builder()` to do so.
 
 Example:
-[source,java,indent=0]
+[source,java]
 ----
 public class Person {
   String name;
@@ -2196,7 +2196,7 @@ Here's an example using `ComparingSnakeOrCamelCaseFields` where we compare `Auth
 The recursive comparison would fail comparing the `Author`/`Book` fields against `AuthorDto`/`BookDto` ones, it would not know to match `Author.firstName` against `AuthorDto.first_name` for example but with `ComparingSnakeOrCamelCaseFields` it will know how to match these fields.
 
 Example:
-[source,java,indent=0]
+[source,java]
 ----
 Author martinFowler = new Author("Martin", "Fowler", 58, "https://www.thoughtworks.com/profiles/leaders/martin-fowler");
 Book refactoring = new Book("Refactoring", martinFowler);
@@ -2342,7 +2342,7 @@ If you have created your own custom Soft assertions it is possible to link:#asse
 Let's see first how to use soft assertions *requiring an explicit call to `assertAll()`*, the other approaches that don't require this explicitit call are described in the subsequent sections.
 
 Example:
-[source,java,indent=0]
+[source,java]
 ----
 include::{testDir}/example/core/SoftAssertionsExample.java[tags=basic-soft-assertions]
 ----
@@ -2382,7 +2382,7 @@ but was not.
 BDD aficionados can use BDD soft assertions where `assertThat` is replaced by `then`.
 
 Example:
-[source,java,indent=0]
+[source,java]
 ----
 include::{testDir}/example/core/BDDSoftAssertionsExample.java[tags=basic-bdd-soft-assertions]
 ----
@@ -2399,13 +2399,13 @@ There are BDD soft assertions versions for the different soft assertions approac
 The JUnit rule provided by AssertJ takes care of calling `assertAll()` at the end of each tests.
 
 Example:
-[source,java,indent=0]
+[source,java]
 ----
 include::{testDir}/example/core/JUnit4SoftAssertionsExample.java[tags=junit4-soft-assertions]
 ----
 
 In a similar way you can use `JUnitBDDSoftAssertions`  where `assertThat` is replaced by `then`:
-[source,java,indent=0]
+[source,java]
 ----
 include::{testDir}/example/core/JUnit4BDDSoftAssertionsExample.java[tags=junit4-bdd-soft-assertions]
 ----
@@ -2440,7 +2440,7 @@ This extension throws an `ExtensionConfigurationException` if:
 * the field type has no default constructor.
 
 Example:
-[source,java,indent=0]
+[source,java]
 ----
 import org.assertj.core.api.SoftAssertions;
 import org.assertj.core.api.junit.jupiter.SoftAssertionsExtension;
@@ -2497,7 +2497,7 @@ This extension throws a `ParameterResolutionException` if the resolved `SoftAsse
 
 
 Example:
-[source,java,indent=0]
+[source,java]
 ----
 include::{testDir}/example/core/JUnit5SoftAssertionsExample.java[tags=junit5-soft-assertions]
 ----
@@ -2509,13 +2509,13 @@ include::{testDir}/example/core/JUnit5SoftAssertionsExample.java[tags=junit5-sof
 As `AutoCloseableSoftAssertions` implements `AutoCloseable#close()` by calling `assertAll()`, when used in a try-with-resources block `assertAll()` is called automatically before exiting the block.
 
 Example:
-[source,java,indent=0]
+[source,java]
 ----
 include::{testDir}/example/core/AutoCloseableSoftAssertionsExample.java[tags=closeable-soft-assertions]
 ----
 
 In a similar way you can use `AutoCloseableBDDSoftAssertions`  where `assertThat` is replaced by `then`:
-[source,java,indent=0]
+[source,java]
 ----
 include::{testDir}/example/core/AutoCloseableBDDSoftAssertionsExample.java[tags=closeable-bdd-soft-assertions]
 ----
@@ -2526,7 +2526,7 @@ include::{testDir}/example/core/AutoCloseableBDDSoftAssertionsExample.java[tags=
 The `assertSoftly` static method takes care of calling `assertAll()` before exiting.
 
 Example:
-[source,java,indent=0]
+[source,java]
 ----
 include::{testDir}/example/core/SoftAssertionsExample.java[tags=assertSoftly-soft-assertions]
 ----
@@ -2538,7 +2538,7 @@ Since the 3.16.0 version AssertJ provides a way to combine standard soft asserti
 
 Let's assume we have written an entry point for `TolkienCharacter` soft assertions so that we can write assertions like:
 
-[source,java,indent=0]
+[source,java]
 ----
 TolkienSoftAssertions softly = new TolkienSoftAssertions();
 softly.assertThat(frodo).hasRace(HOBBIT)
@@ -2552,7 +2552,7 @@ The 3.16.0 release introduced the `SoftAssertionsProvider` interface to define s
 The first step consists in extending this interface to expose as many custom entry points as you need. +
 The typical custom `SoftAssertionsProvider` interface exposes default `assertThat` methods, as shown below:
 
-[source,java,indent=0]
+[source,java]
 ----
 public interface TolkienSoftAssertionsProvider extends SoftAssertionsProvider {
   // custom assertions
@@ -2577,7 +2577,7 @@ In order to get a concrete entry point exposing all custom entry points, create 
 To get standard soft assertions, inherit from `SoftAssertions` instead of `AbstractSoftAssertions` (or `BddSoftAssertions` to get the BDD flavor).
 
 Let's define our concrete entry points implementing both `TolkienSoftAssertionsProvider` and `GoTSoftAssertionsProvider`:
-[source,java,indent=0]
+[source,java]
 ----
 // we extend SoftAssertions to get standard soft assertions
 public class FantasySoftAssertions extends SoftAssertions
@@ -2592,7 +2592,7 @@ public class FantasySoftAssertions extends SoftAssertions
 
 [.underline]#Step 3# +
 The last step is to use `FantasySoftAssertions`:
-[source,java,indent=0]
+[source,java]
 ----
 FantasySoftAssertions softly = new FantasySoftAssertions();
 
@@ -2613,14 +2613,14 @@ softly.assertAll();
 
 Because our custom assertions are defined in an interface, we can also combine them with AssertJ's
 JUnit 4 rule so that we can use our custom assertions as a test rule for use in JUnit 4:
-[source,java,indent=0]
+[source,java]
 ----
 // we extend JUnitSoftAssertions to get standard soft assertions classes
 public class JUnitFantasySoftAssertions extends JUnitSoftAssertions
                                    implements TolkienSoftAssertionsProvider, GoTSoftAssertionsProvider {}
 ----
 Then in our test class we use it per normal:
-[source,java,indent=0]
+[source,java]
 ----
 public class JUnit4_StandardAndCustomSoftAssertionsExamples {
   @Rule
@@ -2644,7 +2644,7 @@ The rule will automatically take care of calling `assertAll()` at the end of eve
 JUnit 5 `SoftAssertionsExtension` calls `softly.assertAll()` after each test so that we don't have to do it manually. +
 Since 3.16.0 it is capable of injecting any `SoftAssertionsProvider`, we can then inject our custom `FantasySoftAssertions`:
 
-[source,java,indent=0]
+[source,java]
 ----
 @ExtendWith(SoftAssertionsExtension.class)
 public class JUnit5_StandardAndCustomSoftAssertionsExamples {
@@ -2666,7 +2666,7 @@ AssertJ allows to perform an action after an `AssertionError` is collected.
 The action is specified by the `AfterAssertionErrorCollected` functional interface which can be expressed as lambda, to register your callback call `setAfterAssertionErrorCollected` as shown below:
 
 Example:
-[source,java,indent=0]
+[source,java]
 ----
 SoftAssertions softly = new SoftAssertions();
 StringBuilder reportBuilder = new StringBuilder(format("Assertions report:%n"));
@@ -2679,7 +2679,7 @@ softly.assertThat(123).isEqualTo(123)
                       .isEqualTo(456);
 ----
 resulting `reportBuilder`:
-[indent=0, text]
+[source,text]
 ----
 Assertions report:
 ------------------
@@ -2700,7 +2700,7 @@ but was not.
 Alternatively, if you have defined your own `SoftAssertions` class and inherited from `AbstractSoftAssertions`, you can instead override `onAssertionErrorCollected(AssertionError)`.
 
 Example:
-[source,java,indent=0]
+[source,java]
 ----
 class TolkienSoftAssertions extends AbstractSoftAssertions {
 
@@ -2733,13 +2733,13 @@ All AssertJ assumptions are static methods in the `Assumptions` class, they matc
 You can also get assumptions through the `WithAssumptions` interface.
 
 Example resulting in the test to be ignored:
-[source,java,indent=0]
+[source,java]
 ----
 include::{testDir}/example/core/AssumptionsDemo.java[tags=assumption_not_met]
 ----
 
 Example resulting in the test to be executed normally:
-[source,java,indent=0]
+[source,java]
 ----
 include::{testDir}/example/core/AssumptionsDemo.java[tags=assumption_met]
 ----
