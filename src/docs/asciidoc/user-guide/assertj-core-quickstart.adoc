@@ -20,7 +20,7 @@ The AssertJ Core artifact can be included directly using its link:#dependency-me
 
 ===== Maven
 
-[source,xml,indent=0,subs=attributes+]
+[source,xml,subs=attributes+]
 ----
 <dependency>
   <groupId>org.assertj</groupId>
@@ -32,7 +32,7 @@ The AssertJ Core artifact can be included directly using its link:#dependency-me
 
 ===== Gradle
 
-[source,groovy,indent=0,subs=attributes+]
+[source,groovy,subs=attributes+]
 ----
 testImplementation("org.assertj:assertj-core:{assertj-version}")
 ----
@@ -52,7 +52,7 @@ The mechanism for changing a dependency version is documented for both https://d
 
 With Maven, you can override the AssertJ Core version by including the following in your `pom.xml` file.
 
-[source,xml,indent=0,subs=attributes+]
+[source,xml,subs=attributes+]
 ----
 <properties>
   <assertj.version>{assertj-version}</assertj.version>
@@ -61,7 +61,7 @@ With Maven, you can override the AssertJ Core version by including the following
 
 With Gradle, you can override the AssertJ Core version by including the following in your `build.gradle` file.
 
-[source,groovy,indent=0,subs=attributes+]
+[source,groovy,subs=attributes+]
 ----
 ext['assertj.version'] = '{assertj-version}'
 ----
@@ -163,14 +163,14 @@ Alternatively your test class can implement `WithAssertions` to access the same 
 
 One `Assertions` static import to rule them all ...
 
-[source,java,indent=0]
+[source,java]
 ----
 import static org.assertj.core.api.Assertions.*;
 ----
 
 \... or many if you prefer:
 
-[source,java,indent=0]
+[source,java]
 ----
 import static org.assertj.core.api.Assertions.assertThat;  // main one
 import static org.assertj.core.api.Assertions.atIndex; // for List assertions
@@ -257,7 +257,7 @@ Intellij Idea: No special configuration is needed, just start typing `asser` and
 
 Type `assertThat` followed by the object under test and a dot ... and any Java IDE code completion will show you all available assertions.
 
-[source,java,indent=0]
+[source,java]
 ----
 assertThat(objectUnderTest). # <1>
 ----

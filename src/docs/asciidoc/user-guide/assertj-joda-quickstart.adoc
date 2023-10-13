@@ -18,7 +18,7 @@ AssertJ Joda Time major versions depend on different Java versions:
 
 ===== Maven
 
-[source,xml,indent=0,subs=attributes+]
+[source,xml,subs=attributes+]
 ----
 <dependency>
   <groupId>org.assertj</groupId>
@@ -33,14 +33,14 @@ AssertJ Joda Time major versions depend on different Java versions:
 
 For Gradle users (using the Maven Central Repository)
 
-[source,java,indent=0,subs=attributes+]
+[source,java,subs=attributes+]
 ----
 testImplementation("org.assertj:assertj-joda-time:{assertj-joda-time-version}")
 ----
 
 Or version 1.1.0 for Java 7 projects
 
-[source,java,indent=0]
+[source,java]
 ----
 testImplementation("org.assertj:assertj-joda-time:1.1.0")
 ----
@@ -53,14 +53,14 @@ Check this page to find the relevant https://search.maven.org/artifact/org.asser
 
 The `org.assertj.jodatime.api.Assertions` class is the only class you need to start using AssertJ Joda Time.
 
-[source,java,indent=0]
+[source,java]
 ----
 import static org.assertj.jodatime.api.Assertions.assertThat;
 ----
 
 ==== Examples
 
-[source,java,indent=0]
+[source,java]
 ----
 assertThat(dateTime).isBefore(firstDateTime);
 assertThat(dateTime).isAfterOrEqualTo(secondDateTime);
@@ -77,7 +77,7 @@ assertThat(dateTime1).isEqualToIgnoringSeconds(dateTime2);
 
 For `DateTime` assertions, comparison is performed in the `DateTimeZone` of `DateTime` to test, consequently the following assertion passes:
 
-[source,java,indent=0]
+[source,java]
 ----
 DateTime utcTime = new DateTime(2013, 6, 10, 0, 0, DateTimeZone.UTC);
 DateTime cestTime = new DateTime(2013, 6, 10, 2, 0, DateTimeZone.forID("Europe/Berlin"));

@@ -2736,7 +2736,7 @@ assertThat(root).isDirectoryRecursivelyContaining(file -> file.getName().equals(
 Verifies that the binary content of the actual InputStream is exactly equal to the given one.
 
 Example: the following failing assertion ...
-[source,java,indent=0]
+[source,java]
 ----
 InputStream inputStream = new ByteArrayInputStream(new byte[] {1, 2});
 
@@ -2755,7 +2755,7 @@ assertThat(inputStream).hasBinaryContent(new byte[] {0, 0});
 Verifies that the actual group contains the elements of the given iterable only once (same semantic as `containsOnlyOnce(Object...)`).
 
 Examples:
-[source,java,indent=0]
+[source,java]
 ----
 // assertions will pass
 assertThat(list("winter", "is", "coming")).containsOnlyOnceElementsOf(list("winter"))
@@ -2773,7 +2773,7 @@ assertThat(list("Arya", "Stark", "daughter", "of", "Ned", "Stark")).containsOnly
 Different date/time types can be represented the same way (`LocalDateTime` and `Date` for example) which makes it difficult to understand error messages as they don't show any difference between actual and expected values. AssertJ now adds the date/time type name for types whose representation may collide.
 
 Example: the following failing assertion ...
-[source,java,indent=0]
+[source,java]
 ----
 Date now = new Date();
 Object localDateTime = LocalDateTime.ofInstant(now.toInstant(), ZoneId.systemDefault());
@@ -2783,7 +2783,7 @@ assertThat(List.of(localDateTime)).containsExactly(now);
 
 \... fails with this error:
 
-[source,indent=0]
+[source]
 ----
 Expecting:
   <[2020-03-19T22:32:42.875 (java.time.LocalDateTime)]>
@@ -2796,7 +2796,7 @@ and others were not expected:
 ----
 
 Before that the error would have been confusing:
-[source,indent=0]
+[source]
 ----
 Expecting:
   <[2020-03-19T22:32:42.875]>
@@ -2916,7 +2916,7 @@ The following `java.time.Duration` assertions are available:
 - `isZero()`: Verifies that the actual Duration is `Duration.ZERO`.
 
 Examples:
-[source,java,indent=0]
+[source,java]
 ----
 assertThat(Duration.ofDays(5)).hasDays(5);
 assertThat(Duration.ofHours(15)).hasHours(15);
@@ -2938,7 +2938,7 @@ assertThat(Duration.ZERO).isZero();
 Verifies that the actual `Class` is package-private (i.e. has no modifier).
 
 Example:
-[source,java,indent=0]
+[source,java]
 ----
 class MyClass {}
 
@@ -2955,7 +2955,7 @@ assertThat(String.class).isPackagePrivate();
 Verifies that the content of the actual file/path is equal to the content of the given one, the comparison is done at the binary level.
 
 Example with `Path` (works the same with `File`):
-[source,java,indent=0]
+[source,java]
 ----
 // The first two paths have the same content, the third does not
 Path aPath = Files.write(Paths.get("a-file.bin"), new byte[] { 42 });
@@ -2980,7 +2980,7 @@ The time to wait for can be expressed with a `Duration` or a `TimeUnit`.
 To get assertions for the future result's type use `succeedsWithin` that takes an additional `InstanceOfAssertFactory` parameter.
 
 Examples:
-[source,java,indent=0]
+[source,java]
 ----
 CompletableFuture<String> future = CompletableFuture.completedFuture("ook!");
 
@@ -3004,7 +3004,7 @@ assertThat(future).succeedsWithin(100, TimeUnit.MILLISECONDS, STRING)
 Verifies that the actual `Class` has the given superclass.
 
 Example:
-[source,java,indent=0]
+[source,java]
 ----
 // this assertion succeeds:
 assertThat(Integer.class).hasSuperclass(Number.class);
@@ -3028,7 +3028,7 @@ assertThat(String.class).hasSuperclass(Comparable.class);
 Verifies that the actual `Class` has no superclass.
 
 Example:
-[source,java,indent=0]
+[source,java]
 ----
 // this assertion succeeds as interfaces have no superclass:
 assertThat(Cloneable.class).hasNoSuperclass();
@@ -3053,7 +3053,7 @@ At the moment, the only assertion available after in the recursive comparison is
 The recursive comparison API lets you finely control how to compare instances, please consult the <<assertj-core-assertions-guide.adoc#assertj-core-recursive-comparison,documentation>>  for a detailed guide.
 
 For the following examples we use `Person` and `Doctor`, two classes with the same structure:
-[source,java,indent=0]
+[source,java]
 ----
 public class Person {
   String name;
@@ -3075,7 +3075,7 @@ Person raj = new Person("Raj Koothrappali", true);
 ----
 
 `Iterable` example:
-[source,java,indent=0]
+[source,java]
 ----
 
 List<Doctor> doctors = list(drSheldon, drLeonard, drRaj);
@@ -3087,7 +3087,7 @@ assertThat(doctors).usingRecursiveComparison()
 ----
 
 Array example:
-[source,java,indent=0]
+[source,java]
 ----
 
 Doctor[] doctors = { drSheldon, drLeonard, drRaj };
@@ -3099,7 +3099,7 @@ assertThat(doctors).usingRecursiveComparison()
 ----
 
 `Map` example:
-[source,java,indent=0]
+[source,java]
 ----
 
 Map<String, Doctor> doctors = mapOf(entry(drSheldon.name, drSheldon),
@@ -3116,7 +3116,7 @@ assertThat(doctors).usingRecursiveComparison()
 ----
 
 `Optional` example:
-[source,java,indent=0]
+[source,java]
 ----
 Optional<Doctor> doctor = Optional.of(drSheldon);
 Optional<Person> person = Optional.of(sheldon);
@@ -3217,7 +3217,7 @@ Add Behavior Driven Development style entry point for assumption methods for dif
 The difference with the `Assumptions` class is that entry point methods are named `given` instead of `assumeThat`.
 
 Example:
-[source,java,indent=0]
+[source,java]
 ----
 String hobbit = "HOBBIT";
 List<String> fellowshipOfTheRing = list("Aragorn", "Gandalf", "Frodo", "Legolas");
@@ -3243,7 +3243,7 @@ public void given_the_assumption_is_met_the_test_is_executed() {
 Add `hasCharacteristics` and `hasOnlyCharacteristics` assertions for the link:https://docs.oracle.com/javase/8/docs/api/java/util/Spliterator.html?is-external=true[`Spliterator`] type.
 
 Example:
-[source,java,indent=0]
+[source,java]
 ----
 Spliterator<Integer> spliterator = Stream.of(1, 2, 3).spliterator();
 
@@ -3261,7 +3261,7 @@ assertThat(spliterator).hasCharacteristics(Spliterator.SIZED,
 Verifies that actual and given `OffsetDateTime` are at the same `Instant`.
 
 Example:
-[source,java,indent=0]
+[source,java]
 ----
 OffsetDateTime offsetDateTime1 = OffsetDateTime.of(2000, 12, 12, 3, 0, 0, 0, ZoneOffset.ofHours(3));
 OffsetDateTime offsetDateTime2 = OffsetDateTime.of(2000, 12, 12, 0, 0, 0, 0, ZoneOffset.ofHours(0));
@@ -3279,7 +3279,7 @@ assertThat(offsetDateTime1).isAtSameInstantAs(offsetDateTime2);
 `assertAlso` lets you combine other soft assertions instances together.
 
 Example:
-[source,java,indent=0]
+[source,java]
 ----
 Mansion mansion = new Mansion();
 
@@ -3321,7 +3321,7 @@ void host_dinner_party_where_nobody_dies() {
 Verify that the actual `File` is empty (i.e. the file size = 0) or not empty (i.e. the file size > 0) .
 
 Example:
-[source,java,indent=0]
+[source,java]
 ----
 File file = File.createTempFile("tmp", "txt");
 
@@ -3340,7 +3340,7 @@ assertThat(file).isNotEmpty();
 Verifies that the size of the `File` under test is exactly equal to the given size in *bytes*.
 
 Example:
-[source,java,indent=0]
+[source,java]
 ----
 File file = File.createTempFile("tmp", "bin");
 Files.write(file.toPath(), new byte[] {1, 1});
@@ -3357,7 +3357,7 @@ assertThat(file).hasSize(1);
 
 To avoid clash with libraries like Mockito that exposes a static `then(object)` method, you can statically use the `and` field.
 
-[source,java,indent=0]
+[source,java]
 ----
 import static org.mockito.BDDMockito.then;
 // can't use import static org.assertj.core.api.BDDAssertions.then because of BDDMockito.then;
@@ -3388,7 +3388,7 @@ public void bdd_assertions_with_bdd_mockito() {
 Verifies that the message of the root cause of the actual `Throwable` is equal to the given one, a simple `String` or `String.format` is supported to specify the expected root cause message.
 
 Example:
-[source,java,indent=0]
+[source,java]
 ----
 Throwable throwable = new Throwable(new IllegalStateException(new NullPointerException("expected message")));
 
@@ -3409,7 +3409,7 @@ assertThat(new Throwable()).hasRootCauseMessage("%s %s", "expected", "message");
 A syntax sugar to write fluent assertion with methods having an `InstanceOfAssertFactory` parameter. Added as a static method in `Assertions`, it is also available as a default method in the `WithAssertions` interface.
 
 Example:
-[source,java,indent=0]
+[source,java]
 ----
 Jedi yoda = new Jedi("Yoda", "Green");
 
@@ -3431,7 +3431,7 @@ Extracts the value of given field/property from the object under test, the extra
 The `InstanceOfAssertFactory` parameter is used to get the assertions narrowed to the factory type.
 
 Examples:
-[source,java,indent=0]
+[source,java]
 ----
 // Create frodo, setting its name, age and Race (Race having a name property)
 TolkienCharacter frodo = new TolkienCharacter("Frodo", 33, HOBBIT);
@@ -3452,7 +3452,7 @@ Uses the given `Function` to extract a value from the object under test, the ext
 The `InstanceOfAssertFactory` parameter is used to get the assertions narrowed to the factory type.
 
 Examples:
-[source,java,indent=0]
+[source,java]
 ----
 // Create frodo, setting its name, age and Race (Race having a name property)
 TolkienCharacter frodo = new TolkienCharacter("Frodo", 33, HOBBIT);
@@ -3473,7 +3473,7 @@ Extracts the value of given key from the map under test, the extracted value bec
 The `InstanceOfAssertFactory` parameter is used to get the assertions narrowed to the factory type.
 
 Examples:
-[source,java,indent=0]
+[source,java]
 ----
 Map<String, Object> map = new HashMap<>();
 map.put("name", "kawhi");
@@ -3494,7 +3494,7 @@ Verifies that the optional is not `null` and not empty and returns an new assert
 The `InstanceOfAssertFactory` parameter is used to get the assertions narrowed to the factory type.
 
 Examples:
-[source,java,indent=0]
+[source,java]
 ----
 Optional<String> optional = Optional.of("Frodo");
 
@@ -3514,7 +3514,7 @@ Navigates and allows to perform assertions on the first element of the `Iterable
 The `InstanceOfAssertFactory` parameter is used to get the assertions narrowed to the factory type.
 
 Examples:
-[source,java,indent=0]
+[source,java]
 ----
 Iterable<String> hobbits = newArrayList("Frodo", "Sam", "Pippin");
 
@@ -3537,7 +3537,7 @@ Navigates and allows to perform assertions on the last element of the `Iterable`
 The `InstanceOfAssertFactory` parameter is used to get the assertions narrowed to the factory type.
 
 Examples:
-[source,java,indent=0]
+[source,java]
 ----
 Iterable<String> hobbits = newArrayList("Frodo", "Sam", "Pippin");
 
@@ -3560,7 +3560,7 @@ Navigates and allows to perform assertions on the chosen element of the `Iterabl
 The `InstanceOfAssertFactory` parameter is used to get the assertions narrowed to the factory type.
 
 Examples:
-[source,java,indent=0]
+[source,java]
 ----
 Iterable<String> hobbits = newArrayList("Frodo", "Sam", "Pippin");
 
@@ -3582,7 +3582,7 @@ assertThat(hobbits).element(1, as(InstanceOfAssertFactories.INTEGER))
 Instead of taking a simple `String` the assertions mentioned above now accept a `String.format` like parameters, i.e. `(String description, Object... parameters)` making it easier to build more involved expected strings.
 
 Examples:
-[source,java,indent=0]
+[source,java]
 ----
 Throwable throwableWithMessage = new IllegalArgumentException("wrong amount 123");
 
@@ -3598,7 +3598,7 @@ assertThat(throwableWithMessage).hasMessageStartingWith("%s a", "wrong")
 `extracting` is now able to extract a deeply nested map key, before this improvement extracting a value by key was only supported for a `Map` object under test (but not for fields of type `Map`).
 
 Let's clarify things with a concrete example:
-[source,java,indent=0]
+[source,java]
 ----
 Jedi luke = new Jedi(new Name("Luke", "Skywalker"), 26);
 // setAttribute puts a new entry in 'attributes' Map field
@@ -3625,7 +3625,7 @@ assertThat(luke).extracting("name.last",
 To make it more readable, reformat the error message when multiple combined conditions with `allOf` and `anyOf` fail.
 
 Examples: the following assertion will fail ...
-[source,java,indent=0]
+[source,java]
 ----
 private static Condition<String> contains(String s) {
   return new Condition<>(value -> value.contains(s), "contains " + s);
@@ -3639,7 +3639,7 @@ assertThat("Gandalf").has(anyOf(contains("i"),
                                             contains("c")))));
 ----
 With the following error message
-[source,text,indent=0]
+[source,text]
 ----
 Expecting:
  <"Gandalf">
@@ -3663,7 +3663,7 @@ to have:
 Syntactic sugar to construct a `Condition` using the Hamcrest Matcher given as a parameter.
 
 Example:
-[source,java,indent=0]
+[source,java]
 ----
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.HamcrestCondition.matching;
@@ -3694,7 +3694,7 @@ Release date: 2019-07-29
 
 This release addresses the 3.13.0 https://github.com/assertj/assertj-core/issues/1563[issue] by which AssertJ required OpenTest4J to be on the classpath otherwise a `java.lang.NoClassDefFoundError: org/opentest4j/MultipleFailuresError` would be raised. Thanks Pascal Schumacher for the quick fix!
 
-[source,text,indent=0]
+[source,text]
 ----
 java.lang.NoClassDefFoundError: org/opentest4j/MultipleFailuresError
 	at java.base/java.lang.ClassLoader.defineClass1(Native Method)
@@ -3727,7 +3727,7 @@ Release date: 2019-07-28
 The highlight of this release is the addition of `asInstanceOf` which allows to chain specific type assertions from a value that was initially declared with a different type (usually `Object`). Thanks Stefano Cordio for this contribution!
 
 Example:
-[source,java,indent=0]
+[source,java]
 ----
 Object value = "abc";
 
@@ -3753,7 +3753,7 @@ Special thanks to Nils Winkler for his work on the assertions conversion scripts
 
 * As the link:#assertj-core-3.13.0-extracting[`extracting(String)`] method for `Object` and `Map` extracts only one value, it now returns `Object` assertions instead of list assertions (on a singleton list). This means that any list assertions used won't compile anymore, they need to be replaced by `Object` assertions.
 
-[source,java,indent=0]
+[source,java]
 ----
 // GIVEN
 Map<String, Object> basketballPlayer = new HashMap<>();
@@ -3828,7 +3828,7 @@ As a consequence of the two previous points, when comparing collection/map field
 `asInstanceOf` allows to chain specific type assertions from a value initially declared as a less specific type (often `Object`).
 
 Let's start with the problem `asInstanceOf` is solving: in the following example we would like to call `String` assertions but this is not possible since `value` is declared as an `Object` thus only `Object` assertions are accessible.
-[source,java,indent=0]
+[source,java]
 ----
 // Given a String declared as an Object
 Object value = "Once upon a time in the west";
@@ -3840,7 +3840,7 @@ assertThat(value).startsWith("ab"); // this does not compile !
 Thanks to `asInstanceOf` we can now tell AssertJ to consider `value` as a `String` in order to call `String` assertions.
 To do so we need to pass an `InstanceOfAssertFactory` that can build a `StringAssert`, fortunately you don't have to write it, it is already available in `InstanceOfAssertFactories`!
 
-[source,java,indent=0]
+[source,java]
 ----
 import static org.assertj.core.api.InstanceOfAssertFactories.STRING;
 
@@ -3856,7 +3856,7 @@ AssertJ verifies that the actual value is compatible with the assertions `Instan
 `InstanceOfAssertFactories` provides static factories for all types AssertJ provides assertions for, additional factories can be created with custom `InstanceOfAssertFactory` instances.
 
 Here's another example showing the parameterized type support:
-[source,java,indent=0]
+[source,java]
 ----
 // Actually a List<TolkienCharacter>
 Object hobbits = list(frodo, pippin, merry, sam);
@@ -3881,7 +3881,7 @@ assertThat(hobbits).asInstanceOf(InstanceOfAssertFactories.LIST)
 Extracts the value of given field/property from the object under test, the extracted value becoming the new object under test.
 
 Examples:
-[source,java,indent=0]
+[source,java]
 ----
 // Create frodo, setting its name, age and Race (Race having a name property)
 TolkienCharacter frodo = new TolkienCharacter("Frodo", 33, HOBBIT);
@@ -3904,7 +3904,7 @@ assertThat(frodo).extracting("name")
 If the object under test is a Map, the parameter is used as a key to the map.
 
 Example:
-[source,java,indent=0]
+[source,java]
 ----
 Map<String, Object> basketballPlayer = new HashMap<>();
 basketballPlayer.put("name", "kawhi");
@@ -3928,7 +3928,7 @@ Read <<assertions-guide#assertj-core-configuration, Configuring AssertJ>> chapte
 Verifies that the actual `Throwable` has a cause that refers to the given one, i.e. using == comparison.
 
 Example:
-[source,java,indent=0]
+[source,java]
 ----
 Throwable invalidArgException = new IllegalArgumentException("invalid arg");
 Throwable throwable = new Throwable(invalidArgException);
@@ -3957,7 +3957,7 @@ Both `isDirectoryContaining` and `isDirectoryNotContaining` accept either `Predi
 As `File` and `Path` assertions are similar, the examples will only show `File` assertions.
 
 The examples use the following directory structure:
-[source,text,indent=0]
+[source,text]
 ----
 /root/
 /root/sub-dir-1/
@@ -3970,7 +3970,7 @@ The examples use the following directory structure:
 
 [[assertj-core-3.13.0-isDirectoryContaining]]
 `isDirectoryContaining` assertions examples:
-[source,java,indent=0]
+[source,java]
 ----
 File root = new File("root");
 
@@ -3997,7 +3997,7 @@ assertThat(root).isDirectoryContaining("glob:**.bin");
 
 [[assertj-core-3.13.0-isDirectoryNotContaining]]
 `isDirectoryNotContaining` assertion examples:
-[source,java,indent=0]
+[source,java]
 ----
 File root = new File("root");
 
@@ -4021,7 +4021,7 @@ assertThat(root).isDirectoryNotContaining("glob:**.{ext,bin");
 
 [[assertj-core-3.13.0-isEmptyDirectory]]
 `isEmptyDirectory` assertion examples:
-[source,java,indent=0]
+[source,java]
 ----
 File root = new File("root");
 
@@ -4035,7 +4035,7 @@ assertThat(new File(root, "sub-dir-1")).isEmptyDirectory();
 
 [[assertj-core-3.13.0-isNotEmptyDirectory]]
 `isNotEmptyDirectory` assertion examples:
-[source,java,indent=0]
+[source,java]
 ----
 File root = new File("root");
 
@@ -4053,7 +4053,7 @@ assertThat(new File(root, "sub-dir-1")).isNotEmptyDirectory();
 These assertions are the equivalent of `hasMessageContaining` and `hasMessageNotContaining` but accepting multiple String parameters instead of only one.
 
 Example:
-[source,java,indent=0]
+[source,java]
 ----
 Throwable throwableWithMessage = new IllegalArgumentException("wrong amount 123");
 Throwable throwableWithoutMessage = new IllegalArgumentException();
@@ -4074,7 +4074,7 @@ assertThat(throwableWithMessage).hasMessageNotContainingAny("foo", "amount");
 
 The same assertions have been added to `ThrowableAssertAlternative` with these names `withMessageContainingAll` and `withMessageNotContainingAny`:
 
-[source,java,indent=0]
+[source,java]
 ----
 Throwable illegalArgumentException = new IllegalArgumentException("wrong amount 123");
 
@@ -4091,7 +4091,7 @@ assertThatExceptionOfType(Throwable.class)
 The new `check` method catches and collect assertion errors coming from standard and custom assertions.
 
 Example:
-[source,java,indent=0]
+[source,java]
 ----
 SoftAssertions softly = new SoftAssertions();
 
@@ -4118,7 +4118,7 @@ This is the same assertion as `containsOnly(Map.Entry... entries)`, it simply ha
 
 Example :
 
-[source,java,indent=0]
+[source,java]
 ----
 Map<Ring, TolkienCharacter> ringBearers = newLinkedHashMap(entry(oneRing, frodo),
                                                            entry(nenya, galadriel),
@@ -4153,7 +4153,7 @@ If the difference is equal to the offset, the assertion succeeds.
 
 Example with `LocalDateTime`:
 
-[source,java,indent=0]
+[source,java]
 ----
 LocalDateTime actual = LocalDateTime.now(Clock.systemUTC());
 
@@ -4165,7 +4165,7 @@ assertThat(actual.plusSeconds(2)).isCloseToUtcNow(within(1, ChronoUnit.SECONDS))
 ----
 
 The same example works with `OffsetDateTime` by simply defining `actual` as:
-[source,java,indent=0]
+[source,java]
 ----
 OffsetDateTime actual = OffsetDateTime.now(Clock.systemUTC());
 ----
@@ -4179,7 +4179,7 @@ Here's an example of string following this format: `"2003-04-26T00:00:00.123+00:
 
 Example:
 
-[source,java,indent=0]
+[source,java]
 ----
 // GIVEN
 SimpleDateFormat isoFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS");
@@ -4197,7 +4197,7 @@ The recursive comparison added in 3.12.0 now compares `Optional` values recursiv
 
 Example:
 
-[source,java,indent=0]
+[source,java]
 ----
 // Song constructor parameters: song, author and coAuthor (optional)
 Song song = new Song("I Can't Get No Satisfaction", new Author("Mick Jagger"), new Author("Keith Richards"));
@@ -4209,7 +4209,7 @@ assertThat(song).usingRecursiveComparison()
 
 where `Song` and `Author` don't override `equals`:
 
-[source,java,indent=0]
+[source,java]
 ----
 class Song {
 
@@ -4244,7 +4244,7 @@ class Author {
 
 If we fail the test \...
 
-[source,java,indent=0]
+[source,java]
 ----
 Song song = new Song("I Can't Get No Satisfaction", new Author("Mick Jagger"), new Author("Jimi Hendrix"));
 Song expectedSong = new Song("I Can't Get No Satisfaction", new Author("Mick Jagger"), new Author("Keith Richards"));
@@ -4255,7 +4255,7 @@ assertThat(song).usingRecursiveComparison()
 
 \... here's the error reported:
 
-[source,text,indent=0]
+[source,text]
 ----
 Expecting:
   <Song [author=Mick Jagger, coAuthor=Optional[Jimi Hendrix], song=I Can't Get No Satisfaction]>
@@ -4282,7 +4282,7 @@ The recursive comparison added in 3.12.0 can now ignore collection order in all 
 
 Example:
 
-[source,java,indent=0]
+[source,java]
 ----
 public class Person {
   String name;
@@ -4314,7 +4314,7 @@ assertThat(sherlock1).usingRecursiveComparison()
 
 Example:
 
-[source,java,indent=0]
+[source,java]
 ----
 // Old implementation
 assertThat(yoda).extracting(Jedi::getName) // ObjectAssert<Object>
@@ -4363,7 +4363,7 @@ Pascal Schumacher, Erhard Pointl, Vladimir Chernikov, Sandra Parsick, Martin Tar
 
 WARNING: This removes the previously supported "`Iterable`" assertions (like `containsOnly`), call http://joel-costigliola.github.io/assertj/core-8/api/org/assertj/core/api/AbstractIteratorAssert.html#toIterable--[`IteratorAssert#toIterable`] to access them again, ex:
 
-[source,java,indent=0]
+[source,java]
 ----
 Iterator<String> bestBasketBallPlayers = getBestBasketBallPlayers();
 

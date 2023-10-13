@@ -19,7 +19,7 @@ To quickly start using DataBase assertions, follow the steps below.
 
 ===== Maven
 
-[source,xml,indent=0,subs=attributes+]
+[source,xml,subs=attributes+]
 ----
 <dependency>
   <groupId>org.assertj</groupId>
@@ -33,7 +33,7 @@ To quickly start using DataBase assertions, follow the steps below.
 
 For Gradle users (using the Maven Central Repository)
 
-[source,java,indent=0,subs=attributes+]
+[source,java,subs=attributes+]
 ----
 testCompile("org.assertj:assertj-db:{assertj-db-version}")
 ----
@@ -48,7 +48,7 @@ Check this page to find the relevant http://search.maven.org/#artifactdetails|or
 
 Example from {assertj-examples-repo}/blob/main/assertions-examples/src/test/java/org/assertj/examples/db/TableAssertionExamples.java[TableAssertionExamples.java] :
 
-[source,java,indent=0]
+[source,java]
 ----
 include::{testDir}/example/db/TableAssertionExamples.java[tags=user_guide]
 ----
