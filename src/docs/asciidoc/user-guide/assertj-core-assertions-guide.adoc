@@ -1157,7 +1157,7 @@ As an example, let's check the name, age and race's name of each TolkienCharacte
 // when checking several properties/fields you have to use tuples:
 import static org.assertj.core.api.Assertions.tuple;
 
-// extracting name, age and and race.name nested property
+// extracting name, age and race.name nested property
 assertThat(fellowshipOfTheRing).extracting("name", "age", "race.name")
                                .contains(tuple("Boromir", 37, "Man"),
                                          tuple("Sam", 38, "Hobbit"),
@@ -1298,7 +1298,7 @@ assertThat(throwableWithMessage).hasMessage("wrong amount 123")
 [[assertj-core-throwable-cause-and-root-cause-assertions]]
 ===== Checking the cause and root cause
 
-There are two approaches to check the the cause and root cause, either directly or navigate to it with `getCause()` and `getRootCause()` and check it.
+There are two approaches to check the cause and root cause, either directly or navigate to it with `getCause()` and `getRootCause()` and check it.
 
 ====== Checking the cause
 
@@ -1768,7 +1768,7 @@ There are a few ways to specify the fields to ignore:
 
 Nested fields can be specified like this: `home.address.street`
 
-It is also possible to ignore the the object under test with `ignoringActualNullFields()`.
+It is also possible to ignore the object under test with `ignoringActualNullFields()`.
 
 Examples
 

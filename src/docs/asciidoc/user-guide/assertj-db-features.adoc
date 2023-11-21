@@ -537,7 +537,7 @@ methods which allows to navigate to the next change of creation, modification an
 ----
 // If it is the first call, navigate to the first change of creation
 assertThat(changes).changeOfCreation()...
-// Navigate to the the first change of creation
+// Navigate to the first change of creation
 // and after the second change of creation
 assertThat(changes).changeOfCreation().changeOfCreation()...
 ----
