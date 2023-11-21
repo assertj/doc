@@ -1298,7 +1298,7 @@ assertThat(throwableWithMessage).hasMessage("wrong amount 123")
 [[assertj-core-throwable-cause-and-root-cause-assertions]]
 ===== Checking the cause and root cause
 
-There are two approaches to check the the cause and root cause, either directly or navigate to it with `getCause()` and `getRootCause()` and check it.
+There are two approaches to check the cause and root cause, either directly or navigate to it with `getCause()` and `getRootCause()` and check it.
 
 ====== Checking the cause
 
@@ -1768,7 +1768,7 @@ There are a few ways to specify the fields to ignore:
 
 Nested fields can be specified like this: `home.address.street`
 
-It is also possible to ignore the the object under test with `ignoringActualNullFields()`.
+It is also possible to ignore the object under test with `ignoringActualNullFields()`.
 
 Examples
 
