@@ -1157,7 +1157,7 @@ As an example, let's check the name, age and race's name of each TolkienCharacte
 // when checking several properties/fields you have to use tuples:
 import static org.assertj.core.api.Assertions.tuple;
 
-// extracting name, age and and race.name nested property
+// extracting name, age and race.name nested property
 assertThat(fellowshipOfTheRing).extracting("name", "age", "race.name")
                                .contains(tuple("Boromir", 37, "Man"),
                                          tuple("Sam", 38, "Hobbit"),
