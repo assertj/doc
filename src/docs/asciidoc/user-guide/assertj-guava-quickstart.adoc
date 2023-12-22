@@ -34,7 +34,7 @@ testImplementation("org.assertj:assertj-guava:{assertj-version}")
 
 ===== Other build tools
 
-Check this page to find the relevant https://central.sonatype.dev/artifact/org.assertj/assertj-guava/{assertj-version}[AssertJ Guava dependency declaration].
+Check this page to find the relevant https://central.sonatype.com/artifact/org.assertj/assertj-guava/{assertj-version}[AssertJ Guava dependency declaration].
 
 ==== Use Assertions class entry point
 
