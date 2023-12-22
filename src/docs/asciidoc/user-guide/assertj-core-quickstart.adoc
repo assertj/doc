@@ -39,7 +39,7 @@ testImplementation("org.assertj:assertj-core:{assertj-version}")
 
 ===== Other build tools
 
-Check this page to find the relevant https://central.sonatype.dev/artifact/org.assertj/assertj-core/{assertj-version}[Assertj Core dependency declaration].
+Check this page to find the relevant https://central.sonatype.com/artifact/org.assertj/assertj-core/{assertj-version}[Assertj Core dependency declaration].
 
 ===== Spring Boot
 
