@@ -2,7 +2,7 @@
 
 === Dependency Metadata
 
-Artifacts for final releases and milestones are deployed to https://central.sonatype.dev/[Maven Central].
+Artifacts for final releases and milestones are deployed to https://central.sonatype.com/[Maven Central].
 Snapshot artifacts are not deployed.
 
 [[dependency-metadata-assertj-core]]
