@@ -5410,7 +5410,10 @@ assertThat(sherlock).isEqualTo(sherlock2);</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>The comparison is <strong>not symmetrical</strong> since it is <strong>limited to actual&#8217;s fields</strong>, the algorithm gather actual&#8217;s fields and then compare them to the corresponding expected&#8217;s fields. It is then possible for the expected object to have more fields than actual which can be handy when comparing a base type to a subtype with additional fields.</p>
+<p>The comparison is <strong>not symmetrical</strong> since it is <strong>limited to actual&#8217;s fields</strong>.</p>
+</div>
+<div class="paragraph">
+<p>The algorithm gathers <code>actual</code> fields and then compares them to the corresponding <code>expected</code> fields. It is then possible for the <code>expected</code> object to have more fields than <code>actual</code>, which can be handy when comparing a base type to a subtype with additional fields.</p>
 </div>
 </div>
 <div class="sect4">
@@ -21557,7 +21560,7 @@ Snapshot artifacts are not deployed.</p>
 <div id="footer">
 <div id="footer-text">
 Version 1.0<br>
-Last updated 2024-02-05 14:47:52 UTC
+Last updated 2024-02-17 08:20:58 UTC
 </div>
 </div>
 <link rel="stylesheet" href="highlight/styles/railscasts.min.css">
