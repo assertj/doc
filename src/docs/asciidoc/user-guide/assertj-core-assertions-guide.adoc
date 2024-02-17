@@ -1646,7 +1646,9 @@ Here's a simple example:
  assertThat(sherlock).isEqualTo(sherlock2);
 ----
 
-The comparison is *not symmetrical* since it is *limited to actual's fields*, the algorithm gather actual's fields and then compare them to the corresponding expected's fields. It is then possible for the expected object to have more fields than actual which can be handy when comparing a base type to a subtype with additional fields.
+The comparison is *not symmetrical* since it is *limited to `actual` fields*.
+
+The algorithm gathers `actual` fields and then compares them to the corresponding `expected` fields. It is then possible for the `expected` object to have more fields than `actual`, which can be handy when comparing a base type to a subtype with additional fields.
 
 ===== How field values are resolved
 
