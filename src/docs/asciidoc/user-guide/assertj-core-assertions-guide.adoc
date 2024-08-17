@@ -1298,14 +1298,14 @@ assertThat(throwableWithMessage).hasMessage("wrong amount 123")
 [[assertj-core-throwable-cause-and-root-cause-assertions]]
 ===== Checking the cause and root cause
 
-There are two approaches to check the cause and root cause, either directly or navigate to it with `getCause()` and `getRootCause()` and check it.
+There are two approaches to check the cause and root cause, either directly or navigate to it with `cause()` and `rootCause()` and check it.
 
 ====== Checking the cause
 
-You can check the cause directly if you know it but that's not always possible, in that case you can basically only check its type.
-This is pretty limited in term of assertions, a better approach is to navigate to the cause with `getCause()` and take advantage of all existing exception assertions.
+You can check the cause directly if you know it, but that's not always possible, and in such cases you can only check its type.
+This is pretty limited in terms of assertions, a better approach is to navigate to the cause with `cause()` and take advantage of all existing exception assertions.
 
-Direct cause assertion are limited ...
+Direct cause assertions are limited ...
 [source,java]
 ----
 NullPointerException cause = new NullPointerException("boom!");
@@ -1319,11 +1319,11 @@ assertThat(throwable).hasCause(cause)
                      .hasCauseExactlyInstanceOf(NullPointerException.class);
 ----
 
-\... but navigating to the cause allows to take advantage of all exception assertions:
+\... but navigating to the cause allows taking advantage of all exception assertions:
 [source,java]
 ----
 // navigate before checking
-assertThat(throwable).getCause()
+assertThat(throwable).cause()
                      .hasMessage("boom!")
                      .hasMessage("%s!", "boom")
                      .hasMessageStartingWith("bo")
@@ -1353,7 +1353,7 @@ assertThatExceptionOfType(RuntimeException.class)
 ====== Checking the root cause
 
 You can check the root cause directly with `hasRootCause`, `hasRootCauseMessage` and `hasRootCauseInstanceOf` if you have access to it but that's not always possible, this is a bit limited
-in term of assertions, a better way is to navigate to the root cause with `getRootCause()` and take advantage of all existing exception assertions.
+in terms of assertions, a better way is to navigate to the root cause with `rootCause()` and take advantage of all existing exception assertions.
 
 Examples:
 [source,java]
@@ -1372,7 +1372,7 @@ assertThat(throwable).hasRootCause(rootCause)
                      .hasRootCauseExactlyInstanceOf(NullPointerException.class);
 
 // navigate to root cause and check
-assertThat(throwable).getRootCause()
+assertThat(throwable).rootCause()
                      .hasMessage("null!")
                      .hasMessage("%s!", "null")
                      .hasMessageStartingWith("nu")
