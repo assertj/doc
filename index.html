@@ -4808,16 +4808,16 @@ assertThat(throwableWithMessage).hasMessage("wrong amount 123")
 <div class="sect4">
 <h5 id="assertj-core-throwable-cause-and-root-cause-assertions"><a class="anchor" href="#assertj-core-throwable-cause-and-root-cause-assertions"></a>Checking the cause and root cause</h5>
 <div class="paragraph">
-<p>There are two approaches to check the cause and root cause, either directly or navigate to it with <code>getCause()</code> and <code>getRootCause()</code> and check it.</p>
+<p>There are two approaches to check the cause and root cause, either directly or navigate to it with <code>cause()</code> and <code>rootCause()</code> and check it.</p>
 </div>
 <div class="sect5">
 <h6 id="checking-the-cause"><a class="anchor" href="#checking-the-cause"></a>Checking the cause</h6>
 <div class="paragraph">
-<p>You can check the cause directly if you know it but that&#8217;s not always possible, in that case you can basically only check its type.
-This is pretty limited in term of assertions, a better approach is to navigate to the cause with <code>getCause()</code> and take advantage of all existing exception assertions.</p>
+<p>You can check the cause directly if you know it, but that&#8217;s not always possible, and in such cases you can only check its type.
+This is pretty limited in terms of assertions, a better approach is to navigate to the cause with <code>cause()</code> and take advantage of all existing exception assertions.</p>
 </div>
 <div class="paragraph">
-<p>Direct cause assertion are limited &#8230;&#8203;</p>
+<p>Direct cause assertions are limited &#8230;&#8203;</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -4833,12 +4833,12 @@ assertThat(throwable).hasCause(cause)
 </div>
 </div>
 <div class="paragraph">
-<p>... but navigating to the cause allows to take advantage of all exception assertions:</p>
+<p>... but navigating to the cause allows taking advantage of all exception assertions:</p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code data-lang="java" class="language-java hljs">// navigate before checking
-assertThat(throwable).getCause()
+assertThat(throwable).cause()
                      .hasMessage("boom!")
                      .hasMessage("%s!", "boom")
                      .hasMessageStartingWith("bo")
@@ -4871,7 +4871,7 @@ assertThat(throwable).getCause()
 <h6 id="checking-the-root-cause"><a class="anchor" href="#checking-the-root-cause"></a>Checking the root cause</h6>
 <div class="paragraph">
 <p>You can check the root cause directly with <code>hasRootCause</code>, <code>hasRootCauseMessage</code> and <code>hasRootCauseInstanceOf</code> if you have access to it but that&#8217;s not always possible, this is a bit limited
-in term of assertions, a better way is to navigate to the root cause with <code>getRootCause()</code> and take advantage of all existing exception assertions.</p>
+in terms of assertions, a better way is to navigate to the root cause with <code>rootCause()</code> and take advantage of all existing exception assertions.</p>
 </div>
 <div class="paragraph">
 <p>Examples:</p>
@@ -4892,7 +4892,7 @@ assertThat(throwable).hasRootCause(rootCause)
                      .hasRootCauseExactlyInstanceOf(NullPointerException.class);
 
 // navigate to root cause and check
-assertThat(throwable).getRootCause()
+assertThat(throwable).rootCause()
                      .hasMessage("null!")
                      .hasMessage("%s!", "null")
                      .hasMessageStartingWith("nu")
@@ -21438,7 +21438,7 @@ Snapshot artifacts are not deployed.</p>
 <div id="footer">
 <div id="footer-text">
 Version 1.0<br>
-Last updated 2024-08-16 07:33:16 UTC
+Last updated 2024-08-17 08:25:30 UTC
 </div>
 </div>
 <link rel="stylesheet" href="highlight/styles/railscasts.min.css">
