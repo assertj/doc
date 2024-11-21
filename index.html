@@ -15996,7 +15996,7 @@ It requires Java 8 or later and can be used with either JUnit or TestNG.</p>
 <pre class="highlightjs highlight"><code data-lang="xml" class="language-xml hljs">&lt;dependency&gt;
   &lt;groupId&gt;org.assertj&lt;/groupId&gt;
   &lt;artifactId&gt;assertj-db&lt;/artifactId&gt;
-  &lt;version&gt;2.0.2&lt;/version&gt;
+  &lt;version&gt;3.0.0&lt;/version&gt;
   &lt;scope&gt;test&lt;/scope&gt;
 &lt;/dependency&gt;</code></pre>
 </div>
@@ -16009,7 +16009,7 @@ It requires Java 8 or later and can be used with either JUnit or TestNG.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code data-lang="java" class="language-java hljs">testCompile("org.assertj:assertj-db:2.0.2")</code></pre>
+<pre class="highlightjs highlight"><code data-lang="java" class="language-java hljs">testCompile("org.assertj:assertj-db:3.0.0")</code></pre>
 </div>
 </div>
 </div>
@@ -16032,11 +16032,14 @@ It requires Java 8 or later and can be used with either JUnit or TestNG.</p>
 <div class="content">
 <pre class="highlightjs highlight"><code data-lang="java" class="language-java hljs">import static org.assertj.db.api.Assertions.assertThat;
 
+import org.assertj.db.type.AssertDbConnection;
+import org.assertj.db.type.AssertDbConnectionFactory;
 import org.assertj.db.type.DateValue;
-import org.assertj.db.type.Source;
 import org.assertj.db.type.Table;
 
-Table table = new Table(dataSource, "members");
+private AssertDbConnection assertDbConnection = AssertDbConnectionFactory.of("jdbc:h2:mem:test", "sa", "").create();
+
+Table table = assertDbConnection.table("members");
 
 // Check column "name" values
 assertThat(table).column("name")
@@ -16115,16 +16118,13 @@ But for the backward compatibility, it&#8217;s always possible to use AssertJ-DB
 <div class="ulist">
 <ul>
 <li>
-<p><a href="#assertj-db-concepts-datasource">DataSource</a></p>
+<p><a href="#assertj-db-concepts-assertdbconnection">AssertDbConnection</a> <span class="small">(since <a href="#assertj-db-3-0-0-release-notes">3.0.0</a>)</span></p>
 </li>
 <li>
-<p><a href="#assertj-db-concepts-source">Source</a></p>
+<p><a href="#assertj-db-concepts-assertdbconnectionlettercase">LetterCase setup</a> <span class="small">(since <a href="#assertj-db-3-0-0-release-notes">3.0.0</a>)</span></p>
 </li>
 <li>
-<p><a href="#assertj-db-concepts-datasourcewithlettercase">DataSource with LetterCase</a> <span class="small">(since <a href="#assertj-db-1-1-0-release-notes">1.1.0</a>)</span></p>
-</li>
-<li>
-<p><a href="#assertj-db-concepts-sourcewithlettercase">Source with LetterCase</a> <span class="small">(since <a href="#assertj-db-1-1-0-release-notes">1.1.0</a>)</span></p>
+<p><a href="#assertj-db-concepts-assertdbconnectionmetadata">Schema retrieval mode</a> <span class="small">(since <a href="#assertj-db-3-0-0-release-notes">3.0.0</a>)</span></p>
 </li>
 </ul>
 </div>
@@ -16134,13 +16134,13 @@ But for the backward compatibility, it&#8217;s always possible to use AssertJ-DB
 <div class="ulist">
 <ul>
 <li>
-<p><a href="#assertj-db-concepts-table">Table</a> <span class="small">(modified in <a href="#assertj-db-1-2-0-release-notes">1.2.0</a>)</span></p>
+<p><a href="#assertj-db-concepts-table">Table</a> <span class="small">(modified in <a href="#assertj-db-1-2-0-release-notes">3.0.0</a>)</span></p>
 </li>
 <li>
-<p><a href="#assertj-db-concepts-request">Request</a></p>
+<p><a href="#assertj-db-concepts-request">Request</a> <span class="small">(modified in <a href="#assertj-db-1-2-0-release-notes">3.0.0</a>)</span></p>
 </li>
 <li>
-<p><a href="#assertj-db-concepts-changes">Changes</a></p>
+<p><a href="#assertj-db-concepts-changes">Changes</a> <span class="small">(modified in <a href="#assertj-db-1-2-0-release-notes">3.0.0</a>)</span></p>
 </li>
 <li>
 <p><a href="#assertj-db-concepts-change">Change</a></p>
@@ -16453,47 +16453,52 @@ But for the backward compatibility, it&#8217;s always possible to use AssertJ-DB
 <div class="sect3">
 <h4 id="assertj-db-concepts-connection"><a class="anchor" href="#assertj-db-concepts-connection"></a>6.2.1. Connection to the database</h4>
 <div class="paragraph">
-<p>To make assertions on a database, it is necessary to connect. For that, either to use a <code>DataSource</code>
-or a <code>Source</code>.</p>
+<p>To make assertions on a database, it is necessary to connect. The concept of <code>AssertDbConnection</code> represent how
+AssertJ-DB can retrieve data and schema information from database.</p>
+</div>
+<div class="paragraph">
+<p>It&#8217;s also with a <code>AssertDbConnection</code> that you can instantiate the following element : <code>Table</code>, <code>Request</code>, <code>Changes</code>.</p>
 </div>
 <div class="sect4">
-<h5 id="assertj-db-concepts-datasource"><a class="anchor" href="#assertj-db-concepts-datasource"></a>DataSource</h5>
+<h5 id="assertj-db-concepts-assertdbconnection"><a class="anchor" href="#assertj-db-concepts-assertdbconnection"></a>AssertDbConnection</h5>
 <div class="paragraph">
-<p>A <a href="http://docs.oracle.com/javase/6/docs/api/javax/sql/DataSource.html">DataSource</a> is the classic Java way
-to get a <a href="http://docs.oracle.com/javase/6/docs/api/java/sql/Connection.html">Connection</a> to a database.</p>
+<p>A <a href="https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/AssertDbConnection.html">AssertDbConnection</a>
+is created with the factory <a href="https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/AssertDbConnectionFactory.html">AssertDbConnectionFactory</a>.</p>
 </div>
-</div>
-<div class="sect4">
-<h5 id="assertj-db-concepts-source"><a class="anchor" href="#assertj-db-concepts-source"></a>Source</h5>
 <div class="paragraph">
-<p>A <a href="https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Source.html">Source</a> is a way
-to connect if you have not access to a DataSource or if you do not want to use one. It allows you
-to pass the necessary connection information as constructor parameters. Below is an example of using a Source
-to connect to H2 in memory database :</p>
+<p>There are 2 way to begin the AssertDbConnectionFactory, with a <a href="http://docs.oracle.com/javase/6/docs/api/javax/sql/DataSource.html">DataSource</a> ( the classic Java way
+to get a <a href="http://docs.oracle.com/javase/6/docs/api/java/sql/Connection.html">Connection</a> to a database ) or with JDBC connection information.</p>
+</div>
+<div class="paragraph">
+<p>Below is an example of using a DataSource to connect to H2 in memory database :</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code data-lang="java" class="language-java hljs">Source source = new Source("jdbc:h2:mem:test", "sa", "");</code></pre>
+<pre class="highlightjs highlight"><code data-lang="java" class="language-java hljs">AssertDbConnection connection = AssertDbConnectionFactory.of("jdbc:h2:mem:test", "sa", "").create();</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>And using a DataSource to connect :</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="java" class="language-java hljs">AssertDbConnection connection = AssertDbConnectionFactory.of(dataSource).create();</code></pre>
 </div>
 </div>
 </div>
 <div class="sect4">
-<h5 id="assertj-db-concepts-datasourcewithlettercase"><a class="anchor" href="#assertj-db-concepts-datasourcewithlettercase"></a>DataSource with LetterCase</h5>
+<h5 id="assertj-db-concepts-assertdbconnectionlettercase"><a class="anchor" href="#assertj-db-concepts-assertdbconnectionlettercase"></a>LetterCase setup</h5>
 <div class="paragraph">
-<p>Since <a href="#assertj-db-1-1-0-release-notes">1.1.0</a></p>
-</div>
-<div class="paragraph">
-<p>A <a href="https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/DataSourceWithLetterCase.html">DataSourceWithLetterCase</a> is a
-      <a href="http://docs.oracle.com/javase/6/docs/api/javax/sql/DataSource.html">DataSource</a> which allows to indicate the
-      <a href="https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/lettercase/LetterCase.html">LetterCase</a>
-for the tables, columns and primary keys.</p>
+<p><a href="https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/AssertDbConnectionFactory.html">AssertDbConnectionFactory</a>
+provide the capacity to indicate the <a href="https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/lettercase/LetterCase.html">LetterCase</a>
+to use for the tables, columns and primary keys.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code data-lang="java" class="language-java hljs">DataSource ds = new DataSourceWithLetterCase(dataSource,
-                                             tableLetterCase,
-                                             columnLetterCase,
-                                             pkLetterCase);</code></pre>
+<pre class="highlightjs highlight"><code data-lang="java" class="language-java hljs">AssertDbConnection connection = AssertDbConnectionFactory
+    .of(dataSource)
+    .letterCase(tableLetterCase, columnLetterCase, pkLetterCase)
+    .create();</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -16501,26 +16506,42 @@ for the tables, columns and primary keys.</p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="assertj-db-concepts-sourcewithlettercase"><a class="anchor" href="#assertj-db-concepts-sourcewithlettercase"></a>Source with LetterCase</h5>
+<h5 id="assertj-db-concepts-assertdbconnectionmetadata"><a class="anchor" href="#assertj-db-concepts-assertdbconnectionmetadata"></a>Schema retrieval mode</h5>
 <div class="paragraph">
-<p>Since <a href="#assertj-db-1-1-0-release-notes">1.1.0</a></p>
+<p>Since <a href="#assertj-db-1-1-0-release-notes">3.0.0</a></p>
 </div>
 <div class="paragraph">
-<p>A <a href="https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/SourceWithLetterCase.html">SourceWithLetterCase</a> is a
-      <a href="https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Source.html">Source</a> which allows to indicate the
-      <a href="https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/lettercase/LetterCase.html">LetterCase</a>
-for the tables, columns and primary keys.</p>
+<p>For many assertions, AssertJ-DB require to discover database schema metadata ( list of tables, columns, &#8230;&#8203; ).
+When the schema contains many tables this operation can slow down the tests executions.</p>
+</div>
+<div class="paragraph">
+<p>To avoid that and when the database schema is not updated during the test session, you can use the option
+<a href="https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/SchemaMetaDataMode.html">SchemaMetaDataMode</a> of
+<a href="https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/AssertDbConnectionFactory.html">AssertDbConnectionFactory</a>
+to keep in memory the schema.</p>
+</div>
+<div class="paragraph">
+<p>Available mode are :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>DYNAMIC ( default ): Retrieve schema metadata each time is required.</p>
+</li>
+<li>
+<p>STATIC : Retrieve schema metadata only once and keep in memory for all duration of connection.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Below is an example of using the STATIC mode for a connection :</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code data-lang="java" class="language-java hljs">Source s = new SourceWithLetterCase("jdbc:h2:mem:test", "sa", "",
-                                    tableLetterCase,
-                                    columnLetterCase,
-                                    pkLetterCase);</code></pre>
+<pre class="highlightjs highlight"><code data-lang="java" class="language-java hljs">AssertDbConnection connection = AssertDbConnectionFactory.of(dataSource)
+    .schemaMetaDataMode(SchemaMetaDataMode.STATIC)
+    .create();</code></pre>
 </div>
-</div>
-<div class="paragraph">
-<p>For more information, see the <a href="#assertj-db-concepts-dblettercase">paragraph on LetterCase</a>.</p>
 </div>
 </div>
 </div>
@@ -16547,26 +16568,23 @@ and <a href="https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assert
 a table in the database.</p>
 </div>
 <div class="paragraph">
-<p>A <a href="https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Table.html">Table</a>
-needs a way to connect to the database (either a <a href="http://docs.oracle.com/javase/6/docs/api/javax/sql/DataSource.html">DataSource</a>
-or a <a href="https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Source.html">Source</a>) and a name (the two mandatory constructor parameters).</p>
+<p>A <a href="https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Table.html">Table</a> can be constructed with the builder method <code>table(String name)</code> from
+<a href="https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/AssertDbConnection.html">AssertDbConnection</a>.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code data-lang="java" class="language-java hljs">// Get a DataSource
-DataSource dataSource = ...
-// Declare the "members" table by using a DataSource
-Table table1 = new Table(dataSource, "members");
-// Declare the "members" table by using a Source
-Table table2 = new Table(source, "members");</code></pre>
+<pre class="highlightjs highlight"><code data-lang="java" class="language-java hljs">// Prepare the connection
+AssertDbConnection connection = ...
+// Declare the "members" table by using a AssertDbConnection table builder
+Table table1 = connection.table("members").build();</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>The two <a href="https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Table.html">Table</a>s above
-(<code>table1</code> and <code>table2</code>) are equivalent.</p>
+<p>For more information about table construction, see the
+<a href="https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Table.Builder.html">Table.Builder</a> javadoc.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 4. Representation of "table1" or "table2"</caption>
+<caption class="title">Table 4. Representation of "table1"</caption>
 <colgroup>
 <col style="width: 16.6666%;">
 <col style="width: 16.6666%;">
@@ -16627,15 +16645,15 @@ it is possible to choose the columns to include and to exclude in the assertions
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code data-lang="java" class="language-java hljs">// Get the data of the "id" and "name" columns of the "members" table
-Table table3 = new Table(source, "members", new String[] { "id", "name" }, null);
+Table table2 = connection.table("members").columnsToCheck(new String[] { "id", "name" }).build();
 // Get the data of the "members" table but not of the "birthdate" column
-Table table4 = new Table(source, "members", null, new String[] { "birthdate" });
+Table table3 = connection.table("members").columnsToExclude(new String[] { "birthdate" }).build();
 // Get the data of the "name" column of the "members" table (because "id" is included and excluded)
-Table table5 = new Table(source, "members", new String[] { "id", "name" }, new String[] { "id" });</code></pre>
+Table table4 = connection.table("members").columnsToCheck(new String[] { "id", "name" }).columnsToExclude(new String[] { "id" }).build();</code></pre>
 </div>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 5. Representation of "table3"</caption>
+<caption class="title">Table 5. Representation of "table2"</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -16666,7 +16684,7 @@ Table table5 = new Table(source, "members", new String[] { "id", "name" }, new S
 </tbody>
 </table>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 6. Representation of "table4"</caption>
+<caption class="title">Table 6. Representation of "table3"</caption>
 <colgroup>
 <col style="width: 20%;">
 <col style="width: 20%;">
@@ -16715,7 +16733,7 @@ Table table5 = new Table(source, "members", new String[] { "id", "name" }, new S
 </tbody>
 </table>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 7. Representation of "table5"</caption>
+<caption class="title">Table 7. Representation of "table4"</caption>
 <colgroup>
 <col style="width: 100%;">
 </colgroup>
@@ -16743,25 +16761,23 @@ Table table5 = new Table(source, "members", new String[] { "id", "name" }, new S
 <p>Since version <a href="#assertj-db-1-2-0-release-notes">1.2.0</a>, there are the possibility to indicate delimiters (start delimiter and end delimiter) and <code><a href="https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Table.Order.html">Order</a></code>.</p>
 </div>
 <div class="paragraph">
-<p>The delimiters are usefull when the table name or column name is a reserved word or contains special characters (like space or '%').
+<p>The delimiters are useful when the table name or column name is a reserved word or contains special characters (like space or '%').
       <code><a href="https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Table.Order.html">Order</a></code> allows to choose the order of the <code>Row</code>.</p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code data-lang="java" class="language-java hljs">// The line code below throws SQLException because "group" is SQL reserved word
-Table table6 = new Table(source, "group");
+Table table5 = connection.table("group").build();
 // Get the data of the "group" table by using "`" delimiter
 // That generates a request
-Table table7 = new Table(source, "group", '`', '`');
+Table table6 = connection.table("group").delimiters('`', '`').build();
 
 // Get the data from "members" table and order on "name" column in ascending order
-Table table8 = new Table(source, "members", new Order[] {
-                                                        Order.asc("name")
-                                                      });</code></pre>
+Table table7 = connection.table("members").columnsToOrder(new Order[] { Order.asc("name") }).build();</code></pre>
 </div>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 8. Representation of "table7"</caption>
+<caption class="title">Table 8. Representation of "table6"</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -16784,7 +16800,7 @@ Table table8 = new Table(source, "members", new Order[] {
 </tbody>
 </table>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 9. Representation of "table8"</caption>
+<caption class="title">Table 9. Representation of "table7"</caption>
 <colgroup>
 <col style="width: 16.6666%;">
 <col style="width: 16.6666%;">
@@ -16848,29 +16864,23 @@ a SQL request on the database.</p>
 <div class="paragraph">
 <p>Like a <a href="https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Table.html">Table</a>,
 a <a href="https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Request.html">Request</a>
-needs a way to connect to the database (either a <a href="http://docs.oracle.com/javase/6/docs/api/javax/sql/DataSource.html">DataSource</a>
-or a <a href="https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Source.html">Source</a>).</p>
+can be constructed with the builder method <code>request(String sql)</code> from
+<a href="https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/AssertDbConnection.html">AssertDbConnection</a>.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code data-lang="java" class="language-java hljs">// Get a DataSource
-DataSource dataSource = ...
+<pre class="highlightjs highlight"><code data-lang="java" class="language-java hljs">// Prepare the connection
+AssertDbConnection connection = ...
 // Declare a request which gets the name and the firstname of the corresponding members
-// by using a Source
-Request request1 = new Request(source,
-                               "select name, firstname from members where id = 2 or id = 3");
-// Declare a request which gets the name and the firstname of the corresponding members
-// by using the DataSource
-Request request2 = new Request(dataSource,
-                               "select name, firstname from members where id = 2 or id = 3");</code></pre>
+Request request1 = connection.request("select name, firstname from members where id = 2 or id = 3").build();</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>The two <a href="https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Request.html">Request</a>s above
-(<code>request1</code> and <code>request2</code>) are equivalent.</p>
+<p>For more information about request construction, see the
+<a href="https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Request.Builder.html">Request.Builder</a> javadoc.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 10. Representation of "request1" or "request2"</caption>
+<caption class="title">Table 10. Representation of "request1"</caption>
 <colgroup>
 <col style="width: 33.3333%;">
 <col style="width: 33.3333%;">
@@ -16904,21 +16914,22 @@ it is possible to use a simple SQL request or a SQL request with one or many par
 <div class="content">
 <pre class="highlightjs highlight"><code data-lang="java" class="language-java hljs">// Declare a request which gets the name and the firstname of the members
 // and use "%e%" as a parameter
-Request request3 = new Request(dataSource,
+Request request2 = connection.request(
                                "select name, firstname from members " +
-                               "where name like ?;",
-                               "%e%");
+                               "where name like ?;")
+                               .parameters("%e%")
+                               .build();
 // Declare a request which gets the name and the firstname of the members
 // and use "%e%" and "%Paul%" as parameters
-Request request4 = new Request(dataSource,
+Request request3 = connection.request(
                                "select name, firstname from members " +
-                               "where name like ? and firstname like ?;",
-                               "%e%",
-                               "%Paul%");</code></pre>
+                               "where name like ? and firstname like ?;")
+                               .parameters("%e%", "%Paul%")
+                               .build();</code></pre>
 </div>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 11. Representation of "request3"</caption>
+<caption class="title">Table 11. Representation of "request2"</caption>
 <colgroup>
 <col style="width: 33.3333%;">
 <col style="width: 33.3333%;">
@@ -16950,7 +16961,7 @@ Request request4 = new Request(dataSource,
 </tbody>
 </table>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 12. Representation of "request4"</caption>
+<caption class="title">Table 12. Representation of "request3"</caption>
 <colgroup>
 <col style="width: 33.3333%;">
 <col style="width: 33.3333%;">
@@ -16996,27 +17007,21 @@ UPDATE ALBUMS SET NAME = 'Rattle &amp; Hum', LIVE = true WHERE ID = 8;</code></p
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code data-lang="java" class="language-java hljs">// Get a DataSource
-DataSource dataSource = ...
+<pre class="highlightjs highlight"><code data-lang="java" class="language-java hljs">// Prepare the connection
+AssertDbConnection connection = ...
 // The changes can be on a DataSource or on a Source
-Changes changes1 = new Changes(dataSource);
-Changes changes2 = new Changes(source);
+Changes changes1 = connection.changes().build();
 // The changes can also be on a Table or on a Request
-Changes changes3 = new Changes(table4);
-Changes changes4 = new Changes(request3);
-Changes changes5 = new Changes(request4);
+Changes changes2 = connection.changes().table(table3).build();
+Changes changes3 = connection.changes().request(request2).build();
 // The names of the columns used for the primary key are found in the metadata for a table
 // but for a request it can be important to set the primary key
-Changes changes6 = new Changes(request4).setPksName("name");</code></pre>
+Changes changes4 = connection.changes().request("select name, firstname from members", r -&gt; r.pksName("name")).build();</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>The two <a href="https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Changes.html">Changes</a> above
-(<code>changes1</code> and <code>changes2</code>) are equivalent.</p>
-</div>
-<div class="paragraph">
-<p>The two <a href="https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Changes.html">Changes</a> above
-(<code>changes4</code> and <code>changes5</code>) are also equivalent.</p>
+<p>For more information about changes construction, see the
+<a href="https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Changes.Builder.html">Changes.Builder</a> javadoc.</p>
 </div>
 <div class="paragraph">
 <p>The changes are ordered :</p>
@@ -17027,7 +17032,7 @@ Changes changes6 = new Changes(request4).setPksName("name");</code></pre>
 <p>First by the type of the change : creation, modification and after deletion</p>
 </li>
 <li>
-<p>After if it a change on a table by the name of the table</p>
+<p>After if it is a change on a table by the name of the table</p>
 </li>
 <li>
 <p>To finish by the values of the primary key and if there are no primary key by the values of the row (for a modification)</p>
@@ -17039,10 +17044,10 @@ Changes changes6 = new Changes(request4).setPksName("name");</code></pre>
 But more important, the primary key is used to determinate which rows at the same with modifications.</p>
 </div>
 <div class="paragraph">
-<p>In Representation of "changes4" or "changes5" the modification of first row of the table become a creation and deletion.</p>
+<p>In Representation of "changes3" the modification of first row of the table become a creation and deletion.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 13. Representation of "changes1" or "changes2"</caption>
+<caption class="title">Table 13. Representation of "changes1"</caption>
 <colgroup>
 <col style="width: 10%;">
 <col style="width: 20%;">
@@ -17241,7 +17246,7 @@ But more important, the primary key is used to determinate which rows at the sam
 </tbody>
 </table>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 14. Representation of "changes3"</caption>
+<caption class="title">Table 14. Representation of "changes2"</caption>
 <colgroup>
 <col style="width: 10%;">
 <col style="width: 20%;">
@@ -17338,7 +17343,7 @@ But more important, the primary key is used to determinate which rows at the sam
 </tbody>
 </table>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 15. Representation of "changes4" or "changes5"</caption>
+<caption class="title">Table 15. Representation of "changes3"</caption>
 <colgroup>
 <col style="width: 10%;">
 <col style="width: 20%;">
@@ -17454,7 +17459,7 @@ But more important, the primary key is used to determinate which rows at the sam
 </tbody>
 </table>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 16. Representation of "changes6"</caption>
+<caption class="title">Table 16. Representation of "changes4"</caption>
 <colgroup>
 <col style="width: 10%;">
 <col style="width: 20%;">
@@ -17543,10 +17548,10 @@ is an element of the <a href="https://www.javadoc.io/doc/org.assertj/assertj-db/
 </div>
 <div class="paragraph">
 <p>Below framed in red the first <a href="https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Change.html">Change</a>
-of "changes3".</p>
+of "changes2".</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 17. Representation of "changes3"</caption>
+<caption class="title">Table 17. Representation of "changes2"</caption>
 <colgroup>
 <col style="width: 10%;">
 <col style="width: 20%;">
@@ -17652,10 +17657,10 @@ can represent a row of a <a href="https://www.javadoc.io/doc/org.assertj/assertj
 of a <a href="https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Change.html">Change</a>.</p>
 </div>
 <div class="paragraph">
-<p>Below framed in red the third <a href="https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Row.html">Row</a> of "table4".</p>
+<p>Below framed in red the third <a href="https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Row.html">Row</a> of "table3".</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 18. Representation of "table4"</caption>
+<caption class="title">Table 18. Representation of "table3"</caption>
 <colgroup>
 <col style="width: 20%;">
 <col style="width: 20%;">
@@ -17704,10 +17709,10 @@ of a <a href="https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/asser
 </tbody>
 </table>
 <div class="paragraph">
-<p>Below framed in red the second <a href="https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Row.html">Row</a> of "request3".</p>
+<p>Below framed in red the second <a href="https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Row.html">Row</a> of "request2".</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 19. Representation of "request3"</caption>
+<caption class="title">Table 19. Representation of "request2"</caption>
 <colgroup>
 <col style="width: 33.3333%;">
 <col style="width: 33.3333%;">
@@ -17744,7 +17749,7 @@ the second <a href="https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org
 of "changes3".</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 20. Representation of "changes3"</caption>
+<caption class="title">Table 20. Representation of "changes2"</caption>
 <colgroup>
 <col style="width: 10%;">
 <col style="width: 20%;">
@@ -17850,10 +17855,10 @@ can represent a column of a <a href="https://www.javadoc.io/doc/org.assertj/asse
 of a <a href="https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Change.html">Change</a>.</p>
 </div>
 <div class="paragraph">
-<p>Below framed in red the second <a href="https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Column.html">Column</a> of "table4".</p>
+<p>Below framed in red the second <a href="https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Column.html">Column</a> of "table3".</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 21. Representation of "table4"</caption>
+<caption class="title">Table 21. Representation of "table3"</caption>
 <colgroup>
 <col style="width: 20%;">
 <col style="width: 20%;">
@@ -17902,10 +17907,10 @@ of a <a href="https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/asser
 </tbody>
 </table>
 <div class="paragraph">
-<p>Below framed in red the second <a href="https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Column.html">Column</a> of "request3".</p>
+<p>Below framed in red the second <a href="https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Column.html">Column</a> of "request2".</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 22. Representation of "request3"</caption>
+<caption class="title">Table 22. Representation of "request2"</caption>
 <colgroup>
 <col style="width: 33.3333%;">
 <col style="width: 33.3333%;">
@@ -17942,7 +17947,7 @@ the second <a href="https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org
 of "changes3".</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 23. Representation of "changes3"</caption>
+<caption class="title">Table 23. Representation of "changes2"</caption>
 <colgroup>
 <col style="width: 10%;">
 <col style="width: 20%;">
@@ -18051,15 +18056,15 @@ or in a <a href="https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/as
 <div class="ulist">
 <ul>
 <li>
-<p>the second value of the third <a href="https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Row.html">Row</a> of "table4"</p>
+<p>the second value of the third <a href="https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Row.html">Row</a> of "table3"</p>
 </li>
 <li>
-<p>the third value of the second <a href="https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Column.html">Column</a> of "table4"</p>
+<p>the third value of the second <a href="https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Column.html">Column</a> of "table3"</p>
 </li>
 </ul>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 24. Representation of "table4"</caption>
+<caption class="title">Table 24. Representation of "table3"</caption>
 <colgroup>
 <col style="width: 20%;">
 <col style="width: 20%;">
@@ -18113,15 +18118,15 @@ or in a <a href="https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/as
 <div class="ulist">
 <ul>
 <li>
-<p>the second value of the second <a href="https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Row.html">Row</a> of "request3"</p>
+<p>the second value of the second <a href="https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Row.html">Row</a> of "request2"</p>
 </li>
 <li>
-<p>the second value of the second <a href="https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Column.html">Column</a> of "request3"</p>
+<p>the second value of the second <a href="https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Column.html">Column</a> of "request2"</p>
 </li>
 </ul>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 25. Representation of "request3"</caption>
+<caption class="title">Table 25. Representation of "request2"</caption>
 <colgroup>
 <col style="width: 33.3333%;">
 <col style="width: 33.3333%;">
@@ -18160,17 +18165,17 @@ or in a <a href="https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/as
 <li>
 <p>the fourth value of the <a href="https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Row.html">Row</a> at end point of
 the second <a href="https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Change.html">Change</a>
-of "changes3"</p>
+of "changes2"</p>
 </li>
 <li>
 <p>the value at end point of the fourth <a href="https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Column.html">Column</a> of
 the second <a href="https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Change.html">Change</a>
-of "changes3"</p>
+of "changes2"</p>
 </li>
 </ul>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 26. Representation of "changes3"</caption>
+<caption class="title">Table 26. Representation of "changes2"</caption>
 <colgroup>
 <col style="width: 10%;">
 <col style="width: 20%;">
@@ -18612,11 +18617,11 @@ for an assertion on a value of the row at end point of a change on a table</p>
 </div>
 <div class="paragraph">
 <p>Databases have different letter cases for the name of the elements.
-For example, the name of the table can be upper case either the name is inputed in upper case or not. So this concept (and feature too) is here to manage these shades.</p>
+For example, the name of the table can be upper case either the name is inputted in upper case or not. So this concept (and feature too) is here to manage these shades.</p>
 </div>
 <div class="paragraph">
 <p>It is possible to declare a <a href="https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/lettercase/LetterCase.html">LetterCase</a>
-with a <a href="#assertj-db-concepts-datasourcewithlettercase">DataSource with LetterCase</a> or with a <a href="#assertj-db-concepts-sourcewithlettercase">Source with LetterCase</a>.</p>
+with a <a href="#assertj-db-concepts-assertdbconnectionlettercase">AssertDbConnection with LetterCase</a>.</p>
 </div>
 <div class="paragraph">
 <p>The concept of <a href="https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/lettercase/LetterCase.html">LetterCase</a> is composed of <a href="https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/lettercase/CaseConversion.html">CaseConversion</a> and <a href="https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/lettercase/CaseComparison.html">CaseComparison</a>.</p>
@@ -18655,14 +18660,13 @@ static method which has a
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code data-lang="java" class="language-java hljs">LetterCase letterCase = LetterCase.getLetterCase(CaseConversions.NO, CaseComparisons.IGNORE)</code></pre>
+<pre class="highlightjs highlight"><code data-lang="java" class="language-java hljs">LetterCase letterCase = LetterCase.getLetterCase(CaseConversions.NO, CaseComparisons.IGNORE);</code></pre>
 </div>
 </div>
 <div class="paragraph">
 <p>In AssertJ-DB, there are three different uses of a <a href="https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/lettercase/LetterCase.html">LetterCase</a> :
 the table name, the column name and the primary key name.
-That is the reason why the <a href="https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/DataSourceWithLetterCase.html">DataSourceWithLetterCase</a>
-and the <a href="https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/SourceWithLetterCase.html">SourceWithLetterCase</a> constructors
+That is the reason why the <a href="https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/AssertDbConnection.html">AssertDbConnection</a>
 have three <a href="https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/lettercase/LetterCase.html">LetterCase</a> parameters.</p>
 </div>
 <div class="paragraph">
@@ -18707,12 +18711,8 @@ for navigation (e.g. from changes to a change on a table) or for a assertion (li
 </ul>
 </div>
 <div class="paragraph">
-<p>The different <a href="https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/lettercase/LetterCase.html">LetterCase</a> are explictly indicated
-for <a href="https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/DataSourceWithLetterCase.html">DataSourceWithLetterCase</a>
-and <a href="https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/SourceWithLetterCase.html">SourceWithLetterCase</a>. But for
-      <a href="http://docs.oracle.com/javase/6/docs/api/javax/sql/DataSource.html">DataSource</a> and
-      <a href="https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Source.html">Source</a>, there are <a href="https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/lettercase/LetterCase.html">LetterCase</a>
-too but there are implicit :</p>
+<p>The default settings for <a href="https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/lettercase/LetterCase.html">LetterCase</a> in
+<a href="https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/AssertDbConnection.html">AssertDbConnection</a> are :</p>
 </div>
 <div class="ulist">
 <ul>
@@ -18727,43 +18727,20 @@ and <a href="https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assert
 </ul>
 </div>
 <div class="paragraph">
-<p>In this example, The uses of <a href="https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Source.html">Source</a>
-and <a href="https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/SourceWithLetterCase.html">SourceWithLetterCase</a>
-are equivalent :</p>
+<p>In this example, the two connections are equivalent :</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code data-lang="java" class="language-java hljs">Source source = new Source("jdbc:h2:mem:test", "sa", "");
-Table table = new Table(source, "members");
+<pre class="highlightjs highlight"><code data-lang="java" class="language-java hljs">AssertDbConnection jdbcConnection = AssertDbConnectionFactory.of("jdbc:h2:mem:test", "sa", "").create();
+Table table = jdbcConnection.table("members").build();
 
 LetterCase tableLetterCase = LetterCase.getLetterCase(CaseConversions.NO, CaseComparisons.IGNORE);
 LetterCase columnLetterCase = LetterCase.getLetterCase(CaseConversions.UPPER, CaseComparisons.IGNORE);
 LetterCase pkLetterCase = LetterCase.getLetterCase(CaseConversions.UPPER, CaseComparisons.IGNORE);
-Source sourceWithLC = new SourceWithLetterCase("jdbc:h2:mem:test", "sa", "",
-                                               tableLetterCase,
-                                               columnLetterCase,
-                                               pkLetterCase);
-Table tableWithLC = new Table(sourceWithLC, "members");</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>And in this example, the uses of <a href="http://docs.oracle.com/javase/6/docs/api/javax/sql/DataSource.html">DataSource</a>
-and <a href="https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/DataSourceWithLetterCase.html">DataSourceWithLetterCase</a>
-are equivalent :</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code data-lang="java" class="language-java hljs">DataSource dataSource = .....
-Table table = new Table(dataSource, "members");
-
-LetterCase tableLetterCase = LetterCase.getLetterCase(CaseConversions.NO, CaseComparisons.IGNORE);
-LetterCase columnLetterCase = LetterCase.getLetterCase(CaseConversions.UPPER, CaseComparisons.IGNORE);
-LetterCase pkLetterCase = LetterCase.getLetterCase(CaseConversions.UPPER, CaseComparisons.IGNORE);
-DataSource dataSourceWithLC = new DataSourceWithLetterCase(dataSource,
-                                                           tableLetterCase,
-                                                           columnLetterCase,
-                                                           pkLetterCase);
-Table tableWithLC = new Table(dataSourceWithLC, "members");</code></pre>
+AssertDbConnection connectionWithLC = AssertDbConnectionFactory.of("jdbc:h2:mem:test", "sa", "")
+                                        .letterCase(tableLetterCase, columnLetterCase, pkLetterCase)
+                                        .create();
+Table tableWithLC = connectionWithLC.table("members").build();</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -18789,7 +18766,7 @@ So this is not limited to the implementations in the corresponding enumerations.
 <div class="content">
 <pre class="highlightjs highlight"><code data-lang="java" class="language-java hljs">import static org.assertj.db.output.Outputs.output;
 
-Table table = new Table(dataSource, "members");
+Table table = connection.table("members");
 
 // Output the content of the table in the console
 output(table).toConsole();</code></pre>
@@ -20959,10 +20936,13 @@ You can clone the repository and run its tests !</p>
 <div class="ulist">
 <ul>
 <li>
-<p><a href="#assertj-db-2-0-0-release-notes">AssertJ DB 2.0.2</a></p>
+<p><a href="#assertj-db-3-0-0-release-notes">AssertJ DB 3.0.0</a></p>
 </li>
 <li>
-<p><a href="#assertj-db-2-0-0-release-notes">AssertJ DB 2.0.1</a></p>
+<p><a href="#assertj-db-2-0-2-release-notes">AssertJ DB 2.0.2</a></p>
+</li>
+<li>
+<p><a href="#assertj-db-2-0-1-release-notes">AssertJ DB 2.0.1</a></p>
 </li>
 <li>
 <p><a href="#assertj-db-2-0-0-release-notes">AssertJ DB 2.0.0</a></p>
@@ -20988,7 +20968,65 @@ You can clone the repository and run its tests !</p>
 </ul>
 </div>
 <div class="sect3">
-<h4 id="assertj-db-2-0-2-release-notes"><a class="anchor" href="#assertj-db-2-0-2-release-notes"></a>6.9.1. AssertJ DB 2.0.2</h4>
+<h4 id="assertj-db-3-0-0-release-notes"><a class="anchor" href="#assertj-db-3-0-0-release-notes"></a>6.9.1. AssertJ DB 3.0.0</h4>
+<div class="paragraph">
+<p>Release date: 2024-11-20</p>
+</div>
+<div id="assertj-db-3.0.0-improvements" class="paragraph">
+<p><span class="release-note-category"><span class="icon"><i class="fa fa-arrow-circle-up"></i></span> Improvements</span></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Fluent construction of AssertJ-DB connection to database</p>
+</li>
+<li>
+<p>Cacheable database schema metadata</p>
+</li>
+<li>
+<p>Fluent database element builder ( Table, Request, Changes )</p>
+</li>
+</ul>
+</div>
+<div id="assertj-db-3.0.0-breaking-changes" class="paragraph">
+<p><span class="release-note-category"><span class="icon"><i class="fa fa-exclamation-triangle"></i></span> Breaking changes</span></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Remove classes : Source, SourceWithLetterCase, DataSourceWithLetterCase</p>
+</li>
+<li>
+<p>Remove public constructor of classes : Table, Request, Changes</p>
+</li>
+</ul>
+</div>
+<div id="assertj-db-3.0.0-fixed" class="paragraph">
+<p><span class="release-note-category"><span class="icon"><i class="fa fa-wrench"></i></span> Fixed</span></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://github.com/assertj/assertj-db/issues/117">issue #117</a>: setStartPoint opens a lot of connections to the db</p>
+</li>
+</ul>
+</div>
+<div id="assertj-db-3.0.0-chore" class="paragraph">
+<p><span class="release-note-category"><span class="icon"><i class="fa fa-cog"></i></span> Chore</span></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Upgrade GitHub actions</p>
+</li>
+<li>
+<p>Upgrade to AssertJ Core 3.21.0</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="assertj-db-2-0-2-release-notes"><a class="anchor" href="#assertj-db-2-0-2-release-notes"></a>6.9.2. AssertJ DB 2.0.2</h4>
 <div class="paragraph">
 <p>Release date: 2020-10-17</p>
 </div>
@@ -21026,7 +21064,7 @@ You can clone the repository and run its tests !</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="assertj-db-2-0-1-release-notes"><a class="anchor" href="#assertj-db-2-0-1-release-notes"></a>6.9.2. AssertJ DB 2.0.1</h4>
+<h4 id="assertj-db-2-0-1-release-notes"><a class="anchor" href="#assertj-db-2-0-1-release-notes"></a>6.9.3. AssertJ DB 2.0.1</h4>
 <div class="paragraph">
 <p>Release date: 2020-10-07</p>
 </div>
@@ -21058,7 +21096,7 @@ You can clone the repository and run its tests !</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="assertj-db-2-0-0-release-notes"><a class="anchor" href="#assertj-db-2-0-0-release-notes"></a>6.9.3. AssertJ DB 2.0.0</h4>
+<h4 id="assertj-db-2-0-0-release-notes"><a class="anchor" href="#assertj-db-2-0-0-release-notes"></a>6.9.4. AssertJ DB 2.0.0</h4>
 <div class="paragraph">
 <p>Release date: 2020-07-06</p>
 </div>
@@ -21115,7 +21153,7 @@ You can clone the repository and run its tests !</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="assertj-db-1-3-0-release-notes"><a class="anchor" href="#assertj-db-1-3-0-release-notes"></a>6.9.4. AssertJ DB 1.3.0</h4>
+<h4 id="assertj-db-1-3-0-release-notes"><a class="anchor" href="#assertj-db-1-3-0-release-notes"></a>6.9.5. AssertJ DB 1.3.0</h4>
 <div class="paragraph">
 <p>Release date: 2019-12-26</p>
 </div>
@@ -21147,7 +21185,7 @@ You can clone the repository and run its tests !</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="assertj-db-1-2-0-release-notes"><a class="anchor" href="#assertj-db-1-2-0-release-notes"></a>6.9.5. AssertJ DB 1.2.0</h4>
+<h4 id="assertj-db-1-2-0-release-notes"><a class="anchor" href="#assertj-db-1-2-0-release-notes"></a>6.9.6. AssertJ DB 1.2.0</h4>
 <div class="paragraph">
 <p>Release date: 2017-05-08</p>
 </div>
@@ -21191,7 +21229,7 @@ You can clone the repository and run its tests !</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="assertj-db-1-1-1-release-notes"><a class="anchor" href="#assertj-db-1-1-1-release-notes"></a>6.9.6. AssertJ DB 1.1.1</h4>
+<h4 id="assertj-db-1-1-1-release-notes"><a class="anchor" href="#assertj-db-1-1-1-release-notes"></a>6.9.7. AssertJ DB 1.1.1</h4>
 <div class="paragraph">
 <p>Release date: 2016-04-23</p>
 </div>
@@ -21207,7 +21245,7 @@ You can clone the repository and run its tests !</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="assertj-db-1-1-0-release-notes"><a class="anchor" href="#assertj-db-1-1-0-release-notes"></a>6.9.7. AssertJ DB 1.1.0</h4>
+<h4 id="assertj-db-1-1-0-release-notes"><a class="anchor" href="#assertj-db-1-1-0-release-notes"></a>6.9.8. AssertJ DB 1.1.0</h4>
 <div class="paragraph">
 <p>Release date: 2016-04-14</p>
 </div>
@@ -21269,7 +21307,7 @@ You can clone the repository and run its tests !</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="assertj-db-1-0-1-release-notes"><a class="anchor" href="#assertj-db-1-0-1-release-notes"></a>6.9.8. AssertJ DB 1.0.1</h4>
+<h4 id="assertj-db-1-0-1-release-notes"><a class="anchor" href="#assertj-db-1-0-1-release-notes"></a>6.9.9. AssertJ DB 1.0.1</h4>
 <div class="paragraph">
 <p>Release date: 2015-08-09</p>
 </div>
@@ -21285,7 +21323,7 @@ You can clone the repository and run its tests !</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="assertj-db-1-0-0-release-notes"><a class="anchor" href="#assertj-db-1-0-0-release-notes"></a>6.9.9. AssertJ DB 1.0.0</h4>
+<h4 id="assertj-db-1-0-0-release-notes"><a class="anchor" href="#assertj-db-1-0-0-release-notes"></a>6.9.10. AssertJ DB 1.0.0</h4>
 <div class="paragraph">
 <p>Release date: 2015-07-12</p>
 </div>
@@ -21438,7 +21476,7 @@ Snapshot artifacts are not deployed.</p>
 <div id="footer">
 <div id="footer-text">
 Version 1.0<br>
-Last updated 2024-08-17 08:25:30 UTC
+Last updated 2024-11-21 23:41:30 UTC
 </div>
 </div>
 <link rel="stylesheet" href="highlight/styles/railscasts.min.css">
