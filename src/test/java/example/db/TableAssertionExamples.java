@@ -3,8 +3,9 @@ package example.db;
 // tag::user_guide[]
 import static org.assertj.db.api.Assertions.assertThat;
 
+import org.assertj.db.type.AssertDbConnection;
+import org.assertj.db.type.AssertDbConnectionFactory;
 import org.assertj.db.type.DateValue;
-import org.assertj.db.type.Source;
 import org.assertj.db.type.Table;
 
 // end::user_guide[]
@@ -12,16 +13,17 @@ import org.assertj.db.type.Table;
 import org.junit.jupiter.api.Test;
 
 public class TableAssertionExamples {
+// tag::user_guide[]
+private AssertDbConnection assertDbConnection = AssertDbConnectionFactory.of("jdbc:h2:mem:test", "sa", "").create();
 
-    private Source dataSource;
-
+// end::user_guide[]
     /**
      * This example shows a simple case of test.
      */
     @Test
     public void basic_table_assertion_examples() {
 // tag::user_guide[]
-Table table = new Table(dataSource, "members");
+Table table = assertDbConnection.table("members");
 
 // Check column "name" values
 assertThat(table).column("name")

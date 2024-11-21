@@ -2,15 +2,14 @@
 === Concepts
 
 * <<assertj-db-concepts-connection,Connection to the database>>
-** <<assertj-db-concepts-datasource,DataSource>>
-** <<assertj-db-concepts-source, Source>>
-** <<assertj-db-concepts-datasourcewithlettercase, DataSource with LetterCase>> [.small]#(since <<assertj-db-1-1-0-release-notes,1.1.0>>)#
-** <<assertj-db-concepts-sourcewithlettercase, Source with LetterCase>> [.small]#(since <<assertj-db-1-1-0-release-notes,1.1.0>>)#
+** <<assertj-db-concepts-assertdbconnection, AssertDbConnection>> [.small]#(since <<assertj-db-3-0-0-release-notes,3.0.0>>)#
+** <<assertj-db-concepts-assertdbconnectionlettercase, LetterCase setup>> [.small]#(since <<assertj-db-3-0-0-release-notes,3.0.0>>)#
+** <<assertj-db-concepts-assertdbconnectionmetadata, Schema retrieval mode>> [.small]#(since <<assertj-db-3-0-0-release-notes,3.0.0>>)#
 
 * <<assertj-db-concepts-elements, Elements of the database>>
-** <<assertj-db-concepts-table, Table>> [.small]#(modified in <<assertj-db-1-2-0-release-notes,1.2.0>>)#
-** <<assertj-db-concepts-request, Request>>
-** <<assertj-db-concepts-changes, Changes>>
+** <<assertj-db-concepts-table, Table>> [.small]#(modified in <<assertj-db-1-2-0-release-notes,3.0.0>>)#
+** <<assertj-db-concepts-request, Request>> [.small]#(modified in <<assertj-db-1-2-0-release-notes,3.0.0>>)#
+** <<assertj-db-concepts-changes, Changes>> [.small]#(modified in <<assertj-db-1-2-0-release-notes,3.0.0>>)#
 ** <<assertj-db-concepts-change, Change>>
 ** <<assertj-db-concepts-row, Row>>
 ** <<assertj-db-concepts-column, Column>>
@@ -83,67 +82,77 @@ For the examples below, suppose that the database contains these three tables :
 [[assertj-db-concepts-connection]]
 ==== Connection to the database
 
-To make assertions on a database, it is necessary to connect. For that, either to use a `DataSource`
-or a `Source`.
+To make assertions on a database, it is necessary to connect. The concept of `AssertDbConnection` represent how
+AssertJ-DB can retrieve data and schema information from database.
 
-[[assertj-db-concepts-datasource]]
-===== DataSource
+It's also with a `AssertDbConnection` that you can instantiate the following element : `Table`, `Request`, `Changes`.
 
-A http://docs.oracle.com/javase/6/docs/api/javax/sql/DataSource.html[DataSource] is the classic Java way
-to get a http://docs.oracle.com/javase/6/docs/api/java/sql/Connection.html[Connection] to a database.
+[[assertj-db-concepts-assertdbconnection]]
+===== AssertDbConnection
 
-[[assertj-db-concepts-source]]
-===== Source
+A https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/AssertDbConnection.html[AssertDbConnection]
+is created with the factory https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/AssertDbConnectionFactory.html[AssertDbConnectionFactory].
 
-A https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Source.html[Source] is a way
-to connect if you have not access to a DataSource or if you do not want to use one. It allows you
-to pass the necessary connection information as constructor parameters. Below is an example of using a Source
-to connect to H2 in memory database :
+There are 2 way to begin the AssertDbConnectionFactory, with a http://docs.oracle.com/javase/6/docs/api/javax/sql/DataSource.html[DataSource] ( the classic Java way
+to get a http://docs.oracle.com/javase/6/docs/api/java/sql/Connection.html[Connection] to a database ) or with JDBC connection information.
 
-[source,java]
-----
-Source source = new Source("jdbc:h2:mem:test", "sa", "");
-----
-
-[[assertj-db-concepts-datasourcewithlettercase]]
-===== DataSource with LetterCase
-
-Since <<assertj-db-1-1-0-release-notes,1.1.0>>
-
-A https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/DataSourceWithLetterCase.html[DataSourceWithLetterCase] is a
-      http://docs.oracle.com/javase/6/docs/api/javax/sql/DataSource.html[DataSource] which allows to indicate the
-      https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/lettercase/LetterCase.html[LetterCase]
-for the tables, columns and primary keys.
+Below is an example of using a DataSource to connect to H2 in memory database :
 
 [source,java]
 ----
-DataSource ds = new DataSourceWithLetterCase(dataSource,
-                                             tableLetterCase,
-                                             columnLetterCase,
-                                             pkLetterCase);
+AssertDbConnection connection = AssertDbConnectionFactory.of("jdbc:h2:mem:test", "sa", "").create();
+----
+
+And using a DataSource to connect :
+
+[source,java]
+----
+AssertDbConnection connection = AssertDbConnectionFactory.of(dataSource).create();
+----
+
+[[assertj-db-concepts-assertdbconnectionlettercase]]
+===== LetterCase setup
+
+https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/AssertDbConnectionFactory.html[AssertDbConnectionFactory]
+provide the capacity to indicate the https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/lettercase/LetterCase.html[LetterCase]
+to use for the tables, columns and primary keys.
+
+[source,java]
+----
+AssertDbConnection connection = AssertDbConnectionFactory
+    .of(dataSource)
+    .letterCase(tableLetterCase, columnLetterCase, pkLetterCase)
+    .create();
 ----
 
 For more information, see the <<assertj-db-concepts-dblettercase,paragraph on LetterCase>>.
 
-[[assertj-db-concepts-sourcewithlettercase]]
-===== Source with LetterCase
+[[assertj-db-concepts-assertdbconnectionmetadata]]
+===== Schema retrieval mode
 
-Since <<assertj-db-1-1-0-release-notes,1.1.0>>
+Since <<assertj-db-1-1-0-release-notes,3.0.0>>
 
-A https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/SourceWithLetterCase.html[SourceWithLetterCase] is a
-      https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Source.html[Source] which allows to indicate the
-      https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/lettercase/LetterCase.html[LetterCase]
-for the tables, columns and primary keys.
+For many assertions, AssertJ-DB require to discover database schema metadata ( list of tables, columns, ... ).
+When the schema contains many tables this operation can slow down the tests executions.
+
+To avoid that and when the database schema is not updated during the test session, you can use the option
+https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/SchemaMetaDataMode.html[SchemaMetaDataMode] of
+https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/AssertDbConnectionFactory.html[AssertDbConnectionFactory]
+to keep in memory the schema.
+
+Available mode are :
+
+ - DYNAMIC ( default ): Retrieve schema metadata each time is required.
+ - STATIC : Retrieve schema metadata only once and keep in memory for all duration of connection.
+
+Below is an example of using the STATIC mode for a connection :
 
 [source,java]
 ----
-Source s = new SourceWithLetterCase("jdbc:h2:mem:test", "sa", "",
-                                    tableLetterCase,
-                                    columnLetterCase,
-                                    pkLetterCase);
+AssertDbConnection connection = AssertDbConnectionFactory.of(dataSource)
+    .schemaMetaDataMode(SchemaMetaDataMode.STATIC)
+    .create();
 ----
-
-For more information, see the <<assertj-db-concepts-dblettercase,paragraph on LetterCase>>.
 
 [[assertj-db-concepts-elements]]
 ==== Elements of the database
@@ -164,24 +173,21 @@ A root element is an element on which the assertion start (in practice, the para
 A https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Table.html[Table] represents
 a table in the database.
 
-A https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Table.html[Table]
-needs a way to connect to the database (either a http://docs.oracle.com/javase/6/docs/api/javax/sql/DataSource.html[DataSource]
-or a https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Source.html[Source]) and a name (the two mandatory constructor parameters).
+A https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Table.html[Table] can be constructed with the builder method `table(String name)` from
+https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/AssertDbConnection.html[AssertDbConnection].
 
 [source,java]
 ----
-// Get a DataSource
-DataSource dataSource = ...
-// Declare the "members" table by using a DataSource
-Table table1 = new Table(dataSource, "members");
-// Declare the "members" table by using a Source
-Table table2 = new Table(source, "members");
+// Prepare the connection
+AssertDbConnection connection = ...
+// Declare the "members" table by using a AssertDbConnection table builder
+Table table1 = connection.table("members").build();
 ----
 
-The two https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Table.html[Table]s above
-(`table1` and `table2`) are equivalent.
+For more information about table construction, see the
+https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Table.Builder.html[Table.Builder] javadoc.
 
-.Representation of "table1" or "table2"
+.Representation of "table1"
 |====
 |ID |NAME |FIRSTNAME |SURNAME |BIRTHDATE |SIZE
 
@@ -197,14 +203,14 @@ it is possible to choose the columns to include and to exclude in the assertions
 [source,java]
 ----
 // Get the data of the "id" and "name" columns of the "members" table
-Table table3 = new Table(source, "members", new String[] { "id", "name" }, null);
+Table table2 = connection.table("members").columnsToCheck(new String[] { "id", "name" }).build();
 // Get the data of the "members" table but not of the "birthdate" column
-Table table4 = new Table(source, "members", null, new String[] { "birthdate" });
+Table table3 = connection.table("members").columnsToExclude(new String[] { "birthdate" }).build();
 // Get the data of the "name" column of the "members" table (because "id" is included and excluded)
-Table table5 = new Table(source, "members", new String[] { "id", "name" }, new String[] { "id" });
+Table table4 = connection.table("members").columnsToCheck(new String[] { "id", "name" }).columnsToExclude(new String[] { "id" }).build();
 ----
 
-.Representation of "table3"
+.Representation of "table2"
 |====
 |ID |NAME
 
@@ -214,7 +220,7 @@ Table table5 = new Table(source, "members", new String[] { "id", "name" }, new S
 |4 |'Mullen'
 |====
 
-.Representation of "table4"
+.Representation of "table3"
 |====
 |ID |NAME |FIRSTNAME |SURNAME |SIZE
 
@@ -224,7 +230,7 @@ Table table5 = new Table(source, "members", new String[] { "id", "name" }, new S
 |4 |'Mullen' |'Larry' | |1.70
 |====
 
-.Representation of "table5"
+.Representation of "table4"
 |====
 |NAME
 
@@ -236,24 +242,22 @@ Table table5 = new Table(source, "members", new String[] { "id", "name" }, new S
 
 Since version <<assertj-db-1-2-0-release-notes,1.2.0>>, there are the possibility to indicate delimiters (start delimiter and end delimiter) and `https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Table.Order.html[Order]`.
 
-The delimiters are usefull when the table name or column name is a reserved word or contains special characters (like space or '%').
+The delimiters are useful when the table name or column name is a reserved word or contains special characters (like space or '%').
       `https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Table.Order.html[Order]` allows to choose the order of the `Row`.
 
 [source,java]
 ----
 // The line code below throws SQLException because "group" is SQL reserved word
-Table table6 = new Table(source, "group");
+Table table5 = connection.table("group").build();
 // Get the data of the "group" table by using "`" delimiter
 // That generates a request
-Table table7 = new Table(source, "group", '`', '`');
+Table table6 = connection.table("group").delimiters('`', '`').build();
 
 // Get the data from "members" table and order on "name" column in ascending order
-Table table8 = new Table(source, "members", new Order[] {
-                                                        Order.asc("name")
-                                                      });
+Table table7 = connection.table("members").columnsToOrder(new Order[] { Order.asc("name") }).build();
 ----
 
-.Representation of "table7"
+.Representation of "table6"
 |====
 |ID |NAME
 
@@ -261,7 +265,7 @@ Table table8 = new Table(source, "members", new Order[] {
 |2 |'Colplay'
 |====
 
-.Representation of "table8"
+.Representation of "table7"
 |====
 |ID |NAME |FIRSTNAME |SURNAME |BIRTHDATE |SIZE
 
@@ -279,27 +283,21 @@ a SQL request on the database.
 
 Like a https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Table.html[Table],
 a https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Request.html[Request]
-needs a way to connect to the database (either a http://docs.oracle.com/javase/6/docs/api/javax/sql/DataSource.html[DataSource]
-or a https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Source.html[Source]).
+can be constructed with the builder method `request(String sql)` from
+https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/AssertDbConnection.html[AssertDbConnection].
 
 [source,java]
 ----
-// Get a DataSource
-DataSource dataSource = ...
+// Prepare the connection
+AssertDbConnection connection = ...
 // Declare a request which gets the name and the firstname of the corresponding members
-// by using a Source
-Request request1 = new Request(source,
-                               "select name, firstname from members where id = 2 or id = 3");
-// Declare a request which gets the name and the firstname of the corresponding members
-// by using the DataSource
-Request request2 = new Request(dataSource,
-                               "select name, firstname from members where id = 2 or id = 3");
+Request request1 = connection.request("select name, firstname from members where id = 2 or id = 3").build();
 ----
 
-The two https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Request.html[Request]s above
-(`request1` and `request2`) are equivalent.
+For more information about request construction, see the
+https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Request.Builder.html[Request.Builder] javadoc.
 
-.Representation of "request1" or "request2"
+.Representation of "request1"
 |====
 |NAME |FIRSTNAME |SURNAME
 
@@ -314,20 +312,21 @@ it is possible to use a simple SQL request or a SQL request with one or many par
 ----
 // Declare a request which gets the name and the firstname of the members
 // and use "%e%" as a parameter
-Request request3 = new Request(dataSource,
+Request request2 = connection.request(
                                "select name, firstname from members " +
-                               "where name like ?;",
-                               "%e%");
+                               "where name like ?;")
+                               .parameters("%e%")
+                               .build();
 // Declare a request which gets the name and the firstname of the members
 // and use "%e%" and "%Paul%" as parameters
-Request request4 = new Request(dataSource,
+Request request3 = connection.request(
                                "select name, firstname from members " +
-                               "where name like ? and firstname like ?;",
-                               "%e%",
-                               "%Paul%");
+                               "where name like ? and firstname like ?;")
+                               .parameters("%e%", "%Paul%")
+                               .build();
 ----
 
-.Representation of "request3"
+.Representation of "request2"
 |====
 |NAME |FIRSTNAME |SURNAME
 
@@ -336,7 +335,7 @@ Request request4 = new Request(dataSource,
 |'Mullen' |'Larry' |
 |====
 
-.Representation of "request4"
+.Representation of "request3"
 |====
 |NAME |FIRSTNAME |SURNAME
 
@@ -364,38 +363,33 @@ UPDATE ALBUMS SET NAME = 'Rattle & Hum', LIVE = true WHERE ID = 8;
 
 [source,java]
 ----
-// Get a DataSource
-DataSource dataSource = ...
+// Prepare the connection
+AssertDbConnection connection = ...
 // The changes can be on a DataSource or on a Source
-Changes changes1 = new Changes(dataSource);
-Changes changes2 = new Changes(source);
+Changes changes1 = connection.changes().build();
 // The changes can also be on a Table or on a Request
-Changes changes3 = new Changes(table4);
-Changes changes4 = new Changes(request3);
-Changes changes5 = new Changes(request4);
+Changes changes2 = connection.changes().table(table3).build();
+Changes changes3 = connection.changes().request(request2).build();
 // The names of the columns used for the primary key are found in the metadata for a table
 // but for a request it can be important to set the primary key
-Changes changes6 = new Changes(request4).setPksName("name");
+Changes changes4 = connection.changes().request("select name, firstname from members", r -> r.pksName("name")).build();
 ----
 
-The two https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Changes.html[Changes] above
-(`changes1` and `changes2`) are equivalent.
-
-The two https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Changes.html[Changes] above
-(`changes4` and `changes5`) are also equivalent.
+For more information about changes construction, see the
+https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Changes.Builder.html[Changes.Builder] javadoc.
 
 The changes are ordered :
 
 *   First by the type of the change : creation, modification and after deletion
-*   After if it a change on a table by the name of the table
+*   After if it is a change on a table by the name of the table
 *   To finish by the values of the primary key and if there are no primary key by the values of the row (for a modification)
 
 As indicated above, the primary key is used to order the changes.
 But more important, the primary key is used to determinate which rows at the same with modifications.
 
-In Representation of "changes4" or "changes5" the modification of first row of the table become a creation and deletion.
+In Representation of "changes3" the modification of first row of the table become a creation and deletion.
 
-.Representation of "changes1" or "changes2"
+.Representation of "changes1"
 [cols="1,2,3,4a"]
 |====
 |Creation |"MEMBERS" table |`5` as PK |
@@ -428,7 +422,7 @@ In Representation of "changes4" or "changes5" the modification of first row of t
 !====
 |====
 
-.Representation of "changes3"
+.Representation of "changes2"
 [cols="1,2,3,4a"]
 |====
 |Creation |"MEMBERS" table |`5` as PK |
@@ -447,7 +441,7 @@ In Representation of "changes4" or "changes5" the modification of first row of t
 !====
 |====
 
-.Representation of "changes4" or "changes5"
+.Representation of "changes3"
 [cols="1,2,3,4a"]
 |====
 |Creation | |No PK |
@@ -473,7 +467,7 @@ In Representation of "changes4" or "changes5" the modification of first row of t
 !====
 |====
 
-.Representation of "changes6"
+.Representation of "changes4"
 [cols="1,2,3,4a"]
 |====
 |Creation | |`'McGuiness'` as PK |
@@ -499,9 +493,9 @@ A https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/C
 is an element of the https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Changes.html[Changes].
 
 Below framed in red the first https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Change.html[Change]
-of "changes3".
+of "changes2".
 
-.Representation of "changes3"
+.Representation of "changes2"
 [cols="1,2,3,4a"]
 |====
 |Creation |"MEMBERS" table |`5` as PK |
@@ -528,9 +522,9 @@ can represent a row of a https://www.javadoc.io/doc/org.assertj/assertj-db/lates
 , of a https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Request.html[Request] or
 of a https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Change.html[Change].
 
-Below framed in red the third https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Row.html[Row] of "table4".
+Below framed in red the third https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Row.html[Row] of "table3".
 
-.Representation of "table4"
+.Representation of "table3"
 |====
 |ID |NAME |FIRSTNAME |SURNAME |SIZE
 
@@ -540,9 +534,9 @@ Below framed in red the third https://www.javadoc.io/doc/org.assertj/assertj-db/
 |4 |'Mullen' |'Larry' | |1.70
 |====
 
-Below framed in red the second https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Row.html[Row] of "request3".
+Below framed in red the second https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Row.html[Row] of "request2".
 
-.Representation of "request3"
+.Representation of "request2"
 |====
 |NAME |FIRSTNAME |SURNAME
 
@@ -555,7 +549,7 @@ Below framed in red the https://www.javadoc.io/doc/org.assertj/assertj-db/latest
 the second https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Change.html[Change]
 of "changes3".
 
-.Representation of "changes3"
+.Representation of "changes2"
 [cols="1,2,3,4a"]
 |====
 |Creation |"MEMBERS" table |`5` as PK |
@@ -582,9 +576,9 @@ can represent a column of a https://www.javadoc.io/doc/org.assertj/assertj-db/la
 , of a https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Request.html[Request] or
 of a https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Change.html[Change].
 
-Below framed in red the second https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Column.html[Column] of "table4".
+Below framed in red the second https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Column.html[Column] of "table3".
 
-.Representation of "table4"
+.Representation of "table3"
 |====
 |ID |NAME |FIRSTNAME |SURNAME |SIZE
 
@@ -594,9 +588,9 @@ Below framed in red the second https://www.javadoc.io/doc/org.assertj/assertj-db
 |4 |'Mullen' |'Larry' | |1.70
 |====
 
-Below framed in red the second https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Column.html[Column] of "request3".
+Below framed in red the second https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Column.html[Column] of "request2".
 
-.Representation of "request3"
+.Representation of "request2"
 |====
 |NAME |FIRSTNAME |SURNAME
 
@@ -609,7 +603,7 @@ Below framed in red the fourth https://www.javadoc.io/doc/org.assertj/assertj-db
 the second https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Change.html[Change]
 of "changes3".
 
-.Representation of "changes3"
+.Representation of "changes2"
 [cols="1,2,3,4a"]
 |====
 |Creation |"MEMBERS" table |`5` as PK |
@@ -636,10 +630,10 @@ or in a https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/
 
 Below framed in red (depending of the path) :
 
-*   the second value of the third https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Row.html[Row] of "table4"
-*   the third value of the second https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Column.html[Column] of "table4"
+*   the second value of the third https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Row.html[Row] of "table3"
+*   the third value of the second https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Column.html[Column] of "table3"
 
-.Representation of "table4"
+.Representation of "table3"
 |====
 |ID |NAME |FIRSTNAME |SURNAME |SIZE
 
@@ -651,10 +645,10 @@ Below framed in red (depending of the path) :
 
 Below framed in red (depending of the path) :
 
-*   the second value of the second https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Row.html[Row] of "request3"
-*   the second value of the second https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Column.html[Column] of "request3"
+*   the second value of the second https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Row.html[Row] of "request2"
+*   the second value of the second https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Column.html[Column] of "request2"
 
-.Representation of "request3"
+.Representation of "request2"
 |====
 |NAME |FIRSTNAME |SURNAME
 
@@ -667,12 +661,12 @@ Below framed in red (depending of the path) :
 
 *   the fourth value of the https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Row.html[Row] at end point of
 the second https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Change.html[Change]
-of "changes3"
+of "changes2"
 *   the value at end point of the fourth https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Column.html[Column] of
 the second https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Change.html[Change]
-of "changes3"
+of "changes2"
 
-.Representation of "changes3"
+.Representation of "changes2"
 [cols="1,2,3,4a"]
 |====
 |Creation |"MEMBERS" table |`5` as PK |
@@ -947,10 +941,10 @@ This default description can be replaced by the choice of the tester by using th
 Since <<assertj-db-1-1-0-release-notes,1.1.0>>
 
 Databases have different letter cases for the name of the elements.
-For example, the name of the table can be upper case either the name is inputed in upper case or not. So this concept (and feature too) is here to manage these shades.
+For example, the name of the table can be upper case either the name is inputted in upper case or not. So this concept (and feature too) is here to manage these shades.
 
 It is possible to declare a https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/lettercase/LetterCase.html[LetterCase]
-with a <<assertj-db-concepts-datasourcewithlettercase,DataSource with LetterCase>> or with a <<assertj-db-concepts-sourcewithlettercase,Source with LetterCase>>.
+with a <<assertj-db-concepts-assertdbconnectionlettercase,AssertDbConnection with LetterCase>>.
 
 The concept of https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/lettercase/LetterCase.html[LetterCase] is composed of https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/lettercase/CaseConversion.html[CaseConversion] and https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/lettercase/CaseComparison.html[CaseComparison].
 
@@ -982,13 +976,12 @@ static method which has a
 
 [source,java]
 ----
-LetterCase letterCase = LetterCase.getLetterCase(CaseConversions.NO, CaseComparisons.IGNORE)
+LetterCase letterCase = LetterCase.getLetterCase(CaseConversions.NO, CaseComparisons.IGNORE);
 ----
 
 In AssertJ-DB, there are three different uses of a https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/lettercase/LetterCase.html[LetterCase] :
 the table name, the column name and the primary key name.
-That is the reason why the https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/DataSourceWithLetterCase.html[DataSourceWithLetterCase]
-and the https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/SourceWithLetterCase.html[SourceWithLetterCase] constructors
+That is the reason why the https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/AssertDbConnection.html[AssertDbConnection]
 have three https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/lettercase/LetterCase.html[LetterCase] parameters.
 
 The https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/lettercase/LetterCase.html[LetterCase] on the tables is used :
@@ -1008,54 +1001,28 @@ The https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type
 *   to convert the primary key name : when a primary key name is got from the database for a table
 *   to compare the primary key name : for a assertion (like https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/api/assertions/AssertOnPrimaryKey.html#hasPksNames-java.lang.String...-[hasPksNames(String... names)]).
 
-The different https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/lettercase/LetterCase.html[LetterCase] are explictly indicated
-for https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/DataSourceWithLetterCase.html[DataSourceWithLetterCase]
-and https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/SourceWithLetterCase.html[SourceWithLetterCase]. But for
-      http://docs.oracle.com/javase/6/docs/api/javax/sql/DataSource.html[DataSource] and
-      https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Source.html[Source], there are https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/lettercase/LetterCase.html[LetterCase]
-too but there are implicit :
+The default settings for https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/lettercase/LetterCase.html[LetterCase] in
+https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/AssertDbConnection.html[AssertDbConnection] are :
 
 *   https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/lettercase/CaseConversions.html#NO[NO] conversion
 and https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/lettercase/CaseComparisons.html#IGNORE[IGNORE] comparison for table names
 *   https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/lettercase/CaseConversions.html#UPPER[UPPER] conversion
 and https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/lettercase/CaseComparisons.html#IGNORE[IGNORE] comparison for the column and primary key name
 
-In this example, The uses of https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Source.html[Source]
-and https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/SourceWithLetterCase.html[SourceWithLetterCase]
-are equivalent :
+In this example, the two connections are equivalent :
 
 [source,java]
 ----
-Source source = new Source("jdbc:h2:mem:test", "sa", "");
-Table table = new Table(source, "members");
+AssertDbConnection jdbcConnection = AssertDbConnectionFactory.of("jdbc:h2:mem:test", "sa", "").create();
+Table table = jdbcConnection.table("members").build();
 
 LetterCase tableLetterCase = LetterCase.getLetterCase(CaseConversions.NO, CaseComparisons.IGNORE);
 LetterCase columnLetterCase = LetterCase.getLetterCase(CaseConversions.UPPER, CaseComparisons.IGNORE);
 LetterCase pkLetterCase = LetterCase.getLetterCase(CaseConversions.UPPER, CaseComparisons.IGNORE);
-Source sourceWithLC = new SourceWithLetterCase("jdbc:h2:mem:test", "sa", "",
-                                               tableLetterCase,
-                                               columnLetterCase,
-                                               pkLetterCase);
-Table tableWithLC = new Table(sourceWithLC, "members");
-----
-
-And in this example, the uses of http://docs.oracle.com/javase/6/docs/api/javax/sql/DataSource.html[DataSource]
-and https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/DataSourceWithLetterCase.html[DataSourceWithLetterCase]
-are equivalent :
-
-[source,java]
-----
-DataSource dataSource = .....
-Table table = new Table(dataSource, "members");
-
-LetterCase tableLetterCase = LetterCase.getLetterCase(CaseConversions.NO, CaseComparisons.IGNORE);
-LetterCase columnLetterCase = LetterCase.getLetterCase(CaseConversions.UPPER, CaseComparisons.IGNORE);
-LetterCase pkLetterCase = LetterCase.getLetterCase(CaseConversions.UPPER, CaseComparisons.IGNORE);
-DataSource dataSourceWithLC = new DataSourceWithLetterCase(dataSource,
-                                                           tableLetterCase,
-                                                           columnLetterCase,
-                                                           pkLetterCase);
-Table tableWithLC = new Table(dataSourceWithLC, "members");
+AssertDbConnection connectionWithLC = AssertDbConnectionFactory.of("jdbc:h2:mem:test", "sa", "")
+                                        .letterCase(tableLetterCase, columnLetterCase, pkLetterCase)
+                                        .create();
+Table tableWithLC = connectionWithLC.table("members").build();
 ----
 
 Note that the letter case is extensible because the https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/lettercase/LetterCase.html#getLetterCase-org.assertj.db.type.lettercase.CaseConversion-org.assertj.db.type.lettercase.CaseComparison-[getLetterCase]
@@ -1076,7 +1043,7 @@ This is a simple example :
 ----
 import static org.assertj.db.output.Outputs.output;
 
-Table table = new Table(dataSource, "members");
+Table table = connection.table("members");
 
 // Output the content of the table in the console
 output(table).toConsole();
