@@ -115,7 +115,7 @@ The link:https://docs.openrewrite.org/recipes/java/testing/hamcrest/migratehamcr
 * Remove the Hamcrest `is(Matcher)` method
 * Add Gradle or Maven dependencies as needed
 
-If you want to go even further, you can run the link:https://docs.openrewrite.org/recipes/java/testing/assertj/assertj[AssertJ best practices] recipe which will do all of the above plus:
+If you want to go even further, you can run the link:https://docs.openrewrite.org/recipes/java/testing/assertj[AssertJ best practices] recipe which will do all of the above plus:
 
 * Migrate JUnit to AssertJ (e.g., changing `assertEquals()` to `assertThat().isEqualTo()`)
 * Simplify AssertJ chained assertions (e.g., `assertThat(foo.size()).isEqualTo(1)` would change to `assertThat(foo).hasSize(1)`)
