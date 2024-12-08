@@ -43,14 +43,14 @@ Check this page to find the relevant https://central.sonatype.com/artifact/org.a
 
 ===== Spring Boot
 
-https://spring.io/projects/spring-boot[Spring Boot] provides automatic support for managing the version of AssertJ Core used in your project.
-In addition, the `spring-boot-starter-test` artifact automatically includes testing libraries such as JUnit Jupiter, AssertJ, Mockito, etc.
+https://spring.io/projects/spring-boot[Spring Boot] provides automatic support for managing the version of AssertJ used in your project.
+In addition, the `spring-boot-starter-test` artifact automatically includes testing libraries such as JUnit Jupiter, AssertJ Core, Mockito, etc.
 
 If you need to override the version of a dependency used in your Spring Boot application, you have to override the exact name of the https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#appendix.dependency-versions.properties[version property] defined in the BOM used by the Spring Boot plugin.
-For example, the name of the AssertJ Core version property in Spring Boot is `assertj.version`.
+For example, the name of the AssertJ version property in Spring Boot is `assertj.version`.
 The mechanism for changing a dependency version is documented for both https://docs.spring.io/spring-boot/docs/current/maven-plugin/reference/htmlsingle/#using.parent-pom[Maven] and https://docs.spring.io/spring-boot/docs/current/gradle-plugin/reference/htmlsingle/#managing-dependencies.dependency-management-plugin.customizing[Gradle].
 
-With Maven, you can override the AssertJ Core version by including the following in your `pom.xml` file.
+With Maven, you can override the AssertJ version by including the following in your `pom.xml` file.
 
 [source,xml,subs=attributes+]
 ----
@@ -59,7 +59,7 @@ With Maven, you can override the AssertJ Core version by including the following
 </properties>
 ----
 
-With Gradle, you can override the AssertJ Core version by including the following in your `build.gradle` file.
+With Gradle, you can override the AssertJ version by including the following in your `build.gradle` file.
 
 [source,groovy,subs=attributes+]
 ----
