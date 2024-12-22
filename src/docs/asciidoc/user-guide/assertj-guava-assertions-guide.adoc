@@ -37,6 +37,12 @@ This section describes the assertions provided by AssertJ Guava.
 |{assertj-guava-javadoc-root}org/assertj/guava/api/MultimapAssert.html#containsValues(V...)[`containsValues`]
 |Verifies that the actual `Multimap` contains the given values for any key.
 
+|{assertj-guava-javadoc-root}org/assertj/guava/api/MultimapAssert.html#doesNotContainKey(K)[`doesNotContainKey`]
+|Verifies that the actual `Multimap` does not contain the given key.
+
+|{assertj-guava-javadoc-root}org/assertj/guava/api/MultimapAssert.html#doesNotContainKeys(K...)[`doesNotContainKeys`]
+|Verifies that the actual `Multimap` does not contain the given keys.
+
 |{assertj-guava-javadoc-root}org/assertj/guava/api/MultimapAssert.html#hasSameEntriesAs(com.google.common.collect.Multimap)[`hasSameEntriesAs`]
 |Verifies that the actual `Multimap` has the same entries as the given one.
 
@@ -269,6 +275,9 @@ In addition to `Iterable` {assertj-core-javadoc-root}org/assertj/core/api/Abstra
 
 |{assertj-guava-javadoc-root}org/assertj/guava/api/TableAssert.html#isEmpty()[`isEmpty`]
 |Verifies that the actual `Table` is empty.
+
+|{assertj-guava-javadoc-root}org/assertj/guava/api/TableAssert.html#isNotEmpty()[`isNotEmpty`]
+|Verifies that the actual `Table` is not empty.
 |===
 
 [[assertj-guava-javadoc]]
