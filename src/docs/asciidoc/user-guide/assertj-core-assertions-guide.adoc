@@ -405,7 +405,7 @@ Note that custom date formats take precedence over default ones.
 
 ====== MaxElementsForPrinting
 
-In error messages, sets the threshold for how many elements from one iterable/array/map will be included in the in the description. Defaults to 1000.
+In error messages, sets the threshold for how many elements from one iterable/array/map will be included in the description. Defaults to 1000.
 
 The point of this property is to avoid printing iterable/array/map with too many elements in error messages.
 
