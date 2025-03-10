@@ -2152,8 +2152,7 @@ Person leonard = new Person("Leonard Hofstadter", false);
 Person raj = new Person("Raj Koothrappali", false);
 Person howard = new Person("Howard Wolowitz", false);
 
-List<Doctor> doctors = list(drSheldon, drLeonard, drRaj);
-List<Person> people = list(sheldon, leonard, raj);
+List<Object> doctors = list(drSheldon, drLeonard, drRaj);
 
 RecursiveComparisonConfiguration configuration = RecursiveComparisonConfiguration.builder()
                                                                                  .withIgnoredFields("hasPhd")
@@ -2169,7 +2168,6 @@ assertThat(doctors).usingRecursiveFieldByFieldElementComparator(configuration)
                    .contains(leonard);
 
 // assertion fails because howard is missing and leonard is not expected.
-people = list(howard, sheldon, raj)
 assertThat(doctors).usingRecursiveFieldByFieldElementComparator(configuration)
                    .contains(howard);
 ----
