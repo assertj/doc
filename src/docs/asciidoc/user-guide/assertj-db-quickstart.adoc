@@ -35,7 +35,7 @@ For Gradle users (using the Maven Central Repository)
 
 [source,java,subs=attributes+]
 ----
-testCompile("org.assertj:assertj-db:{assertj-db-version}")
+testImplementation("org.assertj:assertj-db:{assertj-db-version}")
 ----
 
 ===== Other dependency management tool
