@@ -34,9 +34,9 @@ The preferred approach is to use the provided migration scripts or OpenRewrite r
 
 It is as simple as running one of the following scripts depending on which test framework you are using:
 
-* {current-branch}/assertj-core/src/main/scripts/convert-junit-assertions-to-assertj.sh[JUnit 3/4 to AssertJ migration script]
-* {current-branch}/assertj-core/src/main/scripts/convert-junit5-assertions-to-assertj.sh[JUnit 5 to AssertJ migration script]
-* {current-branch}/assertj-core/src/main/scripts/convert-testng-assertions-to-assertj.sh[TestNG to AssertJ migration script]
+* {current-branch}/scripts/convert-junit-assertions-to-assertj.sh[JUnit 3/4 to AssertJ migration script]
+* {current-branch}/scripts/convert-junit5-assertions-to-assertj.sh[JUnit 5 to AssertJ migration script]
+* {current-branch}/scripts/convert-testng-assertions-to-assertj.sh[TestNG to AssertJ migration script]
 
 Each shell script is based on the sed stream editor and regexps. It *recursively* looks at all `*Test.java` files and
 performs search and replace to convert assertions to AssertJ ones.
@@ -128,9 +128,10 @@ To learn more about how to run these recipes, please see the link:https://docs.o
 
 Here's a list of find/replace expressions to change JUnit assertions into AssertJ assertions (don't forget to check the regex mode in your editor replace window).
 
-This regexes described in this section are specific to JUnit 4 but you can easily adapt them for JUnit 5 or TestNG.
+These regexes described in this section are specific to JUnit 4, but you can easily adapt them for JUnit 5 or TestNG.
 
-The order of find/replace is important to benefit from the most relevant AssertJ assertions. For example you should convert `assertEquals(0, myList.size())` to `assertThat(myList).isEmpty()` instead of `assertThat(myList.size()).isEqualTo(0)`.
+The order of find/replace is important to benefit from the most relevant AssertJ assertions.
+For example, you should convert `assertEquals(0, myList.size())` to `assertThat(myList).isEmpty()` instead of `assertThat(myList.size()).isEqualTo(0)`.
 
 
 ===== Converting `assertEquals(0, myList.size())` to `assertThat(myList).isEmpty()`
