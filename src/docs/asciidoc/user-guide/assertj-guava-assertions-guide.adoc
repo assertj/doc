@@ -25,22 +25,22 @@ This section describes the assertions provided by AssertJ Guava.
 |===
 |Assertion |Description
 
-|{assertj-guava-javadoc-root}org/assertj/guava/api/MultimapAssert.html#contains(org.assertj.core.data.MapEntry...)[`contains`]
+|{assertj-guava-javadoc-root}org/assertj/guava/api/MultimapAssert.html#contains(org.assertj.core.data.MapEntry\...)[`contains`]
 |Verifies that the actual `Multimap` contains the given entries.
 
 |{assertj-guava-javadoc-root}org/assertj/guava/api/MultimapAssert.html#containsAllEntriesOf(com.google.common.collect.Multimap)[`containsAllEntriesOf`]
 |Verifies that the actual `Multimap` contains all entries of the given one (it might contain more entries).
 
-|{assertj-guava-javadoc-root}org/assertj/guava/api/MultimapAssert.html#containsKeys(K...)[`containsKeys`]
+|{assertj-guava-javadoc-root}org/assertj/guava/api/MultimapAssert.html#containsKeys(K\...)[`containsKeys`]
 |Verifies that the actual `Multimap` contains the given keys.
 
-|{assertj-guava-javadoc-root}org/assertj/guava/api/MultimapAssert.html#containsValues(V...)[`containsValues`]
+|{assertj-guava-javadoc-root}org/assertj/guava/api/MultimapAssert.html#containsValues(V\...)[`containsValues`]
 |Verifies that the actual `Multimap` contains the given values for any key.
 
 |{assertj-guava-javadoc-root}org/assertj/guava/api/MultimapAssert.html#doesNotContainKey(K)[`doesNotContainKey`]
 |Verifies that the actual `Multimap` does not contain the given key.
 
-|{assertj-guava-javadoc-root}org/assertj/guava/api/MultimapAssert.html#doesNotContainKeys(K...)[`doesNotContainKeys`]
+|{assertj-guava-javadoc-root}org/assertj/guava/api/MultimapAssert.html#doesNotContainKeys(K\...)[`doesNotContainKeys`]
 |Verifies that the actual `Multimap` does not contain the given keys.
 
 |{assertj-guava-javadoc-root}org/assertj/guava/api/MultimapAssert.html#hasSameEntriesAs(com.google.common.collect.Multimap)[`hasSameEntriesAs`]
@@ -102,10 +102,10 @@ In addition to `Iterable` {assertj-core-javadoc-root}org/assertj/core/api/Abstra
 |===
 |Assertion |Description
 
-|{assertj-guava-javadoc-root}org/assertj/guava/api/RangeAssert.html#contains(T...)[`contains`]
+|{assertj-guava-javadoc-root}org/assertj/guava/api/RangeAssert.html#contains(T\...)[`contains`]
 |Verifies that the actual `Range` contains the given values.
 
-|{assertj-guava-javadoc-root}org/assertj/guava/api/RangeAssert.html#doesNotContain(T...)[`doesNotContain`]
+|{assertj-guava-javadoc-root}org/assertj/guava/api/RangeAssert.html#doesNotContain(T\...)[`doesNotContain`]
 |Verifies that the actual `Range` does not contain the given values.
 
 |{assertj-guava-javadoc-root}org/assertj/guava/api/RangeAssert.html#hasClosedLowerBound()[`hasClosedLowerBound`]
@@ -139,13 +139,13 @@ In addition to `Iterable` {assertj-core-javadoc-root}org/assertj/core/api/Abstra
 |===
 |Assertion |Description
 
-|{assertj-guava-javadoc-root}org/assertj/guava/api/RangeMapAssert.html#contains(org.assertj.core.data.MapEntry...)[`contains`]
+|{assertj-guava-javadoc-root}org/assertj/guava/api/RangeMapAssert.html#contains(org.assertj.core.data.MapEntry\...)[`contains`]
 |Verifies that the actual `RangeMap` contains the given entries.
 
-|{assertj-guava-javadoc-root}org/assertj/guava/api/RangeMapAssert.html#containsKeys(K...)[`containsKeys`]
+|{assertj-guava-javadoc-root}org/assertj/guava/api/RangeMapAssert.html#containsKeys(K\...)[`containsKeys`]
 |Verifies that the actual `RangeMap` contains the given keys.
 
-|{assertj-guava-javadoc-root}org/assertj/guava/api/RangeMapAssert.html#containsValues(V...)[`containsValues`]
+|{assertj-guava-javadoc-root}org/assertj/guava/api/RangeMapAssert.html#containsValues(V\...)[`containsValues`]
 |Verifies that the actual `RangeMap` contains the given values.
 
 |{assertj-guava-javadoc-root}org/assertj/guava/api/RangeMapAssert.html#isEmpty()[`isEmpty`]
@@ -161,25 +161,25 @@ In addition to `Iterable` {assertj-core-javadoc-root}org/assertj/core/api/Abstra
 |===
 |Assertion |Description
 
-|{assertj-guava-javadoc-root}org/assertj/guava/api/RangeSetAssert.html#contains(T...)[`contains`]
+|{assertj-guava-javadoc-root}org/assertj/guava/api/RangeSetAssert.html#contains(T\...)[`contains`]
 |Verifies that the given `RangeSet` contains the given ranges.
 
 |{assertj-guava-javadoc-root}org/assertj/guava/api/RangeSetAssert.html#containsAll(java.lang.Iterable)[`containsAll`]
 |Verifies that the given `RangeSet` contains all the given ranges.
 
-|{assertj-guava-javadoc-root}org/assertj/guava/api/RangeSetAssert.html#containsAnyOf(T...)[`containsAnyOf`]
+|{assertj-guava-javadoc-root}org/assertj/guava/api/RangeSetAssert.html#containsAnyOf(T\...)[`containsAnyOf`]
 |Verifies that the given `RangeSet` contains at least one of the given ranges.
 
 |{assertj-guava-javadoc-root}org/assertj/guava/api/RangeSetAssert.html#containsAnyRangesOf(java.lang.Iterable)[`containsAnyRangesOf`]
 |Verifies that the given `RangeSet` contains at least one of the given ranges.
 
-|{assertj-guava-javadoc-root}org/assertj/guava/api/RangeSetAssert.html#doesNotContain(T...)[`doesNotContain`]
+|{assertj-guava-javadoc-root}org/assertj/guava/api/RangeSetAssert.html#doesNotContain(T\...)[`doesNotContain`]
 |Verifies that the given `RangeSet` does not contain any of the given ranges.
 
 |{assertj-guava-javadoc-root}org/assertj/guava/api/RangeSetAssert.html#doesNotContainAll(java.lang.Iterable)[`doesNotContainAll`]
 |Verifies that the given `RangeSet` does not contain any of the given ranges.
 
-|{assertj-guava-javadoc-root}org/assertj/guava/api/RangeSetAssert.html#doesNotEnclose(com.google.common.collect.Range...)[`doesNotEnclose`]
+|{assertj-guava-javadoc-root}org/assertj/guava/api/RangeSetAssert.html#doesNotEnclose(com.google.common.collect.Range\...)[`doesNotEnclose`]
 |Verifies that the given `RangeSet` does not enclose the given ranges.
 
 |{assertj-guava-javadoc-root}org/assertj/guava/api/RangeSetAssert.html#doesNotEncloseAnyRangesOf(com.google.common.collect.RangeSet)[`doesNotEncloseAnyRangesOf`]
@@ -188,7 +188,7 @@ In addition to `Iterable` {assertj-core-javadoc-root}org/assertj/core/api/Abstra
 |{assertj-guava-javadoc-root}org/assertj/guava/api/RangeSetAssert.html#doesNotEncloseAnyRangesOf(java.lang.Iterable)[`doesNotEncloseAnyRangesOf`]
 |Verifies that the given `RangeSet` does not enclose any of the given ranges.
 
-|{assertj-guava-javadoc-root}org/assertj/guava/api/RangeSetAssert.html#doesNotIntersect(com.google.common.collect.Range...)[`doesNotIntersect`]
+|{assertj-guava-javadoc-root}org/assertj/guava/api/RangeSetAssert.html#doesNotIntersect(com.google.common.collect.Range\...)[`doesNotIntersect`]
 |Verifies that the given `RangeSet` does not intersect the given ranges.
 
 |{assertj-guava-javadoc-root}org/assertj/guava/api/RangeSetAssert.html#doesNotIntersectAnyRangeFrom(com.google.common.collect.RangeSet)[`doesNotIntersectAnyRangeFrom`]
@@ -197,7 +197,7 @@ In addition to `Iterable` {assertj-core-javadoc-root}org/assertj/core/api/Abstra
 |{assertj-guava-javadoc-root}org/assertj/guava/api/RangeSetAssert.html#doesNotIntersectAnyRangeFrom(java.lang.Iterable)[`doesNotIntersectAnyRangeFrom`]
 |Verifies that the given `RangeSet` does not intersect all the given ranges.
 
-|{assertj-guava-javadoc-root}org/assertj/guava/api/RangeSetAssert.html#encloses(com.google.common.collect.Range...)[`encloses`]
+|{assertj-guava-javadoc-root}org/assertj/guava/api/RangeSetAssert.html#encloses(com.google.common.collect.Range\...)[`encloses`]
 |Verifies that the given `RangeSet` encloses the given ranges.
 
 |{assertj-guava-javadoc-root}org/assertj/guava/api/RangeSetAssert.html#enclosesAll(com.google.common.collect.RangeSet)[`enclosesAll`]
@@ -206,7 +206,7 @@ In addition to `Iterable` {assertj-core-javadoc-root}org/assertj/core/api/Abstra
 |{assertj-guava-javadoc-root}org/assertj/guava/api/RangeSetAssert.html#enclosesAll(java.lang.Iterable)[`enclosesAll`]
 |Verifies that the given `RangeSet` encloses all the given ranges.
 
-|{assertj-guava-javadoc-root}org/assertj/guava/api/RangeSetAssert.html#enclosesAnyOf(com.google.common.collect.Range...)[`enclosesAnyOf`]
+|{assertj-guava-javadoc-root}org/assertj/guava/api/RangeSetAssert.html#enclosesAnyOf(com.google.common.collect.Range\...)[`enclosesAnyOf`]
 |Verifies that the given `RangeSet` encloses at least one of the given ranges.
 
 |{assertj-guava-javadoc-root}org/assertj/guava/api/RangeSetAssert.html#enclosesAnyRangesOf(com.google.common.collect.RangeSet)[`enclosesAnyRangesOf`]
@@ -218,7 +218,7 @@ In addition to `Iterable` {assertj-core-javadoc-root}org/assertj/core/api/Abstra
 |{assertj-guava-javadoc-root}org/assertj/guava/api/RangeSetAssert.html#hasSize(int)[`hasSize`]
 |Verifies that the given `RangeSet` has specific `size` of disconnected `Range` elements.
 
-|{assertj-guava-javadoc-root}org/assertj/guava/api/RangeSetAssert.html#intersects(com.google.common.collect.Range...)[`intersects`]
+|{assertj-guava-javadoc-root}org/assertj/guava/api/RangeSetAssert.html#intersects(com.google.common.collect.Range\...)[`intersects`]
 |Verifies that the given `RangeSet` intersects all the given ranges.
 
 |{assertj-guava-javadoc-root}org/assertj/guava/api/RangeSetAssert.html#intersectsAll(com.google.common.collect.RangeSet)[`intersectsAll`]
@@ -227,7 +227,7 @@ In addition to `Iterable` {assertj-core-javadoc-root}org/assertj/core/api/Abstra
 |{assertj-guava-javadoc-root}org/assertj/guava/api/RangeSetAssert.html#intersectsAll(java.lang.Iterable)[`intersectsAll`]
 |Verifies that the given `RangeSet` intersects all the given ranges.
 
-|{assertj-guava-javadoc-root}org/assertj/guava/api/RangeSetAssert.html#intersectsAnyOf(com.google.common.collect.Range...)[`intersectsAnyOf`]
+|{assertj-guava-javadoc-root}org/assertj/guava/api/RangeSetAssert.html#intersectsAnyOf(com.google.common.collect.Range\...)[`intersectsAnyOf`]
 |Verifies that the given `RangeSet` intersects at least one of the given ranges.
 
 |{assertj-guava-javadoc-root}org/assertj/guava/api/RangeSetAssert.html#intersectsAnyRangesOf(com.google.common.collect.RangeSet)[`intersectsAnyRangesOf`]
@@ -255,13 +255,13 @@ In addition to `Iterable` {assertj-core-javadoc-root}org/assertj/core/api/Abstra
 |{assertj-guava-javadoc-root}org/assertj/guava/api/TableAssert.html#containsCell(R,C,V)[`containsCell`]
 |Verifies that the actual `Table` contains the mapping of row/column to value.
 
-|{assertj-guava-javadoc-root}org/assertj/guava/api/TableAssert.html#containsColumns(C...)[`containsColumns`]
+|{assertj-guava-javadoc-root}org/assertj/guava/api/TableAssert.html#containsColumns(C\...)[`containsColumns`]
 |Verifies that the actual `Table` contains the given columns.
 
-|{assertj-guava-javadoc-root}org/assertj/guava/api/TableAssert.html#containsRows(R...)[`containsRows`]
+|{assertj-guava-javadoc-root}org/assertj/guava/api/TableAssert.html#containsRows(R\...)[`containsRows`]
 |Verifies that the actual `Table` contains the given rows.
 
-|{assertj-guava-javadoc-root}org/assertj/guava/api/TableAssert.html#containsValues(V...)[`containsValues`]
+|{assertj-guava-javadoc-root}org/assertj/guava/api/TableAssert.html#containsValues(V\...)[`containsValues`]
 |Verifies that the actual `Table` contains the given values for any key.
 
 |{assertj-guava-javadoc-root}org/assertj/guava/api/TableAssert.html#hasColumnCount(int)[`hasColumnCount`]
@@ -283,6 +283,6 @@ In addition to `Iterable` {assertj-core-javadoc-root}org/assertj/core/api/Abstra
 [[assertj-guava-javadoc]]
 === Javadoc
 
-The latest Javadoc for AssertJ Guava API is here: https://www.javadoc.io/doc/org.assertj/assertj-guava/latest/org/assertj/guava/api/package-summary.html
+The latest Javadoc for AssertJ Guava API is here: {assertj-guava-javadoc-roo}org/assertj/guava/api/package-summary.html
 
 

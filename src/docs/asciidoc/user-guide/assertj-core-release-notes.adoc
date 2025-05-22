@@ -3,7 +3,7 @@
 
 NOTE: AssertJ Core would not exist without its contributors, you can find them all {assertj-core-repo}/graphs/contributors[directly on GitHub].
 
-The latest release notes can be found in the https://github.com/assertj/assertj/releases[GitHub releases].
+The latest release notes can be found in the {assertj-core-repo}/releases[GitHub releases].
 
 Older release notes:
 
@@ -1028,13 +1028,13 @@ This method is used with `usingFieldByFieldElementComparator()` which is depreca
 
 When using `usingRecursiveComparison()` the equivalent is:
 
-* link:++https://www.javadoc.io/doc/org.assertj/assertj-core/latest/org/assertj/core/api/RecursiveComparisonAssert.html#withEqualsForFields(java.util.function.BiPredicate,java.lang.String...)++[`RecursiveComparisonAssert.withEqualsForFields(java.util.function.BiPredicate, String...)`] or
-* link:++https://www.javadoc.io/static/org.assertj/assertj-core/3.19.0/org/assertj/core/api/RecursiveComparisonAssert.html#withComparatorForFields(java.util.Comparator,java.lang.String...)++[`RecursiveComparisonAssert.withComparatorForFields(Comparator, String...)`]
+* {assertj-core-javadoc-root}org/assertj/core/api/RecursiveComparisonAssert.html#withEqualsForFields(java.util.function.BiPredicate,java.lang.String\...)[`RecursiveComparisonAssert.withEqualsForFields(java.util.function.BiPredicate, String...)`] or
+* {assertj-core-javadoc-root}org/assertj/core/api/RecursiveComparisonAssert.html#withComparatorForFields(java.util.Comparator,java.lang.String\...)[`RecursiveComparisonAssert.withComparatorForFields(Comparator, String...)`]
 
 and when using `usingRecursiveFieldByFieldElementComparator(RecursiveComparisonConfiguration config)`, sets the config with:
 
-* link:++https://www.javadoc.io/doc/org.assertj/assertj-core/latest/org/assertj/core/api/recursive/comparison/RecursiveComparisonConfiguration.Builder.html#withEqualsForFields(java.util.function.BiPredicate,java.lang.String...)++[`RecursiveComparisonConfiguration.Builder.withEqualsForFields(java.util.function.BiPredicate, String...)`] or
-* link:++https://www.javadoc.io/doc/org.assertj/assertj-core/latest/org/assertj/core/api/recursive/comparison/RecursiveComparisonConfiguration.Builder.html#withComparatorForFields(java.util.Comparator,java.lang.String...)++[`RecursiveComparisonConfiguration.Builder.withComparatorForFields(Comparator, String...)`]
+* {assertj-core-javadoc-root}org/assertj/core/api/recursive/comparison/RecursiveComparisonConfiguration.Builder.html#withEqualsForFields(java.util.function.BiPredicate,java.lang.String\...)[`RecursiveComparisonConfiguration.Builder.withEqualsForFields(java.util.function.BiPredicate, String...)`] or
+* {assertj-core-javadoc-root}org/assertj/core/api/recursive/comparison/RecursiveComparisonConfiguration.Builder.html#withComparatorForFields(java.util.Comparator,java.lang.String\...)[`RecursiveComparisonConfiguration.Builder.withComparatorForFields(Comparator, String...)`]
 
 [underline]#usingComparatorForElementFieldsWithType#
 
@@ -1042,13 +1042,13 @@ This method is used with `usingFieldByFieldElementComparator()` which is depreca
 
 When using `usingRecursiveComparison()` the equivalent is:
 
-* link:++https://www.javadoc.io/doc/org.assertj/assertj-core/latest/org/assertj/core/api/RecursiveComparisonAssert.html#withEqualsForType(java.util.function.BiPredicate,java.lang.Class)++[`RecursiveComparisonAssert.withEqualsForType(java.util.function.BiPredicate, Class)`] or
-* link:++https://www.javadoc.io/doc/org.assertj/assertj-core/latest/org/assertj/core/api/RecursiveComparisonAssert.html#withComparatorForType(java.util.Comparator,java.lang.Class)++[`RecursiveComparisonAssert.withComparatorForType(Comparator, Class)`]
+* {assertj-core-javadoc-root}org/assertj/core/api/RecursiveComparisonAssert.html#withEqualsForType(java.util.function.BiPredicate,java.lang.Class)[`RecursiveComparisonAssert.withEqualsForType(java.util.function.BiPredicate, Class)`] or
+* {assertj-core-javadoc-root}org/assertj/core/api/RecursiveComparisonAssert.html#withComparatorForType(java.util.Comparator,java.lang.Class)[`RecursiveComparisonAssert.withComparatorForType(Comparator, Class)`]
 
 and when] using `usingRecursiveFieldByFieldElementComparator(RecursiveComparisonConfiguration config)`, sets the config with:
 
-* link:++https://www.javadoc.io/doc/org.assertj/assertj-core/latest/org/assertj/core/api/recursive/comparison/RecursiveComparisonConfiguration.Builder.html#withEqualsForType(java.util.function.BiPredicate,java.lang.Class)++[`RecursiveComparisonConfiguration.Builder.withEqualsForType(java.util.function.BiPredicate, Class)`] or
-* link:++https://www.javadoc.io/doc/org.assertj/assertj-core/latest/org/assertj/core/api/recursive/comparison/RecursiveComparisonConfiguration.Builder.html#withComparatorForType(java.util.Comparator,java.lang.Class)++[`RecursiveComparisonConfiguration.Builder.withComparatorForType(Comparator, Class)`]
+* {assertj-core-javadoc-root}org/assertj/core/api/recursive/comparison/RecursiveComparisonConfiguration.Builder.html#withEqualsForType(java.util.function.BiPredicate,java.lang.Class)[`RecursiveComparisonConfiguration.Builder.withEqualsForType(java.util.function.BiPredicate, Class)`] or
+* {assertj-core-javadoc-root}org/assertj/core/api/recursive/comparison/RecursiveComparisonConfiguration.Builder.html#withComparatorForType(java.util.Comparator,java.lang.Class)[`RecursiveComparisonConfiguration.Builder.withComparatorForType(Comparator, Class)`]
 
 [[assertj-core-3.20.0-containsIgnoringWhitespaces]]
 [.release-note-item]#Add `containsIgnoringWhitespaces` to `String` assertions#
@@ -1342,7 +1342,7 @@ assertThat(Optional.of("a")).is(optionalWithLineSeparator)
 
 A `VerboseCondition` shows the value under test when it fails thanks to the specified `objectUnderTestDescriptor` function.
 
-When defining the `objectUnderTestDescriptor` function, you should take in consideration whether the condition is going to be used with link:https://www.javadoc.io/static/org.assertj/assertj-core/3.19.0/org/assertj/core/api/AbstractAssert.html#is(org.assertj.core.api.Condition)[`is(Condition)`] or link:https://www.javadoc.io/static/org.assertj/assertj-core/3.19.0/org/assertj/core/api/AbstractAssert.html#has(org.assertj.core.api.Condition)[`has(Condition)`] since the start of the error message is different between the two.
+When defining the `objectUnderTestDescriptor` function, you should take in consideration whether the condition is going to be used with {assertj-core-javadoc-root}org/assertj/core/api/AbstractAssert.html#is(org.assertj.core.api.Condition)[`is(Condition)`] or {assertj-core-javadoc-root}org/assertj/core/api/AbstractAssert.html#has(org.assertj.core.api.Condition)[`has(Condition)`] since the start of the error message is different between the two.
 
 Let's see how it works with an example that works well with `is(Condition)`:
 [source,java]
@@ -2441,7 +2441,7 @@ assertThat(future).succeedsWithin(200, TimeUnit.MILLISECONDS, as(STRING))
 
 Filters the iterable under test keeping only elements for which the result of the function is equal to expectedValue.
 
-It allows to filter elements more safely than by using https://www.javadoc.io/static/org.assertj/assertj-core/3.16.1/org/assertj/core/api/AbstractIterableAssert.html#filteredOn(java.lang.String,java.lang.Object)[`filteredOn(String, Object)`] as it doesn't utilize introspection.
+It allows to filter elements more safely than by using {assertj-core-javadoc-root}org/assertj/core/api/AbstractIterableAssert.html#filteredOn(java.lang.String,java.lang.Object)[`filteredOn(String, Object)`] as it doesn't utilize introspection.
 
 As an example, let's check all employees 800 years old (yes, special employees):
 Examples:

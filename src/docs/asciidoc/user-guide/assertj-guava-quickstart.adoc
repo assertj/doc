@@ -93,7 +93,7 @@ assertThat(bestMovies).hasRowCount(5).hasColumnCount(3).hasSize(5)
                       .containsRows(1970, 1994, 2000, 2008, 2011);
 ----
 
-Note that you can find more working examples in the assertj-examples project: https://github.com/assertj/assertj-examples/tree/main/assertions-examples/src/test/java/org/assertj/examples/guava.
+Note that you can find more working examples in the assertj-examples project: {assertj-examples-repo}/tree/main/assertions-examples/src/test/java/org/assertj/examples/guava.
 
 [[assertj-guava-ide]]
 ==== IDE configuration

@@ -6,7 +6,7 @@ This guide is for the AssertJ Joda Time module.
 [[get-assertj-joda-time]]
 ==== Get assertj-joda-time library
 
-AssertJ Joda Time artifacts are in the Maven central repository. 
+AssertJ Joda Time artifacts are in the Maven central repository.
 
 [[assertj-joda-time-java-versions]]
 ===== Supported Java versions
@@ -87,7 +87,7 @@ assertThat(utcTime).as("in UTC time").isEqualTo(cestTime);
 
 You can compare `DateTime` to another `DateTime`, or `LocalDateTime` to `LocalDateTime`, but not `DateTime` to `LocalDateTime`, it doesn't make sense as one is timezone dependent and the other is not.
 
-Note that you can find more working examples in the https://github.com/assertj/assertj-examples/blob/main/assertions-examples/src/test/java/org/assertj/examples/JodaTimeAssertionsExamples.java[JodaTimeAssertionsExamples.java] class of the assertj-examples project.
+Note that you can find more working examples in the {assertj-examples-base-package}JodaTimeAssertionsExamples.java[JodaTimeAssertionsExamples.java] class of the assertj-examples project.
 
 [[assertj-joda-time-ide]]
 ==== IDE configuration
