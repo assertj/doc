@@ -11,7 +11,7 @@ programmers writing tests assertions with AssertJ.
 
 AssertJ is a Java library that provides a rich set of assertions and truly helpful error messages, improves test code readability, and is designed to be super easy to use within your favorite IDE.
 
-http://www.javadoc.io/doc/org.assertj/assertj-core/ is the latest version of AssertJ Core Javadoc, each assertion is explained, most of them with code examples so be sure to check it if you want to know what a specific assertion does. 
+http://www.javadoc.io/doc/org.assertj/assertj-core/ is the latest version of AssertJ Core Javadoc, each assertion is explained, most of them with code examples so be sure to check it if you want to know what a specific assertion does.
 
 Here are a few examples of AssertJ assertions:
 
@@ -44,7 +44,7 @@ assertThatThrownBy(() -> { throw new Exception("boom!"); }).hasMessage("boom!");
 Throwable thrown = catchThrowable(() -> { throw new Exception("boom!"); });
 assertThat(thrown).hasMessageContaining("boom");
 
-// using the 'extracting' feature to check fellowshipOfTheRing character's names 
+// using the 'extracting' feature to check fellowshipOfTheRing character's names
 assertThat(fellowshipOfTheRing).extracting(TolkienCharacter::getName)
                                .doesNotContain("Sauron", "Elrond");
 
@@ -54,7 +54,7 @@ assertThat(fellowshipOfTheRing).extracting("name", "age", "race.name")
                                          tuple("Sam", 38, "Hobbit"),
                                          tuple("Legolas", 1000, "Elf"));
 
-// filtering a collection before asserting 
+// filtering a collection before asserting
 assertThat(fellowshipOfTheRing).filteredOn(character -> character.getName().contains("o"))
                                .containsOnly(aragorn, frodo, legolas, boromir);
 
@@ -77,7 +77,7 @@ Ask AssertJ related questions on {StackOverflow}.
 
 You are very welcome to suggest or contribute improvements to this guide, that's one great way to give back to open source projects!
 
-The repository containing the guide is https://github.com/assertj/doc, you can https://github.com/assertj/doc/issues[create a new issue], submit a pull request. Et voila!
+The repository containing the guide is {assertj-doc}, you can {assertj-doc}/issues[create a new issue], submit a pull request. Et voila!
 
 This guide is written with the awesome https://asciidoctor.org/docs/asciidoc-writers-guide/[Asciidoctor] which makes it easy to improve.
 
