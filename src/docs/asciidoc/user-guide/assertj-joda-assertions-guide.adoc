@@ -3,7 +3,7 @@
 
 This section describes the assertions provided by AssertJ Joda Time.
 
-In addition to specific type assertions, each type inherits assertions from http://www.javadoc.io/doc/org.assertj/assertj-core/latest/org/assertj/core/api/AbstractAssert.html[`org.assertj.core.api.AbstractAssert`].
+In addition to specific type assertions, each type inherits assertions from {assertj-core-javadoc-root}org/assertj/core/api/AbstractAssert.html[`org.assertj.core.api.AbstractAssert`].
 
 ==== LocalDate
 
