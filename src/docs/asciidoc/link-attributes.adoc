@@ -1,6 +1,6 @@
-:assertj-core-javadoc-root:              https://www.javadoc.io/doc/org.assertj/assertj-core/latest/org.assertj.core/
-:assertj-guava-javadoc-root:             https://www.javadoc.io/doc/org.assertj/assertj-guava/latest/org.assertj.guava/
-:assertj-joda-time-javadoc-root:         https://www.javadoc.io/doc/org.assertj/assertj-joda-time/latest/
+:assertj-core-javadoc-root:              https://www.javadoc.io/doc/org.assertj/assertj-core/{assertj-version}/org.assertj.core/
+:assertj-guava-javadoc-root:             https://www.javadoc.io/doc/org.assertj/assertj-guava/{assertj-version}/org.assertj.guava/
+:assertj-joda-time-javadoc-root:         https://www.javadoc.io/doc/org.assertj/assertj-joda-time/{assertj-joda-time-version}/
 //
 :assertj-core-repo:                      https://github.com/assertj/assertj
 :assertj-doc:                            https://github.com/assertj/doc
