@@ -342,6 +342,49 @@ assertThat(actual).isEqualTo(expected).usingComparator(new CustomComparator());
 assertThat(actual).usingComparator(new CustomComparator()).isEqualTo("a");
 ----
 
+[[assertj-equals-hashcode-contracts]]
+==== Using isEqualTo to test equals/hashCode contracts
+
+`isEqualTo` is not designed to test the `equals()` and `hashCode()` contract implementation.
+Although `isEqualTo` delegates to the actual `equals()` method, the test will pass incorrectly if there's a bug in your `equals()` implementation — it only verifies the outcome, not the contract compliance.
+
+[.bad]#Bad#
+[source,java]
+----
+public class Person {
+  String firstName;
+  String lastName;
+}
+
+// DON'T DO THIS to test equals() contract!
+Person person1 = new Person("John", "Doe");
+Person person2 = new Person("John", "Doe");
+
+// This only verifies person1.equals(person2) returns true
+// If equals() has a bug, this test will still pass
+assertThat(person1).isEqualTo(person2);
+----
+
+[.good]#Good#
+[source,java]
+----
+Person person1 = new Person("John", "Doe");
+Person person2 = new Person("John", "Doe");
+
+// DO THIS: Use EqualsVerifier to comprehensively test equals/hashCode contracts
+
+EqualsVerifier.forClass(Person.class).verify();
+
+// OR THIS: Use Guava's EqualsTester to test equals contract
+
+new EqualsTester()
+  .addEqualityGroup(person1, person2)
+  .testEquals();
+
+// OR THIS: Use recursive comparison to verify equality without relying on equals()
+assertThat(person1).usingRecursiveComparison().isEqualTo(person2);
+----
+
 [[assertj-core-configuration]]
 ==== Configuring AssertJ
 
