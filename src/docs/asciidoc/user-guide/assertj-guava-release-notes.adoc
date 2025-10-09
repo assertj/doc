@@ -3,7 +3,7 @@
 
 NOTE: AssertJ Guava main documentation is still in http://joel-costigliola.github.io/assertj/assertj-guava.html until it is moved to this website.
 
-The latest release notes can be found in the https://github.com/assertj/assertj/releases[GitHub releases].
+The latest release notes can be found in the {assertj-core-repo}/releases[GitHub releases].
 
 Older release notes:
 

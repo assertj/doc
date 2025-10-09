@@ -758,19 +758,19 @@ expected: JEDI [name=Luke, age=23]
 [[assertj-core-common-assertions]]
 ==== Common assertions
 
-This section describes the assertions common to all types, the Javadoc for common assertions methods is available https://www.javadoc.io/static/org.assertj/assertj-core/{assertj-version}/org/assertj/core/api/AbstractAssert.html#method.summary[here].
+This section describes the assertions common to all types, the Javadoc for common assertions methods is available {assertj-core-javadoc-root}org/assertj/core/api/AbstractAssert.html#method.summary[here].
 
 [[assertj-core-object-assertions]]
 ==== Object assertions
 
-The Javadoc for `Object` assertions is available https://www.javadoc.io/static/org.assertj/assertj-core/{assertj-version}/org/assertj/core/api/AbstractObjectAssert.html#method.summary[here].
+The Javadoc for `Object` assertions is available {assertj-core-javadoc-root}org/assertj/core/api/AbstractObjectAssert.html#method.summary[here].
 
 [[assertj-string-object-assertions]]
 ==== String/CharSequence assertions
 
 This section describes all the available assertions for `CharSequence` (including `String`, `StringBuilder`, `StringBuffer`, ...):
 
-The Javadoc for `CharSequence` assertions is available https://www.javadoc.io/static/org.assertj/assertj-core/{assertj-version}/org/assertj/core/api/AbstractCharSequenceAssert.html#method.summary[here].
+The Javadoc for `CharSequence` assertions is available {assertj-core-javadoc-root}org/assertj/core/api/AbstractCharSequenceAssert.html#method.summary[here].
 
 
 [[assertj-core-group-assertions]]
@@ -1269,7 +1269,7 @@ If you use java 7, check the link:#assertj-core-exception-assertions-java-7[Java
 
 There are various ways for checking the exception message content, you can check the exact message, what it contains, its start, its end, if it matches a regex.
 
-Most of the assertions expecting a `String` can use the https://docs.oracle.com/javase/8/docs/api/java/lang/String.html?is-external=true#format-java.lang.String-java.lang.Object...-[String.format] syntax.
+Most of the assertions expecting a `String` can use the https://docs.oracle.com/javase/8/docs/api/java/lang/String.html?is-external=true#format-java.lang.String-java.lang.Object\...-[String.format] syntax.
 
 Examples:
 [source,java]
