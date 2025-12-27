@@ -1442,15 +1442,15 @@ class TextException extends Exception {
    }
  }
 
- TextException textException = catchThrowableOfType(() -> { throw new TextException("boom!", 1, 5); },
-                                                    TextException.class);
+ TextException textException = catchThrowableOfType(TextException.class,
+                                                    () -> { throw new TextException("boom!", 1, 5); });
  // assertions succeed
  assertThat(textException).hasMessageContaining("boom");
  assertThat(textException.line).isEqualTo(1);
  assertThat(textException.column).isEqualTo(5);
 
  // fails as TextException is not a RuntimeException
- catchThrowableOfType(() -> { throw new TextException("boom!", 1, 5); }, RuntimeException.class);
+ catchThrowableOfType(RuntimeException.class, () -> { throw new TextException("boom!", 1, 5); });
 ----
 
 Although the example above can be used for any exception type, enriched alternatives for `catchThrowableOfType` are also available to catch an instance of various commonly used exceptions:
