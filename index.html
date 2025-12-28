@@ -4988,15 +4988,15 @@ assertThat(thrown).isInstanceOf(ArrayIndexOutOfBoundsException.class)
    }
  }
 
- TextException textException = catchThrowableOfType(() -&gt; { throw new TextException("boom!", 1, 5); },
-                                                    TextException.class);
+ TextException textException = catchThrowableOfType(TextException.class,
+                                                    () -&gt; { throw new TextException("boom!", 1, 5); });
  // assertions succeed
  assertThat(textException).hasMessageContaining("boom");
  assertThat(textException.line).isEqualTo(1);
  assertThat(textException.column).isEqualTo(5);
 
  // fails as TextException is not a RuntimeException
- catchThrowableOfType(() -&gt; { throw new TextException("boom!", 1, 5); }, RuntimeException.class);</code></pre>
+ catchThrowableOfType(RuntimeException.class, () -&gt; { throw new TextException("boom!", 1, 5); });</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -21495,7 +21495,7 @@ Snapshot artifacts are not deployed.</p>
 <div id="footer">
 <div id="footer-text">
 Version 1.0<br>
-Last updated 2025-12-08 18:51:48 UTC
+Last updated 2025-12-28 13:45:16 UTC
 </div>
 </div>
 <link rel="stylesheet" href="highlight/styles/railscasts.min.css">
