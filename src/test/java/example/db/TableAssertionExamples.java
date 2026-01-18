@@ -23,7 +23,7 @@ private AssertDbConnection assertDbConnection = AssertDbConnectionFactory.of("jd
     @Test
     public void basic_table_assertion_examples() {
 // tag::user_guide[]
-Table table = assertDbConnection.table("members");
+Table table = assertDbConnection.table("members").build();
 
 // Check column "name" values
 assertThat(table).column("name")
