@@ -3,7 +3,7 @@
 
 This section describes the assertions provided by AssertJ Core and other useful features to get the best of it.
 
-AssertJ Core http://www.javadoc.io/doc/org.assertj/assertj-core/[Javadoc] explains each assertion, most of them with code examples so be sure to check it if you want to know what a specific assertion does.
+AssertJ Core https://www.javadoc.io/doc/org.assertj/assertj-core/[Javadoc] explains each assertion, most of them with code examples so be sure to check it if you want to know what a specific assertion does.
 
 [[assertj-core-simple-example]]
 ==== A simple example
@@ -235,7 +235,7 @@ There are a few things to keep in mind when using AssertJ to avoid misusing it.
 The main trap is to pass the object under test to `assertThat()` and forget to call an assertion afterward.
 This misuse can be detected by multiple static code analysis tools:
 
-* https://spotbugs.github.io/[SpotBugs] or http://findbugs.sourceforge.net/[FindBugs] with the https://spotbugs.readthedocs.io/en/latest/bugDescriptions.html#rv-method-ignores-return-value-is-this-ok-rv-return-value-ignored-inferred[`RV_RETURN_VALUE_IGNORED_INFERRED`] rule
+* https://spotbugs.github.io/[SpotBugs] or https://findbugs.sourceforge.net/[FindBugs] with the https://spotbugs.readthedocs.io/en/latest/bugDescriptions.html#rv-method-ignores-return-value-is-this-ok-rv-return-value-ignored-inferred[`RV_RETURN_VALUE_IGNORED_INFERRED`] rule
 * https://www.sonarsource.com/products/sonarqube/[SonarQube] with the https://sonarsource.atlassian.net/browse/RSPEC-2970[`Assertions should be complete (S2970)`] rule
 * other tools that can evaluate whether calls to methods annotated with the `@CheckReturnValue` annotation are done correctly.
 
@@ -2750,4 +2750,4 @@ include::{testDir}/example/core/AssumptionsDemo.java[tags=assumption_met]
 [[assertj-core-javadoc]]
 ==== Javadoc
 
-http://www.javadoc.io/doc/org.assertj/assertj-core/ is the latest version of AssertJ Core Javadoc, each assertion is explained, most of them with code examples so be sure to check it if you want to know what a specific assertion does.
+https://www.javadoc.io/doc/org.assertj/assertj-core/ is the latest version of AssertJ Core Javadoc, each assertion is explained, most of them with code examples so be sure to check it if you want to know what a specific assertion does.
