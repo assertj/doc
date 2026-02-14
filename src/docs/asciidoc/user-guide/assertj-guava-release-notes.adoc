@@ -1,7 +1,7 @@
 [[assertj-guava-release-notes]]
 === Release Notes
 
-NOTE: AssertJ Guava main documentation is still in http://joel-costigliola.github.io/assertj/assertj-guava.html until it is moved to this website.
+NOTE: AssertJ Guava main documentation is still in https://joel-costigliola.github.io/assertj/assertj-guava.html until it is moved to this website.
 
 The latest release notes can be found in the https://github.com/assertj/assertj/releases[GitHub releases].
 
@@ -11,7 +11,7 @@ Older release notes:
 - link:#assertj-guava-3-4-0-release-notes[AssertJ Guava 3.4.0]
 - link:#assertj-guava-3-3-0-release-notes[AssertJ Guava 3.3.0]
 
-Even older release notes can be found in the old site: http://joel-costigliola.github.io/assertj/assertj-guava.html#latest-release.
+Even older release notes can be found in the old site: https://joel-costigliola.github.io/assertj/assertj-guava.html#latest-release.
 
 [[assertj-guava-3-5-0-release-notes]]
 ==== AssertJ Guava 3.5.0
