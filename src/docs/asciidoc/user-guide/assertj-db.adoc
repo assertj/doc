@@ -27,7 +27,7 @@ Latest Javadoc release: https://www.javadoc.io/doc/org.assertj/assertj-db/latest
 
 === Examples
 
-Some implementations examples are visible at the {assertj-examples-repo}/tree/main/assertions-examples/src/test/java/org/assertj/examples/db[assertj-db-examples tests].
+Some implementations examples are visible at the {assertj-examples-github}/tree/main/assertions-examples/src/test/java/org/assertj/examples/db[assertj-db-examples tests].
 They show what is possible with AssertJ DB Assertions with running code.
 You can clone the repository and run its tests !
 
