@@ -3,7 +3,7 @@
 
 This section describes the assertions provided by AssertJ Core and other useful features to get the best of it.
 
-AssertJ Core http://www.javadoc.io/doc/org.assertj/assertj-core/[Javadoc] explains each assertion, most of them with code examples so be sure to check it if you want to know what a specific assertion does.
+AssertJ Core {assertj-core-javadoc}[Javadoc] explains each assertion, most of them with code examples so be sure to check it if you want to know what a specific assertion does.
 
 [[assertj-core-simple-example]]
 ==== A simple example
@@ -758,19 +758,19 @@ expected: JEDI [name=Luke, age=23]
 [[assertj-core-common-assertions]]
 ==== Common assertions
 
-This section describes the assertions common to all types, the Javadoc for common assertions methods is available https://www.javadoc.io/static/org.assertj/assertj-core/{assertj-version}/org/assertj/core/api/AbstractAssert.html#method.summary[here].
+This section describes the assertions common to all types, the Javadoc for common assertions methods is available {assertj-core-javadoc}/org/assertj/core/api/AbstractAssert.html#method.summary[here].
 
 [[assertj-core-object-assertions]]
 ==== Object assertions
 
-The Javadoc for `Object` assertions is available https://www.javadoc.io/static/org.assertj/assertj-core/{assertj-version}/org/assertj/core/api/AbstractObjectAssert.html#method.summary[here].
+The Javadoc for `Object` assertions is available {assertj-core-javadoc}/org/assertj/core/api/AbstractObjectAssert.html#method.summary[here].
 
 [[assertj-string-object-assertions]]
 ==== String/CharSequence assertions
 
 This section describes all the available assertions for `CharSequence` (including `String`, `StringBuilder`, `StringBuffer`, ...):
 
-The Javadoc for `CharSequence` assertions is available https://www.javadoc.io/static/org.assertj/assertj-core/{assertj-version}/org/assertj/core/api/AbstractCharSequenceAssert.html#method.summary[here].
+The Javadoc for `CharSequence` assertions is available {assertj-core-javadoc}/org/assertj/core/api/AbstractCharSequenceAssert.html#method.summary[here].
 
 
 [[assertj-core-group-assertions]]
@@ -781,8 +781,8 @@ The Javadoc for `CharSequence` assertions is available https://www.javadoc.io/st
 
 All the available assertions are described in:
 
-* iterables: {assertj-core-javadoc-root}org/assertj/core/api/AbstractIterableAssert.html#method.summary
-* arrays: {assertj-core-javadoc-root}org/assertj/core/api/AbstractObjectArrayAssert.html#method.summary
+* iterables: {assertj-core-javadoc}/org/assertj/core/api/AbstractIterableAssert.html#method.summary
+* arrays: {assertj-core-javadoc}/org/assertj/core/api/AbstractObjectArrayAssert.html#method.summary
 
 The next sections focus on some features worth knowing to get the best of AssertJ, notably:
 
@@ -802,28 +802,28 @@ There are different flavors of `contains` assertion, here's a table to help choo
 |===
 |Assertion |Description
 
-|{assertj-core-javadoc-root}org/assertj/core/api/AbstractIterableAssert.html#contains(ELEMENT&#46;&#46;&#46;)[`contains`]
+|{assertj-core-javadoc}/org/assertj/core/api/AbstractIterableAssert.html#contains(ELEMENT&#46;&#46;&#46;)[`contains`]
 |Verifies that the actual iterable/array contains the given values in any order
 
-|{assertj-core-javadoc-root}org/assertj/core/api/AbstractIterableAssert.html#containsOnly(ELEMENT&#46;&#46;&#46;)[`containsOnly`]
+|{assertj-core-javadoc}/org/assertj/core/api/AbstractIterableAssert.html#containsOnly(ELEMENT&#46;&#46;&#46;)[`containsOnly`]
 |Verifies that the actual group contains only the given values and nothing else in any order and ignoring duplicates (i.e. once a value is found, its duplicates are also considered found)
 
-|{assertj-core-javadoc-root}org/assertj/core/api/AbstractIterableAssert.html#containsExactly(ELEMENT&#46;&#46;&#46;)[`containsExactly`]
+|{assertj-core-javadoc}/org/assertj/core/api/AbstractIterableAssert.html#containsExactly(ELEMENT&#46;&#46;&#46;)[`containsExactly`]
 |Verifies that the actual iterable/array contains exactly the given values and nothing else **in order**
 
-|{assertj-core-javadoc-root}org/assertj/core/api/AbstractIterableAssert.html#containsExactlyInAnyOrder(ELEMENT&#46;&#46;&#46;)[`containsExactlyInAnyOrder`]
+|{assertj-core-javadoc}/org/assertj/core/api/AbstractIterableAssert.html#containsExactlyInAnyOrder(ELEMENT&#46;&#46;&#46;)[`containsExactlyInAnyOrder`]
 |Verifies that the actual iterable/array contains exactly the given values and nothing else **in any order**
 
-|{assertj-core-javadoc-root}org/assertj/core/api/AbstractIterableAssert.html#containsSequence(ELEMENT&#46;&#46;&#46;)[`containsSequence`]
+|{assertj-core-javadoc}/org/assertj/core/api/AbstractIterableAssert.html#containsSequence(ELEMENT&#46;&#46;&#46;)[`containsSequence`]
 |Verifies that the actual group contains the given sequence in the correct order and **without extra values between the sequence values**
 
-|{assertj-core-javadoc-root}org/assertj/core/api/AbstractIterableAssert.html#containsSubsequence(ELEMENT&#46;&#46;&#46;)[`containsSubsequence`]
+|{assertj-core-javadoc}/org/assertj/core/api/AbstractIterableAssert.html#containsSubsequence(ELEMENT&#46;&#46;&#46;)[`containsSubsequence`]
 |Verifies that the actual group contains the given subsequence in the correct order **possibly with other values between them**
 
-|{assertj-core-javadoc-root}org/assertj/core/api/AbstractIterableAssert.html#containsOnlyOnce(ELEMENT&#46;&#46;&#46;)[`containsOnlyOnce`]
+|{assertj-core-javadoc}/org/assertj/core/api/AbstractIterableAssert.html#containsOnlyOnce(ELEMENT&#46;&#46;&#46;)[`containsOnlyOnce`]
 |Verifies that the actual iterable/array contains the given values only once
 
-|{assertj-core-javadoc-root}org/assertj/core/api/AbstractIterableAssert.html#containsAnyOf(ELEMENT&#46;&#46;&#46;)[`containsAnyOf`]
+|{assertj-core-javadoc}/org/assertj/core/api/AbstractIterableAssert.html#containsAnyOf(ELEMENT&#46;&#46;&#46;)[`containsAnyOf`]
 |Verifies that the actual iterable/array contains at least one of the given values (like an `or` operator on the given values)
 
 |===
@@ -954,7 +954,7 @@ Filtering is handy to target assertions on some specific elements, the filter cr
 * an element link:#filtering-elements-matching-given-assertions[matching some assertions]
 * an element matching a link:#filtering-with-a-condition[Condition]
 
-Let's explore these options in some examples taken from {assertj-examples-repo}/tree/main/assertions-examples/src/test/java/org/assertj/examples/FilterExamples.java#L47[FilterExamples] from the {assertj-examples-repo}[assertions-examples] project.
+Let's explore these options in some examples taken from {assertj-examples-github}/tree/main/assertions-examples/src/test/java/org/assertj/examples/FilterExamples.java#L47[FilterExamples] from the {assertj-examples-github}[assertions-examples] project.
 
 ====== Filtering with a Predicate
 
@@ -1148,7 +1148,7 @@ assertThat(fellowshipOfTheRing).extracting("name", String.class)
 
 ====== Extracting multiple values
 
-You can extract several values from the elements under test and check them using {assertj-core-javadoc-root}org/assertj/core/api/Assertions.html#tuple(java.lang.Object&#46;&#46;&#46;)[tuples].
+You can extract several values from the elements under test and check them using {assertj-core-javadoc}/org/assertj/core/api/Assertions.html#tuple(java.lang.Object&#46;&#46;&#46;)[tuples].
 
 As an example, let's check the name, age and race's name of each TolkienCharacter element:
 
@@ -1174,7 +1174,7 @@ assertThat(fellowshipOfTheRing).extracting(TolkienCharacter::getName,
 
 The extracted name, age and race's name values of the current element are grouped in a tuple, thus you need to use tuples for specifying the expected values.
 
-More examples are available in link:{assertj-examples-base-package}IterableAssertionsExamples.java#L210[IterableAssertionsExamples.java] of the link:{assertj-examples-repo}[assertj-examples] project.
+More examples are available in link:{assertj-examples-base-package}/IterableAssertionsExamples.java#L210[IterableAssertionsExamples.java] of the link:{assertj-examples-github}[assertj-examples] project.
 
 [[group-flat-extracting]]
 ====== Extracting and flattening multiple values per element
@@ -1248,7 +1248,7 @@ This chapter answers the question: how to assert that an exception has been thro
 [[assertj-core-exception-assertions-reference]]
 ===== Reference
 
-All the available assertions are described in the link:{assertj-core-javadoc-root}org/assertj/core/api/AbstractThrowableAssert.html#method.summary[AbstractThrowableAssert javadoc].
+All the available assertions are described in the link:{assertj-core-javadoc}/org/assertj/core/api/AbstractThrowableAssert.html#method.summary[`AbstractThrowableAssert` Javadoc].
 
 In this chapter the term `exception` is used interchangeably with `throwable`.
 
@@ -1269,7 +1269,7 @@ If you use java 7, check the link:#assertj-core-exception-assertions-java-7[Java
 
 There are various ways for checking the exception message content, you can check the exact message, what it contains, its start, its end, if it matches a regex.
 
-Most of the assertions expecting a `String` can use the https://docs.oracle.com/javase/8/docs/api/java/lang/String.html?is-external=true#format-java.lang.String-java.lang.Object...-[String.format] syntax.
+Most of the assertions expecting a `String` can use the https://docs.oracle.com/javase/8/docs/api/java/lang/String.html?is-external=true#format-java.lang.String-java.lang.Object\...-[String.format] syntax.
 
 Examples:
 [source,java]
@@ -2750,4 +2750,4 @@ include::{testDir}/example/core/AssumptionsDemo.java[tags=assumption_met]
 [[assertj-core-javadoc]]
 ==== Javadoc
 
-http://www.javadoc.io/doc/org.assertj/assertj-core/ is the latest version of AssertJ Core Javadoc, each assertion is explained, most of them with code examples so be sure to check it if you want to know what a specific assertion does.
+{assertj-core-javadoc} is the latest version of AssertJ Core Javadoc, each assertion is explained, most of them with code examples so be sure to check it if you want to know what a specific assertion does.

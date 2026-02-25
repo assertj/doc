@@ -78,7 +78,7 @@ If the `*Test.java` file pattern does not suit you, just specify another as an a
 After executing it, you will need to :
 
 * Optimize imports with your IDE to remove unused imports.
-* If you were using `assertEquals` with a delta to compare numbers, you will need to statically import `org.assertj.core.api.Assertions.within` which is how you express deltas in AssertJ (see the {assertj-examples-repo}/blob/main/assertions-examples/src/test/java/org/assertj/examples/NumberAssertionsExamples.java[number_assertions_with_offset_examples()] test at the end of `NumberAssertionsExamples`).
+* If you were using `assertEquals` with a delta to compare numbers, you will need to statically import `org.assertj.core.api.Assertions.within` which is how you express deltas in AssertJ (see the {assertj-examples-github}/blob/main/assertions-examples/src/test/java/org/assertj/examples/NumberAssertionsExamples.java[number_assertions_with_offset_examples()] test at the end of `NumberAssertionsExamples`).
 
 ===== Script output
 
