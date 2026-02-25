@@ -6,7 +6,7 @@ AssertJ can be extends by Condition or writing your own assertions class.
 [[assertj-core-conditions]]
 ==== Conditions
 
-Assertions can be extended by using conditions, to create a condition you just have to implement {assertj-core-javadoc-root}org/assertj/core/api/Condition.html[`org.assertj.assertions.core.Condition`] and its unique method matches.
+Assertions can be extended by using conditions, to create a condition you just have to implement {assertj-core-javadoc}/org/assertj/core/api/Condition.html[`org.assertj.assertions.core.Condition`] and its unique method matches.
 
 Once your Condition is created, you can use it with methods: `is(myCondition)` or `has(myCondition)`, both verifying that the condition is met (hint: pick the one that makes your code more readable).
 
@@ -32,7 +32,7 @@ You can verify that a Condition is met on elements of a collection, with the fol
 
 Moreover all Condition related methods have their negation counterpart, `is`/`isNot`, `have`/`doesNotHave`, `are`/`areNot`, ...
 
-The examples below are from {assertj-examples}/[assertj-examples] and more specifically {assertj-examples-base-package}condition/UsingConditionExamples.java[UsingConditionExamples.java].
+The examples below are from {assertj-examples-github}[assertj-examples] and more specifically {assertj-examples-base-package}/condition/UsingConditionExamples.java[`UsingConditionExamples`].
 
 [[assertj-core-condition-creation]]
 ===== Creating a Condition
@@ -147,7 +147,7 @@ Sections:
 
 Let's see how to do that with an example!
 
-The example is taken from {assertj-examples}/[assertj-examples] and more specifically {assertj-examples-base-package}custom/TolkienCharacterAssert.java[TolkienCharacterAssert.java].
+The example is taken from {assertj-examples}/[assertj-examples] and more specifically {assertj-examples-base-package}/custom/TolkienCharacterAssert.java[TolkienCharacterAssert.java].
 
 We want to have assertion for the `TolkienCharacter` domain model class shown below:
 [source,java]

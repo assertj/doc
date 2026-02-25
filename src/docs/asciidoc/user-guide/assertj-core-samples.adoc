@@ -2,8 +2,8 @@
 [[assertj-samples]]
 === AssertJ Sample Projects
 
-The {assertj-examples-repo}[assertions-examples] repository hosts executable AssertJ assertions examples that you can run as
-JUnit tests. Please have a look at assertions {assertj-examples-repo}/tree/main/assertions-examples/src/test/java/org/assertj/examples[examples sources].
+The {assertj-examples-github}[assertions-examples] repository hosts executable AssertJ assertions examples that you can run as
+JUnit tests. Please have a look at assertions {assertj-examples-github}/tree/main/assertions-examples/src/test/java/org/assertj/examples[examples sources].
 
 The `main` branch contains examples with the latest released version of AssertJ modules for Java 8, similarly the `java-7` branch
 contains examples of AssertJ modules for Java 7. You should be able to build those two branches with `mvn clean install` command.

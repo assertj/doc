@@ -1,7 +1,7 @@
 [[assertj-swing-release-notes]]
 === Release Notes
 
-NOTE: AssertJ Swing would not exist without its contributors, you can find them all {assertj-swing-repo}/graphs/contributors[directly on GitHub].
+NOTE: AssertJ Swing would not exist without its contributors, you can find them all {assertj-swing-github}/graphs/contributors[directly on GitHub].
 
 Latest release notes:
 
