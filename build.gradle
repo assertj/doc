@@ -1,6 +1,5 @@
 plugins {
 	id 'java'
-	id 'org.ajoberstar.git-publish' version '3.0.1'
 	id 'org.asciidoctor.jvm.convert' version '3.3.2'
 }
 
@@ -71,14 +70,6 @@ asciidoctor {
 asciidoctorj {
 	modules {
 		diagram.use()
-	}
-}
-
-gitPublish {
-	repoUri = 'https://github.com/assertj/doc.git'
-	branch = 'gh-pages'
-	contents {
-		from file(asciidoctor.outputDir.path + '/user-guide')
 	}
 }
 
