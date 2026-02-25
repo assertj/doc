@@ -40,7 +40,7 @@ testImplementation("org.assertj:assertj-db:{assertj-db-version}")
 
 ===== Other dependency management tool
 
-Check this page to find the relevant http://search.maven.org/#artifactdetails|org.assertj|assertj-db|3.0.1|bundle[assertj db dependency declaration].
+Check this page to find the relevant https://search.maven.org/#artifactdetails|org.assertj|assertj-db|3.0.1|bundle[assertj db dependency declaration].
 
 ==== Statically import org.assertj.db.api.Assertions.assertThat
 
