@@ -8,6 +8,11 @@ This guide is for the AssertJ Core module.
 
 AssertJ Core requires Java 8 or higher.
 
+[[assertj-core-kotlin]]
+===== Kotlin Support
+
+AssertJ Core is compatible with Kotlin 1.9 or higher.
+
 [[assertj-core-android]]
 ===== Android Support
 
