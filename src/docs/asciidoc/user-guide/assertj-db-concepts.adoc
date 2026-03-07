@@ -753,11 +753,15 @@ There are examples of the navigation in {assertj-examples-github}/blob/main/asse
 [[assertj-db-concepts-tableorrequestasroot]]
 ===== With a Table or a Request as root
 
-The `assertThat(...)` static method of `org.assertj.db.api.Assertions` allows to create a root assertion on a https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Table.html[Table].
+The `assertThat(...)` static method of `Assertions` allows to create a root assertion on a https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Table.html[Table].
 
 [source,java]
 ----
-import static org.assertj.db.api.Assertions.assertThat;
+// From v3.0.2
+import static org.assertj.core.api.Assertions.assertThat;
+
+// For versions <= 3.0.1 :
+// import static org.assertj.db.api.Assertions.assertThat;
 
 assertThat(table)...
 ----
@@ -766,7 +770,11 @@ or on a https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/
 
 [source,java]
 ----
-import static org.assertj.db.api.Assertions.assertThat;
+// From v3.0.2
+import static org.assertj.core.api.Assertions.assertThat;
+
+// For versions <= 3.0.1 :
+// import static org.assertj.db.api.Assertions.assertThat;
 
 assertThat(request)...
 ----
@@ -794,12 +802,16 @@ More details on this concept in assertj-db-features-highlight.html#tableorreques
 [[assertj-db-concepts-changesasroot]]
 ===== With Changes as root
 
-The `assertThat(...)` static method of `org.assertj.db.api.Assertions`
+The `assertThat(...)` static method of `Assertions`
 allows to create a root assertion on https://www.javadoc.io/doc/org.assertj/assertj-db/latest/org/assertj/db/type/Changes.html[Changes].
 
 [source,java]
 ----
-import static org.assertj.db.api.Assertions.assertThat;
+// From v3.0.2
+import static org.assertj.core.api.Assertions.assertThat;
+
+// For versions <= 3.0.1 :
+// import static org.assertj.db.api.Assertions.assertThat;
 
 assertThat(changes)...
 ----
