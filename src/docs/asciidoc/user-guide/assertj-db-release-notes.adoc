@@ -3,6 +3,8 @@
 
 Latest release notes:
 
+- link:#assertj-db-3-0-2-release-notes[AssertJ DB 3.0.2]
+- link:#assertj-db-3-0-1-release-notes[AssertJ DB 3.0.1]
 - link:#assertj-db-3-0-0-release-notes[AssertJ DB 3.0.0]
 - link:#assertj-db-2-0-2-release-notes[AssertJ DB 2.0.2]
 - link:#assertj-db-2-0-1-release-notes[AssertJ DB 2.0.1]
@@ -13,6 +15,51 @@ Latest release notes:
 - link:#assertj-db-1-1-0-release-notes[AssertJ DB 1.1.0]
 - link:#assertj-db-1-0-1-release-notes[AssertJ DB 1.0.1]
 - link:#assertj-db-1-0-0-release-notes[AssertJ DB 1.0.0]
+
+[[assertj-db-3-0-2-release-notes]]
+==== AssertJ DB 3.0.2
+
+Release date: 2026-02-21
+
+[[assertj-db-3-0-2-contributors]]
+[.release-note-category]#icon:user[] Contributors#
+
+Thanks to https://github.com/fl0rian-p[@fl0rian-p] and https://github.com/jmaniquet[Jonathan Maniquet] for their contributions.
+
+[[assertj-db-3.0.2-improvements]]
+[.release-note-category]#icon:arrow-circle-up[] Improvements#
+
+- https://github.com/assertj/assertj-db/issues/329[issue #329:] Makes Core and DB assertions coexist with only one import by https://github.com/jmaniquet[Jonathan Maniquet]
+
+[[assertj-db-3.0.2-fixed]]
+[.release-note-category]#icon:wrench[] Fixed#
+
+- https://github.com/assertj/assertj-db/issues/328[issue #328:] Use Values#areEqual when looking for modified columns by https://github.com/fl0rian-p[@fl0rian-p]
+
+[[assertj-db-3.0.2-chore]]
+[.release-note-category]#icon:cog[] Chore#
+
+- https://github.com/assertj/assertj-db/issues/332[issue #332:] Replace Junit4 assertions by AssertJ ones by https://github.com/jmaniquet[Jonathan Maniquet]
+
+[[assertj-db-3-0-1-release-notes]]
+==== AssertJ DB 3.0.1
+
+Release date: 2025-12-21
+
+[[assertj-db-3-0-1-contributors]]
+[.release-note-category]#icon:user[] Contributors#
+
+Thanks to https://github.com/fl0rian-p[@fl0rian-p] for his contribution.
+
+[[assertj-db-3.0.1-fixed]]
+[.release-note-category]#icon:wrench[] Fixed#
+
+- https://github.com/assertj/assertj-db/issues/325[issue #325] Support array comparison by https://github.com/fl0rian-p[@fl0rian-p]
+
+[[assertj-db-3.0.1-chore]]
+[.release-note-category]#icon:cog[] Chore#
+
+- Upgrade to AssertJ Parent POM 2.27.6
 
 [[assertj-db-3-0-0-release-notes]]
 ==== AssertJ DB 3.0.0
