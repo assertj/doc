@@ -1,5 +1,5 @@
 [[user-guide]]
-= AssertJ - fluent assertions java library
+= AssertJ - Fluent testing assertions for Java and the JVM
 :favicon: ./images/favicon.png
 
 :icons: font
